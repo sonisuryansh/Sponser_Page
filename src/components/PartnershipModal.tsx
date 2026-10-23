@@ -62,7 +62,8 @@ Date: ${new Date().toLocaleDateString('en-GB')}`;
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full text-[#203744] hover:bg-white border border-transparent hover:border-[#203744]/15 transition-all"
+            aria-label="Close dialog"
+            className="p-2 rounded-full text-[#203744] hover:bg-white border border-transparent hover:border-[#203744]/15 transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>

@@ -69,7 +69,6 @@ export const PricingSection: React.FC = () => {
             opacity: 1,
             y: 0,
             duration: 0.6,
-            ease: 'power2.out',
             scrollTrigger: {
               trigger: container,
               start: 'top 78%',
@@ -78,6 +77,17 @@ export const PricingSection: React.FC = () => {
           }
         );
       }
+
+      // 4. Slide Scroll Lock (Pin): locks the pricing section in viewport on scroll
+      ScrollTrigger.create({
+        id: 'pricing-section-pin',
+        trigger: container,
+        start: 'top top',
+        end: '+=1000',
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+      });
     }, container);
 
     return () => ctx.revert();
@@ -88,17 +98,17 @@ export const PricingSection: React.FC = () => {
       id="slide-14"
       data-slide-index="13"
       ref={containerRef}
-      className="w-full min-h-screen relative flex flex-col justify-center py-16 sm:py-20 lg:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
+      className="w-full min-h-screen lg:h-screen lg:max-h-screen relative flex flex-col justify-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid overflow-hidden"
     >
       <div className="max-w-[1240px] 2xl:max-w-[1320px] mx-auto w-full my-auto flex flex-col justify-center">
         
         {/* Parallel Header Row */}
-        <div ref={headlineRef} className="pb-4 mb-6 sm:mb-7 border-b border-[#203744]/10">
+        <div ref={headlineRef} className="pb-3 mb-4 sm:mb-5 border-b border-[#203744]/10 text-center">
           <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl xl:text-[40px] font-normal text-[#203744] tracking-tight leading-tight">
             Program Model &{' '}
             <span className="text-[#398BB0] font-bold italic">Proposed Student Fee</span>
           </h2>
-          <p className="font-sans-modern text-xs sm:text-[14px] text-[#203744]/80 max-w-2xl mt-1.5 font-normal leading-normal">
+          <p className="font-sans-modern text-xs sm:text-[14px] text-[#203744]/80 max-w-2xl mx-auto mt-1.5 font-normal leading-normal">
             Tiered monthly per-student packaging offering clear educational inclusions with room for school-specific timetable tailoring.
           </p>
         </div>

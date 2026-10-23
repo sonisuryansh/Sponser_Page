@@ -43,6 +43,8 @@ export function App() {
     });
     lenisRef.current = lenis;
     (window as any).lenis = lenis;
+    (window as any).ScrollTrigger = ScrollTrigger;
+    (window as any).gsap = gsap;
 
     lenis.on('scroll', () => {
       ScrollTrigger.update();
@@ -93,6 +95,52 @@ export function App() {
 
   // Smooth Scroll Navigation Handler
   const handleNavigateToSlide = (index: number) => {
+    // 1. Act I (Hero, Aim & Vision, Mission & Values) inside HeroVisionStage pinned stage
+    if (index >= 0 && index <= 2) {
+      const stHero = ScrollTrigger.getById('hero-vision-pin');
+      if (stHero) {
+        const progresses = [0.05, 0.42, 0.88];
+        const targetY = stHero.start + progresses[index] * (stHero.end - stHero.start);
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(targetY, {
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        } else {
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+        setCurrentSlideIndex(index);
+        return;
+      }
+    }
+
+    // 2. Act II & III (Tech Ecosystem Suite: Overview & 4 domains)
+    if (index >= 3 && index <= 7) {
+      const stTech = ScrollTrigger.getById('tech-ecosystem-pin');
+      if (stTech) {
+        const techProgressMap: { [key: number]: number } = {
+          3: 0.04,
+          4: 0.35,
+          5: 0.53,
+          6: 0.71,
+          7: 0.89,
+        };
+        const targetProgress = techProgressMap[index] ?? 0.04;
+        const targetY = stTech.start + targetProgress * (stTech.end - stTech.start);
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(targetY, {
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        } else {
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+        setCurrentSlideIndex(index);
+        return;
+      }
+    }
+
+    // 3. Act IV & V (Standard Sections: Slides 9 to 15)
     const targetElement = document.getElementById(`slide-${index + 1}`);
     if (targetElement) {
       if (lenisRef.current) {
@@ -107,6 +155,10 @@ export function App() {
       setCurrentSlideIndex(index);
     }
   };
+
+  useEffect(() => {
+    (window as any).navigateToSlide = handleNavigateToSlide;
+  }, [handleNavigateToSlide]);
 
   // Keyboard navigation (Arrow keys / PageUp / PageDown)
   useEffect(() => {
@@ -152,7 +204,7 @@ export function App() {
   }, [currentSlideIndex]);
 
   return (
-    <div className="relative min-h-screen bg-[#DFE6E7] text-[#203744]">
+    <div className="relative min-h-screen bg-[#DFE6E7] text-[#203744] overflow-x-hidden">
       {/* Film grain subtle overlay */}
       <div className="fixed inset-0 pointer-events-none grain-overlay z-30" />
 
@@ -160,7 +212,7 @@ export function App() {
       <AmbientCursor />
 
       {/* 15 Seamless Connected Chapters across 5 Choreographed Acts */}
-      <main className="relative z-10">
+      <main className="relative z-10 overflow-x-hidden">
         {/* ACT I: Chapters 01 (Hero), 02 (Aim & Vision), 03 (Mission & Values) in Pinned Stage */}
         <HeroVisionStage onSlideChange={setCurrentSlideIndex} />
 
@@ -174,13 +226,13 @@ export function App() {
         <LearningApproachSection />
         <GradePathSection />
         <EmergingTechSection />
+        <BenefitsSection />
+        <ResponsibilitiesSection />
 
         {/* arnobt78-inspired Kinetic Typography Divider (Creamish Editorial Transition) */}
         <KineticTypographyDivider />
 
         {/* ACT V: Institutional Value, Model & Closing */}
-        <BenefitsSection />
-        <ResponsibilitiesSection />
         <PricingSection />
         <PartnershipClosingSection
           onOpenPartnershipModal={() => setIsPartnershipOpen(true)}

@@ -365,12 +365,13 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
-      // Responsive calculations
+      // Responsive calculations: Squarish, vertically stretched expanded card popup
       const spread = vw < 768 ? 0.45 : vw < 1080 ? 0.72 : vw < 1366 ? 0.88 : 1.0;
       const deckCardW = vw < 640 ? 280 : 310;
       const deckCardH = vw < 640 ? 430 : 460;
-      const panelW = Math.min(1080, Math.floor(vw * (vw < 640 ? 0.92 : vw < 1024 ? 0.86 : 0.75)));
-      const panelH = Math.min(365, Math.floor(vh * 0.50));
+      // Compact, centered squarish panel that maintains generous space from the bottom of the viewport
+      const panelW = Math.min(760, Math.floor(vw * (vw < 640 ? 0.94 : vw < 1024 ? 0.86 : 0.60)));
+      const panelH = Math.min(500, Math.floor(vh * (vh < 750 ? 0.68 : 0.62)));
 
       // Setup initial explicit FLIP state for each of the 5 cards in the deck
       cardRefs.current.forEach((cardEl, idx) => {
@@ -473,18 +474,18 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
         const originalX = Math.round(domain.deckX * spread);
         const originalY = domain.deckY;
 
-        // 1. Physical FLIP Morph: Card moves to center, straightens to 0deg, expands to panel dimensions
+        // 1. Physical FLIP Morph: Card moves to center, straightens to 0deg, expands to squarish panel dimensions
         tl.to(
           cardEl,
           {
             x: 0,
-            y: -36,
+            y: -16,
             scale: 1,
             rotation: 0,
             width: panelW,
             height: panelH,
-            borderRadius: 22,
-            boxShadow: `0 25px 70px -15px ${domain.glowColor}, 0 0 0 1px rgba(255,255,255,0.25)`,
+            borderRadius: 24,
+            boxShadow: `0 28px 80px -15px ${domain.glowColor}, 0 0 0 1px rgba(255,255,255,0.25)`,
             zIndex: 50,
             duration: expandDuration,
             ease: 'power2.inOut',
@@ -667,7 +668,7 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
       </div>
 
       {/* ─── The Stage: Exact 5 Persistent DOM Cards That Morph Physically ─── */}
-      <div className="relative w-full flex-1 flex items-center justify-center overflow-visible pb-2 sm:pb-3">
+      <div className="relative w-full flex-1 flex items-center justify-center overflow-visible pb-8 sm:pb-10 lg:pb-12">
         {DOMAINS.map((card, idx) => {
           return (
             <div
@@ -759,12 +760,12 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
               {/* =========================================================================
                   FACE 2: EXPANDED PRESENTATION PANEL (Transforms Inside the Same DOM Element)
                   ========================================================================= */}
-              <div className="expanded-face absolute inset-0 p-3 sm:p-3.5 lg:p-4 flex flex-col justify-between z-20 overflow-hidden opacity-0 pointer-events-none select-text text-white rounded-2xl">
+              <div className="expanded-face absolute inset-0 p-4 sm:p-5 lg:p-5 flex flex-col justify-between z-20 overflow-hidden opacity-0 pointer-events-none select-text text-white rounded-3xl">
                 {/* Card Top Domain Bar */}
-                <div className="flex items-center justify-between pb-1.5 mb-1 border-b border-white/10 shrink-0">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between pb-2 mb-1.5 border-b border-white/12 shrink-0">
+                  <div className="flex items-center gap-2.5">
                     <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center border border-white/20 shadow-inner shrink-0"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center border border-white/20 shadow-inner shrink-0"
                       style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
                     >
                       {card.icon}
@@ -772,13 +773,13 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                     <div>
                       <div className="flex items-center gap-2">
                         <span
-                          className="font-mono-tech text-[10px] tracking-wider uppercase font-bold"
+                          className="font-mono-tech text-[10.5px] tracking-wider uppercase font-bold"
                           style={{ color: card.accent }}
                         >
                           {card.domainNumber}
                         </span>
                       </div>
-                      <span className="font-mono-tech text-[10.5px] sm:text-[11px] text-white/70 block leading-tight">
+                      <span className="font-mono-tech text-[11px] sm:text-xs text-white/75 block leading-tight">
                         {card.tagline}
                       </span>
                     </div>
@@ -787,7 +788,7 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                   <div className="flex items-center gap-2">
                     <div
                       style={{ backgroundColor: card.badgeBg, color: card.badgeTextColor }}
-                      className="hidden sm:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono-tech text-[10px] font-bold shadow-xs"
+                      className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-tech text-[10px] font-bold shadow-xs"
                     >
                       <span>{card.badgeText}</span>
                     </div>
@@ -800,7 +801,7 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                           jumpToCard(-1);
                         }}
                         title="Contract back to 5-Card Deck"
-                        className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono-tech text-[11px] transition-all shadow-xs cursor-pointer"
+                        className="flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono-tech text-[11px] transition-all shadow-xs cursor-pointer"
                       >
                         <X className="w-3.5 h-3.5" />
                         <span className="hidden sm:inline">Deck View</span>
@@ -809,35 +810,35 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                   </div>
                 </div>
 
-                <LineReveal color={card.accent} height={1.5} className="mb-1 shrink-0" />
+                <LineReveal color={card.accent} height={1.5} className="mb-2 shrink-0" />
 
-                {/* Main Content Grid: Balanced & Proportionate */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 lg:gap-5 items-center my-auto flex-1 min-h-0">
+                {/* Main Content Grid: Balanced & Proportionate Square Distribution */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-center my-auto flex-1 min-h-0">
                   {/* Left Column: Headlines, Metrics & 2 Core Pillars */}
-                  <div className="lg:col-span-6 space-y-1.5 sm:space-y-2 flex flex-col justify-center">
+                  <div className="lg:col-span-6 space-y-2 sm:space-y-2.5 flex flex-col justify-center">
                     <div>
-                      <h3 className="font-serif-editorial text-base sm:text-lg lg:text-[20px] font-normal text-white tracking-tight leading-snug">
+                      <h3 className="font-serif-editorial text-lg sm:text-xl lg:text-[22px] font-normal text-white tracking-tight leading-snug">
                         {card.fullName}{' '}
                         <span className="italic font-light" style={{ color: card.accent }}>
                           {card.italicWord}
                         </span>
                       </h3>
-                      <p className="font-sans-modern text-[10.5px] sm:text-[11.5px] text-white/80 mt-0.5 leading-snug font-normal max-w-md">
+                      <p className="font-sans-modern text-[11.5px] sm:text-xs text-white/80 mt-1 leading-relaxed font-normal max-w-md">
                         {card.description}
                       </p>
                     </div>
 
                     {/* Live Animated Metrics Strip */}
-                    <div className="grid grid-cols-3 gap-2 py-1 px-2.5 border border-white/10 bg-white/5 rounded-lg">
+                    <div className="grid grid-cols-3 gap-2 py-2 px-3.5 border border-white/10 bg-white/5 rounded-xl">
                       {card.metrics.map((m, mIdx) => (
                         <div key={mIdx} className="text-left">
                           <div
-                            className="font-mono-tech text-xs sm:text-[13px] font-bold"
+                            className="font-mono-tech text-sm sm:text-base font-bold"
                             style={{ color: mIdx === 0 ? card.accent : '#ffffff' }}
                           >
                             <AnimatedCounter value={m.value} suffix={m.suffix} />
                           </div>
-                          <div className="font-mono-tech text-[9px] text-white/60 uppercase leading-tight">
+                          <div className="font-mono-tech text-[9.5px] text-white/60 uppercase leading-tight">
                             {m.label}
                           </div>
                         </div>
@@ -845,7 +846,7 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                     </div>
 
                     {/* 2 Core Pillars Grid */}
-                    <div className="grid grid-cols-2 gap-2 pt-0.5">
+                    <div className="grid grid-cols-2 gap-2.5 pt-0.5">
                       {card.pillars.slice(0, 2).map((item, pIdx) => {
                         const isStageSelected = activeDataStage === pIdx;
                         return (
@@ -857,9 +858,9 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                                   setActiveDataStage(pIdx);
                                 }
                               }}
-                              className={`p-1.5 sm:p-2 rounded-lg border text-left transition-all duration-300 h-full ${
+                              className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-300 h-full ${
                                 card.id === 'data-analytics'
-                                  ? isStageSelected
+                                    ? isStageSelected
                                     ? 'bg-white/20 border-white ring-1 ring-white/40 shadow-xs cursor-pointer'
                                     : 'bg-black/25 border-white/10 hover:bg-white/10 hover:border-white/20 cursor-pointer'
                                   : 'bg-black/25 border-white/10 hover:bg-white/10 hover:border-white/20 shadow-xs'
@@ -871,10 +872,10 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                               >
                                 {card.id === 'data-analytics' ? `STAGE ${item.num}` : `CORE PILLAR ${item.num}`}
                               </div>
-                              <div className="font-sans-modern text-[11px] font-semibold text-white leading-tight mt-0.5 truncate">
+                              <div className="font-sans-modern text-xs font-semibold text-white leading-tight mt-1 truncate">
                                 {item.title}
                               </div>
-                              <div className="font-sans-modern text-[9.5px] text-white/70 mt-0.5 leading-tight truncate">
+                              <div className="font-sans-modern text-[10.5px] text-white/70 mt-1 leading-snug">
                                 {item.desc}
                               </div>
                             </div>
@@ -883,19 +884,19 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                       })}
                     </div>
 
-                    {/* Bottom Verification Note to fill space without gap */}
-                    <div className="flex items-center justify-between text-[10px] font-mono-tech text-white/60 pt-0.5">
+                    {/* Bottom Verification Note to fill space cleanly */}
+                    <div className="flex items-center justify-between text-[11px] font-mono-tech text-white/60 pt-2 border-t border-white/8">
                       <span className="flex items-center gap-1.5 truncate">
                         <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: card.accent }} />
                         <span className="truncate">{card.badgeNote || `${card.fullName} verified curriculum`}</span>
                       </span>
-                      <span className="shrink-0 text-white/40 font-medium">Domain Spec</span>
+                      <span className="shrink-0 text-white/40 font-medium ml-2">Domain Spec</span>
                     </div>
                   </div>
 
                   {/* Right Column: Controlled Height Visual Card */}
                   <div className="lg:col-span-6 flex justify-center items-center h-full">
-                    <div className="relative overflow-hidden rounded-xl bg-black border border-white/20 shadow-xl w-full max-w-[240px] sm:max-w-[260px] lg:max-w-[280px] h-[165px] sm:h-[180px] lg:h-[195px] group">
+                    <div className="relative overflow-hidden rounded-2xl bg-black border border-white/20 shadow-xl w-full max-w-[310px] sm:max-w-[330px] lg:max-w-[340px] h-[250px] sm:h-[270px] lg:h-[290px] group">
                       <img
                         src={card.image}
                         alt={card.imageCaption}
@@ -903,7 +904,7 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-end justify-between text-white">
+                      <div className="absolute bottom-3 left-3.5 right-3.5 flex items-end justify-between text-white">
                         <div>
                           <span
                             className="font-mono-tech text-[9.5px] tracking-wider uppercase font-bold block leading-tight mb-0.5"
@@ -915,7 +916,7 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                             {card.imageSubcaption}
                           </p>
                         </div>
-                        <span className="font-mono-tech text-[9px] text-white/80 bg-white/15 px-2 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
+                        <span className="font-mono-tech text-[9px] text-white/80 bg-white/15 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
                           {card.imageTag}
                         </span>
                       </div>

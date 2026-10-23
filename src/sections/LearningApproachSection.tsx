@@ -55,17 +55,28 @@ export const LearningApproachSection: React.FC = () => {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Horizontal travelling text as user scrolls through this section
+      // Slide Scroll Lock (Pin): locks Learning Approach section in viewport on scroll
+      ScrollTrigger.create({
+        id: 'learning-approach-pin',
+        trigger: container,
+        start: 'top top',
+        end: '+=1000',
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+      });
+
+      // Horizontal travelling text as user scrolls through this pinned section
       gsap.fromTo(
         marquee,
-        { x: '10vw' },
+        { x: '5vw' },
         {
-          x: '-25vw',
+          x: '-20vw',
           ease: 'none',
           scrollTrigger: {
             trigger: container,
-            start: 'top bottom',
-            end: 'bottom top',
+            start: 'top top',
+            end: '+=1000',
             scrub: 1.2,
           },
         }
@@ -84,7 +95,7 @@ export const LearningApproachSection: React.FC = () => {
             duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: cardsGrid,
+              trigger: container,
               start: 'top 85%',
               once: true,
             },

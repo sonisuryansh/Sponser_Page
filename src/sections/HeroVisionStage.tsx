@@ -82,7 +82,9 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
       // MASTER SCROLLTRIGGER TIMELINE FOR ACT 1 (HERO -> AIM & VISION -> MISSION & VALUES)
       // Total duration = 10.0s mapped across 3600px of scroll
       const tl = gsap.timeline({
+        id: 'hero-vision-pin',
         scrollTrigger: {
+          id: 'hero-vision-pin',
           trigger: stage,
           start: 'top top',
           end: '+=3600',
@@ -236,6 +238,8 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
         6.4
       );
 
+      // Settle and hold Chapter 03 in full clarity until the end of the 10.0s timeline
+      tl.to({}, { duration: 2.3 }, 7.7);
     }, stage);
 
     return () => ctx.revert();
@@ -332,7 +336,7 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
             {/* Globe / Web */}
             <Magnetic strength={0.4}>
               <a
-                href="https://medhaarc.com"
+                href="https://www.medhaarc.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="MedhaArc Official Website"
@@ -509,6 +513,17 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
         className="absolute inset-0 w-full h-full z-30 overflow-hidden bg-[#D5E2E5]/50 tech-subtle-grid flex flex-col justify-center px-4 sm:px-8 lg:px-12 xl:px-16 py-6 will-change-transform"
       >
         <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full my-auto">
+          <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-[#1C2833]/12 pb-3">
+            <div>
+              <p className="font-sans-modern text-sm sm:text-base text-[#1C2833]/70 leading-relaxed">
+                Students learn technology by making it, testing it, and improving it.
+              </p>
+            </div>
+            <span className="font-mono-tech text-[10px] sm:text-xs uppercase tracking-wider text-[#1C2833]/50 shrink-0">
+              Learn by building
+            </span>
+          </div>
+
           {/* 2-Column Parallel Spread: Left (Heading + Values List) and Right (Image) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 xl:gap-12 items-center">
             
@@ -602,6 +617,19 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
               </div>
             </div>
 
+          </div>
+
+          <div className="mt-6 sm:mt-8 pt-3 border-t border-[#1C2833]/12 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
+            {[
+              ['01', 'Explore an idea'],
+              ['02', 'Build a prototype'],
+              ['03', 'Test and improve'],
+            ].map(([number, step]) => (
+              <div key={number} className="flex items-center gap-2.5">
+                <span className="font-mono-tech text-[10px] sm:text-xs font-bold text-[#398BB0]">{number}</span>
+                <span className="font-serif-editorial text-sm sm:text-base text-[#1C2833]/80">{step}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
