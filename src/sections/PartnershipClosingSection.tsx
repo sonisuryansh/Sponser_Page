@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, CheckCircle2, Mail, Clock } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Globe, Clock } from 'lucide-react';
 import { Magnetic } from '../components/motion/Magnetic';
 import { FloatingParticles } from '../components/motion/FloatingParticles';
 
@@ -153,11 +153,13 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
                 </Magnetic>
                 
                 <a
-                  href="mailto:dialogue@medhaarclabs.com"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/12 text-xs font-mono-tech text-white/85 transition-colors"
+                  href="https://www.medhaarc.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/12 text-xs font-mono-tech text-white/85 hover:text-[#38bdf8] transition-colors"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>dialogue@medhaarclabs.com</span>
+                  <Globe className="w-3.5 h-3.5 text-[#38bdf8]" />
+                  <span>www.medhaarc.com</span>
                 </a>
 
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/8 text-[11px] font-mono-tech text-white/60">
