@@ -198,9 +198,11 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
       tl.set(aimSceneRef.current, { autoAlpha: 0 }, 6.6);
 
       // =======================================================================
-      // CHAPTER 03: MISSION & VALUES (6.2 to 10.0)
-      // 6.2 to 7.4: Enters
-      // 7.4 to 10.0: Holds in full clarity before flowing into Ecosystem
+      // CHAPTER 03: MISSION & VALUES (6.6 to 10.0)
+      // Wait for Aim & Vision to fully exit before revealing this scene. This
+      // prevents both full-screen layouts from stacking during scrubbed scroll.
+      // 6.6 to 7.7: Enters
+      // 7.7 to 10.0: Holds in full clarity before flowing into Ecosystem
       // =======================================================================
       tl.to(
         missionSceneRef.current,
@@ -211,14 +213,14 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
           duration: 1.1,
           ease: 'power2.out',
         },
-        6.2
+        6.6
       );
 
       tl.fromTo(
         missionHeadlineRef.current,
         { yPercent: 30, opacity: 0 },
         { yPercent: 0, opacity: 1, duration: 0.9, ease: 'power2.out' },
-        6.5
+        6.9
       );
 
       const listItems = missionListRef.current?.querySelectorAll('.value-item');
@@ -227,7 +229,7 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
           listItems,
           { y: 20, opacity: 0 },
           { y: 0, opacity: 1, stagger: 0.08, duration: 0.6, ease: 'power2.out' },
-          6.7
+          7.1
         );
       }
 
@@ -235,11 +237,11 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
         missionImgRef.current,
         { scale: 1.15 },
         { scale: 1.0, duration: 1.2, ease: 'none' },
-        6.4
+        6.8
       );
 
       // Settle and hold Chapter 03 in full clarity until the end of the 10.0s timeline
-      tl.to({}, { duration: 2.3 }, 7.7);
+      tl.to({}, { duration: 1.9 }, 8.1);
     }, stage);
 
     return () => ctx.revert();
