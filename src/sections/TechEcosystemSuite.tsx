@@ -9,7 +9,6 @@ import {
   Plane,
   ShieldCheck,
   ChevronRight,
-  X,
   Sparkles,
 } from 'lucide-react';
 import { Magnetic } from '../components/motion/Magnetic';
@@ -398,14 +397,14 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
       });
 
       // Master ScrollTrigger timeline for reversible, bi-directional scroll morphing
-      // Duration = 10.0 units scrubbed across 5500px of scroll
+      // Six ecosystem states, each held for roughly two viewport-scroll lengths.
       const tl = gsap.timeline({
         id: 'tech-ecosystem-pin',
         scrollTrigger: {
           id: 'tech-ecosystem-pin',
           trigger: stage,
           start: 'top top',
-          end: '+=5500',
+          end: () => `+=${window.innerHeight * 12}`,
           pin: true,
           pinSpacing: true,
           scrub: 0.75,
@@ -793,20 +792,6 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                       <span>{card.badgeText}</span>
                     </div>
 
-                    {/* Close / Contract back to Deck */}
-                    <Magnetic strength={0.2}>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          jumpToCard(-1);
-                        }}
-                        title="Contract back to 5-Card Deck"
-                        className="flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono-tech text-[11px] transition-all shadow-xs cursor-pointer"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">Deck View</span>
-                      </button>
-                    </Magnetic>
                   </div>
                 </div>
 

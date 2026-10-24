@@ -17,6 +17,9 @@ export const PricingSection: React.FC = () => {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
+      // Avoid stacking a second pin if the section remounts during development/HMR.
+      ScrollTrigger.getById('pricing-section-pin')?.kill();
+
       // 1. Headline scroll reveal
       if (headlineRef.current) {
         gsap.fromTo(
@@ -83,10 +86,11 @@ export const PricingSection: React.FC = () => {
         id: 'pricing-section-pin',
         trigger: container,
         start: 'top top',
-        end: '+=1000',
-        pin: true,
+        end: () => `+=${window.innerHeight * 2}`,
+        pin: container,
         pinSpacing: true,
         anticipatePin: 1,
+        invalidateOnRefresh: true,
       });
     }, container);
 
@@ -98,7 +102,7 @@ export const PricingSection: React.FC = () => {
       id="slide-14"
       data-slide-index="13"
       ref={containerRef}
-      className="w-full min-h-screen lg:h-screen lg:max-h-screen relative flex flex-col justify-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid overflow-hidden"
+      className="w-full min-h-screen lg:h-screen lg:max-h-screen relative z-10 xl:z-20 flex flex-col justify-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid overflow-hidden"
     >
       <div className="max-w-[1240px] 2xl:max-w-[1320px] mx-auto w-full my-auto flex flex-col justify-center">
         

@@ -60,7 +60,7 @@ export const LearningApproachSection: React.FC = () => {
         id: 'learning-approach-pin',
         trigger: container,
         start: 'top top',
-        end: '+=1000',
+        end: () => `+=${window.innerHeight * 2}`,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
@@ -76,7 +76,7 @@ export const LearningApproachSection: React.FC = () => {
           scrollTrigger: {
             trigger: container,
             start: 'top top',
-            end: '+=1000',
+            end: () => `+=${window.innerHeight * 2}`,
             scrub: 1.2,
           },
         }
@@ -141,28 +141,28 @@ export const LearningApproachSection: React.FC = () => {
 
           {/* Right: Telemetry Counter Strip (Placed naturally on the right to fill space and remove vertical stack) */}
           <div className="lg:col-span-5 xl:col-span-4">
-            <div className="grid grid-cols-3 gap-1 sm:gap-2 p-2.5 sm:p-3 rounded-2xl bg-white/80 border border-[#203744]/12 shadow-xs backdrop-blur-xs">
+            <div className="grid grid-cols-3 gap-1 sm:gap-1.5 p-2 sm:p-2.5 rounded-2xl bg-white/80 border border-[#203744]/12 shadow-xs backdrop-blur-xs">
               <div className="text-center px-1">
-                <div className="font-mono-tech text-lg sm:text-2xl font-bold text-[#398BB0]">
+                <div className="font-mono-tech text-base sm:text-xl lg:text-[22px] font-bold text-[#398BB0] leading-tight">
                   <AnimatedCounter to={6} suffix=" Pillars" />
                 </div>
-                <div className="font-mono-tech text-[9.5px] sm:text-[10.5px] text-[#203744]/70 uppercase font-medium mt-0.5 leading-tight">
+                <div className="font-mono-tech text-[9px] sm:text-[10px] text-[#203744]/70 uppercase font-medium mt-0.5 leading-tight">
                   Unified Core
                 </div>
               </div>
               <div className="text-center px-1 border-x border-[#203744]/10">
-                <div className="font-mono-tech text-lg sm:text-2xl font-bold text-[#286D8B]">
+                <div className="font-mono-tech text-base sm:text-xl lg:text-[22px] font-bold text-[#286D8B] leading-tight">
                   <AnimatedCounter to={100} suffix="%" />
                 </div>
-                <div className="font-mono-tech text-[9.5px] sm:text-[10.5px] text-[#203744]/70 uppercase font-medium mt-0.5 leading-tight">
+                <div className="font-mono-tech text-[9px] sm:text-[10px] text-[#203744]/70 uppercase font-medium mt-0.5 leading-tight">
                   Bench Hands-On
                 </div>
               </div>
               <div className="text-center px-1">
-                <div className="font-mono-tech text-lg sm:text-2xl font-bold text-[#203744]">
+                <div className="font-mono-tech text-base sm:text-xl lg:text-[22px] font-bold text-[#203744] leading-tight">
                   <AnimatedCounter to={0} prefix="" suffix=" Capex" />
                 </div>
-                <div className="font-mono-tech text-[9.5px] sm:text-[10.5px] text-[#203744]/70 uppercase font-medium mt-0.5 leading-tight">
+                <div className="font-mono-tech text-[9px] sm:text-[10px] text-[#203744]/70 uppercase font-medium mt-0.5 leading-tight">
                   Passive Drills
                 </div>
               </div>

@@ -52,10 +52,10 @@ export const ResponsibilityMatrix: React.FC = () => {
       </div>
 
       {/* Two Column Grid: School Role vs MedhaArc Labs (Content-driven natural height) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 items-stretch">
         
         {/* Column 1: School Role & Support */}
-        <div className="bg-white rounded-xl p-4 sm:p-4.5 border border-[#203744]/10 shadow-xs flex flex-col">
+        <div className="h-full bg-white rounded-xl p-4 sm:p-4.5 border border-[#203744]/10 shadow-xs flex flex-col">
           {/* Column Header */}
           <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-[#203744]/10">
             <div className="flex items-center gap-2">
@@ -127,14 +127,14 @@ export const ResponsibilityMatrix: React.FC = () => {
           </div>
 
           {/* Bottom Infrastructure Alignment label */}
-          <div className="mt-3.5 pt-2.5 border-t border-[#203744]/10 text-[10.5px] font-mono-tech text-[#203744]/65 font-medium flex items-center justify-between">
+          <div className="mt-auto pt-3.5 border-t border-[#203744]/10 text-[10.5px] font-mono-tech text-[#203744]/65 font-medium flex items-center justify-between">
             <span>Institutional Infrastructure Alignment</span>
             <span className="text-[#398BB0] font-bold">Standard School Hardware</span>
           </div>
         </div>
 
         {/* Column 2: MedhaArc Labs Responsibilities */}
-        <div className="bg-white rounded-xl p-4 sm:p-4.5 border border-[#398BB0]/25 shadow-xs flex flex-col relative overflow-hidden">
+        <div className="h-full bg-white rounded-xl p-4 sm:p-4.5 border border-[#398BB0]/25 shadow-xs flex flex-col relative overflow-hidden">
           <div className="absolute top-0 right-0 w-20 h-20 bg-[#398BB0]/5 rounded-bl-full pointer-events-none" />
 
           {/* Column Header */}
@@ -195,7 +195,7 @@ export const ResponsibilityMatrix: React.FC = () => {
           </div>
 
           {/* Equipment Protocol Notice (positioned shortly after provisions, not pushed to bottom) */}
-          <div className="p-2.5 rounded-lg bg-[#D5E2E5]/50 border border-[#203744]/12 text-xs text-[#203744]/85 flex items-start gap-2">
+          <div className="mt-auto p-2.5 rounded-lg bg-[#D5E2E5]/50 border border-[#203744]/12 text-xs text-[#203744]/85 flex items-start gap-2">
             <AlertTriangle className="w-3.5 h-3.5 text-[#286D8B] shrink-0 mt-0.5" />
             <span className="leading-snug">
               <strong className="text-[#203744]">Equipment Protocol:</strong> Robotics kits are stationed inside the school lab for practical sessions and are not take-home kits.

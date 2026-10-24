@@ -177,6 +177,18 @@ export function App() {
         e.key === 'PageDown' ||
         e.key === ' '
       ) {
+        const techTrigger = ScrollTrigger.getById('tech-ecosystem-pin');
+        if (e.key === 'ArrowRight' && techTrigger?.isActive && techTrigger.progress < 0.08) {
+          e.preventDefault();
+          const targetY = techTrigger.start + 0.17 * (techTrigger.end - techTrigger.start);
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(targetY, { duration: 1.1 });
+          } else {
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+          return;
+        }
+
         e.preventDefault();
         if (currentSlideIndex < SLIDES.length - 1) {
           handleNavigateToSlide(currentSlideIndex + 1);
@@ -186,6 +198,18 @@ export function App() {
         e.key === 'ArrowLeft' ||
         e.key === 'PageUp'
       ) {
+        const techTrigger = ScrollTrigger.getById('tech-ecosystem-pin');
+        if (e.key === 'ArrowLeft' && techTrigger?.isActive && techTrigger.progress >= 0.26 && techTrigger.progress < 0.44) {
+          e.preventDefault();
+          const targetY = techTrigger.start + 0.17 * (techTrigger.end - techTrigger.start);
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(targetY, { duration: 1.1 });
+          } else {
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+          return;
+        }
+
         e.preventDefault();
         if (currentSlideIndex > 0) {
           handleNavigateToSlide(currentSlideIndex - 1);
@@ -237,6 +261,11 @@ export function App() {
         <PartnershipClosingSection
           onOpenPartnershipModal={() => setIsPartnershipOpen(true)}
         />
+        <div className="relative h-[200vh] bg-[#0E151E] text-white" aria-label="End of presentation">
+          <p className="absolute top-[75%] inset-x-0 text-center font-mono-tech text-xs uppercase tracking-[0.2em] text-white/45">
+            End of presentation
+          </p>
+        </div>
       </main>
 
       {/* Slide Index Modal (all 15 chapters) */}

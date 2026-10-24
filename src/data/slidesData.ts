@@ -193,49 +193,49 @@ export const GRADE_LEVELS: GradeLevel[] = [
   {
     grade: 'Grades 5–6',
     stage: 'Foundational Discovery',
-    focus: 'Visual block logic, basic sensors, and mechanical assembly.',
+    focus: 'Learn block coding and build simple machines with sensors.',
     outcome: 'Connecting code to physical motion with creative confidence.',
     topics: ['Block Programming Logic', 'Sensors & LED Indicators', 'Basic Mechanical Linkages', 'Algorithmic Sequencing']
   },
   {
     grade: 'Grade 7',
     stage: 'Syntax & Real Code',
-    focus: 'Python programming syntax, variables, and hardware interfacing.',
+    focus: 'Write Python programs and connect code to microcontrollers.',
     outcome: 'Transitioning from blocks to functional text-based code.',
     topics: ['Python Syntax & Variables', 'Conditional Logic & Loops', 'Microcontroller Interfacing', 'Introductory Electronics']
   },
   {
     grade: 'Grade 8',
     stage: 'Data Structures & Control',
-    focus: 'Modular code, data lists, and real-time feedback loops.',
+    focus: 'Use data and feedback to make motors respond to their surroundings.',
     outcome: 'Designing sensor-driven autonomous behaviors and logic.',
     topics: ['Data Lists & Dictionaries', 'Closed-loop Feedback Control', 'Motor Drivers & Speed PWM', 'System Troubleshooting']
   },
   {
     grade: 'Grade 9',
     stage: 'Systems & IoT Networks',
-    focus: 'Microcontroller networks, telemetry, and 3D CAD modeling.',
+    focus: 'Connect devices that collect and share live sensor data.',
     outcome: 'Building interconnected devices that sense and react remotely.',
     topics: ['Microcontroller Networks', 'Telemetry Protocols', 'CAD 3D Prototyping Basics', 'Autonomous Navigation Logic']
   },
   {
     grade: 'Grade 10',
     stage: 'Applied Data Science',
-    focus: 'Exploratory data analysis, cleaning, and chart storytelling.',
+    focus: 'Analyze real datasets to find patterns and explain what they show.',
     outcome: 'Extracting evidence-based conclusions from real datasets.',
     topics: ['Data Wrangling & Cleaning', 'Visual Analytics', 'Trend & Outlier Detection', 'Hypothesis Testing']
   },
   {
     grade: 'Grade 11',
     stage: 'Statistical Intelligence',
-    focus: 'Statistical distributions, supervised models, and computer vision.',
+    focus: 'Train and test AI models that classify data and images.',
     outcome: 'Understanding predictive models and classification logic.',
     topics: ['Statistical Distributions', 'Supervised Learning Concepts', 'Model Evaluation & Loss', 'Computer Vision Basics']
   },
   {
     grade: 'Grade 12',
     stage: 'Capstone Systems',
-    focus: 'Integrating AI, robotics, and aerial engineering challenges.',
+    focus: 'Bring robotics, AI, and engineering together in a documented capstone.',
     outcome: 'Delivering a functional, documented engineering capstone.',
     topics: ['Autonomous Robotic Navigation', 'Edge AI Vision Pipelines', 'Multidisciplinary Capstone', 'Technical Documentation']
   }

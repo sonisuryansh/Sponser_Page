@@ -22,14 +22,23 @@ export const BenefitsSection: React.FC = () => {
     if (!section) return;
 
     const media = gsap.matchMedia();
-    media.add('(min-width: 1280px) and (prefers-reduced-motion: no-preference)', () => {
+    media.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
       const context = gsap.context(() => {
+        ScrollTrigger.create({
+          id: 'benefits-hold-before-responsibilities',
+          trigger: section,
+          start: 'top top',
+          end: '+=100%',
+          pin: section,
+          pinSpacing: false,
+          anticipatePin: 1,
+        });
+
         gsap.fromTo(
           section,
-          { scale: 0.78, autoAlpha: 0, transformOrigin: '50% 50%' },
+          { scale: 0.9, transformOrigin: '50% 50%' },
           {
             scale: 1,
-            autoAlpha: 1,
             ease: 'none',
             scrollTrigger: {
               id: 'benefits-zoom-in-after-emerging-tech',
@@ -53,9 +62,9 @@ export const BenefitsSection: React.FC = () => {
       id="slide-12"
       data-slide-index="11"
       ref={sectionRef}
-      className="w-full relative z-10 xl:z-20 py-10 sm:py-12 lg:py-14 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
+      className="w-full relative z-10 lg:z-20 py-10 sm:py-12 lg:py-14 lg:h-screen lg:max-h-screen lg:flex lg:flex-col lg:justify-center lg:overflow-hidden px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
     >
-      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full">
+      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full lg:my-auto">
         
         {/* Clean Header Row */}
         <div className="pb-2.5 mb-3 sm:mb-4 border-b border-[#203744]/10 text-center">

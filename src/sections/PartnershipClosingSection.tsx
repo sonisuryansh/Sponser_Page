@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, CheckCircle2, Globe, Clock } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Globe } from 'lucide-react';
 import { Magnetic } from '../components/motion/Magnetic';
 import { FloatingParticles } from '../components/motion/FloatingParticles';
 
@@ -13,22 +13,9 @@ interface PartnershipClosingSectionProps {
 }
 
 const COMMITMENTS = [
-  {
-    title: 'Dedicated On-Site Mentors',
-    desc: 'Trained technical instructors stationed inside the lab for every scheduled student batch.',
-  },
-  {
-    title: 'Zero Upfront Equipment Capex',
-    desc: 'All microcontrollers, robotics benches, drone components, and tools fully provided.',
-  },
-  {
-    title: 'Academic Timetable Integration',
-    desc: 'Flexible scheduling customized to align seamlessly with school term and exam calendars.',
-  },
-  {
-    title: 'Verified Student Portfolios',
-    desc: 'Demonstrable engineering projects, exhibitions, and verified completion credentials for learners.',
-  },
+  'On-site mentors',
+  'Equipment included',
+  'Timetable tailored to school',
 ];
 
 export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps> = ({
@@ -60,9 +47,9 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
         id: 'partnership-closing-pin',
         trigger: container,
         start: 'top top',
-        end: '+=1000',
+        end: () => `+=${window.innerHeight * 2}`,
         pin: true,
-        pinSpacing: true,
+        pinSpacing: false,
         anticipatePin: 1,
       });
     }, container);
@@ -117,16 +104,16 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
       id="slide-15"
       data-slide-index="14"
       ref={containerRef}
-      className="relative min-h-screen lg:h-screen lg:max-h-screen py-8 sm:py-10 lg:py-12 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#0E151E] tech-subtle-grid-dark text-white border-t border-white/10 flex flex-col justify-between overflow-x-hidden overflow-y-hidden"
+      className="relative z-10 lg:z-30 min-h-screen lg:h-screen lg:max-h-screen py-6 sm:py-8 lg:py-6 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#0E151E] tech-subtle-grid-dark text-white border-t border-white/10 flex flex-col justify-between overflow-x-hidden overflow-y-hidden"
     >
       {/* Floating ambient subtle particles */}
       <FloatingParticles count={14} color="rgba(56, 189, 248, 0.25)" />
 
       {/* Main Expansive Content Container */}
-      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full my-auto flex-1 flex flex-col justify-center py-4 relative z-10">
+      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full my-auto flex-1 flex flex-col justify-center py-2 lg:py-1 relative z-10">
         
         {/* Parallel 2-Column Spread: Left Content Unit & Right Drone Image Unit */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center">
           
           {/* =========================================================================
               UNIT 1: LEFT-SIDE COHESIVE GROUP (Enters smoothly from LEFT: -100px -> 0)
@@ -136,7 +123,7 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-7 flex flex-col justify-center space-y-6 sm:space-y-7 will-change-transform"
+            className="lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5 will-change-transform"
           >
             {/* Closing Statement */}
             <div>
@@ -149,53 +136,36 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
               </p>
             </div>
 
-            {/* 4 Partnership Highlight Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-2xl">
-              {COMMITMENTS.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 rounded-xl bg-white/[0.04] border border-white/10 flex items-start gap-3 hover:bg-white/[0.07] transition-colors"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-serif-editorial text-sm sm:text-[15px] font-bold text-white">
-                      {item.title}
-                    </h3>
-                    <p className="font-sans-modern text-xs text-white/70 mt-1 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-5 gap-y-2 max-w-3xl">
+              {COMMITMENTS.map((item) => (
+                <div key={item} className="flex items-center gap-2.5 text-sm sm:text-[15px] text-white/80">
+                  <CheckCircle2 className="w-4 h-4 text-[#38bdf8] shrink-0" />
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
 
-            {/* User-friendly Call To Action & Touchpoints */}
-            <div className="pt-2 space-y-3">
-              <div className="flex flex-wrap items-center gap-3.5">
+            <div className="pt-1">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
                 <Magnetic strength={0.15}>
                   <button
                     onClick={onOpenPartnershipModal}
                     className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-[#38bdf8] text-[#0A1016] font-mono-tech text-xs sm:text-sm uppercase tracking-wider font-bold hover:bg-white transition-all duration-300 shadow-xl cursor-pointer group"
                   >
-                    <span>Initiate Partnership Dialogue</span>
+                    <span>Start a Partnership</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
                 </Magnetic>
-                
-                <a
-                  href="https://www.medhaarc.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/12 text-xs font-mono-tech text-white/85 hover:text-[#38bdf8] transition-colors"
-                >
-                  <Globe className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span className="text-white/60">Direct:</span>
-                  <span className="text-white font-medium">www.medhaarc.com</span>
-                </a>
-
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/8 text-[11px] font-mono-tech text-white/60">
-                  <Clock className="w-3 h-3 text-[#34d399]" />
-                  <span>24h Response SLA</span>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-white/65">
+                  <a href="https://www.medhaarc.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
+                    <Globe className="w-5 h-5" /> Website
+                  </a>
+                  <a href="https://www.linkedin.com/company/medhaarc/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
+                    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.34 10H5.67v8h2.67v-8Zm-1.34-1.1a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1ZM18.33 13.42c0-2.41-1.28-3.54-2.99-3.54a2.58 2.58 0 0 0-2.32 1.28V10h-2.67v8h2.67v-4.2c0-1.1.21-2.17 1.58-2.17 1.35 0 1.37 1.26 1.37 2.24V18h2.67l-.31-4.58Z" /></svg> LinkedIn
+                  </a>
+                  <a href="https://www.instagram.com/medhaarc/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="18" cy="6" r="0.8" fill="currentColor" stroke="none" /></svg> Instagram
+                  </a>
                 </div>
               </div>
             </div>
@@ -211,7 +181,7 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
             viewport={{ once: true, amount: 0.2 }}
             className="lg:col-span-5 relative w-full h-full flex flex-col justify-center items-center will-change-transform"
           >
-            <div className="relative w-full h-[360px] sm:h-[420px] lg:h-[460px] xl:h-[490px] overflow-hidden rounded-2xl bg-[#090E14] border border-white/15 shadow-2xl">
+            <div className="relative w-full h-[320px] sm:h-[360px] lg:h-[380px] xl:h-[420px] overflow-hidden rounded-2xl bg-[#090E14] border border-white/15 shadow-2xl">
               <img
                 src="/assets/page_05.jpg"
                 alt="MedhaArc experiential hardware platform"
@@ -222,27 +192,6 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
 
         </div>
 
-      </div>
-
-      {/* Minimal Dignified Sign-off */}
-      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono-tech text-white/50 relative z-10 font-normal">
-        <div className="flex items-center gap-2">
-          <span className="font-serif-editorial text-sm font-semibold text-white/90">MedhaArc Labs</span>
-          <span>•</span>
-          <span>School Technology & Engineering Partnership</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <a
-            href="https://www.medhaarc.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#38bdf8] hover:text-white transition-colors"
-          >
-            www.medhaarc.com
-          </a>
-          <span>•</span>
-          <span>Confidential School Presentation Deck</span>
-        </div>
       </div>
 
     </section>

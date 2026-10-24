@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, ArrowUpRight, Globe, Send } from 'lucide-react';
+import { Sparkles, ArrowUpRight, Globe } from 'lucide-react';
 import { Magnetic } from '../components/motion/Magnetic';
 import { FloatingParticles } from '../components/motion/FloatingParticles';
 import { AnimatedCounter } from '../components/motion/AnimatedCounter';
@@ -80,14 +80,14 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
       gsap.set(missionSceneRef.current, { autoAlpha: 0, scale: 0.94, clipPath: 'inset(8% 6% 8% 6%)' });
 
       // MASTER SCROLLTRIGGER TIMELINE FOR ACT 1 (HERO -> AIM & VISION -> MISSION & VALUES)
-      // Total duration = 10.0s mapped across 3600px of scroll
+      // Hold each of the three scenes for two viewport-scroll lengths.
       const tl = gsap.timeline({
         id: 'hero-vision-pin',
         scrollTrigger: {
           id: 'hero-vision-pin',
           trigger: stage,
           start: 'top top',
-          end: '+=3600',
+          end: () => `+=${window.innerHeight * 6}`,
           pin: true,
           pinSpacing: true,
           scrub: 0.7,
@@ -309,7 +309,7 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
                 onClick={() => {
                   document.querySelector('#slide-4')?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-white border border-white px-5 sm:px-6 py-2.5 sm:py-3 font-sans-modern font-semibold text-xs sm:text-sm tracking-wider uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-md cursor-pointer"
+                className="inline-flex h-12 w-72 sm:w-80 items-center justify-center gap-2 text-white border border-white px-5 sm:px-6 font-sans-modern font-semibold text-xs sm:text-sm tracking-wider uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-md cursor-pointer"
               >
                 Explore Lab Curriculum
               </button>
@@ -320,7 +320,7 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
                 onClick={() => {
                   document.querySelector('#slide-15')?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-white border border-white px-5 sm:px-6 py-2.5 sm:py-3 font-sans-modern font-semibold text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2 hover:bg-white hover:text-black transition-all duration-300 shadow-md cursor-pointer"
+                className="inline-flex h-12 w-72 sm:w-80 items-center justify-center gap-2 text-white border border-white px-5 sm:px-6 font-sans-modern font-semibold text-xs sm:text-sm tracking-wider uppercase hover:bg-white hover:text-black transition-all duration-300 shadow-md cursor-pointer"
               >
                 <span>Connect With Us</span>
                 <span className="text-sm sm:text-base leading-none">&#x27F6;</span>
@@ -347,41 +347,37 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
               </a>
             </Magnetic>
 
-            {/* Instagram */}
+            {/* LinkedIn */}
             <Magnetic strength={0.4}>
               <a
-                href="https://www.instagram.com"
+                href="https://www.linkedin.com/company/medhaarc/posts/?feedView=all"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
-                title="Instagram"
+                aria-label="MedhaArc on LinkedIn"
+                title="LinkedIn"
                 className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/60 hover:border-white flex items-center justify-center text-white/90 hover:text-white bg-black/40 backdrop-blur-sm hover:scale-110 hover:bg-white/15 transition-all duration-300 shadow-lg"
               >
-                <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-white/90"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" aria-hidden="true">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.34 10H5.67v8h2.67v-8Zm-1.34-1.1a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1ZM18.33 13.42c0-2.41-1.28-3.54-2.99-3.54a2.58 2.58 0 0 0-2.32 1.28V10h-2.67v8h2.67v-4.2c0-1.1.21-2.17 1.58-2.17 1.35 0 1.37 1.26 1.37 2.24V18h2.67l-.31-4.58Z" />
                 </svg>
               </a>
             </Magnetic>
 
-            {/* Telegram / Send Contact */}
+            {/* Instagram */}
             <Magnetic strength={0.4}>
               <a
-                href="mailto:contact@medhaarc.com"
-                aria-label="Contact MedhaArc"
-                title="Email Us"
+                href="https://www.instagram.com/medhaarc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="MedhaArc on Instagram"
+                title="Instagram"
                 className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/60 hover:border-white flex items-center justify-center text-white/90 hover:text-white bg-black/40 backdrop-blur-sm hover:scale-110 hover:bg-white/15 transition-all duration-300 shadow-lg"
               >
-                <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="18" cy="6" r="0.8" fill="currentColor" stroke="none" />
+                </svg>
               </a>
             </Magnetic>
           </div>

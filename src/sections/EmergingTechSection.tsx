@@ -27,49 +27,49 @@ const EMERGING_TECH_DATA: TechDetail[] = [
   {
     name: 'Physical AI',
     category: 'Embodied Systems',
-    summary: 'AI embedded in physical robots to perceive, decide, and act in real time.',
+    summary: 'Robots use sensors and onboard AI to react to their surroundings.',
     accentColor: '#38bdf8',
     icon: <Bot className="w-4 h-4" />,
   },
   {
     name: 'Generative AI',
     category: 'Creative Computation',
-    summary: 'Models generating code, 3D parametric structures, and synthetic datasets.',
+    summary: 'AI helps students create code, 3D designs, and sample data.',
     accentColor: '#a78bfa',
     icon: <Sparkles className="w-4 h-4" />,
   },
   {
     name: 'AI Agents',
     category: 'Autonomous Workflows',
-    summary: 'Goal-driven autonomous systems using planning, tools, and reflection loops.',
+    summary: 'AI agents plan tasks, use tools, and check their results.',
     accentColor: '#34d399',
     icon: <Compass className="w-4 h-4" />,
   },
   {
     name: 'Digital Twins',
     category: 'Simulation & Modeling',
-    summary: 'Virtual hardware replicas used to test kinematics and physics before physical builds.',
+    summary: 'Virtual models let students test motion and forces before building.',
     accentColor: '#fb923c',
     icon: <Boxes className="w-4 h-4" />,
   },
   {
     name: 'Edge AI',
     category: 'Localized Computing',
-    summary: 'Lightweight neural networks running directly on microcontrollers without cloud reliance.',
+    summary: 'Microcontrollers run compact AI models without sharing data to the cloud.',
     accentColor: '#38bdf8',
     icon: <Cpu className="w-4 h-4" />,
   },
   {
     name: 'Smart IoT',
     category: 'Interconnected Sensing',
-    summary: 'Distributed microcontroller sensor networks tracking and streaming telemetry.',
+    summary: 'Connected sensors share live data such as campus weather and energy use.',
     accentColor: '#f472b6',
     icon: <Wifi className="w-4 h-4" />,
   },
   {
     name: 'AR / VR Simulation',
     category: 'Spatial Interfaces',
-    summary: 'Spatial visual interfaces rendering forces, magnetic fields, and mechanics in 3D.',
+    summary: '3D simulations make flight, forces, and circuits easier to explore.',
     accentColor: '#60a5fa',
     icon: <Eye className="w-4 h-4" />,
   },
@@ -131,7 +131,7 @@ export const EmergingTechSection: React.FC = () => {
       id="slide-11"
       data-slide-index="10"
       ref={sectionRef}
-      className="w-full min-h-screen xl:h-screen xl:max-h-screen relative z-10 xl:z-10 flex flex-col justify-center py-4 sm:py-5 lg:py-6 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#0A1016] text-white border-b border-white/10 overflow-hidden"
+      className="w-full min-h-screen xl:h-screen xl:max-h-screen relative z-10 xl:z-20 flex flex-col justify-center py-3 sm:py-4 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#0A1016] text-white border-b border-white/10 overflow-hidden"
     >
       <FloatingParticles count={12} color="rgba(56, 189, 248, 0.15)" />
 
@@ -140,19 +140,14 @@ export const EmergingTechSection: React.FC = () => {
 
       <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full relative z-10">
 
-        <div className="text-center max-w-3xl mx-auto mb-5 lg:mb-7">
-          <div className="inline-flex items-center gap-2 font-mono-tech text-[10px] tracking-[0.2em] uppercase text-white/50 mb-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8]" />
-            <span>Next-Generation Learning Domains</span>
-          </div>
-
+        <div className="text-center max-w-3xl mx-auto mb-4 lg:mb-5">
           <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl font-normal text-white tracking-tight leading-[1.15]">
             Preparing students for{' '}
             <span className="text-[#38bdf8] font-light italic">tomorrow's innovations.</span>
           </h2>
 
-          <p className="font-sans-modern text-sm sm:text-base text-white/70 mt-2 leading-relaxed">
-            Seven areas shaping the next generation of engineering.
+          <p className="font-sans-modern text-sm sm:text-base text-white/70 mt-1.5 leading-relaxed">
+            Seven hands-on technology domains.
           </p>
         </div>
 
@@ -163,14 +158,13 @@ export const EmergingTechSection: React.FC = () => {
           viewport={{ once: true, amount: 0.15 }}
           className="max-w-5xl mx-auto border-y border-white/15 divide-y divide-white/10"
         >
-          {EMERGING_TECH_DATA.map((tech, index) => (
+          {EMERGING_TECH_DATA.map((tech) => (
             <motion.article
               key={tech.name}
               variants={itemVariants}
-              className="grid grid-cols-[2.5rem_minmax(0,1fr)] sm:grid-cols-[3rem_minmax(11rem,0.8fr)_minmax(0,1.8fr)] items-center gap-x-3 sm:gap-x-5 gap-y-1.5 py-3 sm:py-3.5"
+              className="grid grid-cols-[2.5rem_minmax(0,1fr)] sm:grid-cols-[3rem_minmax(11rem,0.8fr)_minmax(0,1.8fr)] items-center gap-x-3 sm:gap-x-5 gap-y-1 py-2 sm:py-2.5"
             >
-              <div className="row-span-2 sm:row-span-1 flex items-center gap-2 sm:gap-2.5">
-                <span className="font-mono-tech text-[10px] text-white/40">0{index + 1}</span>
+              <div className="row-span-2 sm:row-span-1 flex items-center justify-center sm:justify-start">
                 <span style={{ color: tech.accentColor }} className="shrink-0">{tech.icon}</span>
               </div>
 
@@ -183,7 +177,7 @@ export const EmergingTechSection: React.FC = () => {
                 </span>
               </div>
 
-              <p className="col-start-2 sm:col-start-auto font-sans-modern text-xs sm:text-sm text-white/65 leading-relaxed">
+              <p className="col-start-2 sm:col-start-auto max-w-[42rem] font-sans-modern text-[13px] sm:text-sm text-white/70 leading-snug">
                 {tech.summary}
               </p>
             </motion.article>
