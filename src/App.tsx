@@ -23,6 +23,14 @@ import { SLIDES } from './data/slidesData';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Clear scroll memory on load / refresh to prevent landing in pinned sub-scenes
+if (typeof window !== 'undefined') {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  ScrollTrigger.clearScrollMemory('manual');
+}
+
 export function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [isIndexOpen, setIsIndexOpen] = useState<boolean>(false);
@@ -32,6 +40,17 @@ export function App() {
 
   // Initialize Lenis + GSAP ScrollTrigger Integration
   useEffect(() => {
+    // Force manual scroll restoration and reset scroll position to Section 1 (top)
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // Strip hash if present to prevent browser auto-scrolling to an anchor
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const lenis = new Lenis({
@@ -42,6 +61,9 @@ export function App() {
       touchMultiplier: 1.5,
     });
     lenisRef.current = lenis;
+    lenis.scrollTo(0, { immediate: true });
+    setCurrentSlideIndex(0);
+
     (window as any).lenis = lenis;
     (window as any).ScrollTrigger = ScrollTrigger;
     (window as any).gsap = gsap;
@@ -79,13 +101,31 @@ export function App() {
 
     slideElements.forEach((el) => observer.observe(el));
 
-    // Force ScrollTrigger refresh after all images and fonts mount
+    // Force ScrollTrigger refresh after all images and fonts mount, staying at top
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 500);
+      if (window.scrollY === 0) {
+        lenis.scrollTo(0, { immediate: true });
+      }
+
+      // Smoothly dismiss the initial circle loader once layout is stable at Section 1
+      const preloader = document.getElementById('page-preloader');
+      if (preloader) {
+        preloader.classList.add('loaded');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 450);
+      }
+    }, 450);
+
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
       clearTimeout(timer);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
       lenis.destroy();
       gsap.ticker.remove(tickerCb);
       observer.disconnect();

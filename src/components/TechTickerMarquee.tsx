@@ -57,10 +57,17 @@ export const TechTickerMarquee: React.FC<TechTickerMarqueeProps> = ({
       }, 150);
     };
 
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.on('scroll', handleScroll);
+    }
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       anim.kill();
+      if (lenis) {
+        lenis.off('scroll', handleScroll);
+      }
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(scrollTimeout);
     };

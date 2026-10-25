@@ -131,22 +131,22 @@ export const EmergingTechSection: React.FC = () => {
       id="slide-11"
       data-slide-index="10"
       ref={sectionRef}
-      className="w-full min-h-screen xl:h-screen xl:max-h-screen relative z-10 xl:z-20 flex flex-col justify-center py-3 sm:py-4 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#0A1016] text-white border-b border-white/10 overflow-hidden"
+      className="w-full min-h-screen relative z-10 xl:z-20 flex flex-col justify-center py-10 sm:py-12 lg:py-14 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#0A1016] text-white border-b border-white/10"
     >
       <FloatingParticles count={12} color="rgba(56, 189, 248, 0.15)" />
 
       {/* Subtle Aerospace Ambient Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#38bdf8]/[0.04] rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full relative z-10">
+      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full relative z-10 my-auto">
 
-        <div className="text-center max-w-3xl mx-auto mb-4 lg:mb-5">
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl font-normal text-white tracking-tight leading-[1.15]">
+        <div className="text-center max-w-3xl mx-auto mb-4 lg:mb-6 pt-2">
+          <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl font-normal text-white tracking-tight leading-[1.3] pt-1">
             Preparing students for{' '}
             <span className="text-[#38bdf8] font-light italic">tomorrow's innovations.</span>
           </h2>
 
-          <p className="font-sans-modern text-sm sm:text-base text-white/70 mt-1.5 leading-relaxed">
+          <p className="font-sans-modern text-sm sm:text-base text-white/70 mt-1 leading-relaxed">
             Seven hands-on technology domains.
           </p>
         </div>

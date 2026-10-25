@@ -322,12 +322,14 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [activeCardIndex, setActiveCardIndex] = useState<number>(-1);
+  const activeCardIndexRef = useRef<number>(-1);
   const [activeDataStage, setActiveDataStage] = useState<number>(0);
 
   // Jump to specific card by scrolling the pinned timeline to its precise hold trigger position
   const jumpToCard = (targetIndex: number) => {
     const st = ScrollTrigger.getById('tech-ecosystem-pin');
     if (!st) {
+      activeCardIndexRef.current = targetIndex;
       setActiveCardIndex(targetIndex);
       return;
     }
@@ -378,6 +380,8 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
         const dom = DOMAINS[idx];
 
         gsap.set(cardEl, {
+          xPercent: -50,
+          yPercent: -50,
           x: Math.round(dom.deckX * spread),
           y: dom.deckY,
           rotation: dom.rotation,
@@ -411,24 +415,33 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const p = self.progress;
+            let nextIndex = -1;
+            let nextSlide = 3;
+
             if (p < 0.08) {
-              onSlideChange?.(3);
-              setActiveCardIndex(-1);
+              nextSlide = 3;
+              nextIndex = -1;
             } else if (p < 0.26) {
-              onSlideChange?.(3);
-              setActiveCardIndex(0);
+              nextSlide = 3;
+              nextIndex = 0;
             } else if (p < 0.44) {
-              onSlideChange?.(4);
-              setActiveCardIndex(1);
+              nextSlide = 4;
+              nextIndex = 1;
             } else if (p < 0.62) {
-              onSlideChange?.(5);
-              setActiveCardIndex(2);
+              nextSlide = 5;
+              nextIndex = 2;
             } else if (p < 0.80) {
-              onSlideChange?.(6);
-              setActiveCardIndex(3);
+              nextSlide = 6;
+              nextIndex = 3;
             } else {
-              onSlideChange?.(7);
-              setActiveCardIndex(4);
+              nextSlide = 7;
+              nextIndex = 4;
+            }
+
+            onSlideChange?.(nextSlide);
+            if (activeCardIndexRef.current !== nextIndex) {
+              activeCardIndexRef.current = nextIndex;
+              setActiveCardIndex(nextIndex);
             }
           },
         },
@@ -477,6 +490,8 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
         tl.to(
           cardEl,
           {
+            xPercent: -50,
+            yPercent: -50,
             x: 0,
             y: -16,
             scale: 1,
@@ -557,6 +572,8 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
         tl.to(
           cardEl,
           {
+            xPercent: -50,
+            yPercent: -50,
             x: originalX,
             y: originalY,
             rotation: domain.rotation,
@@ -686,9 +703,8 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                 color: card.textColor,
                 left: '50%',
                 top: '50%',
-                transform: 'translate(-50%, -50%)',
               }}
-              className="truus-morph-card absolute cursor-pointer rounded-2xl shadow-2xl border border-white/20 select-none overflow-visible will-change-transform"
+              className="truus-morph-card absolute w-[280px] sm:w-[310px] h-[430px] sm:h-[460px] cursor-pointer rounded-2xl shadow-2xl border border-white/20 select-none overflow-visible will-change-transform"
             >
               {/* =========================================================================
                   FACE 1: DECK STATE (100% Exact Existing Design Preserved, Zero Clipping)

@@ -172,37 +172,24 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
         2.9
       );
 
-      // Aim & Vision Exit (5.4 to 6.6)
+      // Aim & Vision Exit (5.0 to 5.9) - Cleanly fade out entire scene to prevent any visual collision
       tl.to(
-        [aimHeadlineRef.current, aimCopyRef.current],
+        aimSceneRef.current,
         {
-          xPercent: -25,
-          opacity: 0,
-          duration: 1.0,
-          ease: 'power2.in',
+          autoAlpha: 0,
+          scale: 0.94,
+          clipPath: 'inset(6% 4% 6% 4%)',
+          duration: 0.9,
+          ease: 'power2.inOut',
         },
-        5.4
+        5.0
       );
 
-      tl.to(
-        aimImgContainerRef.current,
-        {
-          scale: 0.85,
-          opacity: 0,
-          duration: 1.0,
-          ease: 'power2.in',
-        },
-        5.5
-      );
-
-      tl.set(aimSceneRef.current, { autoAlpha: 0 }, 6.6);
+      tl.set(aimSceneRef.current, { autoAlpha: 0 }, 6.0);
 
       // =======================================================================
-      // CHAPTER 03: MISSION & VALUES (6.6 to 10.0)
-      // Wait for Aim & Vision to fully exit before revealing this scene. This
-      // prevents both full-screen layouts from stacking during scrubbed scroll.
-      // 6.6 to 7.7: Enters
-      // 7.7 to 10.0: Holds in full clarity before flowing into Ecosystem
+      // CHAPTER 03: MISSION & VALUES (6.1 to 10.0)
+      // Dedicated, fully isolated entrance that starts ONLY after Scene 02 is 100% gone
       // =======================================================================
       tl.to(
         missionSceneRef.current,
@@ -210,10 +197,10 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
           autoAlpha: 1,
           scale: 1,
           clipPath: 'inset(0% 0% 0% 0%)',
-          duration: 1.1,
+          duration: 0.9,
           ease: 'power2.out',
         },
-        6.6
+        6.1
       );
 
       tl.fromTo(
@@ -260,6 +247,7 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
         ref={heroSceneRef}
         id="slide-1"
         data-slide-index="0"
+        style={{ opacity: 1, visibility: 'visible' }}
         className="absolute inset-0 w-full h-full z-10 overflow-hidden bg-[#0A0D10] flex flex-col items-center justify-center px-4 sm:px-8 py-10"
       >
         {/* Fullscreen Hero Background Image with Dual Layer Vignette Gradient & Floating Particles */}
@@ -393,6 +381,7 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
         ref={aimSceneRef}
         id="slide-2"
         data-slide-index="1"
+        style={{ opacity: 0, visibility: 'hidden' }}
         className="absolute inset-0 w-full h-full z-20 overflow-hidden bg-[#DFE6E7] tech-subtle-grid flex flex-col justify-center px-4 sm:px-8 lg:px-12 xl:px-16 pt-8 pb-6 will-change-transform"
       >
         <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full">
@@ -508,7 +497,8 @@ export const HeroVisionStage: React.FC<HeroVisionStageProps> = ({ onSlideChange 
         ref={missionSceneRef}
         id="slide-3"
         data-slide-index="2"
-        className="absolute inset-0 w-full h-full z-30 overflow-hidden bg-[#D5E2E5]/50 tech-subtle-grid flex flex-col justify-center px-4 sm:px-8 lg:px-12 xl:px-16 py-6 will-change-transform"
+        style={{ opacity: 0, visibility: 'hidden' }}
+        className="absolute inset-0 w-full h-full z-30 overflow-hidden bg-[#DFE6E7] tech-subtle-grid flex flex-col justify-center px-4 sm:px-8 lg:px-12 xl:px-16 py-6 will-change-transform"
       >
         <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full my-auto">
           <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-[#1C2833]/12 pb-3">
