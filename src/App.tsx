@@ -301,11 +301,6 @@ export function App() {
         <PartnershipClosingSection
           onOpenPartnershipModal={() => setIsPartnershipOpen(true)}
         />
-        <div className="relative h-[200vh] bg-[#0E151E] text-white" aria-label="End of presentation">
-          <p className="absolute top-[75%] inset-x-0 text-center font-mono-tech text-xs uppercase tracking-[0.2em] text-white/45">
-            End of presentation
-          </p>
-        </div>
       </main>
 
       {/* Slide Index Modal (all 15 chapters) */}

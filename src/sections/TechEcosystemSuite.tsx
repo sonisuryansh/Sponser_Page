@@ -359,17 +359,14 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
     const stage = stageRef.current;
     if (!stage) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
     const ctx = gsap.context(() => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
       // Responsive calculations: Squarish, vertically stretched expanded card popup
-      const spread = vw < 768 ? 0.45 : vw < 1080 ? 0.72 : vw < 1366 ? 0.88 : 1.0;
-      const deckCardW = vw < 640 ? 280 : 310;
-      const deckCardH = vw < 640 ? 430 : 460;
+      const spread = vw < 640 ? 0.38 : vw < 768 ? 0.50 : vw < 1080 ? 0.72 : vw < 1366 ? 0.88 : 1.0;
+      const deckCardW = vw < 640 ? 260 : vw < 768 ? 280 : 310;
+      const deckCardH = vw < 640 ? 410 : vw < 768 ? 430 : 460;
       // Compact, centered squarish panel that maintains generous space from the bottom of the viewport
       const panelW = Math.min(760, Math.floor(vw * (vw < 640 ? 0.94 : vw < 1024 ? 0.86 : 0.60)));
       const panelH = Math.min(500, Math.floor(vh * (vh < 750 ? 0.68 : 0.62)));
@@ -703,6 +700,9 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
                 color: card.textColor,
                 left: '50%',
                 top: '50%',
+                zIndex: idx + 1,
+                transform: `translate(calc(-50% + ${card.deckX}px), calc(-50% + ${card.deckY}px)) rotate(${card.rotation}deg)`,
+                transformOrigin: 'center center',
               }}
               className="truus-morph-card absolute w-[280px] sm:w-[310px] h-[430px] sm:h-[460px] cursor-pointer rounded-2xl shadow-2xl border border-white/20 select-none overflow-visible will-change-transform"
             >

@@ -13,9 +13,6 @@ export const PricingSection: React.FC = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
     const ctx = gsap.context(() => {
       // Avoid stacking a second pin if the section remounts during development/HMR.
       ScrollTrigger.getById('pricing-section-pin')?.kill();
@@ -81,12 +78,12 @@ export const PricingSection: React.FC = () => {
         );
       }
 
-      // 4. Slide Scroll Lock (Pin): locks the pricing section in viewport on scroll
+      // 4. Slide Scroll Lock (Pin): locks the pricing section comfortably in viewport
       ScrollTrigger.create({
         id: 'pricing-section-pin',
         trigger: container,
         start: 'top top',
-        end: () => `+=${window.innerHeight * 2}`,
+        end: () => `+=${Math.round(window.innerHeight * 0.85)}`,
         pin: container,
         pinSpacing: true,
         anticipatePin: 1,

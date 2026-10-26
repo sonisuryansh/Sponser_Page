@@ -34,28 +34,7 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      // Final Slide Scroll Lock (Pin): locks closing presentation slide in viewport
-      ScrollTrigger.create({
-        id: 'partnership-closing-pin',
-        trigger: container,
-        start: 'top top',
-        end: () => `+=${window.innerHeight * 2}`,
-        pin: true,
-        pinSpacing: false,
-        anticipatePin: 1,
-      });
-    }, container);
-
-    return () => ctx.revert();
-  }, []);
 
   // Responsive offsets: 100px desktop, ~35px on mobile
   const leftOffset = isMobile ? -35 : -100;
@@ -192,6 +171,27 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
 
         </div>
 
+      </div>
+
+      {/* Minimal Dignified Sign-off */}
+      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono-tech text-white/50 relative z-10 font-normal">
+        <div className="flex items-center gap-2">
+          <span className="font-serif-editorial text-sm font-semibold text-white/90">MedhaArc Labs</span>
+          <span>•</span>
+          <span>School Technology & Engineering Partnership</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <a
+            href="https://www.medhaarc.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#38bdf8] hover:text-white transition-colors"
+          >
+            www.medhaarc.com
+          </a>
+          <span>•</span>
+          <span>Confidential School Presentation Deck</span>
+        </div>
       </div>
 
     </section>
