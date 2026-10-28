@@ -332,16 +332,15 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
       return;
     }
 
-    // Progress target points for each domain hold state:
-    // -1 (Overview): 0.05
-    // 0 (Math & Logic): 0.18
+    // Midpoints of hold states:
+    // -1 (Overview): 0.04
+    // 0 (Math & Logic): 0.17
     // 1 (Robotics): 0.35
-    // 2 (AI & ML): 0.52
-    // 3 (Data Analytics): 0.69
-    // 4 (Aerial Systems): 0.86
-    const targetProgressMap = [0.18, 0.35, 0.52, 0.69, 0.86];
+    // 2 (AI & ML): 0.53
+    // 3 (Data Analytics): 0.71
+    // 4 (Aerial Systems): 0.89
     const targetProgress =
-      targetIndex === -1 ? 0.05 : targetProgressMap[targetIndex] ?? 0.05;
+      targetIndex === -1 ? 0.04 : [0.17, 0.35, 0.53, 0.71, 0.89][targetIndex] ?? 0.04;
     const targetY = st.start + targetProgress * (st.end - st.start);
 
     if ((window as any).lenis) {
@@ -399,43 +398,45 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
       });
 
       // Master ScrollTrigger timeline for reversible, bi-directional scroll morphing
-      // Pinned across 7 viewports for comfortable reading and smooth pacing
+      // Six ecosystem states, each held comfortably across 8 viewports
       const tl = gsap.timeline({
         id: 'tech-ecosystem-pin',
         scrollTrigger: {
           id: 'tech-ecosystem-pin',
           trigger: stage,
           start: 'top top',
-          end: () => `+=${window.innerHeight * 7}`,
+          end: () => `+=${window.innerHeight * 8}`,
           pin: true,
           pinSpacing: true,
           scrub: 0.75,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const p = self.progress;
+            let nextIndex = -1;
             let nextSlide = 3;
 
-            if (p < 0.10) {
+            if (p < 0.08) {
               nextSlide = 3; // Overview
-              activeCardIndexRef.current = -1;
-            } else if (p < 0.27) {
+              nextIndex = -1;
+            } else if (p < 0.26) {
               nextSlide = 3; // Math & Logic
-              activeCardIndexRef.current = 0;
-            } else if (p < 0.45) {
+              nextIndex = 0;
+            } else if (p < 0.44) {
               nextSlide = 4; // Robotics & Automation
-              activeCardIndexRef.current = 1;
-            } else if (p < 0.63) {
+              nextIndex = 1;
+            } else if (p < 0.62) {
               nextSlide = 5; // AI & Machine Learning
-              activeCardIndexRef.current = 2;
-            } else if (p < 0.81) {
+              nextIndex = 2;
+            } else if (p < 0.80) {
               nextSlide = 6; // Data Analytics
-              activeCardIndexRef.current = 3;
+              nextIndex = 3;
             } else {
               nextSlide = 7; // Aerial Systems
-              activeCardIndexRef.current = 4;
+              nextIndex = 4;
             }
 
             onSlideChange?.(nextSlide);
+            activeCardIndexRef.current = nextIndex;
           },
         },
       });
@@ -444,32 +445,26 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
       tl.to(
         headerRef.current,
         {
-          opacity: 0.25,
-          y: -10,
+          opacity: 0.15,
+          y: -12,
           duration: 0.4,
           ease: 'power2.inOut',
         },
-        0.8
+        0.5
       );
 
-      // Pacing across 12.0s timeline:
-      // Overview: 0.0 to 1.0s
-      // Card 0: expand 1.0->1.5, HOLD 1.5->2.5, exit 2.5->3.1
-      // Card 1: expand 2.8->3.3, HOLD 3.3->4.3, exit 4.3->4.9
-      // Card 2: expand 4.6->5.1, HOLD 5.1->6.1, exit 6.1->6.7
-      // Card 3: expand 6.4->6.9, HOLD 6.9->7.9, exit 7.9->8.5
-      // Card 4: expand 8.2->8.7, HOLD 8.7->10.2
-      // Clean Exit to Next Section: 10.2->11.6
+      // Pacing breakdown across 10.0 total duration:
+      // Initial Deck View: 0.0 to 0.8s
+      // Card 0: 0.8s to 2.6s (Expand: 0.8->1.25, HOLD: 1.25->2.15, Contract: 2.15->2.6)
+      // Card 1: 2.6s to 4.4s (Expand: 2.6->3.05, HOLD: 3.05->3.95, Contract: 3.95->4.4)
+      // Card 2: 4.4s to 6.2s (Expand: 4.4->4.85, HOLD: 4.85->5.75, Contract: 5.75->6.2)
+      // Card 3: 6.2s to 8.0s (Expand: 6.2->6.65, HOLD: 6.65->7.55, Contract: 7.55->8.0)
+      // Card 4: 8.0s to 9.8s (Expand: 8.0->8.45, HOLD: 8.45->9.35, Contract: 9.35->9.8)
+      // Final buffer: 9.8s to 10.0s (Full Deck Restored)
 
-      const cardConfigs = [
-        { startTime: 1.0, holdDuration: 1.0, hasExit: true },
-        { startTime: 2.8, holdDuration: 1.0, hasExit: true },
-        { startTime: 4.6, holdDuration: 1.0, hasExit: true },
-        { startTime: 6.4, holdDuration: 1.0, hasExit: true },
-        { startTime: 8.2, holdDuration: 1.5, hasExit: false }, // Final card (Aerial Systems) stays held until clean exit
-      ];
-
-      const morphDuration = 0.55;
+      const cardSegDuration = 1.8;
+      const expandDuration = 0.45;
+      const contractDuration = 0.45;
 
       DOMAINS.forEach((domain, idx) => {
         const cardEl = cardRefs.current[idx];
@@ -479,16 +474,13 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
         const expandedFace = cardEl.querySelector('.expanded-face');
         const otherCards = cardRefs.current.filter((_, i) => i !== idx);
 
-        const cfg = cardConfigs[idx];
-        const expandStart = cfg.startTime;
-        const expandEnd = expandStart + morphDuration;
-        const holdEnd = expandEnd + cfg.holdDuration;
-        const exitEnd = holdEnd + morphDuration;
+        const startTime = 0.8 + idx * cardSegDuration;
+        const holdEndTime = startTime + cardSegDuration - contractDuration;
 
         const originalX = Math.round(domain.deckX * spread);
         const originalY = domain.deckY;
 
-        // 1. Morph Expand: Card elevates, straightens, centers, and expands to squarish panel
+        // 1. Physical FLIP Morph: Card moves to center, straightens to 0deg, expands to panel dimensions
         tl.to(
           cardEl,
           {
@@ -504,33 +496,33 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
             borderRadius: 24,
             boxShadow: `0 28px 80px -15px ${domain.glowColor}, 0 0 0 1px rgba(255,255,255,0.25)`,
             zIndex: 50,
-            duration: morphDuration,
+            duration: expandDuration,
             ease: 'power2.inOut',
           },
-          expandStart
+          startTime
         );
 
-        // Dim background cards softly (kept visible in background for continuity)
+        // Dim background cards in the deck
         tl.to(
           otherCards,
           {
-            opacity: 0.15,
+            opacity: 0.18,
             scale: 0.94,
-            duration: morphDuration * 0.7,
+            duration: expandDuration * 0.7,
             ease: 'power2.out',
           },
-          expandStart
+          startTime
         );
 
-        // Cross-fade internal card content cleanly
+        // Cross-fade internal card content smoothly
         tl.to(
           deckFace,
           {
             autoAlpha: 0,
-            duration: morphDuration * 0.45,
+            duration: expandDuration * 0.5,
             ease: 'power1.out',
           },
-          expandStart
+          startTime
         );
 
         tl.fromTo(
@@ -540,96 +532,82 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
             autoAlpha: 1,
             scale: 1,
             pointerEvents: 'auto',
-            duration: morphDuration * 0.55,
+            duration: expandDuration * 0.6,
             ease: 'power2.out',
           },
-          expandStart + morphDuration * 0.45
+          startTime + expandDuration * 0.4
         );
 
-        // 2. Continuous Transition to Next Card (Only for cards 0 to 3)
-        // Card returns to its deck position while staying dimmed in the background
-        if (cfg.hasExit) {
-          tl.to(
-            expandedFace,
-            {
-              autoAlpha: 0,
-              scale: 0.97,
-              pointerEvents: 'none',
-              duration: morphDuration * 0.4,
-              ease: 'power1.in',
-            },
-            holdEnd
-          );
+        // 2. STABLE READING HOLD: From expandEndTime to holdEndTime
+        // During this generous window, the card stays 100% expanded and static for comfortable reading!
 
-          tl.to(
-            deckFace,
-            {
-              autoAlpha: 1,
-              duration: morphDuration * 0.5,
-              ease: 'power1.out',
-            },
-            holdEnd + morphDuration * 0.2
-          );
+        // 3. Reverse Contract: Collapses back down to exact original deck position and rotation
+        tl.to(
+          expandedFace,
+          {
+            autoAlpha: 0,
+            scale: 0.97,
+            pointerEvents: 'none',
+            duration: contractDuration * 0.4,
+            ease: 'power1.in',
+          },
+          holdEndTime
+        );
 
-          tl.to(
-            cardEl,
-            {
-              xPercent: -50,
-              yPercent: -50,
-              x: originalX,
-              y: originalY,
-              rotation: domain.rotation,
-              width: deckCardW,
-              height: deckCardH,
-              borderRadius: 20,
-              opacity: 0.15,
-              scale: 0.94,
-              boxShadow: '0 24px 60px rgba(0,0,0,0.55)',
-              zIndex: idx + 1,
-              duration: morphDuration,
-              ease: 'power2.inOut',
-            },
-            holdEnd
-          );
-        }
+        tl.to(
+          deckFace,
+          {
+            autoAlpha: 1,
+            duration: contractDuration * 0.5,
+            ease: 'power1.out',
+          },
+          holdEndTime + contractDuration * 0.2
+        );
+
+        tl.to(
+          cardEl,
+          {
+            xPercent: -50,
+            yPercent: -50,
+            x: originalX,
+            y: originalY,
+            rotation: domain.rotation,
+            width: deckCardW,
+            height: deckCardH,
+            borderRadius: 20,
+            opacity: 1,
+            scale: 1,
+            boxShadow: '0 24px 60px rgba(0,0,0,0.55)',
+            zIndex: idx + 1,
+            duration: contractDuration,
+            ease: 'power2.inOut',
+          },
+          holdEndTime
+        );
+
+        // Restore other cards
+        tl.to(
+          otherCards,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: contractDuration * 0.8,
+            ease: 'power2.out',
+          },
+          holdEndTime + contractDuration * 0.2
+        );
       });
 
-      // 3. Final Technology Card (Aerial Systems) Clean Exit into Next Section
-      // Smoothly fades and lifts out without flashing the deck back on screen!
-      const aerialCard = cardRefs.current[4];
-      const otherCards = cardRefs.current.filter((_, i) => i !== 4);
-
-      tl.to(
-        aerialCard,
-        {
-          opacity: 0,
-          y: -40,
-          scale: 0.96,
-          duration: 1.0,
-          ease: 'power2.inOut',
-        },
-        10.2
-      );
-
-      tl.to(
-        otherCards,
-        {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power1.out',
-        },
-        10.2
-      );
-
+      // Restore header at the end of suite
       tl.to(
         headerRef.current,
         {
-          opacity: 0,
-          y: -25,
-          duration: 0.8,
-          ease: 'power1.out',
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: 'power2.out',
         },
-        10.2
+        9.8
       );
     }, stage);
 

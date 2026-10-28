@@ -77,6 +77,18 @@ export const PricingSection: React.FC = () => {
           }
         );
       }
+
+      // 4. Slide Scroll Lock (Pin): locks the pricing section comfortably in viewport
+      ScrollTrigger.create({
+        id: 'pricing-section-pin',
+        trigger: container,
+        start: 'top top',
+        end: () => `+=${Math.round(window.innerHeight * 1.2)}`,
+        pin: container,
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      });
     }, container);
 
     return () => ctx.revert();
@@ -87,7 +99,7 @@ export const PricingSection: React.FC = () => {
       id="slide-14"
       data-slide-index="13"
       ref={containerRef}
-      className="w-full min-h-screen relative z-10 flex flex-col justify-center py-10 sm:py-12 lg:py-14 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
+      className="w-full min-h-screen lg:h-screen lg:max-h-screen relative z-10 xl:z-30 flex flex-col justify-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid overflow-hidden"
     >
       <div className="max-w-[1240px] 2xl:max-w-[1320px] mx-auto w-full my-auto flex flex-col justify-center">
         

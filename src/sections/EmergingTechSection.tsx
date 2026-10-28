@@ -79,6 +79,30 @@ export const EmergingTechSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const media = gsap.matchMedia();
+    media.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const context = gsap.context(() => {
+        ScrollTrigger.create({
+          id: 'emerging-tech-hold-for-benefits',
+          trigger: section,
+          start: 'top top',
+          end: () => `+=${Math.round(window.innerHeight * 1.2)}`,
+          pin: section,
+          pinSpacing: true,
+          anticipatePin: 1,
+        });
+      }, section);
+
+      return () => context.revert();
+    });
+
+    return () => media.revert();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

@@ -183,14 +183,18 @@ export function App() {
     // 3. Act IV & V (Standard Sections: Slides 9 to 15)
     const targetElement = document.getElementById(`slide-${index + 1}`);
     if (targetElement) {
+      // Find pinned ScrollTrigger if present to scroll exactly to its starting lock offset
+      const allTriggers = ScrollTrigger.getAll();
+      const st = allTriggers.find((t) => t.trigger === targetElement || t.pin === targetElement);
+      const targetY = st ? st.start : targetElement.getBoundingClientRect().top + window.scrollY;
+
       if (lenisRef.current) {
-        lenisRef.current.scrollTo(targetElement, {
-          offset: 0,
+        lenisRef.current.scrollTo(targetY, {
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
       } else {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
       }
       setCurrentSlideIndex(index);
     }
