@@ -55,18 +55,7 @@ export const LearningApproachSection: React.FC = () => {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Slide Scroll Lock (Pin): locks Learning Approach section in viewport on scroll
-      ScrollTrigger.create({
-        id: 'learning-approach-pin',
-        trigger: container,
-        start: 'top top',
-        end: () => `+=${window.innerHeight * 2}`,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-      });
-
-      // Horizontal travelling text as user scrolls through this pinned section
+      // Horizontal travelling text as user scrolls through this section
       gsap.fromTo(
         marquee,
         { x: '5vw' },
@@ -75,8 +64,8 @@ export const LearningApproachSection: React.FC = () => {
           ease: 'none',
           scrollTrigger: {
             trigger: container,
-            start: 'top top',
-            end: () => `+=${window.innerHeight * 2}`,
+            start: 'top bottom',
+            end: 'bottom top',
             scrub: 1.2,
           },
         }
@@ -112,7 +101,7 @@ export const LearningApproachSection: React.FC = () => {
       id="slide-9"
       data-slide-index="8"
       ref={containerRef}
-      className="relative min-h-screen lg:h-screen lg:max-h-screen py-6 sm:py-8 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#DFE6E7] tech-subtle-grid border-b border-[#203744]/10 flex flex-col justify-center overflow-hidden"
+      className="relative min-h-screen py-10 sm:py-12 px-4 sm:px-8 lg:px-12 xl:px-16 bg-[#DFE6E7] tech-subtle-grid border-b border-[#203744]/10 flex flex-col justify-center overflow-hidden"
     >
       {/* Background Oversized Horizontal Travelling Phrase (Subtle Ambient Watermark) */}
       <div

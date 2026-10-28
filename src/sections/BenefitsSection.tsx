@@ -17,52 +17,12 @@ gsap.registerPlugin(ScrollTrigger);
 export const BenefitsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const media = gsap.matchMedia();
-    media.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
-      const context = gsap.context(() => {
-        ScrollTrigger.create({
-          id: 'benefits-hold-before-responsibilities',
-          trigger: section,
-          start: 'top top',
-          end: '+=100%',
-          pin: section,
-          pinSpacing: false,
-          anticipatePin: 1,
-        });
-
-        gsap.fromTo(
-          section,
-          { scale: 0.9, transformOrigin: '50% 50%' },
-          {
-            scale: 1,
-            ease: 'none',
-            scrollTrigger: {
-              id: 'benefits-zoom-in-after-emerging-tech',
-              trigger: section,
-              start: 'top bottom',
-              end: 'top top',
-              scrub: true,
-            },
-          }
-        );
-      }, section);
-
-      return () => context.revert();
-    });
-
-    return () => media.revert();
-  }, []);
-
   return (
     <section
       id="slide-12"
       data-slide-index="11"
       ref={sectionRef}
-      className="w-full relative z-10 lg:z-20 py-10 sm:py-12 lg:py-14 lg:h-screen lg:max-h-screen lg:flex lg:flex-col lg:justify-center lg:overflow-hidden px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
+      className="w-full relative z-10 py-10 sm:py-12 lg:py-14 min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
     >
       <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full lg:my-auto">
         

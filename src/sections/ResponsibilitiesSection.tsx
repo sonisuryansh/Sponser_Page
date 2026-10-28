@@ -8,36 +8,12 @@ gsap.registerPlugin(ScrollTrigger);
 export const ResponsibilitiesSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const media = gsap.matchMedia();
-    media.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
-      const context = gsap.context(() => {
-        ScrollTrigger.create({
-          id: 'responsibilities-hold-before-pricing',
-          trigger: section,
-          start: 'top top',
-          end: () => `+=${window.innerHeight * 2}`,
-          pin: section,
-          pinSpacing: true,
-          anticipatePin: 1,
-        });
-      }, section);
-
-      return () => context.revert();
-    });
-
-    return () => media.revert();
-  }, []);
-
   return (
     <section
       id="slide-13"
       data-slide-index="12"
       ref={sectionRef}
-      className="w-full min-h-screen lg:h-screen lg:max-h-screen relative z-10 lg:z-30 flex flex-col justify-center py-8 sm:py-10 lg:py-12 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
+      className="w-full min-h-screen relative z-10 flex flex-col justify-center py-10 sm:py-12 lg:py-14 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
     >
       <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full lg:my-auto">
         {/* Parallel Header Row */}

@@ -86,7 +86,7 @@ export function App() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = Number(entry.target.getAttribute('data-slide-index'));
-            if (!isNaN(index) && index >= 3) {
+            if (!isNaN(index) && index >= 8) {
               setCurrentSlideIndex(index);
             }
           }
@@ -95,7 +95,7 @@ export function App() {
       {
         root: null,
         rootMargin: '-30% 0px -30% 0px',
-        threshold: 0.1,
+        threshold: 0.15,
       }
     );
 
@@ -159,11 +159,11 @@ export function App() {
       const stTech = ScrollTrigger.getById('tech-ecosystem-pin');
       if (stTech) {
         const techProgressMap: { [key: number]: number } = {
-          3: 0.04,
-          4: 0.35,
-          5: 0.53,
-          6: 0.71,
-          7: 0.89,
+          3: 0.04, // Ecosystem Overview
+          4: 0.35, // Robotics & Automation
+          5: 0.52, // AI & Machine Learning
+          6: 0.69, // Data Analytics
+          7: 0.86, // Aerial Systems
         };
         const targetProgress = techProgressMap[index] ?? 0.04;
         const targetY = stTech.start + targetProgress * (stTech.end - stTech.start);
