@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -62,7 +62,6 @@ export function App() {
     });
     lenisRef.current = lenis;
     lenis.scrollTo(0, { immediate: true });
-    setCurrentSlideIndex(0);
 
     (window as any).lenis = lenis;
     (window as any).ScrollTrigger = ScrollTrigger;
@@ -101,8 +100,27 @@ export function App() {
 
     slideElements.forEach((el) => observer.observe(el));
 
+    // Unified IntersectionObserver for per-atom [data-rev] elements (staggered delay via --d)
+    const revElements = document.querySelectorAll<HTMLElement>('[data-rev]');
+    const revObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            revObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+    revElements.forEach((el) => revObserver.observe(el));
+
     // Force ScrollTrigger refresh after all images and fonts mount, staying at top
     const timer = setTimeout(() => {
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
       if (window.scrollY === 0) {
         lenis.scrollTo(0, { immediate: true });
@@ -129,12 +147,13 @@ export function App() {
       lenis.destroy();
       gsap.ticker.remove(tickerCb);
       observer.disconnect();
+      revObserver.disconnect();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
   // Smooth Scroll Navigation Handler
-  const handleNavigateToSlide = (index: number) => {
+  const handleNavigateToSlide = useCallback((index: number) => {
     // 1. Act I (Hero, Aim & Vision, Mission & Values) inside HeroVisionStage pinned stage
     if (index >= 0 && index <= 2) {
       const stHero = ScrollTrigger.getById('hero-vision-pin');
@@ -185,7 +204,9 @@ export function App() {
     if (targetElement) {
       // Find pinned ScrollTrigger if present to scroll exactly to its starting lock offset
       const allTriggers = ScrollTrigger.getAll();
-      const st = allTriggers.find((t) => t.trigger === targetElement || t.pin === targetElement);
+      const st = allTriggers.find(
+        (t) => (t.trigger === targetElement || t.pin === targetElement) && Boolean(t.pin)
+      );
       const targetY = st ? st.start : targetElement.getBoundingClientRect().top + window.scrollY;
 
       if (lenisRef.current) {
@@ -198,11 +219,186 @@ export function App() {
       }
       setCurrentSlideIndex(index);
     }
-  };
+  }, []);
 
   useEffect(() => {
     (window as any).navigateToSlide = handleNavigateToSlide;
   }, [handleNavigateToSlide]);
+
+  // Granular Step-by-Step Keyboard Navigation Handler
+  // Advances card-by-card, domain-by-domain, and item-by-item instead of skipping entire sections
+  const handleKeyboardStep = useCallback(
+    (direction: 1 | -1): boolean => {
+      const scrollY = window.scrollY;
+
+      // 1. Act I: HeroVisionStage Sub-scenes (Hero, Aim & Vision, Mission & Values)
+      const stHero = ScrollTrigger.getById('hero-vision-pin');
+      if (stHero && scrollY >= stHero.start - 60 && scrollY <= stHero.end - 40) {
+        const heroMilestones = [0.05, 0.42, 0.88];
+        const p = stHero.progress;
+        if (direction === 1) {
+          const next = heroMilestones.find((m) => m > p + 0.08);
+          if (next !== undefined) {
+            const targetY = stHero.start + next * (stHero.end - stHero.start);
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(targetY, { duration: 1.0 });
+            } else {
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+            return true;
+          }
+        } else {
+          const prev = [...heroMilestones].reverse().find((m) => m < p - 0.08);
+          if (prev !== undefined) {
+            const targetY = stHero.start + prev * (stHero.end - stHero.start);
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(targetY, { duration: 1.0 });
+            } else {
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+            return true;
+          }
+        }
+      }
+
+      // 2. Act II & III: TechEcosystemSuite 6 Morphing Domains (Overview, Math, Robotics, AI, Data, Aerial)
+      const stTech = ScrollTrigger.getById('tech-ecosystem-pin');
+      if (stTech && scrollY >= stTech.start - 60 && scrollY <= stTech.end - 40) {
+        const techMilestones = [0.04, 0.17, 0.35, 0.52, 0.69, 0.86];
+        const p = stTech.progress;
+        if (direction === 1) {
+          const next = techMilestones.find((m) => m > p + 0.05);
+          if (next !== undefined) {
+            const targetY = stTech.start + next * (stTech.end - stTech.start);
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(targetY, { duration: 1.0 });
+            } else {
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+            return true;
+          }
+        } else {
+          const prev = [...techMilestones].reverse().find((m) => m < p - 0.05);
+          if (prev !== undefined) {
+            const targetY = stTech.start + prev * (stTech.end - stTech.start);
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(targetY, { duration: 1.0 });
+            } else {
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+            return true;
+          }
+        }
+      }
+
+      // 3. Slide 10: StackingGradeCards (7 Progressive Grade Levels: Grade 5-6 through Grade 12)
+      const s10 = document.getElementById('slide-10');
+      if (s10) {
+        const rect = s10.getBoundingClientRect();
+        const points = (window as any).__scrollStackPoints as number[] | undefined;
+        // Check if Slide 10 is currently the active view
+        if (rect.top <= window.innerHeight * 0.65 && rect.bottom >= window.innerHeight * 0.35 && points?.length) {
+          if (direction === 1) {
+            const nextPoint = points.find((pt) => pt > scrollY + 35);
+            if (nextPoint !== undefined) {
+              if (lenisRef.current) {
+                lenisRef.current.scrollTo(nextPoint, { duration: 0.9 });
+              } else {
+                window.scrollTo({ top: nextPoint, behavior: 'smooth' });
+              }
+              return true;
+            }
+          } else {
+            const prevPoints = points.filter((pt) => pt < scrollY - 35);
+            if (prevPoints.length > 0) {
+              const prevPoint = prevPoints[prevPoints.length - 1];
+              if (lenisRef.current) {
+                lenisRef.current.scrollTo(prevPoint, { duration: 0.9 });
+              } else {
+                window.scrollTo({ top: prevPoint, behavior: 'smooth' });
+              }
+              return true;
+            } else if (scrollY > rect.top + scrollY + 40) {
+              const slideTop = rect.top + scrollY;
+              if (lenisRef.current) {
+                lenisRef.current.scrollTo(slideTop, { duration: 0.9 });
+              } else {
+                window.scrollTo({ top: slideTop, behavior: 'smooth' });
+              }
+              return true;
+            }
+          }
+        }
+      }
+
+      // 4. Slide 11: HorizontalScrollGallery (7 Emerging Tech Innovations)
+      const stGallery = ScrollTrigger.getById('slide-11-pin');
+      if (stGallery && scrollY >= stGallery.start - 60 && scrollY <= stGallery.end - 40) {
+        const itemCount = 7;
+        const galleryMilestones = Array.from({ length: itemCount }, (_, k) => k / (itemCount - 1));
+        const p = stGallery.progress;
+        if (direction === 1) {
+          const next = galleryMilestones.find((m) => m > p + 0.05);
+          if (next !== undefined) {
+            const targetY = stGallery.start + next * (stGallery.end - stGallery.start);
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(targetY, { duration: 1.0 });
+            } else {
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+            return true;
+          }
+        } else {
+          const prev = [...galleryMilestones].reverse().find((m) => m < p - 0.05);
+          if (prev !== undefined) {
+            const targetY = stGallery.start + prev * (stGallery.end - stGallery.start);
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(targetY, { duration: 1.0 });
+            } else {
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
+            return true;
+          }
+        }
+      }
+
+      return false;
+    },
+    []
+  );
+
+  // Helper to accurately derive the current active slide index directly from scroll position
+  const getActiveSlideIndex = useCallback((): number => {
+    const scrollY = window.scrollY;
+    // Pinned ranges
+    const stHero = ScrollTrigger.getById('hero-vision-pin');
+    if (stHero && scrollY <= stHero.end) {
+      if (stHero.progress < 0.30) return 0;
+      if (stHero.progress < 0.70) return 1;
+      return 2;
+    }
+    const stTech = ScrollTrigger.getById('tech-ecosystem-pin');
+    if (stTech && scrollY <= stTech.end) {
+      if (stTech.progress < 0.26) return 3;
+      if (stTech.progress < 0.44) return 4;
+      if (stTech.progress < 0.62) return 5;
+      if (stTech.progress < 0.80) return 6;
+      return 7;
+    }
+    // Check slide elements 9 to 15
+    for (let i = 15; i >= 9; i--) {
+      const el = document.getElementById(`slide-${i}`);
+      if (el) {
+        const allTriggers = ScrollTrigger.getAll();
+        const st = allTriggers.find((t) => (t.trigger === el || t.pin === el) && Boolean(t.pin));
+        const top = st ? st.start : el.getBoundingClientRect().top + scrollY;
+        if (scrollY >= top - 250) {
+          return i - 1;
+        }
+      }
+    }
+    return currentSlideIndex;
+  }, [currentSlideIndex]);
 
   // Keyboard navigation (Arrow keys / PageUp / PageDown)
   useEffect(() => {
@@ -221,42 +417,28 @@ export function App() {
         e.key === 'PageDown' ||
         e.key === ' '
       ) {
-        const techTrigger = ScrollTrigger.getById('tech-ecosystem-pin');
-        if (e.key === 'ArrowRight' && techTrigger?.isActive && techTrigger.progress < 0.08) {
-          e.preventDefault();
-          const targetY = techTrigger.start + 0.17 * (techTrigger.end - techTrigger.start);
-          if (lenisRef.current) {
-            lenisRef.current.scrollTo(targetY, { duration: 1.1 });
-          } else {
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
-          }
-          return;
-        }
-
         e.preventDefault();
-        if (currentSlideIndex < SLIDES.length - 1) {
-          handleNavigateToSlide(currentSlideIndex + 1);
+        // First try granular sub-step navigation (card by card, domain by domain, gallery item by item)
+        const handled = handleKeyboardStep(1);
+        if (!handled) {
+          const activeIdx = getActiveSlideIndex();
+          if (activeIdx < SLIDES.length - 1) {
+            handleNavigateToSlide(activeIdx + 1);
+          }
         }
       } else if (
         e.key === 'ArrowUp' ||
         e.key === 'ArrowLeft' ||
         e.key === 'PageUp'
       ) {
-        const techTrigger = ScrollTrigger.getById('tech-ecosystem-pin');
-        if (e.key === 'ArrowLeft' && techTrigger?.isActive && techTrigger.progress >= 0.26 && techTrigger.progress < 0.44) {
-          e.preventDefault();
-          const targetY = techTrigger.start + 0.17 * (techTrigger.end - techTrigger.start);
-          if (lenisRef.current) {
-            lenisRef.current.scrollTo(targetY, { duration: 1.1 });
-          } else {
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
-          }
-          return;
-        }
-
         e.preventDefault();
-        if (currentSlideIndex > 0) {
-          handleNavigateToSlide(currentSlideIndex - 1);
+        // First try granular backward sub-step navigation
+        const handled = handleKeyboardStep(-1);
+        if (!handled) {
+          const activeIdx = getActiveSlideIndex();
+          if (activeIdx > 0) {
+            handleNavigateToSlide(activeIdx - 1);
+          }
         }
       } else if (e.key === 'Home') {
         e.preventDefault();
@@ -269,10 +451,10 @@ export function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlideIndex]);
+  }, [getActiveSlideIndex, handleKeyboardStep, handleNavigateToSlide]);
 
   return (
-    <div className="relative min-h-screen bg-[#DFE6E7] text-[#203744] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#DFE6E7] text-[#203744] overflow-x-clip">
       {/* Film grain subtle overlay */}
       <div className="fixed inset-0 pointer-events-none grain-overlay z-30" />
 
@@ -280,7 +462,7 @@ export function App() {
       <AmbientCursor />
 
       {/* 15 Seamless Connected Chapters across 5 Choreographed Acts */}
-      <main className="relative z-10 overflow-x-hidden">
+      <main className="relative z-10 overflow-x-clip">
         {/* ACT I: Chapters 01 (Hero), 02 (Aim & Vision), 03 (Mission & Values) in Pinned Stage */}
         <HeroVisionStage onSlideChange={setCurrentSlideIndex} />
 
@@ -301,7 +483,9 @@ export function App() {
         <KineticTypographyDivider />
 
         {/* ACT V: Institutional Value, Model & Closing */}
-        <PricingSection />
+        <PricingSection
+          onOpenPartnershipModal={() => setIsPartnershipOpen(true)}
+        />
         <PartnershipClosingSection
           onOpenPartnershipModal={() => setIsPartnershipOpen(true)}
         />

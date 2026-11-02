@@ -11,6 +11,7 @@ import {
   Users,
 } from 'lucide-react';
 import { LineReveal } from '../components/motion/LineReveal';
+import { WordSplitReveal } from '../components/motion/WordSplitReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,9 +69,8 @@ export const BenefitsSection: React.FC = () => {
         
         {/* Clean Header Row */}
         <div className="pb-2.5 mb-3 sm:mb-4 border-b border-[#203744]/10 text-center">
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-normal text-[#203744] tracking-tight leading-tight">
-            Benefits for Schools &amp;{' '}
-            <span className="text-[#286D8B] font-bold italic">Students</span>
+          <h2 className="font-didone-bodoni text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-[#11452a] tracking-tight leading-tight">
+            <WordSplitReveal text="Benefits for Schools & Students" staggerMs={38} />
           </h2>
           <p className="font-sans-modern text-xs sm:text-sm text-[#203744]/80 mt-1 mx-auto max-w-2xl font-normal leading-relaxed">
             Translating laboratory capabilities into educational growth, student confidence, and campus distinction.

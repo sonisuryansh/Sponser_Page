@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ResponsibilityMatrix } from '../components/ResponsibilityMatrix';
+import { WordSplitReveal } from '../components/motion/WordSplitReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,9 +43,8 @@ export const ResponsibilitiesSection: React.FC = () => {
       <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto w-full lg:my-auto">
         {/* Parallel Header Row */}
         <div className="pb-2 mb-3 sm:mb-4 border-b border-[#203744]/10 text-center">
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-normal text-[#203744] tracking-tight leading-tight">
-            School Requirements &amp;{' '}
-            <span className="text-[#286D8B] font-bold italic">Delivery Responsibilities</span>
+          <h2 className="font-didone-bodoni text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-[#1e295d] tracking-tight leading-tight">
+            <WordSplitReveal text="School Requirements & Delivery Responsibilities" staggerMs={38} />
           </h2>
           <p className="font-sans-modern text-xs sm:text-sm text-[#203744]/80 max-w-2xl mx-auto mt-1 font-normal leading-relaxed">
             Transparent division of infrastructure, equipment, and teaching commitments for seamless operations.

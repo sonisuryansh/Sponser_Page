@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Compass, Lightbulb, Layers, GraduationCap, Cpu, ShieldCheck } from 'lucide-react';
 import { Magnetic } from '../components/motion/Magnetic';
 import { AnimatedCounter } from '../components/motion/AnimatedCounter';
+import { WordSplitReveal } from '../components/motion/WordSplitReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -130,9 +131,8 @@ export const LearningApproachSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-end mb-5 sm:mb-6 pb-4 border-b border-[#203744]/12">
           {/* Left: Title & Editorial Subtitle */}
           <div className="lg:col-span-7 xl:col-span-8 text-left">
-            <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl xl:text-[40px] font-normal text-[#1C2833] tracking-tight leading-tight">
-              Understanding How Technology{' '}
-              <span className="text-[#286D8B] font-bold italic">Truly Works.</span>
+            <h2 className="font-didone-bodoni text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-[#0e4a4d] tracking-tight leading-tight">
+              <WordSplitReveal text="Understanding How Technology Truly Works." staggerMs={38} />
             </h2>
             <p className="font-sans-modern text-xs sm:text-[13.5px] text-[#203744]/80 mt-1.5 max-w-2xl font-normal leading-relaxed">
               Moving beyond isolated workshop kits to cultivate enduring engineering intuition, logic, and creative confidence.
@@ -175,9 +175,13 @@ export const LearningApproachSection: React.FC = () => {
           
           {/* Left Column: 3 Pillars (Enlarged & Prominent) */}
           <div className="lg:col-span-4 flex flex-col gap-2.5 sm:gap-3">
-            {PILLARS.slice(0, 3).map((p) => (
+            {PILLARS.slice(0, 3).map((p, idx) => (
               <Magnetic key={p.title} strength={0.12}>
-                <div className="p-3 sm:p-3.5 xl:p-4 rounded-xl bg-white/95 hover:bg-white border border-[#203744]/12 hover:border-[#398BB0]/40 transition-all duration-300 shadow-2xs group interactive-card">
+                <div
+                  data-rev
+                  style={{ '--d': idx * 60 } as React.CSSProperties}
+                  className="p-3 sm:p-3.5 xl:p-4 rounded-xl bg-white/95 hover:bg-white border border-[#203744]/12 hover:border-[#398BB0]/40 transition-all duration-300 shadow-2xs group interactive-card"
+                >
                   <div className="flex items-center gap-2.5 mb-1.5">
                     <div className="p-1.5 rounded-lg bg-[#DFE6E7]/80 group-hover:bg-[#398BB0]/15 transition-colors shrink-0">
                       {p.icon}
@@ -216,9 +220,13 @@ export const LearningApproachSection: React.FC = () => {
 
           {/* Right Column: 3 Pillars (Enlarged & Prominent) */}
           <div className="lg:col-span-4 flex flex-col gap-2.5 sm:gap-3">
-            {PILLARS.slice(3, 6).map((p) => (
+            {PILLARS.slice(3, 6).map((p, idx) => (
               <Magnetic key={p.title} strength={0.12}>
-                <div className="p-3 sm:p-3.5 xl:p-4 rounded-xl bg-white/95 hover:bg-white border border-[#203744]/12 hover:border-[#398BB0]/40 transition-all duration-300 shadow-2xs group interactive-card">
+                <div
+                  data-rev
+                  style={{ '--d': (idx + 3) * 60 } as React.CSSProperties}
+                  className="p-3 sm:p-3.5 xl:p-4 rounded-xl bg-white/95 hover:bg-white border border-[#203744]/12 hover:border-[#398BB0]/40 transition-all duration-300 shadow-2xs group interactive-card"
+                >
                   <div className="flex items-center gap-2.5 mb-1.5">
                     <div className="p-1.5 rounded-lg bg-[#DFE6E7]/80 group-hover:bg-[#398BB0]/15 transition-colors shrink-0">
                       {p.icon}

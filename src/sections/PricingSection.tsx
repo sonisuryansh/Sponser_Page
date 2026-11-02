@@ -2,10 +2,15 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PricingCards } from '../components/PricingCards';
+import { WordSplitReveal } from '../components/motion/WordSplitReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const PricingSection: React.FC = () => {
+interface PricingSectionProps {
+  onOpenPartnershipModal?: (tierName?: string) => void;
+}
+
+export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenPartnershipModal }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
 
@@ -58,32 +63,12 @@ export const PricingSection: React.FC = () => {
         );
       }
 
-      // 3. Top bar reveal
-      const topBar = container.querySelector('.pricing-top-bar');
-      
-      if (topBar) {
-        gsap.fromTo(
-          topBar,
-          { opacity: 0, y: -15 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            scrollTrigger: {
-              trigger: container,
-              start: 'top 78%',
-              once: true,
-            },
-          }
-        );
-      }
-
-      // 4. Slide Scroll Lock (Pin): locks the pricing section comfortably in viewport
+      // 3. Slide Scroll Lock (Pin): locks the pricing section comfortably in viewport
       ScrollTrigger.create({
         id: 'pricing-section-pin',
         trigger: container,
         start: 'top top',
-        end: () => `+=${Math.round(window.innerHeight * 1.2)}`,
+        end: () => `+=${Math.round(window.innerHeight * 1.0)}`,
         pin: container,
         pinSpacing: true,
         anticipatePin: 1,
@@ -99,23 +84,22 @@ export const PricingSection: React.FC = () => {
       id="slide-14"
       data-slide-index="13"
       ref={containerRef}
-      className="w-full min-h-screen lg:h-screen lg:max-h-screen relative z-10 xl:z-30 flex flex-col justify-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid overflow-hidden"
+      className="w-full min-h-screen relative z-10 xl:z-30 flex flex-col justify-start pt-6 sm:pt-8 lg:pt-9 pb-6 px-4 sm:px-8 lg:px-12 xl:px-16 border-b border-[#203744]/10 bg-[#DFE6E7] tech-subtle-grid"
     >
-      <div className="max-w-[1240px] 2xl:max-w-[1320px] mx-auto w-full my-auto flex flex-col justify-center">
+      <div className="max-w-[1120px] 2xl:max-w-[1160px] mx-auto w-full flex flex-col">
         
         {/* Parallel Header Row */}
-        <div ref={headlineRef} className="pb-3 mb-4 sm:mb-5 border-b border-[#203744]/10 text-center">
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl xl:text-[40px] font-normal text-[#203744] tracking-tight leading-tight">
-            Program Model &{' '}
-            <span className="text-[#398BB0] font-bold italic">Proposed Student Fee</span>
+        <div ref={headlineRef} className="pb-2.5 mb-3 sm:mb-4 border-b border-[#203744]/10 text-center">
+          <h2 className="font-didone-bodoni text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-[#581424] tracking-tight leading-tight">
+            <WordSplitReveal text="Program Model & Proposed Student Fee" staggerMs={38} />
           </h2>
-          <p className="font-sans-modern text-xs sm:text-[14px] text-[#203744]/80 max-w-2xl mx-auto mt-1.5 font-normal leading-normal">
+          <p className="font-sans-modern text-xs sm:text-[13px] text-[#203744]/80 max-w-2xl mx-auto mt-1 font-normal leading-normal">
             Tiered monthly per-student packaging offering clear educational inclusions with room for school-specific timetable tailoring.
           </p>
         </div>
 
-        {/* Pricing Cards Component with Scroll Animations */}
-        <PricingCards />
+        {/* Pricing Cards Component with Scroll Animations & 3D Tilt Parallax */}
+        <PricingCards onSelectTier={onOpenPartnershipModal} />
 
       </div>
     </section>

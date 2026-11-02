@@ -42,3 +42,23 @@ export interface PackageTier {
   inclusions: string[];
   recommended?: boolean;
 }
+
+export interface GalleryItem {
+  id: string;
+  number: string;
+  title: string;
+  category: string;
+  tagline?: string;
+  summary: string;
+  detail?: string;
+  accentColor: string;
+  glowColor?: string;
+  icon?: any;
+  image?: string;
+  tags?: string[];
+  metric?: {
+    value: string;
+    label: string;
+  };
+}
+

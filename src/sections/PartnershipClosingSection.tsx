@@ -106,9 +106,9 @@ export const PartnershipClosingSection: React.FC<PartnershipClosingSectionProps>
           >
             {/* Closing Statement */}
             <div>
-              <h2 className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-normal text-white tracking-tight leading-tight">
+              <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-white tracking-tight leading-tight">
                 Let’s shape the future of{' '}
-                <span className="italic font-light text-[#38bdf8]">technology education together.</span>
+                <span className="italic font-semibold text-[#fbbf24]">technology education together.</span>
               </h2>
               <p className="font-sans-modern text-sm sm:text-base lg:text-[17px] text-white/80 mt-3 max-w-2xl font-normal leading-relaxed">
                 A turnkey engineering laboratory partnership designed to inspire learners, empower teachers, and establish lasting campus distinction.

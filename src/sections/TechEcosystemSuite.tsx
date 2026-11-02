@@ -651,13 +651,13 @@ export const TechEcosystemSuite: React.FC<TechEcosystemSuiteProps> = ({ onSlideC
         ref={headerRef}
         className="w-full text-center pt-3 sm:pt-4 px-4 relative z-10 transition-all duration-500"
       >
-        <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl font-normal text-white tracking-tight leading-tight">
-          our core technology <span className="italic font-light text-[#38bdf8]">ecosystem:</span>
+        <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-white tracking-tight leading-tight">
+          our core technology <span className="italic font-semibold text-[#10b981]">ecosystem:</span>
         </h2>
 
         {/* Hand-drawn Truus Style Underline */}
         <div className="w-36 sm:w-48 mx-auto -mt-0.5 mb-1">
-          <svg viewBox="0 0 159 17" fill="none" className="w-full text-[#38bdf8]">
+          <svg viewBox="0 0 159 17" fill="none" className="w-full text-[#10b981]">
             <path
               d="M1 12.1515C53.0771 5.7187 105.529 2.30552 158 1.93652"
               stroke="currentColor"

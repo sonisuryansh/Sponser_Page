@@ -110,7 +110,7 @@ export const AimVisionSection: React.FC = () => {
           <div className="lg:col-span-3 xl:col-span-3">
             <h2
               ref={leftHeadingRef}
-              className="font-serif-editorial text-5xl sm:text-7xl lg:text-8xl font-normal text-[#1C2833] tracking-tighter leading-[0.95]"
+              className="font-serif-editorial text-5xl sm:text-7xl lg:text-8xl font-bold text-[#1C2833] tracking-tighter leading-[0.95]"
             >
               Our aim<br />
               <span className="italic font-light text-[#286D8B]">is</span>
@@ -147,11 +147,11 @@ export const AimVisionSection: React.FC = () => {
           {/* Right Column: Expansive Statement & Top Meta (4 cols) */}
           <div ref={rightTextRef} className="lg:col-span-4 xl:col-span-4 space-y-5">
             <div className="font-sans-modern text-xs text-[#1C2833]/60 max-w-sm leading-relaxed border-l-2 border-[#398BB0] pl-3">
-              With structured curriculum and dedicated mentors, our program delivers technology education rooted in curiosity, precision, and excellence.
+              Curriculum and mentorship rooted in curiosity, precision, and hands-on excellence.
             </div>
 
             <p className="font-serif-editorial text-2xl sm:text-3xl lg:text-4xl text-[#1C2833] font-normal leading-[1.15] tracking-tight">
-              to make technology understandable through practical, age-appropriate learning that demystifies how modern hardware, software, and sensors interact.
+              Making technology understandable through practical building across hardware, software, and sensors.
             </p>
 
             <div className="pt-4 border-t border-[#1C2833]/10">
@@ -159,7 +159,7 @@ export const AimVisionSection: React.FC = () => {
                 Our Vision:
               </span>
               <p className="font-sans-modern text-sm text-[#1C2833]/80 leading-relaxed font-light">
-                To help students become confident problem-solvers, creators, and responsible users of technology equipped to adapt to rapid technological transformation.
+                Empowering students as confident creators, problem-solvers, and adaptive innovators.
               </p>
             </div>
           </div>

@@ -18,6 +18,7 @@ export const PartnershipModal: React.FC<PartnershipModalProps> = ({ isOpen, onCl
   const [hasComputers, setHasComputers] = useState(true);
   const [copied, setCopied] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [todayDate] = useState(() => new Date().toLocaleDateString('en-GB'));
 
   if (!isOpen) return null;
 
@@ -28,7 +29,7 @@ Target Grades: ${gradeRange}
 Selected Program Tier: ${selectedTier}
 Estimated Student Cohort: ${studentCount}
 Computer Lab Availability: ${hasComputers ? 'Confirmed (School Provided)' : 'Needs Arrangement'}
-Date: ${new Date().toLocaleDateString('en-GB')}`;
+Date: ${todayDate}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(summaryText);

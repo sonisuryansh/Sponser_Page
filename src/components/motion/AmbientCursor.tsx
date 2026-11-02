@@ -10,15 +10,15 @@ export const AmbientCursor: React.FC = () => {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
-  const [isActive, setIsActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Only enable on desktop with mouse pointers and no reduced motion
+  const [isActive] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isTouch || prefersReducedMotion) return;
+    return !isTouch && !prefersReducedMotion;
+  });
 
-    setIsActive(true);
+  useEffect(() => {
+    if (!isActive) return;
 
     const dot = dotRef.current;
     const ring = ringRef.current;
@@ -98,7 +98,7 @@ export const AmbientCursor: React.FC = () => {
       document.removeEventListener('pointerover', handlePointerOver);
       gsap.killTweensOf([dot, ring, spotlight]);
     };
-  }, []);
+  }, [isActive]);
 
   if (!isActive) return null;
 

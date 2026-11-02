@@ -20,7 +20,7 @@
   }
 
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     background-color: #DFE6E7;
     color: #203744;
     margin: 0;
@@ -30,7 +30,7 @@
   #root {
     width: 100%;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 
@@ -39,12 +39,55 @@
   font-family: 'Newsreader', Georgia, serif;
 }
 
+.font-didone-bodoni {
+  font-family: 'Bodoni Moda', 'Newsreader', Georgia, serif;
+}
+
+.font-script-caveat {
+  font-family: 'Caveat Brush', cursive;
+}
+
 .font-sans-modern {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .font-mono-tech {
   font-family: 'JetBrains Mono', monospace;
+}
+
+/* Per-atom Data-Rev Stagger Animation */
+[data-rev] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--d, 0) * 1ms);
+  will-change: opacity, transform;
+}
+
+[data-rev].is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* 38ms Word Span Atom Animations */
+.word-span-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: inherit;
+}
+
+.word-span-atom {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.word-span-atom.is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* Smooth Lenis Integration */
