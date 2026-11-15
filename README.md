@@ -1,32 +1,26 @@
-# React + TypeScript + Vite
+# MedhaArc Labs — School Technology Learning Initiative
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Interactive, cinematic presentation deck showcasing MedhaArc's K-12 STEM technology curriculum across 4 core engineering domains (Robotics & Automation, AI & Machine Learning, Data Analytics, and Aerial Systems).
 
-Currently, two official plugins are available:
+## Features
+- **Cinematic Presentation**: 15 choreographed slides across 5 interactive Acts with GSAP ScrollTrigger and Lenis smooth scrolling.
+- **Interactive Stacking Cards**: Dynamic grade-wise curriculum learning path with responsive viewport centering.
+- **Granular Keyboard Navigation**: Full Arrow Up/Down and Left/Right key support to navigate through individual slides, cards, and domain modules.
+- **High-Performance Stack**: React 19, TypeScript, Tailwind CSS, Vite, and GSAP.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting Started
 
-## React Compiler
+### Prerequisites
+- Node.js 18+
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Development
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Production Build
+```bash
+npm run build
+npm run preview
+```
