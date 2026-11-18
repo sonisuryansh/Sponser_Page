@@ -101,7 +101,7 @@ const domainThemeMap: Record<
 
 export const DomainsSection: React.FC = () => {
   const [selectedDomain, setSelectedDomain] = useState<DomainItem | null>(null);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
   const fanDeckRef = useRef<HTMLDivElement>(null);
 
   // GSAP Fan-in animation on scroll
@@ -165,10 +165,10 @@ export const DomainsSection: React.FC = () => {
       if (selectedDomain) return; // Modal is open
       const domains = siteConfig.domainsSection.domains;
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        setActiveCardIndex((prev) => (prev + 1) % domains.length);
+        setActiveCardIndex((prev) => (prev === null ? 0 : (prev + 1) % domains.length));
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        setActiveCardIndex((prev) => (prev - 1 + domains.length) % domains.length);
-      } else if (e.key === 'Enter') {
+        setActiveCardIndex((prev) => (prev === null ? domains.length - 1 : (prev - 1 + domains.length) % domains.length));
+      } else if (e.key === 'Enter' && activeCardIndex !== null) {
         setSelectedDomain(domains[activeCardIndex]);
       }
     };
@@ -196,7 +196,7 @@ export const DomainsSection: React.FC = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full my-auto"
         >
           {siteConfig.domainsSection.domains.map((domain, idx) => {
-            const isKeyboardActive = activeCardIndex === idx;
+            const isKeyboardActive = activeCardIndex !== null && activeCardIndex === idx;
             const theme = domainThemeMap[domain.id] || domainThemeMap.robotics;
 
             return (
