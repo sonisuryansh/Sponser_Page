@@ -1,41 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../config/content.config';
+import { ChapterShell } from '../components/ChapterShell';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const CurriculumSection: React.FC = () => {
   const [activeStageIndex, setActiveStageIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsStackRef = useRef<HTMLDivElement>(null);
 
-  // Combine stages based on toggle
   const allStages = [
     ...siteConfig.curriculum.stages,
     ...(siteConfig.showBeyondGrade10 ? siteConfig.curriculum.beyondGrade10 : []),
   ];
 
+  // GSAP Pin + Scrub: Each card slides up and covers previous as user scrolls
+  useEffect(() => {
+    const el = containerRef.current;
+    const stack = cardsStackRef.current;
+    if (!el || !stack) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
+
+    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top top',
+        end: `+=${allStages.length * 75}%`,
+        pin: true,
+        scrub: 0.5,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const idx = Math.min(allStages.length - 1, Math.floor(self.progress * allStages.length));
+          setActiveStageIndex(idx);
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, [allStages.length]);
+
   const currentStage = allStages[activeStageIndex];
 
   return (
-    <section
-      id="curriculum"
-      data-chapter="06"
-      className="relative w-full min-h-screen py-24 md:py-32 flex flex-col justify-between bg-[#f8fafb] text-[#111111] select-none snap-start"
-    >
-      <div className="max-w-6xl mx-auto px-6 md:px-12 w-full flex-1 flex flex-col justify-between">
+    <ChapterShell id="curriculum" chapterNumber="06" theme="dark">
+      <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
         {/* Section Header */}
         <div>
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-3">
+          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1.5">
             {siteConfig.curriculum.eyebrow}
           </div>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-            <h2 className="font-serif text-[clamp(32px,3.8vw,52px)] font-normal leading-[1.15] tracking-tight text-[#111111] max-w-2xl">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-4">
+            <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.14] tracking-tight text-white max-w-2xl">
               {siteConfig.curriculum.headline}
             </h2>
-            <p className="text-xs uppercase tracking-wider text-[#5b5b5b] font-mono">
+            <p className="text-[11px] uppercase tracking-wider text-white/50 font-mono">
               {siteConfig.curriculum.subnote}
             </p>
           </div>
 
           {/* Thin Progress Rail (4 -> 10) */}
-          <div className="border-t border-b border-black/10 py-3 my-6 flex items-center justify-between overflow-x-auto no-scrollbar gap-2">
+          <div className="border-t border-b border-white/10 py-2.5 my-2 flex items-center justify-between overflow-x-auto no-scrollbar gap-2">
             {allStages.map((stage, idx) => {
               const isCurrent = activeStageIndex === idx;
               const isPast = activeStageIndex > idx;
@@ -43,12 +76,12 @@ export const CurriculumSection: React.FC = () => {
                 <button
                   key={stage.id}
                   onClick={() => setActiveStageIndex(idx)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-[2px] transition-all text-xs font-mono uppercase tracking-wider shrink-0 cursor-pointer ${
+                  className={`flex items-center gap-2 px-3 py-1 rounded-[2px] transition-all text-xs font-mono uppercase tracking-wider shrink-0 cursor-pointer ${
                     isCurrent
-                      ? 'bg-[#111111] text-white font-medium'
+                      ? 'bg-white text-black font-semibold'
                       : isPast
-                      ? 'text-[#111111] hover:bg-black/5'
-                      : 'text-[#5b5b5b]/60 hover:text-[#111111]'
+                      ? 'text-white/80 hover:bg-white/10'
+                      : 'text-white/40 hover:text-white'
                   }`}
                 >
                   <span className={`w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-[#c8a45d]' : 'bg-current'}`} />
@@ -59,34 +92,34 @@ export const CurriculumSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Active Stage Card (Approx 80% viewport card feel, clean typography) */}
-        <div className="my-auto py-6">
-          <div className="relative w-full max-w-4xl mx-auto bg-white border border-black/10 p-8 sm:p-12 md:p-14 rounded-[2px] shadow-sm transition-all duration-300">
+        {/* Active Stacking Card (~80% viewport width feel, large grade number) */}
+        <div ref={cardsStackRef} className="my-auto py-2">
+          <div className="stack-grade-card relative w-full max-w-3xl mx-auto bg-[#121822] border border-white/15 p-6 sm:p-10 rounded-[2px] shadow-2xl transition-all duration-300">
             {/* Top Grade Meta */}
-            <div className="flex items-center justify-between border-b border-black/10 pb-6 mb-8">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
               <span className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-mono">
                 Stage 0{activeStageIndex + 1} of {allStages.length}
               </span>
-              <span className="text-sm uppercase tracking-widest font-mono text-[#5b5b5b]">
+              <span className="text-base uppercase tracking-widest font-mono text-white/80 font-bold">
                 {currentStage.gradeLabel}
               </span>
             </div>
 
             {/* Stage Title and Large Focus Line */}
-            <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#111111] mb-6">
+            <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-white mb-4">
               {currentStage.title}
             </h3>
 
-            <p className="text-lg sm:text-xl md:text-2xl text-[#5b5b5b] font-normal leading-relaxed max-w-3xl mb-10">
+            <p className="text-base sm:text-lg md:text-xl text-white/70 font-normal leading-relaxed max-w-2xl mb-8">
               {currentStage.focus}
             </p>
 
             {/* Up to 3 Short Chips */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-black/10">
+            <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-white/10">
               {currentStage.chips.map((chip) => (
                 <span
                   key={chip}
-                  className="px-3 py-1.5 bg-[#f0f4f6] text-[#111111] text-xs font-mono uppercase tracking-wider rounded-[2px] border border-black/5"
+                  className="px-3 py-1 bg-white/5 text-white/90 text-xs font-mono uppercase tracking-wider rounded-[2px] border border-white/10"
                 >
                   {chip}
                 </span>
@@ -95,32 +128,28 @@ export const CurriculumSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Presenter Stage Controls (Next / Prev) */}
-        <div className="flex items-center justify-between border-t border-black/10 pt-6 text-xs text-[#5b5b5b]">
-          <span className="font-mono">
-            Grades 4 through 10 Structured Pathway
-          </span>
-
-          <div className="flex items-center gap-3">
+        {/* Presenter Grade Navigation */}
+        <div className="flex items-center justify-end border-t border-white/10 pt-4 text-xs text-white/50">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveStageIndex((prev) => Math.max(0, prev - 1))}
               disabled={activeStageIndex === 0}
-              className="flex items-center gap-1 px-3 py-1.5 border border-black/15 text-[#111111] disabled:opacity-30 rounded-[2px] hover:border-black transition-colors cursor-pointer disabled:cursor-not-allowed"
+              className="flex items-center gap-1 px-3 py-1 border border-white/20 text-white disabled:opacity-30 rounded-[2px] hover:border-white transition-colors cursor-pointer disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
-              <span>Previous Grade</span>
+              <span>Previous</span>
             </button>
             <button
               onClick={() => setActiveStageIndex((prev) => Math.min(allStages.length - 1, prev + 1))}
               disabled={activeStageIndex === allStages.length - 1}
-              className="flex items-center gap-1 px-3 py-1.5 border border-black/15 text-[#111111] disabled:opacity-30 rounded-[2px] hover:border-black transition-colors cursor-pointer disabled:cursor-not-allowed"
+              className="flex items-center gap-1 px-3 py-1 border border-white/20 text-white disabled:opacity-30 rounded-[2px] hover:border-white transition-colors cursor-pointer disabled:cursor-not-allowed"
             >
-              <span>Next Grade</span>
+              <span>Next</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       </div>
-    </section>
+    </ChapterShell>
   );
 };

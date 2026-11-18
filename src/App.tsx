@@ -37,7 +37,7 @@ export function App() {
   // Ordered list of section metadata (14 sections)
   // Respects swapRequirementsAndPricing toggle
   const orderedSections = useMemo(() => {
-    const list: Array<{ id: string; title: string; number: string }> = [];
+    const list: Array<{ id: string; title: string; number: string; theme: 'dark' | 'light' }> = [];
 
     siteConfig.acts.forEach((act) => {
       act.sections.forEach((sec) => {
@@ -57,7 +57,7 @@ export function App() {
     return list;
   }, []);
 
-  // Initialize Lenis Smooth Scroll
+  // Initialize Lenis + GSAP ticker sync
   useEffect(() => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
@@ -66,18 +66,17 @@ export function App() {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    if (!prefersReducedMotion) {
+      document.documentElement.classList.add('js-motion');
+    }
+
     const lenis = new Lenis({
-      duration: prefersReducedMotion ? 0 : 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo out
+      lerp: 0.085,
       smoothWheel: !prefersReducedMotion,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.5,
     });
     lenisRef.current = lenis;
 
-    lenis.on('scroll', () => {
-      ScrollTrigger.update();
-    });
+    lenis.on('scroll', ScrollTrigger.update);
 
     const tickerCb = (time: number) => {
       lenis.raf(time * 1000);
@@ -100,7 +99,7 @@ export function App() {
       },
       {
         root: null,
-        rootMargin: '-35% 0px -35% 0px',
+        rootMargin: '-30% 0px -30% 0px',
         threshold: 0.1,
       }
     );
@@ -114,6 +113,7 @@ export function App() {
       observer.disconnect();
       gsap.ticker.remove(tickerCb);
       lenis.destroy();
+      document.documentElement.classList.remove('js-motion');
     };
   }, [orderedSections]);
 
@@ -123,7 +123,6 @@ export function App() {
       const targetEl = document.getElementById(sectionId);
       if (targetEl && lenisRef.current) {
         lenisRef.current.scrollTo(targetEl, {
-          offset: 0,
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
@@ -148,7 +147,6 @@ export function App() {
   // Presenter Keyboard Navigation (Arrow Keys move section-by-section)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Do not intercept if user is typing in form inputs or dialog is open
       if (
         isContactOpen ||
         document.activeElement?.tagName === 'INPUT' ||
@@ -158,10 +156,19 @@ export function App() {
         return;
       }
 
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+      // If user is inside domains section, domain card handler manages left/right
+      const currentId = orderedSections[currentSectionIndex]?.id;
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
         navigateToIndex(currentSectionIndex + 1);
-      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        navigateToIndex(currentSectionIndex - 1);
+      } else if (e.key === 'ArrowRight' && currentId !== 'domains') {
+        e.preventDefault();
+        navigateToIndex(currentSectionIndex + 1);
+      } else if (e.key === 'ArrowLeft' && currentId !== 'domains') {
         e.preventDefault();
         navigateToIndex(currentSectionIndex - 1);
       } else if (e.key === 'Home') {
@@ -175,22 +182,24 @@ export function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSectionIndex, orderedSections.length, isContactOpen, navigateToIndex]);
+  }, [currentSectionIndex, orderedSections, isContactOpen, navigateToIndex]);
 
   const currentSection = orderedSections[currentSectionIndex] || orderedSections[0];
 
   return (
     <div className="relative w-full min-h-screen bg-[#ffffff] text-[#111111] font-sans antialiased selection:bg-[#c8a45d] selection:text-white">
-      {/* 00-100 Preloader */}
+      {/* 00-100 Preloader with tagline wipe */}
       <Preloader onComplete={() => setIsPreloaderDone(true)} />
 
-      {/* Fixed Chrome: Header & Chapter HUD */}
+      {/* Dynamic Theme Adaptive Header */}
       <Header
         currentSectionId={currentSection.id}
+        currentTheme={currentSection.theme}
         onNavigate={navigateToSection}
         onOpenContact={() => setIsContactOpen(true)}
       />
 
+      {/* Transparent Bottom-Left Chapter HUD with mix-blend-difference */}
       <ChapterHUD
         currentIndex={currentSectionIndex}
         totalCount={orderedSections.length}

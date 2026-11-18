@@ -83,44 +83,44 @@ export const siteConfig = {
       actNumber: '01',
       actTitle: 'Who We Are',
       sections: [
-        { id: 'home', number: '01', title: 'Home' },
-        { id: 'about', number: '02', title: 'About' },
-        { id: 'mission', number: '03', title: 'Our Mission' },
+        { id: 'home', number: '01', title: 'Home', theme: 'dark' as const },
+        { id: 'about', number: '02', title: 'About', theme: 'light' as const },
+        { id: 'mission', number: '03', title: 'Our Mission', theme: 'light' as const },
       ],
     },
     {
       actNumber: '02',
       actTitle: 'What Students Learn',
       sections: [
-        { id: 'domains', number: '04', title: 'Technology Domains' },
-        { id: 'approach', number: '05', title: 'Learning Approach' },
-        { id: 'curriculum', number: '06', title: 'Curriculum' },
-        { id: 'showcase', number: '07', title: 'Student Projects' },
+        { id: 'domains', number: '04', title: 'Technology Domains', theme: 'dark' as const },
+        { id: 'approach', number: '05', title: 'Learning Approach', theme: 'light' as const },
+        { id: 'curriculum', number: '06', title: 'Curriculum', theme: 'dark' as const },
+        { id: 'showcase', number: '07', title: 'Student Projects', theme: 'light' as const },
       ],
     },
     {
       actNumber: '03',
       actTitle: 'How It Runs',
       sections: [
-        { id: 'lab-setup', number: '08', title: 'STEM Lab Setup' },
-        { id: 'resources', number: '09', title: 'LMS & Resources' },
-        { id: 'teacher-empowerment', number: '10', title: 'Teacher Empowerment' },
+        { id: 'lab-setup', number: '08', title: 'STEM Lab Setup', theme: 'dark' as const },
+        { id: 'resources', number: '09', title: 'LMS & Resources', theme: 'light' as const },
+        { id: 'teacher-empowerment', number: '10', title: 'Teacher Empowerment', theme: 'light' as const },
       ],
     },
     {
       actNumber: '04',
       actTitle: 'What Students Gain',
       sections: [
-        { id: 'benefits', number: '11', title: 'Student & School Benefits' },
+        { id: 'benefits', number: '11', title: 'Student & School Benefits', theme: 'dark' as const },
       ],
     },
     {
       actNumber: '05',
       actTitle: 'Terms & Next Step',
       sections: [
-        { id: 'requirements', number: '12', title: 'Requirements & Delivery' },
-        { id: 'pricing', number: '13', title: 'Pricing Packages' },
-        { id: 'closing', number: '14', title: 'Partnership' },
+        { id: 'requirements', number: '12', title: 'Requirements & Delivery', theme: 'light' as const },
+        { id: 'pricing', number: '13', title: 'Pricing Packages', theme: 'light' as const },
+        { id: 'closing', number: '14', title: 'Partnership', theme: 'dark' as const },
       ],
     },
   ],
@@ -196,7 +196,7 @@ export const siteConfig = {
   // Act 2: 04 Technology Domains
   domainsSection: {
     eyebrow: 'Specialisations',
-    headline: 'Four distinct engineering disciplines, unified by mathematical foundations.',
+    headline: 'Four connected domains, one mathematical foundation.',
     domains: [
       {
         id: 'robotics',

@@ -1,79 +1,135 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { siteConfig } from '../config/content.config';
+import { ChapterShell } from '../components/ChapterShell';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const AboutSection: React.FC = () => {
   const [activeWordIndex, setActiveWordIndex] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const panelsRef = useRef<HTMLDivElement>(null);
 
-  // Four words lighting in order: Understand -> Design -> Test -> Apply
+  // Sequential light-up of the 4 Focus words
   useEffect(() => {
     const words = siteConfig.about.panels[2].highlightWords || ['Understand', 'Design', 'Test', 'Apply'];
     const interval = setInterval(() => {
       setActiveWordIndex((prev) => (prev + 1) % words.length);
-    }, 1200);
+    }, 1100);
     return () => clearInterval(interval);
   }, []);
 
+  // Scrubbed animation: panels staggered rise on scroll into view
+  useEffect(() => {
+    const el = panelsRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
+    const panels = el.querySelectorAll<HTMLElement>('.about-panel');
+
+    // Failsafe: Ensure everything is 100% visible
+    const failsafe = setTimeout(() => {
+      panels.forEach((p) => {
+        p.style.opacity = '1';
+        p.style.transform = 'none';
+      });
+    }, 2500);
+
+    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
+      panels.forEach((p) => {
+        p.style.opacity = '1';
+        p.style.transform = 'none';
+      });
+      return () => clearTimeout(failsafe);
+    }
+
+    const tween = gsap.fromTo(
+      panels,
+      { y: 36, opacity: 0.15 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        stagger: 0.15,
+        ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          once: true,
+        },
+      }
+    );
+
+    return () => {
+      clearTimeout(failsafe);
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, []);
+
   return (
-    <section
-      id="about"
-      data-chapter="02"
-      className="relative w-full min-h-screen py-24 md:py-32 flex items-center bg-[#ffffff] text-[#111111] snap-start"
-    >
-      <div className="max-w-6xl mx-auto px-6 md:px-12 w-full">
+    <ChapterShell id="about" chapterNumber="02" theme="light">
+      <div ref={sectionRef} className="w-full flex-1 flex flex-col justify-between py-2">
         {/* Eyebrow & Statement Headline */}
-        <div className="mb-14 md:mb-20 max-w-3xl">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-3">
+        <div className="mb-6 md:mb-10 max-w-3xl">
+          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-2.5">
             {siteConfig.about.eyebrow}
           </div>
-          <h2 className="font-serif text-[clamp(32px,4vw,56px)] font-normal leading-[1.15] tracking-tight text-[#111111]">
+          <h2 className="font-serif text-[clamp(28px,3.8vw,52px)] font-normal leading-[1.14] tracking-tight text-[#111111]">
             {siteConfig.about.headline}
           </h2>
         </div>
 
-        {/* Three Equal Panels */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 border-t border-black/10 pt-10">
+        {/* Three Equal Panels (Full height of container, hairline dividers, 100% visible) */}
+        <div
+          ref={panelsRef}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 border-t border-black/10 pt-6 my-auto"
+        >
           {/* Panel 1: Our Aim */}
-          <div className="flex flex-col justify-between p-2">
+          <div className="about-panel flex flex-col justify-between p-3">
             <div>
               <span className="text-xs uppercase tracking-[0.18em] text-[#5b5b5b] font-mono">
                 01 / Aim
               </span>
-              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mt-3 mb-4 text-[#111111]">
+              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mt-2 mb-3 text-[#111111]">
                 {siteConfig.about.panels[0].title}
               </h3>
             </div>
-            <p className="text-[17px] md:text-[19px] leading-[1.6] text-[#5b5b5b] font-normal">
+            <p className="text-[17px] md:text-[18px] leading-[1.6] text-[#5b5b5b] font-normal">
               {siteConfig.about.panels[0].description}
             </p>
           </div>
 
           {/* Panel 2: Our Vision */}
-          <div className="flex flex-col justify-between p-2 md:border-l md:border-black/10 md:pl-10">
+          <div className="about-panel flex flex-col justify-between p-3 md:border-l md:border-black/10 md:pl-8">
             <div>
               <span className="text-xs uppercase tracking-[0.18em] text-[#5b5b5b] font-mono">
                 02 / Vision
               </span>
-              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mt-3 mb-4 text-[#111111]">
+              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mt-2 mb-3 text-[#111111]">
                 {siteConfig.about.panels[1].title}
               </h3>
             </div>
-            <p className="text-[17px] md:text-[19px] leading-[1.6] text-[#5b5b5b] font-normal">
+            <p className="text-[17px] md:text-[18px] leading-[1.6] text-[#5b5b5b] font-normal">
               {siteConfig.about.panels[1].description}
             </p>
           </div>
 
           {/* Panel 3: Our Focus */}
-          <div className="flex flex-col justify-between p-2 md:border-l md:border-black/10 md:pl-10">
+          <div className="about-panel flex flex-col justify-between p-3 md:border-l md:border-black/10 md:pl-8">
             <div>
               <span className="text-xs uppercase tracking-[0.18em] text-[#5b5b5b] font-mono">
                 03 / Focus
               </span>
-              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mt-3 mb-4 text-[#111111]">
+              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mt-2 mb-3 text-[#111111]">
                 {siteConfig.about.panels[2].title}
               </h3>
             </div>
             <div>
-              <p className="text-[17px] md:text-[19px] leading-[1.6] text-[#5b5b5b] font-normal mb-6">
+              <p className="text-[17px] md:text-[18px] leading-[1.6] text-[#5b5b5b] font-normal mb-5">
                 {siteConfig.about.panels[2].description}
               </p>
 
@@ -84,9 +140,9 @@ export const AboutSection: React.FC = () => {
                   return (
                     <span
                       key={word}
-                      className={`text-xs md:text-sm uppercase tracking-wider px-2.5 py-1 rounded-[2px] transition-all duration-300 ${
+                      className={`text-xs uppercase tracking-wider px-2.5 py-1 rounded-[2px] transition-all duration-300 ${
                         isCurrent
-                          ? 'bg-[#111111] text-white font-medium scale-105'
+                          ? 'bg-[#111111] text-white font-medium scale-105 shadow-xs'
                           : 'bg-black/5 text-[#5b5b5b]'
                       }`}
                     >
@@ -98,7 +154,12 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Quiet Subnote Bottom */}
+        <div className="pt-4 border-t border-black/5 flex items-center justify-end text-xs font-mono text-[#5b5b5b]/60">
+          <span>Understand → Design → Test → Apply</span>
+        </div>
       </div>
-    </section>
+    </ChapterShell>
   );
 };

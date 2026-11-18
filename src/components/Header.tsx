@@ -4,12 +4,14 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface HeaderProps {
   currentSectionId: string;
+  currentTheme: 'dark' | 'light';
   onNavigate: (sectionId: string) => void;
   onOpenContact: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentSectionId,
+  currentTheme,
   onNavigate,
   onOpenContact,
 }) => {
@@ -41,31 +43,41 @@ export const Header: React.FC<HeaderProps> = ({
     onNavigate(id);
   };
 
+  const isDark = currentTheme === 'dark';
+
   return (
     <>
       <header
         role="banner"
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 bg-gradient-to-b from-black/50 via-black/20 to-transparent pointer-events-auto select-none"
+        className={`fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 bg-transparent pointer-events-auto select-none transition-colors duration-400 ${
+          isDark ? 'text-white' : 'text-[#111111]'
+        }`}
       >
         {/* Brand / Logo Left */}
         <button
           onClick={() => handleSelectSection('home')}
-          className="flex items-center gap-3 text-white text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+          className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer"
           aria-label="MedhaArc Labs home"
         >
           <img
             src="/assets/medha_arc_nav_logo.webp"
             alt=""
-            className="w-7 h-7 object-contain brightness-110"
+            className={`w-7 h-7 object-contain transition-all duration-300 ${
+              isDark ? 'brightness-110' : 'brightness-0'
+            }`}
             onError={(e) => {
               (e.currentTarget as HTMLElement).style.display = 'none';
             }}
           />
           <div className="flex flex-col">
-            <span className="font-serif text-lg md:text-xl font-medium tracking-tight leading-none text-white drop-shadow-sm">
+            <span className="font-serif text-lg md:text-xl font-medium tracking-tight leading-none">
               {siteConfig.brandName}
             </span>
-            <span className="text-[10px] uppercase tracking-[0.18em] text-white/70 mt-1">
+            <span
+              className={`text-[10px] uppercase tracking-[0.18em] mt-1 ${
+                isDark ? 'text-white/60' : 'text-[#5b5b5b]'
+              }`}
+            >
               School Initiative
             </span>
           </div>
@@ -75,24 +87,31 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-6">
           <button
             onClick={onOpenContact}
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] text-white/85 hover:text-white transition-colors relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-white after:origin-left hover:after:scale-x-100 after:scale-x-0 after:transition-transform cursor-pointer"
+            className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] transition-colors relative pb-0.5 cursor-pointer after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-current after:origin-left hover:after:scale-x-100 after:scale-x-0 after:transition-transform ${
+              isDark ? 'text-white/80 hover:text-white' : 'text-[#111111]/80 hover:text-[#111111]'
+            }`}
           >
             <span>Consultation</span>
             <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
           </button>
 
+          {/* Outline-only Menu button */}
           <button
             onClick={() => setIsMenuOpen(true)}
             aria-label="Open presentation menu"
-            className="flex items-center gap-2 px-3 py-1.5 border border-white/20 hover:border-white/40 text-white rounded-[2px] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white bg-black/20 backdrop-blur-xs cursor-pointer"
+            className={`flex items-center gap-2 px-3 py-1.5 border rounded-[2px] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
+              isDark
+                ? 'border-white/30 hover:border-white text-white'
+                : 'border-black/30 hover:border-black text-[#111111]'
+            }`}
           >
             <span className="text-xs uppercase tracking-[0.18em]">Menu</span>
-            <Menu className="w-4 h-4 text-white" />
+            <Menu className="w-4 h-4" />
           </button>
         </div>
       </header>
 
-      {/* Full-Screen Two-Level Menu */}
+      {/* Full-Screen Curtain / Clip-path Menu Overlay */}
       {isMenuOpen && (
         <div
           role="dialog"
@@ -114,7 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={() => setIsMenuOpen(false)}
               aria-label="Close menu"
-              className="flex items-center gap-2 px-3 py-1.5 border border-white/20 hover:border-white text-white rounded-[2px] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white cursor-pointer"
+              className="flex items-center gap-2 px-3 py-1.5 border border-white/30 hover:border-white text-white rounded-[2px] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white cursor-pointer"
             >
               <span className="text-xs uppercase tracking-[0.18em]">Close</span>
               <X className="w-4 h-4 text-white" />
