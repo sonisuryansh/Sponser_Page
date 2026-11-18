@@ -193,7 +193,7 @@ export const LabSetupSection: React.FC = () => {
         </div>
 
         {/* Safety & Compliance Badge */}
-        <div className="border-t border-white/10 pt-2 flex items-center justify-between text-[11px] font-mono text-white/50">
+        <div className="ml-0 md:ml-48 border-t border-white/10 pt-2 flex items-center justify-between text-[11px] font-mono text-white/50">
           <span>Electrical, ESD & Ventilation Safety Compliant</span>
           <span>Dual Fire-Extinguisher & First-Aid Protocol</span>
         </div>

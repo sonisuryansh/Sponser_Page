@@ -165,7 +165,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
         </div>
 
         {/* Footnote at Base */}
-        <div className="p-3 border border-black/10 bg-gradient-to-r from-amber-50/30 to-white rounded-[2px] text-xs text-[#5b5b5b] leading-relaxed max-w-4xl mt-3">
+        <div className="ml-0 md:ml-48 p-3 border border-black/10 bg-gradient-to-r from-amber-50/30 to-white rounded-[2px] text-xs text-[#5b5b5b] leading-relaxed max-w-3xl mt-3">
           <p>
             {siteConfig.pricing.footnote}
             {siteConfig.confirm.pricingFootnoteExtra && ` ${siteConfig.confirm.pricingFootnoteExtra}`}
