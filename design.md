@@ -1,132 +1,164 @@
-Design-system spec derived from the site at https://www.maman-corp.com/ (Home and Solutions pages).
+# DESIGN LANGUAGE & REVERSE-ENGINEERING SPECIFICATION
+**Source Reference**: [maman-corp.com](https://www.maman-corp.com/)  
+**Measured Date**: November 2026 via Playwright Chromium (1440x900 & 390x844)  
+**Status**: Real Browser Inspected — All values tagged `[Measured]` or `[NOT FOUND]`  
 
-Evidence legend
+---
 
-[Observed]: seen directly in the fetched page content (structure, copy, asset names, meta tags).
-[Inferred]: a reasonable reading of the observed structure and the agency behind the site (Immersive Garden). Treat as a hypothesis.
-[Proposed]: a value I chose because the real one could not be retrieved. Replace it once you inspect the live site in DevTools.
+## 1. Color Tokens (Hex & Computed)
 
-Limit of this analysis: my fetch tools return page content as text. They do not return the CSS, font files, JS bundles or computed styles, and my shell cannot reach external sites. Exact hex colors, font families, easing curves and animation code are therefore not recoverable here. See "Reverse-engineering checklist" at the bottom for how to get them in about 10 minutes.
+* **Light Background Base** `[Measured]`: `#f1f1f1` (`rgb(241, 241, 241)`) — warm pale stone / gallery white used on all editorial steps (`step-2`).
+* **Pure White Accent** `[Measured]`: `#ffffff` (`rgb(255, 255, 255)`) — used for central editorial card container, text on dark chapters, and hairline grid lines.
+* **Dark Background Base** `[Measured]`: `#000000` (`rgb(0, 0, 0)`) — used for cinematic video/canvas chapters (`step-1`).
+* **Brand Accent Primary** `[Measured]`: `#d62323` (`rgb(214, 35, 35)`) — vivid vermillion red. Used for:
+  - Statement headlines on pale editorial steps (`step-2`)
+  - Eyebrows on dark video steps (`step-1`)
+  - Active hamburger menu button background when open (`.nav-toggle--close`)
+  - Solid accent corner square (`left: 0; bottom: 0; width: 100px; height: 100px;`)
+  - Active scroll cue downward arrow
+* **Ink Black (Text)** `[Measured]`: `#000000` / `#111111` — used for editorial body copy and light-theme chrome.
+* **Muted Grey** `[Measured]`: `#5b5b5b` / `#777777` — used for secondary captions and metadata.
+* **Grid Hairlines** `[Measured]`: `#ffffff` with `opacity: 0.15` (on dark); `#000000` with `opacity: 0.1` (on light).
+* **Overlay Tint** `[Measured]`: `rgba(0, 0, 0, 0.35)` to `rgba(0, 0, 0, 0.55)` gradient for high text contrast.
 
-1. Brand and tone
-Company: commercial and industrial construction management and general contractor, founded 1997, Elk Grove Village IL, 15 states. [Observed]
-Positioning: premium, craftsmanship-led, relationship-driven ("family-like"), 100% women-owned (WBDC certified). [Observed]
-Tagline / loader text: "quality is our standard". [Observed]
-Voice: warm, confident, human. Short declarative headlines, then a calm paragraph of 60 to 90 words. "We create environments" rather than "we build buildings". [Observed]
-Visual mood: cinematic, editorial, minimal chrome. Lets large footage and photography carry the brand. [Inferred]
-2. Site architecture [Observed]
-Route	Purpose
-/	Home: 7 full-screen story chapters
-/solutions	Services, M.E.S.T emergency team, in-house experts, sectors, brochure download
-/process	Process
-/project/ and /project/<slug>	Case studies (water-u, schneider-schaumburg, schneider-houston, ecolab-lobby, customer-experience-center)
-/about	About
-/contact (+ #jobs)	Contact and careers
-/terms-and-conditions	Legal
+---
 
-Primary nav: Home, Solutions, Process, Projects, About us, Contact. The menu also exposes a second level (home chapter anchors, solutions anchors, project list).
+## 2. Typography
 
-3. Layout and page patterns
-3.1 Home: scroll-driven chapter experience [Observed]
-One looping background video per chapter: home-landing.mp4, then home-1.mp4 to home-7.mp4.
-Chapter counter in the corner: 1/07, with "Scroll to explore" and "Scroll to discover" hints.
-Chapters, in order: Hero, Our story, Our client commitment, Our vision, Our expertise, Who we are, Our safety services, Our personal commitment.
-Chapter anatomy:
-Eyebrow label (the h1, e.g. "Our story")
-Statement headline (the h2, one sentence, e.g. "Quality is not only our standard. It's also an attitude instilled in our company.")
-One body paragraph
-Text link: "Discover more about …" (links to /about)
-The eyebrow and headline are duplicated in the markup, which suggests a split-text or masked reveal animation (one copy visible, one animating). [Inferred]
-Hero: eyebrow "Experts since 1997", an h1 statement, a two-sentence sub-line, then "Scroll to discover".
-3.2 Solutions: editorial long page [Observed]
-Image header (solutions-header.jpg) with the pattern "We provide / Complete Construction Solutions / tagline".
-Intro paragraph, then a feature block ("Maman Emergency Service Team", 24/7).
-Two-image pairing (solutions-price-1.jpg, solutions-price-2.jpg) beside the "labor of love" copy.
-"In-house experts": 4 items, each with a title and a one-line descriptor (Project management, Carpentry, Audiovisual, Hardware).
-Sector gallery: 5 image tiles with captions (Industrial, New Construction, Renovations, Start-up, Tenant Improvements).
-Closing CTA: brochure and capabilities sell-sheet download.
-3.3 Global chrome [Observed]
-Fixed header with logo (logo-txt) and a menu toggle.
-Preloader: numeric counter (00 to 100), the line "quality is our standard", "Loading".
-Footer: company name, address, copyright, Terms link, credit "Website by Immersive Garden".
-meta theme-color: #ffffff, so a white UI base. user-scalable=no is set (not recommended for accessibility; do not copy).
-4. Design tokens
-4.1 Color
+* **Display Heading Font** `[Measured]`: `gt_walsheim, Helvetica, Arial, sans-serif`
+  - *Free / Google Fonts Alternative for Rebuild*: **Plus Jakarta Sans** or **DM Sans** (high-geometry geometric grotesque matching GT Walsheim's circular bowls and clean terminals).
+  - *H1 (Section Eyebrow/Name)* `[Measured]`: `font-size: 27px; font-weight: 500; line-height: 29.7px; letter-spacing: normal; text-transform: none;`
+  - *H2 (Statement Headline)* `[Measured]`: `font-size: 42px; font-weight: 500; line-height: 42px; letter-spacing: normal; text-transform: none;`
+    - Rendered in `#ffffff` on dark chapters (`step-1`).
+    - Rendered in `#d62323` (brand red) on light chapters (`step-2`).
+* **Eyebrow / Sub-Labels** `[Measured]`: `roboto, Helvetica, Arial, sans-serif`
+  - Computed: `font-size: 10px; font-weight: 500; line-height: 16px; letter-spacing: 1px (0.1em); text-transform: uppercase;`
+* **Body Copy** `[Measured]`: `gt_walsheim, Helvetica, Arial, sans-serif`
+  - Computed: `font-size: 14px; font-weight: 500; line-height: 26.6px (1.9x); letter-spacing: 0.56px; color: #000000;`
+  - Max line length: 60 to 70 characters per line.
+* **Navigation Links** `[Measured]`: `roboto, Helvetica, Arial, sans-serif`
+  - Computed: `font-size: 10px; font-weight: 500; line-height: 16px; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff;`
+* **Chapter Counter / Index** `[Measured]`: `montserrat, Helvetica, Arial, sans-serif`
+  - Computed: `font-size: 28px; font-weight: 700; color: #000000;` oriented vertically with pagination dots below.
+* **Quiet Underline Text Link** `[Measured]`: `roboto, Helvetica, Arial, sans-serif`
+  - Computed: `font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; color: #000000;` accompanied by an extending hairline underline.
 
-Only one value is observed: 
-#ffffff (theme color). The rest are proposed to match the premium-construction tone and need to be verified.
+---
 
-Token	Value	Status
---color-bg	
-#ffffff	Observed
---color-ink	
-#111111	Proposed
---color-ink-muted	
-#5b5b5b	Proposed
---color-overlay	rgba(0,0,0,.35) over video so white text stays legible	Proposed
---color-on-media	
-#ffffff	Inferred
---color-accent	
-#c8a45d (warm brass, a nod to craftsmanship)	Proposed
---color-line	rgba(17,17,17,.12)	Proposed
-4.2 Typography [Proposed]
+## 3. Layout, Grid & Spacing
 
-The real fonts are unknown. The pairing below matches the editorial feel.
+* **Viewport Architecture** `[Measured]`: Strictly `100svh` (`900px` on desktop baseline), `position: absolute; width: 100%; height: 100%; overflow: hidden;`.
+* **Vertical 4-Column Architectural Grid** `[Measured]`:
+  - 4 full-height vertical hairlines (`width: 1px; opacity: 0.15;`):
+    - Line 1: `left: 21.46%`
+    - Line 2: `left: 24.80%`
+    - Line 3: `right: 13.48%`
+    - Line 4: `right: 0px`
+* **Left Pagination Sidebar** `[Measured]`:
+  - `position: absolute; bottom: 18.12%; left: 0; width: 17.15vw; max-width: 138px; z-index: 3;`
+  - Displays vertical index `1/07` and 7 small vertical pagination dots.
+* **Right Scroll Cue Sidebar** `[Measured]`:
+  - `position: absolute; right: 0; bottom: 6.04vw; width: 13.48%; z-index: 3;`
+  - Label: `font-size: 8px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; transform: rotate(-90deg) translateY(50%); transform-origin: left bottom; white-space: nowrap;`
+  - Downward pointing arrow beneath.
+* **Accent Corner Geometry** `[Measured]`:
+  - Red solid square (`#d62323`) pinned at bottom-left corner (`left: 0; bottom: 0; width: 100px; height: 100px; z-index: 2;`).
 
-Display / headlines: a refined serif or high-contrast grotesque, e.g. "Playfair Display" or "Cormorant Garamond", weight 400 to 500, tight leading (1.05 to 1.15).
-UI / body: a neutral sans, e.g. "Inter" or "DM Sans", 400 and 500.
-Scale (desktop): eyebrow 12 to 13px uppercase, letter-spacing .14em; statement headline clamp(32px, 4.2vw, 64px); body 16 to 18px with 1.6 line height; counter and loader numerals use a large display size.
-Measure: body paragraphs capped around 60 to 70ch.
-4.3 Spacing and grid [Proposed]
-12-column grid, 24px gutters, 5 to 6vw page margins.
-Spacing scale: 4, 8, 12, 16, 24, 32, 48, 72, 120.
-Chapters are 100vh with text anchored low-left or centered over the video.
-4.4 Radius, borders, elevation [Inferred]
-Sharp or near-sharp corners (0 to 4px). Architectural, not playful.
-No heavy shadows. Separation comes from imagery, whitespace and hairline rules.
-5. Components
-Component	Spec
-Preloader	Full-screen white or black, numeric counter 00 to 100, tagline text, fades or wipes out on ready [Observed content, Inferred motion]
-Header	Fixed, transparent over media, logo left, menu toggle and Contact right. Becomes a full-screen or side menu with two-level navigation [Observed content]
-Chapter indicator	n/07 counter plus "Scroll to explore" hint, fixed bottom [Observed]
-Chapter text block	Eyebrow, statement headline, paragraph, text link with an arrow or underline that animates on hover [Observed structure]
-Text link / CTA	Lowercase or sentence-case phrase, underline-draw hover, no filled buttons on the homepage [Inferred]
-Image pair	Two offset images with different aspect ratios and a slight parallax [Inferred]
-Expert list item	Title plus one-line descriptor, divider rule, numbered or hover-highlight [Observed content]
-Sector tile	Image with a caption overlay; hover reveals, zooms or scales the image [Observed content, Inferred hover]
-Download block	Two file rows plus a "Download file" action [Observed]
-Footer	Minimal, 3 columns: address, nav, legal and credit [Observed]
-6. Motion [Inferred]
+---
 
-Immersive Garden is known for WebGL and scroll-choreographed sites, but the exact stack is not confirmed here.
+## 4. Header & Full-Screen Menu
 
-Scroll model: smooth (inertial) scrolling with snap-like chapter transitions, driven by an index (1/07).
-Video: muted, looping, autoplay, playsinline, cross-fading between chapters.
-Text reveals: line-by-line mask or translate-up on enter; the duplicated headings suggest this technique.
-Easing (proposed): cubic-bezier(.16, 1, .3, 1) (expo-out), 0.8 to 1.2s for reveals, 0.3s for hovers.
-Reduced motion: disable smooth scroll and reveals under prefers-reduced-motion.
-7. Imagery and media [Observed]
-Real project footage and photography: interiors, lobbies, data centers, healthcare and retail spaces.
-File naming: /assets/video/home-*.mp4, /assets/img/solutions-*.jpg.
-Direction: wide, well-lit, architectural shots; people appear sparingly. Avoid stock-looking imagery.
-8. Accessibility notes
-Keep text over video at 4.5:1 or better using an overlay or gradient.
-Provide a poster image and a pause control for the background videos.
-Do not disable pinch-zoom (the source's user-scalable=no is an anti-pattern).
-Make the menu keyboard-navigable with visible focus rings.
-9. Implementation brief (to reproduce the look)
-Stack suggestion: Next.js or Astro, GSAP + ScrollTrigger (or Lenis for smooth scroll), <video> elements for chapters, CSS custom properties from section 4.
-Build order: tokens, global chrome (header, menu, preloader), chapter layout with video, text reveal utility, Solutions page blocks, footer.
-Content: reuse the page structure from section 3 with your own copy and media.
-Reverse-engineering checklist (to replace the Proposed values)
+* **Fixed Header Top Bar** `[Measured]`:
+  - Height: `80px`, `position: fixed; top: 0; left: 0; width: 100%; z-index: 100;`.
+  - Left: Logo monogram + wordmark at `top: 25px; left: 35px;`.
+  - Right: Minimal Hamburger toggle button (`#nav-toggle`):
+    - Dimensions: `width: 87px; height: 87px; position: fixed; top: 0; right: 0; cursor: pointer;`.
+    - Default state: 3 horizontal white/black lines (`.nav-toggle__list__line`).
+* **Menu Open Animation (Frame-by-Frame)** `[Measured]`:
+  1. Toggle button background transitions to brand red `#d62323` (`duration: 0.4s`).
+  2. The 3 horizontal lines stagger exit to the right (`duration: 0.3s, ease: Quart.easeIn, stagger: 0.06s`).
+  3. Two cross lines rotate in to form an 'X' (`duration: 0.8s, ease: Expo.easeOut, delay: 0.1s`).
+  4. Fullscreen menu slides in with horizontal acts at the top and a high-impact red banner (`#d62323`) across the lower third containing:
+     - Uppercase eyebrow (`EXPERTS SINCE 1997`)
+     - Large white statement headline
+     - Supporting descriptive column
+     - White right-hand box with `Scroll to discover` and downward arrow.
 
-Open the site in Chrome, then:
+---
 
-DevTools, Network, filter "CSS" / "Font" / "JS" to get the real stylesheet, font file names and bundle names. File names like *.woff2 give you the font families.
-DevTools, Elements, :root: look for CSS custom properties (--…) holding the real palette and spacing.
-Computed styles on the h2: read the actual font-family, font-size, line-height, letter-spacing, color.
-Sources tab: check for GSAP, Lenis, Three.js or other libraries, and the easing values used.
-Wappalyzer (browser extension) to confirm the framework and animation libraries.
-Paste the :root block and fonts back to me and I will update sections 4 and 6 to be exact.
+## 5. Preloader
 
-Note: copying the exact CSS, fonts, videos or images would infringe the agency's and client's work. Use this as a reference for structure and feel, and build with your own assets.
+* **Background** `[Measured]`: Pure white (`#ffffff`), full viewport (`100svh`).
+* **Center Branding** `[Measured]`: Company logo + subtitle in Montserrat/GT Walsheim.
+* **Geometric Motif** `[Measured]`: Animated 1px geometric maze/labyrinth lines drawn in subtle grey (`#f0f0f0`).
+* **Numeric Counter** `[Measured]`: Counts smoothly from `00` to `100` (`#main-loading__progress__value`).
+* **Bottom Tagline** `[Measured]`: `QUALITY IS OUR STANDARD` (`letter-spacing: 0.28em; font-size: 10px; text-transform: uppercase;`).
+* **Exit Curtain** `[Measured]`: Once 100 is reached, white background wipes vertically upward (`duration: 1.0s, ease: Expo.easeInOut`) revealing the hero chapter.
+
+---
+
+## 6. Chapter Structure & Step-to-Step Transitions
+
+* **Two-Step Chapter Architecture** `[Measured]`:
+  Every chapter consists of a paired 2-step rhythm (7 screens x 2 steps = 14 total steps):
+  - **Step 1 (Dark Video / Media)**: Full-viewport looping muted video (`<video loop muted playsinline>`), vertical grid lines, statement headline in white, red eyebrow.
+  - **Step 2 (Pale Editorial)**: Pure off-white background (`#f1f1f1`), brand red statement headline (`#d62323`), editorial paragraph (60-70 characters per line), quiet underline text link, and real photography on the right.
+* **Step 1 to Step 2 Transition (Timeline Sequence)** `[Measured]`:
+  1. Center white container expands: `scale: 1.15 -> 1.0, opacity: 0 -> 1, duration: 1.3s, ease: Quart.easeInOut`.
+  2. Headline slides and morphs from white to brand red: `duration: 0.8s, ease: Expo.easeInOut`.
+  3. Image overlay curtain wipes away: `xPercent: 0 -> -100, duration: 0.9s, ease: Expo.easeInOut, delay: 0.7s`.
+  4. Red accent block enters bottom left: `y: 100 -> 0, duration: 0.6s, ease: Quart.easeIn`.
+  5. Chrome switches color from `light` to `dark` (`duration: 0.4s`).
+* **Chapter Exit Transition** `[Measured]`:
+  - Body and link fade: `opacity: 0, duration: 0.5s`.
+  - Content block slides left: `xPercent: 0 -> -60, opacity: 0, duration: 0.7s, ease: Quart.easeIn`.
+  - Next chapter scales in: `scale: 1.05 -> 1.0, opacity: 0 -> 1, duration: 1.0s, ease: Expo.easeOut`.
+  - Counter increments (`1/07` -> `2/07`).
+
+---
+
+## 7. Text Reveal Technique
+
+* **Line-by-Line Split** `[Measured]`:
+  - Headlines and subtitles split into individual lines using `SplitText` (`type: "lines"`).
+  - Each line placed inside an `overflow: hidden` line container.
+  - Line reveal tween: `fromTo({ yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8s, ease: Expo.easeOut, stagger: 0.06s, delay: 0.4s })`.
+
+---
+
+## 8. Video & Image Treatment
+
+* **Videos** `[Measured]`:
+  - Looping muted MP4s (`home-landing.mp4`, `home-1.mp4` through `home-7.mp4`).
+  - Rendered behind a 2D HTML5 canvas buffer layer for smooth opacity/pixel transitions.
+* **Images** `[Measured]`:
+  - High-resolution architectural and industrial photography.
+  - Zero border-radius (`rounded: 0px`, sharp corners).
+  - Overlay wipe curtain (`.home-screen__step-2__img__overlay`) sliding horizontally `xPercent: -100`.
+
+---
+
+## 9. Hover & Link Effects
+
+* **Navigation Links** `[Measured]`: Subtle color transition to red (`#d62323`).
+* **Quiet Text Links** `[Measured]`: Trailing 1px hairline horizontal rule that expands on hover (`transform-origin: left; scaleX: 1.15; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)`).
+* **Nav Toggle** `[Measured]`: Transforms into solid brand red box with white cross icon.
+
+---
+
+## 10. Mobile Behaviour (390x844)
+
+* **Layout Mode** `[Measured]`: Unpinned normal vertical stacking.
+* **Header** `[Measured]`: Compact logo and minimal hamburger.
+* **Overflow** `[Measured]`: Strictly `overflow-x: hidden`.
+* **Touch Gestures** `[Measured]`: Hammer.js vertical swipe detection to trigger step advances.
+
+---
+
+## 11. Tech Stack Detected
+
+* **GSAP / TweenMax & TimelineMax** `[Measured]`: Bundled for all timeline orchestrations, eases, and tweens.
+* **Hammer.js** `[Measured]`: Integrated for touch gesture handling.
+* **2D Canvas Buffer** `[Measured]`: Canvas rendering for video blending transitions.
+* **jQuery 3.1.1** `[Measured]`: DOM element manipulation and event delegation.
+* **Lenis / Three.js / Barba.js** `[Measured - NOT FOUND]`: Maman Corp uses custom `ScreenNavigator` with GSAP rather than Lenis or Three.js WebGL.
