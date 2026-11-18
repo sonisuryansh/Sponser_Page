@@ -57,7 +57,7 @@ export function App() {
     return list;
   }, []);
 
-  // Initialize Lenis + GSAP ticker sync
+  // Initialize Lenis + GSAP Master Pinning & Transitions
   useEffect(() => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
@@ -65,6 +65,7 @@ export function App() {
     window.scrollTo(0, 0);
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
 
     if (!prefersReducedMotion) {
       document.documentElement.classList.add('js-motion');
@@ -83,6 +84,99 @@ export function App() {
     };
     gsap.ticker.add(tickerCb);
     gsap.ticker.lagSmoothing(0);
+
+    // Master ScrollTrigger Pinning and Chapter-to-Chapter Transitions
+    let scrollTriggerContext: gsap.Context | null = null;
+
+    if (!prefersReducedMotion && !isMobile) {
+      scrollTriggerContext = gsap.context(() => {
+        const panels = gsap.utils.toArray<HTMLElement>('.chapter-wrapper');
+
+        panels.forEach((panel, i) => {
+          const nextPanel = panels[i + 1];
+          if (!nextPanel) return;
+
+          const isLight = panel.getAttribute('data-theme') === 'light';
+          const nextIsLight = nextPanel.getAttribute('data-theme') === 'light';
+          const isLightToLight = isLight && nextIsLight;
+
+          // Pin this chapter while next chapter scrolls into view over it
+          ScrollTrigger.create({
+            trigger: panel,
+            start: 'top top',
+            end: () => `+=${panel.offsetHeight}`,
+            pin: true,
+            pinSpacing: false,
+            anticipatePin: 1,
+          });
+
+          const content = panel.querySelector<HTMLElement>('.chapter-content');
+          const media = panel.querySelector<HTMLElement>('.chapter-media');
+          const nextContent = nextPanel.querySelector<HTMLElement>('.chapter-content');
+
+          // Outgoing animation: as nextPanel rises from bottom to top
+          if (content) {
+            gsap.to(content, {
+              yPercent: -8,
+              opacity: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: nextPanel,
+                start: 'top bottom',
+                end: 'top top',
+                scrub: 0.6,
+              },
+            });
+          }
+
+          if (media) {
+            gsap.to(media, {
+              scale: 1.08,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: nextPanel,
+                start: 'top bottom',
+                end: 'top top',
+                scrub: 0.6,
+              },
+            });
+          }
+
+          // Incoming animation for nextPanel
+          if (isLightToLight && nextContent) {
+            // Light to light: soft cross fade + 40px lift
+            gsap.fromTo(
+              nextContent,
+              { y: 40, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: nextPanel,
+                  start: 'top bottom',
+                  end: 'top top',
+                  scrub: 0.6,
+                },
+              }
+            );
+          }
+        });
+
+        // Master Snap: automatically glides and snaps cleanly to the nearest chapter
+        ScrollTrigger.create({
+          snap: {
+            snapTo: (value) => {
+              const total = panels.length - 1;
+              return total > 0 ? Math.round(value * total) / total : 0;
+            },
+            duration: { min: 0.25, max: 0.6 },
+            delay: 0.1,
+            ease: 'power2.inOut',
+          },
+        });
+      });
+    }
 
     // Track active section via IntersectionObserver
     const observer = new IntersectionObserver(
@@ -111,26 +205,34 @@ export function App() {
 
     return () => {
       observer.disconnect();
+      scrollTriggerContext?.revert();
       gsap.ticker.remove(tickerCb);
       lenis.destroy();
       document.documentElement.classList.remove('js-motion');
     };
   }, [orderedSections]);
 
-  // Navigate to section
+  // Navigate to section with smooth gliding
   const navigateToSection = useCallback(
     (sectionId: string) => {
       const targetEl = document.getElementById(sectionId);
-      if (targetEl && lenisRef.current) {
+      if (!targetEl) return;
+
+      const targetIdx = orderedSections.findIndex((s) => s.id === sectionId);
+      if (targetIdx !== -1) {
+        setCurrentSectionIndex(targetIdx);
+      }
+
+      if (lenisRef.current) {
         lenisRef.current.scrollTo(targetEl, {
-          duration: 1.2,
+          duration: 1.0,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
-      } else if (targetEl) {
+      } else {
         targetEl.scrollIntoView({ behavior: 'smooth' });
       }
     },
-    []
+    [orderedSections]
   );
 
   const navigateToIndex = useCallback(
@@ -156,15 +258,28 @@ export function App() {
         return;
       }
 
-      // If user is inside domains section, domain card handler manages left/right
       const currentId = orderedSections[currentSectionIndex]?.id;
 
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
-        navigateToIndex(currentSectionIndex + 1);
+        const stepEvt = new CustomEvent('medhaarc:step', {
+          cancelable: true,
+          detail: { direction: 1 },
+        });
+        const handled = !window.dispatchEvent(stepEvt);
+        if (!handled) {
+          navigateToIndex(currentSectionIndex + 1);
+        }
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
         e.preventDefault();
-        navigateToIndex(currentSectionIndex - 1);
+        const stepEvt = new CustomEvent('medhaarc:step', {
+          cancelable: true,
+          detail: { direction: -1 },
+        });
+        const handled = !window.dispatchEvent(stepEvt);
+        if (!handled) {
+          navigateToIndex(currentSectionIndex - 1);
+        }
       } else if (e.key === 'ArrowRight' && currentId !== 'domains') {
         e.preventDefault();
         navigateToIndex(currentSectionIndex + 1);
@@ -253,4 +368,5 @@ export function App() {
     </div>
   );
 }
+
 export default App;

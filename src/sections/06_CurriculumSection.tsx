@@ -3,55 +3,57 @@ import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export const CurriculumSection: React.FC = () => {
   const [activeStageIndex, setActiveStageIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardsStackRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const allStages = [
     ...siteConfig.curriculum.stages,
     ...(siteConfig.showBeyondGrade10 ? siteConfig.curriculum.beyondGrade10 : []),
   ];
 
-  // GSAP Pin + Scrub: Each card slides up and covers previous as user scrolls
+  // Listen to step navigation events (wheel scroll & arrow keys)
   useEffect(() => {
-    const el = containerRef.current;
-    const stack = cardsStackRef.current;
-    if (!el || !stack) return;
+    const handleStep = (e: Event) => {
+      const el = containerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const isVisible = rect.top >= -window.innerHeight * 0.5 && rect.bottom <= window.innerHeight * 1.5;
+      if (!isVisible) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
+      const customEvent = e as CustomEvent<{ direction: number }>;
+      const dir = customEvent.detail?.direction || 1;
 
-    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
-      return;
+      if (dir > 0 && activeStageIndex < allStages.length - 1) {
+        e.preventDefault();
+        setActiveStageIndex((s) => s + 1);
+      } else if (dir < 0 && activeStageIndex > 0) {
+        e.preventDefault();
+        setActiveStageIndex((s) => s - 1);
+      }
+    };
+
+    window.addEventListener('medhaarc:step', handleStep);
+    return () => window.removeEventListener('medhaarc:step', handleStep);
+  }, [activeStageIndex, allStages.length]);
+
+  // Gentle card transition when stage changes
+  useEffect(() => {
+    if (cardRef.current) {
+      gsap.fromTo(
+        cardRef.current,
+        { opacity: 0.3, y: 12 },
+        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }
+      );
     }
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top top',
-        end: `+=${allStages.length * 75}%`,
-        pin: true,
-        scrub: 0.5,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const idx = Math.min(allStages.length - 1, Math.floor(self.progress * allStages.length));
-          setActiveStageIndex(idx);
-        },
-      });
-    });
-
-    return () => ctx.revert();
-  }, [allStages.length]);
+  }, [activeStageIndex]);
 
   const currentStage = allStages[activeStageIndex];
 
   return (
-    <ChapterShell id="curriculum" chapterNumber="06" theme="dark">
+    <ChapterShell id="curriculum" chapterNumber="06" theme="dark" steps={allStages.length}>
       <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
         {/* Section Header */}
         <div>
@@ -92,62 +94,75 @@ export const CurriculumSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Active Stacking Card (~80% viewport width feel, large grade number) */}
-        <div ref={cardsStackRef} className="my-auto py-2">
-          <div className="stack-grade-card relative w-full max-w-3xl mx-auto bg-[#121822] border border-white/15 p-6 sm:p-10 rounded-[2px] shadow-2xl transition-all duration-300">
-            {/* Top Grade Meta */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-              <span className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-mono">
-                Stage 0{activeStageIndex + 1} of {allStages.length}
-              </span>
-              <span className="text-base uppercase tracking-widest font-mono text-white/80 font-bold">
+        {/* Active Stage Card Presentation */}
+        <div className="my-auto max-w-4xl mx-auto w-full">
+          <div
+            ref={cardRef}
+            className="p-6 sm:p-8 rounded-[2px] bg-white/[0.04] border border-white/15 backdrop-blur-md relative overflow-hidden"
+          >
+            {/* Stage Title and Grade Pill */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-white/10">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-[#c8a45d] block mb-1">
+                  STAGE 0{activeStageIndex + 1} OF 0{allStages.length}
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal">
+                  {currentStage.title}
+                </h3>
+              </div>
+              <span className="inline-block px-3 py-1 rounded-[2px] border border-[#c8a45d]/40 text-[#c8a45d] text-xs font-mono tracking-wider shrink-0">
                 {currentStage.gradeLabel}
               </span>
             </div>
 
-            {/* Stage Title and Large Focus Line */}
-            <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-white mb-4">
-              {currentStage.title}
-            </h3>
-
-            <p className="text-base sm:text-lg md:text-xl text-white/70 font-normal leading-relaxed max-w-2xl mb-8">
+            {/* Core Focus Narrative */}
+            <p className="text-sm sm:text-base text-white/80 font-sans leading-relaxed mb-6">
               {currentStage.focus}
             </p>
 
-            {/* Up to 3 Short Chips */}
-            <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-white/10">
+            {/* Chips Grid */}
+            <div className="flex flex-wrap gap-2.5 mb-6">
               {currentStage.chips.map((chip) => (
-                <span
+                <div
                   key={chip}
-                  className="px-3 py-1 bg-white/5 text-white/90 text-xs font-mono uppercase tracking-wider rounded-[2px] border border-white/10"
+                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-[2px] bg-white/[0.03] border border-white/10 text-xs sm:text-sm text-white/90 font-sans"
                 >
-                  {chip}
-                </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
+                  <span>{chip}</span>
+                </div>
               ))}
+            </div>
+
+            {/* Stage Navigation Footer */}
+            <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+              <span className="text-xs text-white/60 font-mono">
+                Hands-on practical progression
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setActiveStageIndex((prev) => Math.max(0, prev - 1))}
+                  disabled={activeStageIndex === 0}
+                  className="p-1 rounded-[2px] text-white/50 hover:text-white disabled:opacity-20 cursor-pointer"
+                  aria-label="Previous stage"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setActiveStageIndex((prev) => Math.min(allStages.length - 1, prev + 1))}
+                  disabled={activeStageIndex === allStages.length - 1}
+                  className="p-1 rounded-[2px] text-white/50 hover:text-white disabled:opacity-20 cursor-pointer"
+                  aria-label="Next stage"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Presenter Grade Navigation */}
-        <div className="flex items-center justify-end border-t border-white/10 pt-4 text-xs text-white/50">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setActiveStageIndex((prev) => Math.max(0, prev - 1))}
-              disabled={activeStageIndex === 0}
-              className="flex items-center gap-1 px-3 py-1 border border-white/20 text-white disabled:opacity-30 rounded-[2px] hover:border-white transition-colors cursor-pointer disabled:cursor-not-allowed"
-            >
-              <ChevronLeft className="w-3.5 h-3.5" />
-              <span>Previous</span>
-            </button>
-            <button
-              onClick={() => setActiveStageIndex((prev) => Math.min(allStages.length - 1, prev + 1))}
-              disabled={activeStageIndex === allStages.length - 1}
-              className="flex items-center gap-1 px-3 py-1 border border-white/20 text-white disabled:opacity-30 rounded-[2px] hover:border-white transition-colors cursor-pointer disabled:cursor-not-allowed"
-            >
-              <span>Next</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
+        {/* Stage Index Indicator */}
+        <div className="border-t border-white/10 pt-2 flex items-center justify-end text-[11px] font-mono text-white/40">
+          <span>{currentStage.gradeLabel} Level Framework</span>
         </div>
       </div>
     </ChapterShell>

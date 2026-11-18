@@ -2,50 +2,54 @@ import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export const LabSetupSection: React.FC = () => {
   const [activeZoneIndex, setActiveZoneIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const sidePanelRef = useRef<HTMLDivElement>(null);
 
-  // Pinned 4 steps scroll scrub: each step illuminates a zone and updates side panel
+  const zones = siteConfig.labSetup.zones;
+
+  // Listen to step navigation events (wheel scroll & arrow keys)
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+    const handleStep = (e: Event) => {
+      const el = containerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const isVisible = rect.top >= -window.innerHeight * 0.5 && rect.bottom <= window.innerHeight * 1.5;
+      if (!isVisible) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
+      const customEvent = e as CustomEvent<{ direction: number }>;
+      const dir = customEvent.detail?.direction || 1;
 
-    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
-      return;
+      if (dir > 0 && activeZoneIndex < zones.length - 1) {
+        e.preventDefault();
+        setActiveZoneIndex((s) => s + 1);
+      } else if (dir < 0 && activeZoneIndex > 0) {
+        e.preventDefault();
+        setActiveZoneIndex((s) => s - 1);
+      }
+    };
+
+    window.addEventListener('medhaarc:step', handleStep);
+    return () => window.removeEventListener('medhaarc:step', handleStep);
+  }, [activeZoneIndex, zones.length]);
+
+  // Gentle side panel transition when active zone changes
+  useEffect(() => {
+    if (sidePanelRef.current) {
+      gsap.fromTo(
+        sidePanelRef.current,
+        { opacity: 0.3, y: 10 },
+        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }
+      );
     }
+  }, [activeZoneIndex]);
 
-    const zones = siteConfig.labSetup.zones;
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top top',
-        end: `+=${zones.length * 60}%`,
-        pin: true,
-        scrub: 0.5,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const step = Math.min(zones.length - 1, Math.floor(self.progress * zones.length));
-          setActiveZoneIndex(step);
-        },
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
-  const currentZone = siteConfig.labSetup.zones[activeZoneIndex];
+  const currentZone = zones[activeZoneIndex];
 
   return (
-    <ChapterShell id="lab-setup" chapterNumber="08" theme="dark">
+    <ChapterShell id="lab-setup" chapterNumber="08" theme="dark" steps={4}>
       <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
         {/* Eyebrow & Statement Headline */}
         <div className="mb-3 max-w-3xl">
@@ -80,7 +84,7 @@ export const LabSetupSection: React.FC = () => {
 
               {/* Pin Buttons on Image */}
               <div className="grid grid-cols-2 gap-2 pointer-events-auto">
-                {siteConfig.labSetup.zones.map((zone, idx) => {
+                {zones.map((zone, idx) => {
                   const isActive = activeZoneIndex === idx;
                   return (
                     <button
@@ -88,13 +92,20 @@ export const LabSetupSection: React.FC = () => {
                       onClick={() => setActiveZoneIndex(idx)}
                       className={`text-left p-2 rounded-[2px] backdrop-blur-md transition-all text-[11px] font-mono tracking-wider cursor-pointer border ${
                         isActive
-                          ? 'bg-black/90 border-[#c8a45d] text-white shadow-lg'
-                          : 'bg-black/50 border-white/15 text-white/70 hover:bg-black/70'
+                          ? 'bg-[#c8a45d]/30 border-[#c8a45d] text-white shadow-md'
+                          : 'bg-black/50 border-white/15 text-white/70 hover:bg-black/70 hover:text-white'
                       }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#c8a45d]' : 'bg-white/40'}`} />
-                        <span className="font-semibold truncate">{zone.name}</span>
+                      <div className="flex items-center justify-between">
+                        <span>ZONE 0{idx + 1}</span>
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            isActive ? 'bg-[#c8a45d]' : 'bg-white/40'
+                          }`}
+                        />
+                      </div>
+                      <div className="font-sans font-medium text-xs mt-0.5 truncate">
+                        {zone.name}
                       </div>
                     </button>
                   );
@@ -103,37 +114,54 @@ export const LabSetupSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Active Zone Detail Narrative */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-3">
-            <div className="text-[11px] uppercase tracking-[0.2em] text-[#c8a45d] font-mono">
-              Active Zone 0{activeZoneIndex + 1}
-            </div>
-            <div className="p-4 border border-white/25 bg-white/[0.06] rounded-[2px]">
-              <h3 className="font-serif text-xl font-medium tracking-tight text-white mb-2">
+          {/* Detailed Side Panel for Active Zone */}
+          <div
+            ref={sidePanelRef}
+            className="lg:col-span-5 p-5 sm:p-6 rounded-[2px] bg-white/[0.03] border border-white/15 backdrop-blur-md flex flex-col justify-between min-h-[260px]"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#c8a45d]">
+                  ZONE 0{activeZoneIndex + 1} OF 0{zones.length}
+                </span>
+                <span className="text-[11px] font-mono text-white/50">
+                  Layout Dedicated
+                </span>
+              </div>
+
+              <h3 className="font-serif text-2xl text-white font-normal mb-2">
                 {currentZone.name}
               </h3>
-              <p className="text-sm leading-relaxed text-white/80">
+
+              <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mb-4">
                 {currentZone.description}
               </p>
             </div>
 
-            {/* Provisioning Snapshot */}
-            <div className="p-3 border border-white/10 bg-white/[0.02] rounded-[2px]">
-              <span className="text-[10px] uppercase font-mono tracking-wider text-white/50 block mb-2">
-                Included Hardware & Storage
+            {/* Safety & Standards Note */}
+            <div className="border-t border-white/10 pt-3">
+              <span className="text-[11px] uppercase tracking-wider text-white/50 font-mono block mb-2">
+                Standards:
               </span>
-              <ul className="space-y-1 text-xs text-white/70">
-                <li>• Shared kits stay securely in school lab storage cabinets</li>
-                <li>• Grounded work tables and designated computer stations</li>
-                <li>• Dedicated indoor drone flight perimeter with safety line</li>
-              </ul>
+              <div className="flex flex-wrap gap-1.5">
+                <span className="px-2 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-[11px] text-white/80 font-sans">
+                  Dedicated Power Points
+                </span>
+                <span className="px-2 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-[11px] text-white/80 font-sans">
+                  Grounded Antistatic Benches
+                </span>
+                <span className="px-2 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-[11px] text-white/80 font-sans">
+                  Safety Line Markings
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Short Provisioning Matrix */}
-        <div className="border-t border-white/10 pt-3 flex items-center justify-end text-xs text-white/50 font-mono">
-          <span>Shared Lab Infrastructure</span>
+        {/* Safety & Compliance Badge */}
+        <div className="border-t border-white/10 pt-2 flex items-center justify-between text-[11px] font-mono text-white/40">
+          <span>Electrical, ESD & Ventilation Safety Compliant</span>
+          <span>Dual Fire-Extinguisher & First-Aid Protocol</span>
         </div>
       </div>
     </ChapterShell>

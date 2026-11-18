@@ -1,8 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export interface ChapterShellProps {
   id: string;
@@ -21,117 +17,77 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
   theme,
   media,
   overlayOpacity,
-  steps = 1,
   children,
   className = '',
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mediaRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
-    // Failsafe: Ensure content is visible even if animation fails or takes too long
-    const failsafeTimer = setTimeout(() => {
-      if (contentRef.current) {
-        contentRef.current.style.opacity = '1';
-        contentRef.current.style.visibility = 'visible';
-      }
-    }, 2500);
-
-    // If reduced motion or mobile, do not pin; normal natural flow
-    if (prefersReducedMotion || isMobile) {
-      if (contentRef.current) {
-        contentRef.current.style.opacity = '1';
-      }
-      return () => clearTimeout(failsafeTimer);
-    }
-
-    // Pin timeline with ScrollTrigger
-    const ctx = gsap.context(() => {
-      // Subtle background parallax scale on scroll if media exists
-      if (mediaRef.current) {
-        gsap.to(mediaRef.current, {
-          scale: 1.08,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.6,
-          },
-        });
-      }
-
-      // Exit transition: when scrolling past, gentle lift and fade out
-      if (contentRef.current) {
-        gsap.to(contentRef.current, {
-          yPercent: -6,
-          opacity: 0.1,
-          ease: 'power2.in',
-          scrollTrigger: {
-            trigger: el,
-            start: 'bottom 40%',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      }
-    }, el);
-
-    return () => {
-      clearTimeout(failsafeTimer);
-      ctx.revert();
-    };
-  }, [steps, media]);
-
+  const chapterIndex = parseInt(chapterNumber, 10) || 1;
   const isDark = theme === 'dark';
-  const defaultOverlay = isDark ? 0.6 : 0;
+  const defaultOverlay = isDark ? 0.65 : 0;
   const activeOverlay = overlayOpacity !== undefined ? overlayOpacity : defaultOverlay;
 
+  // Stacking z-index: Each chapter sits above the previous (10, 12, 14...)
+  const zIndex = 10 + chapterIndex * 2;
+
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    // Failsafe: Ensure content is visible after 2.5s
+    const failsafeTimer = setTimeout(() => {
+      content.style.opacity = '1';
+      content.style.transform = 'none';
+      content.style.visibility = 'visible';
+    }, 2500);
+
+    return () => clearTimeout(failsafeTimer);
+  }, []);
+
   return (
-    <section
+    <div
       id={id}
-      ref={containerRef}
       data-chapter={chapterNumber}
       data-theme={theme}
-      className={`chapter-shell ${
-        isDark ? 'bg-[#0a0e14] text-white' : 'bg-[#ffffff] text-[#111111]'
-      } ${className}`}
+      className="chapter-wrapper w-full h-[100svh] min-h-[100svh] relative overflow-hidden"
+      style={{ zIndex }}
     >
-      {/* Background Media Layer */}
-      {media && (
-        <div
-          ref={mediaRef}
-          aria-hidden="true"
-          className="absolute inset-0 z-0 pointer-events-none overflow-hidden will-change-transform"
-        >
-          <img
-            src={media}
-            alt=""
-            className="w-full h-full object-cover object-center filter brightness-[0.8] contrast-[1.05]"
-          />
-          {activeOverlay > 0 && (
-            <div
-              className="absolute inset-0 bg-black pointer-events-none"
-              style={{ opacity: activeOverlay }}
-            />
-          )}
-        </div>
-      )}
-
-      {/* Main 12-Column Centered Content Grid */}
+      {/* 100svh Chapter Shell with tactile top shadow */}
       <div
-        ref={contentRef}
-        className="relative z-10 w-full max-w-[1200px] mx-auto px-[clamp(20px,5vw,80px)] flex-1 flex flex-col justify-between"
+        className={`chapter-shell w-full h-full min-h-[100svh] overflow-hidden flex flex-col justify-between pt-[calc(var(--header-h)+24px)] pb-6 box-border ${
+          isDark
+            ? 'bg-[#0a0e14] text-white shadow-[0_-25px_60px_rgba(0,0,0,0.7)]'
+            : 'bg-[#ffffff] text-[#111111] shadow-[0_-15px_40px_rgba(0,0,0,0.08)]'
+        } ${className}`}
       >
-        {children}
+        {/* Background Media Layer */}
+        {media && (
+          <div
+            aria-hidden="true"
+            className="chapter-media absolute inset-0 z-0 pointer-events-none overflow-hidden will-change-transform"
+          >
+            <img
+              src={media}
+              alt=""
+              className="w-full h-full object-cover object-center filter brightness-[0.8] contrast-[1.05]"
+            />
+            {activeOverlay > 0 && (
+              <div
+                className="absolute inset-0 bg-black pointer-events-none"
+                style={{ opacity: activeOverlay }}
+              />
+            )}
+          </div>
+        )}
+
+        {/* 12-Column Centered Content Container */}
+        <div
+          ref={contentRef}
+          className="chapter-content relative z-10 w-full max-w-[1200px] mx-auto px-[clamp(20px,5vw,80px)] flex-1 flex flex-col justify-between will-change-transform"
+        >
+          {children}
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
