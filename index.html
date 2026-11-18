@@ -2,73 +2,44 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/medhaarc_metallic_logo.png" />
+    <link rel="icon" type="image/png" href="/assets/medhaarc_metallic_logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- SEO & Metadata (Fixing all 'sponser' typos) -->
     <title>MedhaArc Labs — School Technology Learning Initiative</title>
+    <meta
+      name="description"
+      content="MedhaArc Labs delivers structured, practical technology education for schools across Robotics & Automation, AI/ML, Data Analytics, and Aerial Systems."
+    />
+    <meta property="og:title" content="MedhaArc Labs — School Technology Learning Initiative" />
+    <meta
+      property="og:description"
+      content="From Curiosity to Engineering and Innovation. Hands-on school STEM labs and curriculum."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/medhaarc_hero_drone.webp" />
+
     <script>
-      // Force scroll to top (Section 1) on refresh, preventing automatic scroll restoration
+      // Force scroll to top on refresh
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
       window.scrollTo(0, 0);
     </script>
-    <meta name="description" content="A school-focused technology learning initiative connecting Robotics & Automation, AI/ML, Data Analytics, and Aerial Systems." />
+
+    <!-- Google Fonts: Cormorant Garamond, Newsreader & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Caveat+Brush&family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-      #page-preloader {
-        position: fixed;
-        inset: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: #0A0D10;
-        z-index: 9999999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
-        pointer-events: all;
-      }
-      #page-preloader.loaded {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-      .simple-circle-loader {
-        width: 40px;
-        height: 40px;
-        border: 2.5px solid rgba(255, 255, 255, 0.15);
-        border-top-color: #38bdf8;
-        border-radius: 50%;
-        animation: simple-circle-spin 0.75s linear infinite;
-      }
-      @keyframes simple-circle-spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap"
+      rel="stylesheet"
+    >
   </head>
-  <body class="bg-[#DFE6E7] text-[#203744] antialiased selection:bg-[#398BB0] selection:text-white">
-    <!-- Initial Simple Circle Loader (Only circle, no text/graphics) -->
-    <div id="page-preloader">
-      <div class="simple-circle-loader" aria-label="Loading"></div>
-    </div>
+  <body class="bg-[#ffffff] text-[#111111] antialiased selection:bg-[#c8a45d] selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          var p = document.getElementById('page-preloader');
-          if (p && !p.classList.contains('loaded')) {
-            p.classList.add('loaded');
-            setTimeout(function() { p.style.display = 'none'; }, 450);
-          }
-        }, 1200);
-      });
-    </script>
   </body>
 </html>
-
