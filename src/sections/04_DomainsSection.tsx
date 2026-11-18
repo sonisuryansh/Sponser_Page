@@ -159,16 +159,70 @@ export const DomainsSection: React.FC = () => {
     };
   }, []);
 
-  // Keyboard navigation within domain fan
+  // Lock body scroll and pause Lenis when deep dive modal is open
+  useEffect(() => {
+    const lenis = (window as unknown as { lenis?: { stop: () => void; start: () => void } }).lenis;
+    if (selectedDomain) {
+      document.body.style.overflow = 'hidden';
+      lenis?.stop();
+    } else {
+      document.body.style.overflow = '';
+      lenis?.start();
+    }
+    return () => {
+      document.body.style.overflow = '';
+      lenis?.start();
+    };
+  }, [selectedDomain]);
+
+  // Step-through navigation via presenter events
+  useEffect(() => {
+    const handleStep = (e: Event) => {
+      const el = fanDeckRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const isVisible = rect.top >= -window.innerHeight * 0.3 && rect.bottom <= window.innerHeight * 1.3;
+      if (!isVisible) return;
+
+      const customEvent = e as CustomEvent<{ direction: number }>;
+      const dir = customEvent.detail?.direction || 1;
+      const domains = siteConfig.domainsSection.domains;
+
+      if (dir > 0 && activeCardIndex !== null && activeCardIndex < domains.length - 1) {
+        e.preventDefault();
+        setActiveCardIndex((prev) => (prev === null ? 0 : prev + 1));
+      } else if (dir < 0 && activeCardIndex !== null && activeCardIndex > 0) {
+        e.preventDefault();
+        setActiveCardIndex((prev) => (prev === null ? 0 : prev - 1));
+      }
+    };
+
+    window.addEventListener('medhaarc:step', handleStep);
+    return () => window.removeEventListener('medhaarc:step', handleStep);
+  }, [activeCardIndex]);
+
+  // Keyboard navigation within domain fan (only when section is on screen)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedDomain) return; // Modal is open
+      if (selectedDomain) {
+        if (e.key === 'Escape') setSelectedDomain(null);
+        return;
+      }
+      const el = fanDeckRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const isVisible = rect.top >= -window.innerHeight * 0.4 && rect.bottom <= window.innerHeight * 1.4;
+      if (!isVisible) return;
+
       const domains = siteConfig.domainsSection.domains;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
         setActiveCardIndex((prev) => (prev === null ? 0 : (prev + 1) % domains.length));
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
         setActiveCardIndex((prev) => (prev === null ? domains.length - 1 : (prev - 1 + domains.length) % domains.length));
       } else if (e.key === 'Enter' && activeCardIndex !== null) {
+        e.preventDefault();
         setSelectedDomain(domains[activeCardIndex]);
       }
     };
@@ -325,6 +379,7 @@ export const DomainsSection: React.FC = () => {
           <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8 bg-black/85 backdrop-blur-md">
             <motion.div
               layoutId={`card-container-${selectedDomain.id}`}
+              data-lenis-prevent="true"
               className="relative w-full max-w-4xl bg-[#0f1722] border border-white/20 rounded-[4px] p-6 md:p-10 text-white shadow-2xl overflow-y-auto max-h-[90vh]"
             >
               {/* Close Button */}

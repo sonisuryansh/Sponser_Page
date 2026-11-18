@@ -163,49 +163,21 @@ export function App() {
             );
           }
         });
-
-        // Master Snap: automatically glides and snaps cleanly to the nearest chapter
-        ScrollTrigger.create({
-          snap: {
-            snapTo: (value) => {
-              const total = panels.length - 1;
-              return total > 0 ? Math.round(value * total) / total : 0;
-            },
-            duration: { min: 0.25, max: 0.6 },
-            delay: 0.1,
-            ease: 'power2.inOut',
-          },
-        });
       });
     }
 
-    // Track active section via IntersectionObserver
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            const idx = orderedSections.findIndex((s) => s.id === id);
-            if (idx !== -1) {
-              setCurrentSectionIndex(idx);
-            }
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '-30% 0px -30% 0px',
-        threshold: 0.1,
-      }
-    );
-
-    orderedSections.forEach((s) => {
-      const el = document.getElementById(s.id);
-      if (el) observer.observe(el);
-    });
+    // Deterministic section tracking synchronized with Lenis scroll
+    const handleLenisScroll = ({ scroll }: { scroll: number }) => {
+      const windowH = window.innerHeight || 800;
+      const idx = Math.min(
+        orderedSections.length - 1,
+        Math.max(0, Math.floor((scroll + windowH * 0.45) / windowH))
+      );
+      setCurrentSectionIndex((prev) => (prev !== idx ? idx : prev));
+    };
+    lenis.on('scroll', handleLenisScroll);
 
     return () => {
-      observer.disconnect();
       scrollTriggerContext?.revert();
       gsap.ticker.remove(tickerCb);
       lenis.destroy();
