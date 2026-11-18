@@ -98,36 +98,49 @@ export const TeacherEmpowermentSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Three Columns: Train, Guide, Assist */}
+        {/* Three Columns: Train, Guide, Assist with Distinct Color Accents */}
         <div
           ref={columnsRef}
           className="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-black/10 pt-4 my-auto"
         >
-          {siteConfig.teacherEmpowerment.columns.map((col, idx) => (
-            <div
-              key={col.title}
-              className="teacher-col p-4 sm:p-5 bg-[#fafafa] border border-black/10 rounded-[2px] flex flex-col justify-between h-[170px] sm:h-[190px]"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] uppercase tracking-[0.18em] text-[#5b5b5b] font-mono">
-                    0{idx + 1}
-                  </span>
-                  {col.badge && (
-                    <span className="px-2 py-0.5 bg-[#c8a45d]/20 text-[#111111] text-[10px] uppercase font-mono tracking-wider rounded-[2px]">
-                      {col.badge}
+          {siteConfig.teacherEmpowerment.columns.map((col, idx) => {
+            const colColors = [
+              'border-t-2 border-t-purple-500 bg-gradient-to-b from-purple-50/30 to-white',
+              'border-t-2 border-t-emerald-500 bg-gradient-to-b from-emerald-50/30 to-white',
+              'border-t-2 border-t-amber-500 bg-gradient-to-b from-amber-50/30 to-white',
+            ];
+            const badgeColors = [
+              'bg-purple-100 text-purple-800 border-purple-200',
+              'bg-emerald-100 text-emerald-800 border-emerald-200',
+              'bg-amber-100 text-amber-800 border-amber-200',
+            ];
+
+            return (
+              <div
+                key={col.title}
+                className={`teacher-col p-4 sm:p-5 border border-black/10 rounded-[3px] flex flex-col justify-between h-[175px] sm:h-[195px] shadow-xs ${colColors[idx] || colColors[0]}`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-[#5b5b5b] font-mono">
+                      0{idx + 1}
                     </span>
-                  )}
+                    {col.badge && (
+                      <span className={`px-2 py-0.5 text-[10px] uppercase font-mono tracking-wider rounded-[2px] border ${badgeColors[idx] || 'bg-black/5 text-black'}`}>
+                        {col.badge}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-serif text-xl font-medium tracking-tight text-[#111111] mb-1.5">
+                    {col.title}
+                  </h3>
                 </div>
-                <h3 className="font-serif text-xl font-medium tracking-tight text-[#111111] mb-1.5">
-                  {col.title}
-                </h3>
+                <p className="text-xs leading-relaxed text-[#5b5b5b]">
+                  {col.description}
+                </p>
               </div>
-              <p className="text-xs leading-relaxed text-[#5b5b5b]">
-                {col.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Human-in-the-Loop Flow Diagram */}

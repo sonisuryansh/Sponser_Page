@@ -7,6 +7,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const domainBadgeColors: Record<string, string> = {
+  'Robotics & Automation': 'bg-cyan-950/85 text-cyan-300 border border-cyan-500/40',
+  'AI & Machine Learning': 'bg-emerald-950/85 text-emerald-300 border border-emerald-500/40',
+  'Data Analytics': 'bg-amber-950/85 text-amber-300 border border-amber-500/40',
+  'Aerial Systems': 'bg-sky-950/85 text-sky-300 border border-sky-500/40',
+  'Sample project': 'bg-[#c8a45d] text-black font-semibold',
+};
+
 export const ProjectShowcaseSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -96,9 +104,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                     </span>
                     <span
                       className={`px-2 py-0.5 text-[10px] font-mono rounded-[2px] backdrop-blur-xs ${
-                        proj.isRealWork
-                          ? 'bg-black/70 text-white/90'
-                          : 'bg-[#c8a45d] text-black font-semibold'
+                        domainBadgeColors[proj.domain] || (proj.isRealWork ? 'bg-black/70 text-white/90' : 'bg-[#c8a45d] text-black font-semibold')
                       }`}
                     >
                       {proj.domain}

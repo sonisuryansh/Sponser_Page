@@ -76,6 +76,7 @@ export function App() {
       smoothWheel: !prefersReducedMotion,
     });
     lenisRef.current = lenis;
+    (window as unknown as { lenis: Lenis }).lenis = lenis;
 
     lenis.on('scroll', ScrollTrigger.update);
 

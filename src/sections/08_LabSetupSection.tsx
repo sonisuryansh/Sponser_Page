@@ -3,6 +3,37 @@ import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import gsap from 'gsap';
 
+const zoneColorMap = [
+  {
+    name: 'Build bench',
+    activeBtn: 'bg-amber-950/85 border-amber-400 text-amber-100 shadow-[0_0_16px_rgba(245,158,11,0.4)] ring-1 ring-amber-400/50',
+    dot: 'bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.9)]',
+    badge: 'text-amber-400',
+    tag: 'bg-amber-500/15 border-amber-500/30 text-amber-300',
+  },
+  {
+    name: 'Computer area',
+    activeBtn: 'bg-cyan-950/85 border-cyan-400 text-cyan-100 shadow-[0_0_16px_rgba(6,182,212,0.4)] ring-1 ring-cyan-400/50',
+    dot: 'bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.9)]',
+    badge: 'text-cyan-400',
+    tag: 'bg-cyan-500/15 border-cyan-500/30 text-cyan-300',
+  },
+  {
+    name: 'Drone control zone',
+    activeBtn: 'bg-sky-950/85 border-sky-400 text-sky-100 shadow-[0_0_16px_rgba(56,189,248,0.4)] ring-1 ring-sky-400/50',
+    dot: 'bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.9)]',
+    badge: 'text-sky-400',
+    tag: 'bg-sky-500/15 border-sky-500/30 text-sky-300',
+  },
+  {
+    name: 'Kit storage',
+    activeBtn: 'bg-emerald-950/85 border-emerald-400 text-emerald-100 shadow-[0_0_16px_rgba(16,185,129,0.4)] ring-1 ring-emerald-400/50',
+    dot: 'bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.9)]',
+    badge: 'text-emerald-400',
+    tag: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300',
+  },
+];
+
 export const LabSetupSection: React.FC = () => {
   const [activeZoneIndex, setActiveZoneIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,6 +78,7 @@ export const LabSetupSection: React.FC = () => {
   }, [activeZoneIndex]);
 
   const currentZone = zones[activeZoneIndex];
+  const activeColor = zoneColorMap[activeZoneIndex] || zoneColorMap[0];
 
   return (
     <ChapterShell id="lab-setup" chapterNumber="08" theme="dark" steps={4}>
@@ -67,44 +99,46 @@ export const LabSetupSection: React.FC = () => {
         {/* Top-Down Lab Layout & Interactive Hotspot Zones */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center my-auto border-t border-white/10 pt-4">
           {/* Lab Visualization Photo with Zone Pins */}
-          <div className="lg:col-span-7 relative aspect-[16/10] max-h-[300px] sm:max-h-[340px] rounded-[2px] overflow-hidden border border-white/15 bg-black/40">
+          <div className="lg:col-span-7 relative aspect-[16/10] max-h-[300px] sm:max-h-[340px] rounded-[3px] overflow-hidden border border-white/20 bg-black/40 shadow-xl">
             <img
               src={siteConfig.labSetup.labImage}
               alt="MedhaArc Labs School STEM Laboratory Plan"
-              className="w-full h-full object-cover filter brightness-90 contrast-105"
+              className="w-full h-full object-cover filter brightness-95 contrast-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none" />
 
             {/* Zone Markers on Image */}
             <div className="absolute inset-0 p-4 flex flex-col justify-between pointer-events-none">
-              <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-white/60">
-                <span>Dedicated Space Layout</span>
-                <span>Safety & Flow Standard</span>
+              <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-white/70">
+                <span className="px-2 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Dedicated Space Layout</span>
+                <span className="px-2 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Safety & Flow Standard</span>
               </div>
 
               {/* Pin Buttons on Image */}
-              <div className="grid grid-cols-2 gap-2 pointer-events-auto">
+              <div className="grid grid-cols-2 gap-2.5 pointer-events-auto">
                 {zones.map((zone, idx) => {
                   const isActive = activeZoneIndex === idx;
+                  const cInfo = zoneColorMap[idx] || zoneColorMap[0];
+
                   return (
                     <button
                       key={zone.id}
                       onClick={() => setActiveZoneIndex(idx)}
-                      className={`text-left p-2 rounded-[2px] backdrop-blur-md transition-all text-[11px] font-mono tracking-wider cursor-pointer border ${
+                      className={`text-left p-2.5 rounded-[3px] backdrop-blur-md transition-all text-[11px] font-mono tracking-wider cursor-pointer border ${
                         isActive
-                          ? 'bg-[#c8a45d]/30 border-[#c8a45d] text-white shadow-md'
-                          : 'bg-black/50 border-white/15 text-white/70 hover:bg-black/70 hover:text-white'
+                          ? cInfo.activeBtn
+                          : 'bg-black/60 border-white/20 text-white/75 hover:bg-black/80 hover:text-white'
                       }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <span>ZONE 0{idx + 1}</span>
+                      <div className="flex items-center justify-between mb-0.5">
+                        <span className="font-semibold">ZONE 0{idx + 1}</span>
                         <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isActive ? 'bg-[#c8a45d]' : 'bg-white/40'
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            isActive ? cInfo.dot : 'bg-white/40'
                           }`}
                         />
                       </div>
-                      <div className="font-sans font-medium text-xs mt-0.5 truncate">
+                      <div className="font-sans font-medium text-xs truncate">
                         {zone.name}
                       </div>
                     </button>
@@ -114,17 +148,17 @@ export const LabSetupSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Detailed Side Panel for Active Zone */}
+          {/* Detailed Side Panel for Active Zone with Distinct Colors */}
           <div
             ref={sidePanelRef}
-            className="lg:col-span-5 p-5 sm:p-6 rounded-[2px] bg-white/[0.03] border border-white/15 backdrop-blur-md flex flex-col justify-between min-h-[260px]"
+            className="lg:col-span-5 p-5 sm:p-6 rounded-[3px] bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/15 backdrop-blur-md flex flex-col justify-between min-h-[260px] shadow-lg"
           >
             <div>
               <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5">
-                <span className="font-mono text-xs uppercase tracking-wider text-[#c8a45d]">
+                <span className={`font-mono text-xs uppercase tracking-wider font-semibold ${activeColor.badge}`}>
                   ZONE 0{activeZoneIndex + 1} OF 0{zones.length}
                 </span>
-                <span className="text-[11px] font-mono text-white/50">
+                <span className="text-[11px] font-mono text-white/60 px-2 py-0.5 bg-white/5 rounded-[2px]">
                   Layout Dedicated
                 </span>
               </div>
@@ -133,24 +167,24 @@ export const LabSetupSection: React.FC = () => {
                 {currentZone.name}
               </h3>
 
-              <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-white/80 font-sans leading-relaxed mb-4">
                 {currentZone.description}
               </p>
             </div>
 
-            {/* Safety & Standards Note */}
+            {/* Standards Badges with Accent Tint */}
             <div className="border-t border-white/10 pt-3">
               <span className="text-[11px] uppercase tracking-wider text-white/50 font-mono block mb-2">
-                Standards:
+                Standards & Compliance:
               </span>
               <div className="flex flex-wrap gap-1.5">
-                <span className="px-2 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-[11px] text-white/80 font-sans">
+                <span className={`px-2 py-0.5 rounded-[2px] border text-[11px] font-sans ${activeColor.tag}`}>
                   Dedicated Power Points
                 </span>
-                <span className="px-2 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-[11px] text-white/80 font-sans">
+                <span className={`px-2 py-0.5 rounded-[2px] border text-[11px] font-sans ${activeColor.tag}`}>
                   Grounded Antistatic Benches
                 </span>
-                <span className="px-2 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-[11px] text-white/80 font-sans">
+                <span className={`px-2 py-0.5 rounded-[2px] border text-[11px] font-sans ${activeColor.tag}`}>
                   Safety Line Markings
                 </span>
               </div>
@@ -159,7 +193,7 @@ export const LabSetupSection: React.FC = () => {
         </div>
 
         {/* Safety & Compliance Badge */}
-        <div className="border-t border-white/10 pt-2 flex items-center justify-between text-[11px] font-mono text-white/40">
+        <div className="border-t border-white/10 pt-2 flex items-center justify-between text-[11px] font-mono text-white/50">
           <span>Electrical, ESD & Ventilation Safety Compliant</span>
           <span>Dual Fire-Extinguisher & First-Aid Protocol</span>
         </div>

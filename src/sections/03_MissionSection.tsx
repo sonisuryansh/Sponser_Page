@@ -15,6 +15,41 @@ const iconMap: Record<string, React.ReactNode> = {
   RefreshCw: <RefreshCw className="w-4 h-4" />,
 };
 
+const valueStyleMap: Record<
+  string,
+  {
+    iconBox: string;
+    borderAccent: string;
+    accentDot: string;
+  }
+> = {
+  'Hands-on Learning': {
+    iconBox: 'bg-amber-50 text-amber-600 border-amber-200/80 shadow-xs',
+    borderAccent: 'border-t-2 border-t-amber-500',
+    accentDot: 'bg-amber-500',
+  },
+  'Problem-Solving': {
+    iconBox: 'bg-blue-50 text-blue-600 border-blue-200/80 shadow-xs',
+    borderAccent: 'border-t-2 border-t-blue-500',
+    accentDot: 'bg-blue-500',
+  },
+  'Creativity & Innovation': {
+    iconBox: 'bg-purple-50 text-purple-600 border-purple-200/80 shadow-xs',
+    borderAccent: 'border-t-2 border-t-purple-500',
+    accentDot: 'bg-purple-500',
+  },
+  'Responsible Technology': {
+    iconBox: 'bg-emerald-50 text-emerald-600 border-emerald-200/80 shadow-xs',
+    borderAccent: 'border-t-2 border-t-emerald-500',
+    accentDot: 'bg-emerald-500',
+  },
+  'Continuous Learning': {
+    iconBox: 'bg-cyan-50 text-cyan-600 border-cyan-200/80 shadow-xs',
+    borderAccent: 'border-t-2 border-t-cyan-500',
+    accentDot: 'bg-cyan-500',
+  },
+};
+
 export const MissionSection: React.FC = () => {
   const quoteRef = useRef<HTMLHeadingElement>(null);
   const valuesRef = useRef<HTMLDivElement>(null);
@@ -60,13 +95,13 @@ export const MissionSection: React.FC = () => {
       // Word-by-word fill (grey to ink)
       gsap.fromTo(
         wordSpans,
-        { color: '#9ca3af', opacity: 0.6 },
+        { color: '#a0a0a0', opacity: 0.4 },
         {
           color: '#111111',
           opacity: 1,
-          stagger: 0.06,
-          ease: 'power1.out',
-          immediateRender: false,
+          stagger: 0.05,
+          duration: 0.6,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: qEl,
             start: 'top 85%',
@@ -75,17 +110,16 @@ export const MissionSection: React.FC = () => {
         }
       );
 
-      // Staggered reveal of 5 value cards
+      // Value cards staggered rise
       gsap.fromTo(
         valueCards,
-        { y: 24, opacity: 0.2 },
+        { y: 32, opacity: 0.2 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.1,
           duration: 0.8,
+          stagger: 0.08,
           ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          immediateRender: false,
           scrollTrigger: {
             trigger: vEl,
             start: 'top 88%',
@@ -127,29 +161,47 @@ export const MissionSection: React.FC = () => {
           </h2>
         </div>
 
-        {/* Five Values as an Icon Strip (Full text wrap, no truncation) */}
+        {/* Five Values with Distinct Color Accents & Badges */}
         <div className="border-t border-black/10 pt-4 pb-2">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#5b5b5b] mb-4 font-mono">
-            Core Educational Values
+          <div className="text-xs uppercase tracking-[0.2em] text-[#5b5b5b] mb-4 font-mono flex items-center justify-between">
+            <span>Core Educational Values</span>
+            <span className="text-[10px] text-black/40">5 Pillars of Learning</span>
           </div>
 
           <div ref={valuesRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {siteConfig.mission.values.map((val) => (
-              <div
-                key={val.name}
-                className="value-card flex flex-col justify-start p-3.5 bg-[#fafafa] border border-black/8 rounded-[2px]"
-              >
-                <div className="w-8 h-8 flex items-center justify-center border border-black/10 rounded-[2px] text-[#111111] mb-2.5 bg-white shrink-0">
-                  {iconMap[val.icon] || <Sparkles className="w-4 h-4" />}
+            {siteConfig.mission.values.map((val) => {
+              const style = valueStyleMap[val.name] || {
+                iconBox: 'bg-white text-[#111111] border-black/10',
+                borderAccent: 'border-t border-t-black/20',
+                accentDot: 'bg-black/30',
+              };
+
+              return (
+                <div
+                  key={val.name}
+                  className={`value-card flex flex-col justify-between p-4 bg-white border border-black/10 rounded-[4px] shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 ${style.borderAccent}`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div
+                        className={`w-9 h-9 flex items-center justify-center border rounded-[3px] shrink-0 ${style.iconBox}`}
+                      >
+                        {iconMap[val.icon] || <Sparkles className="w-4 h-4" />}
+                      </div>
+                      <span className={`w-2 h-2 rounded-full ${style.accentDot}`} />
+                    </div>
+
+                    <h3 className="font-serif text-[17px] font-medium text-[#111111] tracking-tight mb-1.5 leading-snug break-words">
+                      {val.name}
+                    </h3>
+                  </div>
+
+                  <p className="text-xs text-[#5b5b5b] leading-relaxed break-words mt-2">
+                    {val.description}
+                  </p>
                 </div>
-                <h3 className="font-serif text-[16px] md:text-[17px] font-medium text-[#111111] tracking-tight mb-1.5 leading-snug break-words">
-                  {val.name}
-                </h3>
-                <p className="text-xs text-[#5b5b5b] leading-relaxed break-words">
-                  {val.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

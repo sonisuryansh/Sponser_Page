@@ -5,12 +5,30 @@ import { Layers, Lightbulb, Wrench, GitFork, Sigma, ShieldCheck } from 'lucide-r
 import gsap from 'gsap';
 
 const principleIcons = [
-  <Layers key="1" className="w-3.5 h-3.5" />,
-  <Lightbulb key="2" className="w-3.5 h-3.5" />,
-  <Wrench key="3" className="w-3.5 h-3.5" />,
-  <GitFork key="4" className="w-3.5 h-3.5" />,
-  <Sigma key="5" className="w-3.5 h-3.5" />,
-  <ShieldCheck key="6" className="w-3.5 h-3.5" />,
+  <Layers key="1" className="w-3.5 h-3.5 text-cyan-600" />,
+  <Lightbulb key="2" className="w-3.5 h-3.5 text-amber-600" />,
+  <Wrench key="3" className="w-3.5 h-3.5 text-blue-600" />,
+  <GitFork key="4" className="w-3.5 h-3.5 text-purple-600" />,
+  <Sigma key="5" className="w-3.5 h-3.5 text-emerald-600" />,
+  <ShieldCheck key="6" className="w-3.5 h-3.5 text-rose-600" />,
+];
+
+const stepColors = [
+  {
+    badge: 'text-amber-700 bg-amber-50 border-amber-300',
+    dot: 'bg-amber-500',
+    activeCard: 'border-amber-500 bg-gradient-to-b from-amber-50/40 to-white shadow-md ring-1 ring-amber-400/30',
+  },
+  {
+    badge: 'text-cyan-700 bg-cyan-50 border-cyan-300',
+    dot: 'bg-cyan-500',
+    activeCard: 'border-cyan-500 bg-gradient-to-b from-cyan-50/40 to-white shadow-md ring-1 ring-cyan-400/30',
+  },
+  {
+    badge: 'text-purple-700 bg-purple-50 border-purple-300',
+    dot: 'bg-purple-500',
+    activeCard: 'border-purple-500 bg-gradient-to-b from-purple-50/40 to-white shadow-md ring-1 ring-purple-400/30',
+  },
 ];
 
 export const LearningApproachSection: React.FC = () => {
@@ -62,7 +80,7 @@ export const LearningApproachSection: React.FC = () => {
 
     if (iconRowRef.current) {
       gsap.to(iconRowRef.current, {
-        opacity: activeStep === 2 ? 1 : 0.4,
+        opacity: activeStep === 2 ? 1 : 0.5,
         y: activeStep === 2 ? 0 : 8,
         duration: 0.4,
         ease: 'power2.out',
@@ -87,27 +105,29 @@ export const LearningApproachSection: React.FC = () => {
         <div ref={blocksRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto">
           {siteConfig.approach.blocks.map((block, idx) => {
             const isActive = idx === activeStep;
+            const style = stepColors[idx] || stepColors[0];
+
             return (
               <div
                 key={block.title}
                 onClick={() => setActiveStep(idx)}
-                className={`approach-block p-5 sm:p-6 rounded-[2px] border transition-all cursor-pointer select-none ${
+                className={`approach-block p-5 sm:p-6 rounded-[3px] border transition-all cursor-pointer select-none ${
                   isActive
-                    ? 'border-[#c8a45d] bg-white shadow-lg ring-1 ring-[#c8a45d]/20'
+                    ? style.activeCard
                     : 'border-black/10 bg-black/[0.015] hover:border-black/25'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
                   <span
-                    className={`font-mono text-xs tracking-wider font-semibold ${
-                      isActive ? 'text-[#c8a45d]' : 'text-black/40'
+                    className={`font-mono text-xs tracking-wider px-2 py-0.5 rounded-[2px] border font-semibold ${
+                      isActive ? style.badge : 'text-black/50 border-black/10 bg-black/5'
                     }`}
                   >
                     STEP 0{idx + 1}
                   </span>
                   <div
                     className={`w-2 h-2 rounded-full transition-all ${
-                      isActive ? 'bg-[#c8a45d] scale-125' : 'bg-black/20'
+                      isActive ? `${style.dot} scale-125 shadow-xs` : 'bg-black/20'
                     }`}
                   />
                 </div>
@@ -135,9 +155,9 @@ export const LearningApproachSection: React.FC = () => {
             {siteConfig.approach.principles.map((pr, idx) => (
               <div
                 key={pr}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[2px] bg-black/[0.03] border border-black/10 font-sans text-[11px] text-[#111111]"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[2px] bg-white border border-black/10 font-sans text-[11px] text-[#111111] shadow-xs"
               >
-                <span className="text-[#c8a45d]">{principleIcons[idx]}</span>
+                <span>{principleIcons[idx]}</span>
                 <span>{pr}</span>
               </div>
             ))}
