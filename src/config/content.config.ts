@@ -410,15 +410,6 @@ export const siteConfig = {
         image: '/assets/robotics_arm_showcase.webp',
         isRealWork: true,
       },
-      {
-        id: 'proj-6',
-        name: 'Solar Angle Tracker',
-        grade: 'Grade 6',
-        domain: 'Sample project',
-        summary: 'Light-dependent resistor panel orientation platform aligning toward ambient lighting sources.',
-        image: '/assets/page_08.webp',
-        isRealWork: false, // Labelled "Sample project"
-      },
     ] as ProjectItem[],
     futureReadiness: {
       eyebrow: "Beyond today's technology: preparing students for tomorrow's innovations.",
