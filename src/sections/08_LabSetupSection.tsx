@@ -36,10 +36,63 @@ const zoneColorMap = [
 
 export const LabSetupSection: React.FC = () => {
   const [activeZoneIndex, setActiveZoneIndex] = useState(0);
+  const [isSectionActive, setIsSectionActive] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const sidePanelRef = useRef<HTMLDivElement>(null);
 
   const zones = siteConfig.labSetup.zones;
+
+  // Detect whether this section/slide is currently visible and active in viewport
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const checkActive = () => {
+      const slideWrapper = el.closest<HTMLElement>('.slide-item');
+      if (slideWrapper) {
+        const visible = slideWrapper.style.visibility === 'visible' && slideWrapper.style.opacity !== '0';
+        setIsSectionActive(visible);
+        return visible;
+      }
+      setIsSectionActive(true);
+      return true;
+    };
+
+    checkActive();
+
+    const slideWrapper = el.closest<HTMLElement>('.slide-item');
+    let observer: MutationObserver | null = null;
+    if (slideWrapper) {
+      observer = new MutationObserver(() => {
+        checkActive();
+      });
+      observer.observe(slideWrapper, { attributes: true, attributeFilter: ['style', 'class'] });
+    }
+
+    const pollTimer = setInterval(checkActive, 500);
+
+    return () => {
+      observer?.disconnect();
+      clearInterval(pollTimer);
+    };
+  }, []);
+
+  // Automatic random zone cycling when user is on this section
+  useEffect(() => {
+    if (!isSectionActive || isHovered || zones.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setActiveZoneIndex((prev) => {
+        // Randomly pick one of the other zones so it always changes dynamically
+        const candidates = zones.map((_, i) => i).filter((i) => i !== prev);
+        const next = candidates[Math.floor(Math.random() * candidates.length)];
+        return next;
+      });
+    }, 2800);
+
+    return () => clearInterval(timer);
+  }, [isSectionActive, isHovered, zones]);
 
   // Listen to step navigation events (wheel scroll & arrow keys)
   useEffect(() => {
@@ -115,7 +168,11 @@ export const LabSetupSection: React.FC = () => {
               </div>
 
               {/* Pin Buttons on Image */}
-              <div className="grid grid-cols-2 gap-2.5 pointer-events-auto">
+              <div
+                className="grid grid-cols-2 gap-2.5 pointer-events-auto"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
                 {zones.map((zone, idx) => {
                   const isActive = activeZoneIndex === idx;
                   const cInfo = zoneColorMap[idx] || zoneColorMap[0];
@@ -151,6 +208,8 @@ export const LabSetupSection: React.FC = () => {
           {/* Detailed Side Panel for Active Zone with Distinct Colors */}
           <div
             ref={sidePanelRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             className="lg:col-span-5 p-5 sm:p-6 rounded-[3px] bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/15 backdrop-blur-md flex flex-col justify-between min-h-[260px] shadow-lg"
           >
             <div>
