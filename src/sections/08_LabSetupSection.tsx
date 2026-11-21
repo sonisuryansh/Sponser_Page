@@ -84,14 +84,14 @@ export const LabSetupSection: React.FC = () => {
     <ChapterShell id="lab-setup" chapterNumber="08" theme="dark" steps={4}>
       <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
         {/* Eyebrow & Statement Headline */}
-        <div className="mb-3 max-w-3xl">
+        <div className="mb-3 max-w-3xl mx-auto text-center">
           <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1">
             {siteConfig.labSetup.eyebrow}
           </div>
           <h2 className="font-serif text-[clamp(26px,3.4vw,44px)] font-normal leading-[1.14] tracking-tight text-white mb-1">
             {siteConfig.labSetup.headline}
           </h2>
-          <p className="text-sm text-white/70 font-sans">
+          <p className="text-sm text-white/70 font-sans max-w-2xl mx-auto">
             {siteConfig.labSetup.paragraph}
           </p>
         </div>
