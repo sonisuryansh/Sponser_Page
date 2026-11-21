@@ -17,6 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Sync fullscreen state with document
   useEffect(() => {
@@ -29,6 +30,35 @@ export const Header: React.FC<HeaderProps> = ({
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
   }, []);
+
+  // Detect scroll on active slide's scroll pane to toggle frosted glass navbar
+  useEffect(() => {
+    const handleScroll = (e: Event) => {
+      const target = e.target;
+      if (target instanceof HTMLElement && target.classList?.contains('slide-scroll-pane')) {
+        setIsScrolled(target.scrollTop > 8);
+      } else {
+        const pane = document.querySelector(
+          '.slide-item[style*="visible"] .slide-scroll-pane'
+        ) as HTMLElement | null;
+        if (pane) {
+          setIsScrolled(pane.scrollTop > 8);
+        } else {
+          setIsScrolled(window.scrollY > 8);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll, { capture: true } as EventListenerOptions);
+    };
+  }, []);
+
+  // Reset isScrolled whenever the section changes
+  useEffect(() => {
+    setIsScrolled(false);
+  }, [currentSectionId]);
 
   const toggleFullscreen = async () => {
     try {
@@ -78,8 +108,14 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 bg-transparent pointer-events-auto select-none transition-colors duration-400 ${
-          isDark ? 'text-white' : 'text-[#111111]'
+        className={`fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 pointer-events-auto select-none transition-all duration-300 ${
+          isScrolled
+            ? isDark
+              ? 'bg-[#0A1016]/92 backdrop-blur-md border-b border-white/10 shadow-md text-white'
+              : 'bg-[#FAF6EE]/94 backdrop-blur-md border-b border-black/8 shadow-xs text-[#111111]'
+            : isDark
+              ? 'bg-transparent text-white'
+              : 'bg-transparent text-[#111111]'
         }`}
       >
         {/* Brand / Logo Left */}
@@ -128,10 +164,10 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => setIsMenuOpen(true)}
             aria-label="Open presentation menu"
-            className={`flex items-center gap-2 px-3 py-1.5 border rounded-[2px] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
+            className={`flex items-center gap-2 px-3 py-1.5 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
               isDark
-                ? 'border-white/30 hover:border-white text-white'
-                : 'border-black/30 hover:border-black text-[#111111]'
+                ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
+                : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
             }`}
           >
             <span className="text-xs uppercase tracking-[0.18em]">Menu</span>
@@ -143,10 +179,10 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={toggleFullscreen}
             aria-label={isFullscreen ? 'Exit fullscreen mode' : 'Enter fullscreen mode'}
             title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-            className={`flex items-center justify-center p-2 border rounded-[2px] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
+            className={`flex items-center justify-center p-2 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
               isDark
-                ? 'border-white/30 hover:border-white text-white hover:bg-white/10'
-                : 'border-black/30 hover:border-black text-[#111111] hover:bg-black/5'
+                ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
+                : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
             }`}
           >
             {isFullscreen ? (

@@ -27,7 +27,7 @@ export const ProjectShowcaseSection: React.FC = () => {
       chapterNumber="07"
       theme="light"
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-y-auto bg-[#FAF6EE] select-none"
+      className="relative w-full min-h-[100svh] bg-[#FAF6EE] select-none"
     >
       {/* Scrollable Container with Top Clearance for Fixed Header */}
       <div

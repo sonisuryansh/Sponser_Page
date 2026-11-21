@@ -330,10 +330,21 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
 
     const spread = vw < 640 ? 0.38 : vw < 768 ? 0.50 : vw < 1080 ? 0.72 : vw < 1366 ? 0.88 : 1.0;
-    const deckCardW = vw < 640 ? 260 : vw < 768 ? 280 : 310;
-    const deckCardH = vw < 640 ? 410 : vw < 768 ? 430 : 460;
-    const panelW = Math.min(840, Math.floor(vw * (vw < 640 ? 0.94 : vw < 1024 ? 0.88 : 0.65)));
-    const panelH = Math.min(520, Math.floor(vh * (vh < 750 ? 0.72 : 0.66)));
+    const deckCardW = vw < 640 ? 250 : vw < 768 ? 275 : 300;
+    const deckCardH = vh < 750 ? 390 : 425;
+    
+    // Balanced, generous widescreen dimensions that fit comfortably in any 100svh viewport
+    const panelW = vw < 640 
+      ? Math.floor(vw * 0.94) 
+      : vw < 1024 
+        ? Math.min(840, Math.floor(vw * 0.90)) 
+        : Math.min(960, Math.floor(vw * 0.70));
+        
+    const panelH = vh < 700 
+      ? Math.min(450, Math.floor(vh * 0.68)) 
+      : vh < 850 
+        ? Math.min(480, Math.floor(vh * 0.65)) 
+        : Math.min(530, Math.floor(vh * 0.62));
 
     return { spread, deckCardW, deckCardH, panelW, panelH };
   }, []);
@@ -350,9 +361,9 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
       const expandedFace = cardEl.querySelector('.expanded-face');
 
       if (targetIndex === -1) {
-        // Deck State: All cards spread and fanned out
+        // Deck State: All cards spread and fanned out cleanly centered
         const origX = Math.round(domain.deckX * spread);
-        const origY = domain.deckY + 20;
+        const origY = domain.deckY - 8;
 
         gsap.to(cardEl, {
           xPercent: -50,
@@ -383,7 +394,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           xPercent: -50,
           yPercent: -50,
           x: 0,
-          y: -14,
+          y: -8,
           rotation: 0,
           width: panelW,
           height: panelH,
@@ -645,7 +656,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         ref={containerRef}
         id="technology-suite"
         data-steppable="true"
-        className="relative w-full h-[100svh] min-h-[100svh] flex flex-col justify-between select-none pt-[calc(var(--header-h)+16px)] pb-3 box-border"
+        className="relative w-full h-[100svh] max-h-[100svh] flex flex-col justify-between select-none pt-[calc(var(--header-h,64px)+10px)] pb-2.5 box-border overflow-hidden"
       >
         {/* Hidden SVG Symbols for Bullets and Divider */}
         <svg xmlns="http://www.w3.org/2000/svg" className="hidden" aria-hidden="true">
@@ -701,7 +712,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         </div>
 
         {/* ─── The Stage: Exact 5 Persistent DOM Cards That Morph Physically ─── */}
-        <div className="relative w-full flex-1 flex items-center justify-center overflow-visible pb-6 sm:pb-8 lg:pb-10">
+        <div className="relative w-full flex-1 min-h-0 flex items-center justify-center overflow-visible">
           {DOMAINS.map((card, idx) => {
             const isCardActive = activeCardIndex === idx;
 
@@ -725,14 +736,21 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                   top: '50%',
                   transformOrigin: 'center center',
                 }}
-                className={`truus-morph-card absolute w-[280px] sm:w-[310px] h-[430px] sm:h-[460px] cursor-pointer rounded-2xl shadow-2xl border border-white/20 select-none overflow-visible will-change-transform ${
-                  isCardActive ? 'cursor-default ring-1 ring-white/30' : ''
+                className={`truus-morph-card absolute w-[280px] sm:w-[310px] h-[430px] sm:h-[460px] cursor-pointer rounded-2xl shadow-2xl border border-white/20 select-none will-change-transform ${
+                  isCardActive ? 'cursor-default ring-1 ring-white/30 overflow-hidden' : 'overflow-visible'
                 }`}
               >
                 {/* =========================================================================
-                    FACE 1: DECK STATE (100% Exact Existing Design Preserved, Zero Clipping)
+                    FACE 1: DECK STATE (Visible ONLY when card is NOT active)
                     ========================================================================= */}
-                <div className="deck-face absolute inset-0 p-5 sm:p-6 flex flex-col justify-between z-10 overflow-visible">
+                <div
+                  className="deck-face absolute inset-0 p-5 sm:p-6 flex flex-col justify-between z-10 overflow-visible transition-opacity duration-300"
+                  style={{
+                    opacity: isCardActive ? 0 : 1,
+                    visibility: isCardActive ? 'hidden' : 'visible',
+                    pointerEvents: isCardActive ? 'none' : 'auto',
+                  }}
+                >
                   {/* Floating Badge on top right - fully visible outside top border */}
                   <div
                     style={{ backgroundColor: card.badgeBg, color: card.badgeTextColor }}
@@ -796,9 +814,16 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 </div>
 
                 {/* =========================================================================
-                    FACE 2: EXPANDED PRESENTATION PANEL (Transforms Inside the Same DOM Element)
+                    FACE 2: EXPANDED PRESENTATION PANEL (Visible ONLY when card IS active)
                     ========================================================================= */}
-                <div className="expanded-face absolute inset-0 p-4 sm:p-5 lg:p-6 flex flex-col justify-between z-30 overflow-hidden opacity-0 pointer-events-none select-text text-white rounded-3xl">
+                <div
+                  className="expanded-face absolute inset-0 p-4 sm:p-5 lg:p-6 flex flex-col justify-between z-30 overflow-hidden select-text text-white rounded-3xl transition-opacity duration-300"
+                  style={{
+                    opacity: isCardActive ? 1 : 0,
+                    visibility: isCardActive ? 'visible' : 'hidden',
+                    pointerEvents: isCardActive ? 'auto' : 'none',
+                  }}
+                >
                   {/* Card Top Domain Bar */}
                   <div className="flex items-center justify-between pb-2 mb-1.5 border-b border-white/12 shrink-0">
                     <div className="flex items-center gap-2.5">
@@ -851,10 +876,10 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
 
                   <LineReveal color={card.accent} height={1.5} className="mb-2 shrink-0" />
 
-                  {/* Main Content Grid: Balanced & Proportionate Square Distribution */}
+                  {/* Main Content Grid: Balanced & Proportionate Distribution */}
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-center my-auto flex-1 min-h-0">
                     {/* Left Column: Headlines, Metrics & 2 Core Pillars */}
-                    <div className="lg:col-span-6 space-y-2 sm:space-y-2.5 flex flex-col justify-center">
+                    <div className="lg:col-span-7 space-y-1.5 sm:space-y-2 flex flex-col justify-center">
                       <div>
                         <h3 className="font-serif-editorial text-lg sm:text-xl lg:text-[22px] font-normal text-white tracking-tight leading-snug">
                           {card.fullName}{' '}
@@ -862,13 +887,13 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                             {card.italicWord}
                           </span>
                         </h3>
-                        <p className="font-sans-modern text-[11.5px] sm:text-xs text-white/80 mt-1 leading-relaxed font-normal max-w-md">
+                        <p className="font-sans-modern text-[11.5px] sm:text-xs text-white/80 mt-0.5 leading-relaxed font-normal max-w-md">
                           {card.description}
                         </p>
                       </div>
 
                       {/* Live Animated Metrics Strip */}
-                      <div className="grid grid-cols-3 gap-2 py-2 px-3.5 border border-white/10 bg-white/5 rounded-xl">
+                      <div className="grid grid-cols-3 gap-2 py-1.5 px-3 border border-white/10 bg-white/5 rounded-xl">
                         {card.metrics.map((m, mIdx) => (
                           <div key={mIdx} className="text-left">
                             <div
@@ -877,7 +902,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                             >
                               <AnimatedCounter value={m.value} suffix={m.suffix} />
                             </div>
-                            <div className="font-mono-tech text-[9.5px] text-white/60 uppercase leading-tight">
+                            <div className="font-mono-tech text-[9.5px] text-white/60 uppercase leading-tight truncate">
                               {m.label}
                             </div>
                           </div>
@@ -885,7 +910,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                       </div>
 
                       {/* 2 Core Pillars Grid */}
-                      <div className="grid grid-cols-2 gap-2.5 pt-0.5">
+                      <div className="grid grid-cols-2 gap-2 pt-0.5">
                         {card.pillars.slice(0, 2).map((item, pIdx) => {
                           const isStageSelected = activeDataStage === pIdx;
                           return (
@@ -897,7 +922,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                                     setActiveDataStage(pIdx);
                                   }
                                 }}
-                                className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-300 h-full ${
+                                className={`p-2 sm:p-2.5 rounded-xl border text-left transition-all duration-300 h-full ${
                                   card.id === 'data-analytics'
                                     ? isStageSelected
                                       ? 'bg-white/20 border-white ring-1 ring-white/40 shadow-xs cursor-pointer'
@@ -906,15 +931,15 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                                 }`}
                               >
                                 <div
-                                  className="font-mono-tech text-[9.5px] font-bold"
+                                  className="font-mono-tech text-[9px] font-bold"
                                   style={{ color: card.accent }}
                                 >
                                   {card.id === 'data-analytics' ? `STAGE ${item.num}` : `CORE PILLAR ${item.num}`}
                                 </div>
-                                <div className="font-sans-modern text-xs font-semibold text-white leading-tight mt-1 truncate">
+                                <div className="font-sans-modern text-xs font-semibold text-white leading-tight mt-0.5 truncate">
                                   {item.title}
                                 </div>
-                                <div className="font-sans-modern text-[10.5px] text-white/70 mt-1 leading-snug">
+                                <div className="font-sans-modern text-[10px] text-white/70 mt-0.5 leading-snug line-clamp-2">
                                   {item.desc}
                                 </div>
                               </div>
@@ -924,18 +949,18 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                       </div>
 
                       {/* Bottom Verification Note to fill space cleanly */}
-                      <div className="flex items-center justify-between text-[11px] font-mono-tech text-white/60 pt-2 border-t border-white/8">
-                        <span className="flex items-center gap-1.5 truncate">
+                      <div className="flex items-center justify-between text-[10px] sm:text-[10.5px] font-mono-tech text-white/60 pt-1 border-t border-white/8 shrink-0">
+                        <span className="flex items-center gap-1.5 min-w-0 pr-2">
                           <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: card.accent }} />
                           <span className="truncate">{card.badgeNote || `${card.fullName} verified curriculum`}</span>
                         </span>
-                        <span className="shrink-0 text-white/40 font-medium ml-2">Domain Spec</span>
+                        <span className="shrink-0 text-white/40 font-medium whitespace-nowrap">Domain Spec</span>
                       </div>
                     </div>
 
                     {/* Right Column: Controlled Height Visual Card with Hardware Visual */}
-                    <div className="lg:col-span-6 flex justify-center items-center h-full">
-                      <div className="relative overflow-hidden rounded-2xl bg-black border border-white/20 shadow-xl w-full max-w-[310px] sm:max-w-[330px] lg:max-w-[340px] h-[240px] sm:h-[260px] lg:h-[280px] group">
+                    <div className="lg:col-span-5 flex justify-center items-center h-full">
+                      <div className="relative overflow-hidden rounded-2xl bg-black border border-white/20 shadow-xl w-full max-w-[290px] h-[185px] sm:h-[200px] lg:h-[215px] group">
                         <img
                           src={card.image}
                           alt={card.imageCaption}
@@ -943,19 +968,19 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-                        <div className="absolute bottom-3 left-3.5 right-3.5 flex items-end justify-between text-white">
+                        <div className="absolute bottom-2.5 left-3 right-3 flex items-end justify-between text-white">
                           <div>
                             <span
-                              className="font-mono-tech text-[9.5px] tracking-wider uppercase font-bold block leading-tight mb-0.5"
+                              className="font-mono-tech text-[9px] tracking-wider uppercase font-bold block leading-tight mb-0.5"
                               style={{ color: card.accent }}
                             >
                               {card.imageCaption}
                             </span>
-                            <p className="font-serif-editorial text-[10.5px] sm:text-[11px] italic text-white/95 font-light leading-tight">
+                            <p className="font-serif-editorial text-[10px] sm:text-[10.5px] italic text-white/95 font-light leading-tight">
                               {card.imageSubcaption}
                             </p>
                           </div>
-                          <span className="font-mono-tech text-[9px] text-white/80 bg-white/15 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
+                          <span className="font-mono-tech text-[8.5px] text-white/80 bg-white/15 px-2 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
                             {card.imageTag}
                           </span>
                         </div>
@@ -969,7 +994,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         </div>
 
         {/* ─── Bottom Domain Stage Controls Bar ─── */}
-        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 pb-2 flex flex-col items-center gap-1.5 shrink-0">
+        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 pb-1.5 flex flex-col items-center gap-1 shrink-0">
           {/* Domain Step Pills */}
           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-lg">
             <button

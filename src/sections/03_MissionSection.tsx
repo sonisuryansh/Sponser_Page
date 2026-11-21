@@ -59,13 +59,13 @@ export const MissionSection: React.FC = () => {
       className="relative w-full h-[100svh] overflow-hidden bg-[#F1F1EF]"
     >
       <div className="relative w-full h-full flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-5 px-3 sm:px-6 lg:px-8 box-border select-none">
-        
+
         {/* Main Inset White Panel - Expanded to fill viewport with even distribution */}
         <div className="relative w-full h-full max-w-[1400px] bg-[#FFFFFD] shadow-[0_20px_60px_rgba(0,0,0,0.06)] border border-black/8 rounded-[4px] flex flex-col justify-between p-6 sm:p-9 lg:p-12 box-border z-10">
-          
+
           {/* Main Content Area Evenly Distributed */}
           <div ref={contentRef} className="flex-1 flex flex-col justify-between h-full overflow-hidden">
-            
+
             {/* Top Area: Eyebrow, Statement Headline & Narrative Copy */}
             <div className="flex-none">
               {/* Eyebrow & Chapter Indicator */}

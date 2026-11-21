@@ -57,7 +57,7 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
       {/* 100svh Chapter Shell with tactile top shadow */}
       <div
         className={`chapter-shell w-full min-h-[100svh] overflow-visible flex flex-col justify-between ${
-          fullBleed ? 'p-0' : 'pt-[calc(var(--header-h)+24px)] pb-6'
+          fullBleed ? '!p-0' : 'pt-[calc(var(--header-h)+24px)] pb-6'
         } box-border ${
           isDark
             ? 'bg-[#0a0e14] text-white shadow-[0_-25px_60px_rgba(0,0,0,0.7)]'
