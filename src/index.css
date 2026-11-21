@@ -14,7 +14,8 @@
     background-color: #ffffff;
     color: #111111;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    scroll-behavior: auto; /* Handled smoothly by Lenis */
+    scroll-behavior: auto;
+    /* Handled smoothly by Lenis */
   }
 
   body {
@@ -33,7 +34,11 @@
   }
 
   /* Refined Editorial Typography */
-  h1, h2, h3, h4, .font-serif {
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-serif {
     font-family: 'Cormorant Garamond', 'Newsreader', Georgia, serif;
   }
 }
@@ -247,6 +252,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .slide-transition-backdrop,
   .slide-transition-gold-block,
   .slide-transition-shutters {
@@ -255,7 +261,9 @@
 }
 
 /* Failsafe Content Visibility: Visible by default! */
-.reveal-text, .reveal-item, .reveal-panel {
+.reveal-text,
+.reveal-item,
+.reveal-panel {
   opacity: 1;
   transform: none;
   visibility: visible;
@@ -274,7 +282,8 @@
 }
 
 /* Lenis Smooth Scrolling */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -314,6 +323,7 @@ html.lenis, html.lenis body {
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 2000px 0;
   }
@@ -321,12 +331,16 @@ html.lenis, html.lenis body {
 
 /* Respect Reduced Motion: instant reveals, no pin, no smooth scroll */
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
+
+  *,
+  ::before,
+  ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
   .chapter-shell {
     height: auto !important;
     min-height: 100svh !important;
