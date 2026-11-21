@@ -179,12 +179,7 @@ export const LearningApproachSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Right Vertical Divider / Publication Track */}
-              <div className="hidden lg:flex flex-col items-center justify-between py-2 text-[#cccccc] pl-2 shrink-0">
-                <span className="text-[8px] leading-none select-none">▲</span>
-                <div className="w-[1.5px] h-full bg-black/15 my-1" />
-                <span className="text-[8px] leading-none select-none">▼</span>
-              </div>
+
             </div>
           </div>
         </div>
