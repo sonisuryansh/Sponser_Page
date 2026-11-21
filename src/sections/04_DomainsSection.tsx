@@ -321,6 +321,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [activeCardIndex, setActiveCardIndex] = useState<number>(-1);
+  const activeCardIndexRef = useRef<number>(-1);
   const [activeDataStage, setActiveDataStage] = useState<number>(0);
 
   // Responsive spread and panel dimension calculator
@@ -448,25 +449,184 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
   }, [getLayoutDimensions]);
 
   // Handle switching cards
-  const handleSelectCard = (index: number) => {
-    setActiveCardIndex(index);
-    updateCardLayout(index);
-    if (index >= 0) {
-      onSlideChange?.(DOMAINS[index].slideIndex);
-    }
-  };
+  const handleSelectCard = useCallback(
+    (index: number) => {
+      setActiveCardIndex(index);
+      activeCardIndexRef.current = index;
+      updateCardLayout(index);
+      if (index >= 0) {
+        onSlideChange?.(DOMAINS[index].slideIndex);
+      }
+    },
+    [updateCardLayout, onSlideChange]
+  );
 
-  const handleCloseToDeck = () => {
+  const handleCloseToDeck = useCallback(() => {
     setActiveCardIndex(-1);
+    activeCardIndexRef.current = -1;
     updateCardLayout(-1);
-  };
+  }, [updateCardLayout]);
+
+  // Tactile hover fan on deck cards
+  const handleCardMouseEnter = useCallback(
+    (hoveredIdx: number) => {
+      if (activeCardIndexRef.current !== -1) return;
+      const { spread } = getLayoutDimensions();
+
+      DOMAINS.forEach((domain, idx) => {
+        const cardEl = cardRefs.current[idx];
+        if (!cardEl) return;
+        const origX = Math.round(domain.deckX * spread);
+        const origY = domain.deckY + 20;
+
+        if (idx === hoveredIdx) {
+          gsap.to(cardEl, {
+            y: origY - 26,
+            scale: 1.05,
+            zIndex: 45,
+            boxShadow: `0 35px 80px -10px ${domain.glowColor}, 0 0 0 1px rgba(255,255,255,0.35)`,
+            duration: 0.32,
+            ease: 'power2.out',
+          });
+        } else {
+          const offset = idx < hoveredIdx ? -20 : 20;
+          gsap.to(cardEl, {
+            x: origX + offset,
+            y: origY + 8,
+            scale: 0.95,
+            opacity: 0.7,
+            zIndex: idx + 1,
+            duration: 0.32,
+            ease: 'power2.out',
+          });
+        }
+      });
+    },
+    [getLayoutDimensions]
+  );
+
+  const handleCardMouseLeave = useCallback(() => {
+    if (activeCardIndexRef.current !== -1) return;
+    updateCardLayout(-1);
+  }, [updateCardLayout]);
+
+  // Synchronize with SlideTransitions scroll events
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const handleStep = (e: Event) => {
+      const customEvent = e as CustomEvent<{ direction: number }>;
+      const dir = customEvent.detail?.direction || 1;
+      const cur = activeCardIndexRef.current;
+
+      if (dir > 0) {
+        // Forward scroll (down): step through cards 0 -> 1 -> 2 -> 3 -> 4
+        if (cur < DOMAINS.length - 1) {
+          e.preventDefault();
+          const next = cur === -1 ? 0 : cur + 1;
+          handleSelectCard(next);
+        }
+        // At Card 4, e.preventDefault() is NOT called, so SlideTransitions advances to Slide 05!
+      } else {
+        // Reverse scroll (up): step back through cards 4 -> 3 -> 2 -> 1 -> 0 -> -1
+        if (cur > -1) {
+          e.preventDefault();
+          const prev = cur - 1;
+          if (prev === -1) {
+            handleCloseToDeck();
+          } else {
+            handleSelectCard(prev);
+          }
+        }
+        // At Deck view (-1), e.preventDefault() is NOT called, so SlideTransitions goes back to Slide 03!
+      }
+    };
+
+    el.addEventListener('slide:step', handleStep);
+    return () => el.removeEventListener('slide:step', handleStep);
+  }, [handleSelectCard, handleCloseToDeck]);
+
+  // Local wheel gesture listener for direct trackpad / mousewheel scrolling inside domains section
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    let lastWheel = 0;
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 15) return;
+      const now = Date.now();
+      if (now - lastWheel < 420) return;
+      const dir = Math.sign(e.deltaY);
+      const cur = activeCardIndexRef.current;
+
+      if (dir > 0 && cur < DOMAINS.length - 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        lastWheel = now;
+        const next = cur === -1 ? 0 : cur + 1;
+        handleSelectCard(next);
+      } else if (dir < 0 && cur > -1) {
+        e.preventDefault();
+        e.stopPropagation();
+        lastWheel = now;
+        const prev = cur - 1;
+        if (prev === -1) {
+          handleCloseToDeck();
+        } else {
+          handleSelectCard(prev);
+        }
+      }
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [handleSelectCard, handleCloseToDeck]);
+
+  // Keyboard navigation within domain section
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        document.activeElement?.tagName === 'INPUT' ||
+        document.activeElement?.tagName === 'TEXTAREA' ||
+        document.querySelector('[aria-modal="true"]')
+      ) {
+        return;
+      }
+
+      const cur = activeCardIndexRef.current;
+      if (e.key === 'Escape' && cur !== -1) {
+        e.preventDefault();
+        handleCloseToDeck();
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        if (cur < DOMAINS.length - 1) {
+          e.preventDefault();
+          const next = cur === -1 ? 0 : cur + 1;
+          handleSelectCard(next);
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        if (cur > -1) {
+          e.preventDefault();
+          const prev = cur - 1;
+          if (prev === -1) {
+            handleCloseToDeck();
+          } else {
+            handleSelectCard(prev);
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleSelectCard, handleCloseToDeck]);
 
   // Initial layout on mount & resize
   useEffect(() => {
     updateCardLayout(activeCardIndex);
 
     const handleResize = () => {
-      updateCardLayout(activeCardIndex);
+      updateCardLayout(activeCardIndexRef.current);
     };
 
     window.addEventListener('resize', handleResize);
@@ -484,7 +644,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
       <div
         ref={containerRef}
         id="technology-suite"
-        className="relative w-full h-[100svh] min-h-[100svh] flex flex-col justify-between select-none pt-[calc(var(--header-h)+16px)] pb-6 box-border"
+        data-steppable="true"
+        className="relative w-full h-[100svh] min-h-[100svh] flex flex-col justify-between select-none pt-[calc(var(--header-h)+16px)] pb-3 box-border"
       >
         {/* Hidden SVG Symbols for Bullets and Divider */}
         <svg xmlns="http://www.w3.org/2000/svg" className="hidden" aria-hidden="true">
@@ -555,6 +716,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                     handleSelectCard(idx);
                   }
                 }}
+                onMouseEnter={() => handleCardMouseEnter(idx)}
+                onMouseLeave={handleCardMouseLeave}
                 style={{
                   backgroundColor: card.bg,
                   color: card.textColor,
@@ -563,7 +726,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                   transformOrigin: 'center center',
                 }}
                 className={`truus-morph-card absolute w-[280px] sm:w-[310px] h-[430px] sm:h-[460px] cursor-pointer rounded-2xl shadow-2xl border border-white/20 select-none overflow-visible will-change-transform ${
-                  isCardActive ? 'cursor-default ring-1 ring-white/30' : 'hover:-translate-y-2 transition-transform duration-300'
+                  isCardActive ? 'cursor-default ring-1 ring-white/30' : ''
                 }`}
               >
                 {/* =========================================================================
@@ -803,6 +966,53 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
               </div>
             );
           })}
+        </div>
+
+        {/* ─── Bottom Domain Stage Controls Bar ─── */}
+        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 pb-2 flex flex-col items-center gap-1.5 shrink-0">
+          {/* Domain Step Pills */}
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-lg">
+            <button
+              type="button"
+              onClick={handleCloseToDeck}
+              className={`font-mono-tech text-[10.5px] px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                activeCardIndex === -1
+                  ? 'bg-white/25 text-white font-bold border border-white/30 shadow-xs'
+                  : 'text-white/60 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              Deck View
+            </button>
+            <span className="w-1 h-1 rounded-full bg-white/20" />
+            {DOMAINS.map((domain, dIdx) => {
+              const isCur = activeCardIndex === dIdx;
+              return (
+                <button
+                  key={domain.id}
+                  type="button"
+                  onClick={() => handleSelectCard(dIdx)}
+                  style={{
+                    backgroundColor: isCur ? domain.accent : undefined,
+                    color: isCur ? '#000000' : undefined,
+                  }}
+                  className={`font-mono-tech text-[10.5px] px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                    isCur
+                      ? 'font-bold shadow-md'
+                      : 'text-white/70 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  0{dIdx + 1} {domain.name}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Dynamic Scroll Interaction Cue */}
+          <div className="text-center font-mono-tech text-[10px] sm:text-[10.5px] text-white/50 tracking-wider flex items-center gap-2">
+            <span>Scroll ↓ to {activeCardIndex === -1 ? 'step through domains' : activeCardIndex === DOMAINS.length - 1 ? 'continue to next chapter' : 'advance to next domain'}</span>
+            <span className="text-white/30">•</span>
+            <span>{activeCardIndex === -1 ? '5 Domains in Deck' : `Domain 0${activeCardIndex + 1} of 05`}</span>
+          </div>
         </div>
       </div>
     </ChapterShell>

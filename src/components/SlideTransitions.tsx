@@ -327,6 +327,23 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         return;
       }
 
+      // Check if current active slide handles internal multi-step animations (e.g. Domains 5-card morph sequence)
+      const activeWrapper = wrappersRef.current[activeIndexRef.current];
+      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
+      if (customSteppable) {
+        const stepEvent = new CustomEvent('slide:step', {
+          bubbles: true,
+          cancelable: true,
+          detail: { direction },
+        });
+        const notPrevented = customSteppable.dispatchEvent(stepEvent);
+        if (!notPrevented) {
+          // Slide handled the step internally! Don't transition slides.
+          lastGestureTimeRef.current = now;
+          return;
+        }
+      }
+
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
         '.slide-scroll-pane'
       );
@@ -352,6 +369,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
     const shouldCaptureGesture = (direction: number) => {
       if (transitioningRef.current) return true;
       if (document.querySelector('[aria-modal="true"]')) return false;
+
+      const activeWrapper = wrappersRef.current[activeIndexRef.current];
+      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
+      if (customSteppable) return true;
 
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
         '.slide-scroll-pane'
