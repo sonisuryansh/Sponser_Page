@@ -44,20 +44,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       chapterNumber="01"
       theme="dark"
       media={siteConfig.hero.backgroundImage}
-      overlayOpacity={0.52}
-      className="select-none relative flex items-center justify-center"
+      overlayOpacity={0.62}
+      fullBleed={true}
+      className="select-none relative flex items-center justify-center min-h-[100svh] w-full"
     >
-      {/* Subtle Cinematic Vignette Overlay (keeps drone background details visible while ensuring crisp text readability) */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at 50% 50%, rgba(12, 28, 44, 0.35) 0%, rgba(6, 12, 18, 0.55) 70%, rgba(2, 4, 8, 0.85) 100%)',
-        }}
-      />
-
-      <div className="w-full flex-1 flex flex-col justify-center items-center text-center py-4 sm:py-6 relative z-10 max-w-6xl mx-auto px-4 my-auto">
+      <div className="w-full flex-1 flex flex-col justify-center items-center text-center py-6 sm:py-8 relative z-10 max-w-6xl mx-auto px-4 my-auto">
         {/* Top Cyan Pill: • TECHNOLOGY, SHAPED BY CURIOSITY */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full border border-sky-400/40 bg-[#0d2235]/75 backdrop-blur-md shadow-[0_0_16px_rgba(56,189,248,0.2)] mb-3 sm:mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,1)] animate-pulse" />

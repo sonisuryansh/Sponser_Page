@@ -84,7 +84,7 @@ export const siteConfig = {
       actTitle: 'Who We Are',
       sections: [
         { id: 'home', number: '01', title: 'Home', theme: 'dark' as const },
-        { id: 'about', number: '02', title: 'About', theme: 'dark' as const },
+        { id: 'about', number: '02', title: 'About', theme: 'light' as const },
         { id: 'mission', number: '03', title: 'Our Mission', theme: 'light' as const },
       ],
     },
@@ -111,7 +111,7 @@ export const siteConfig = {
       actNumber: '04',
       actTitle: 'What Students Gain',
       sections: [
-        { id: 'benefits', number: '11', title: 'Student & School Benefits', theme: 'dark' as const },
+        { id: 'benefits', number: '11', title: 'Student & School Benefits', theme: 'light' as const },
       ],
     },
     {

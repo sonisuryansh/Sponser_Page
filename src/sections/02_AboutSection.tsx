@@ -81,16 +81,6 @@ export const AboutSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
-      {/* Subtle Architectural Blueprint Grid Background Texture */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 opacity-40"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px)`,
-          backgroundSize: '48px 48px',
-        }}
-        aria-hidden="true"
-      />
-
       {/* Main Viewport Container */}
       <div
         ref={containerRef}
@@ -121,7 +111,7 @@ export const AboutSection: React.FC = () => {
         {/* 3-Column Editorial Core Composition (Aim, Photo Hero, Vision & Focus) */}
         <div className="flex-1 my-auto py-2 flex flex-col justify-center">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-            
+
             {/* Left Column: Our Aim & Core Objective (Span 3 of 12) */}
             <div className="editorial-reveal lg:col-span-3 flex flex-col justify-center">
               <h2 className="font-serif text-[clamp(28px,3vw,42px)] font-bold text-[#111111] leading-[1.08] mb-2 tracking-tight">
@@ -158,7 +148,7 @@ export const AboutSection: React.FC = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
                 />
-                
+
                 {/* Dark Gradient Overlay for the School Lab Caption */}
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-10 pb-3.5 px-4 sm:px-5 flex flex-col justify-end">
                   <span className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-cyan-400 font-bold block mb-1">
@@ -214,9 +204,8 @@ export const AboutSection: React.FC = () => {
                     return (
                       <span
                         key={word}
-                        className={`font-mono text-[9.5px] uppercase tracking-wider px-2 py-0.5 rounded-[2px] border transition-all duration-300 font-semibold select-none ${
-                          isCurrent ? style.active : style.default
-                        }`}
+                        className={`font-mono text-[9.5px] uppercase tracking-wider px-2 py-0.5 rounded-[2px] border transition-all duration-300 font-semibold select-none ${isCurrent ? style.active : style.default
+                          }`}
                       >
                         {word}
                       </span>
