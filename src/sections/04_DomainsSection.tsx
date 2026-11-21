@@ -322,6 +322,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
 
   const [activeCardIndex, setActiveCardIndex] = useState<number>(-1);
   const activeCardIndexRef = useRef<number>(-1);
+  const lastStepTimeRef = useRef<number>(0);
   const [activeDataStage, setActiveDataStage] = useState<number>(0);
 
   // Responsive spread and panel dimension calculator
@@ -521,28 +522,36 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     updateCardLayout(-1);
   }, [updateCardLayout]);
 
-  // Synchronize with SlideTransitions scroll events
+  // Synchronize with SlideTransitions scroll events (single unified gesture pipeline)
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const handleStep = (e: Event) => {
+      const now = Date.now();
+      if (now - lastStepTimeRef.current < 450) {
+        e.preventDefault();
+        return;
+      }
+
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
       const cur = activeCardIndexRef.current;
 
       if (dir > 0) {
-        // Forward scroll (down): step through cards 0 -> 1 -> 2 -> 3 -> 4
+        // Forward scroll (down): step through cards: Deck (-1) -> 0 -> 1 -> 2 -> 3 -> 4
         if (cur < DOMAINS.length - 1) {
           e.preventDefault();
+          lastStepTimeRef.current = now;
           const next = cur === -1 ? 0 : cur + 1;
           handleSelectCard(next);
         }
         // At Card 4, e.preventDefault() is NOT called, so SlideTransitions advances to Slide 05!
       } else {
-        // Reverse scroll (up): step back through cards 4 -> 3 -> 2 -> 1 -> 0 -> -1
+        // Reverse scroll (up): step back through cards: 4 -> 3 -> 2 -> 1 -> 0 -> Deck (-1)
         if (cur > -1) {
           e.preventDefault();
+          lastStepTimeRef.current = now;
           const prev = cur - 1;
           if (prev === -1) {
             handleCloseToDeck();
@@ -556,42 +565,6 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
 
     el.addEventListener('slide:step', handleStep);
     return () => el.removeEventListener('slide:step', handleStep);
-  }, [handleSelectCard, handleCloseToDeck]);
-
-  // Local wheel gesture listener for direct trackpad / mousewheel scrolling inside domains section
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    let lastWheel = 0;
-
-    const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 15) return;
-      const now = Date.now();
-      if (now - lastWheel < 420) return;
-      const dir = Math.sign(e.deltaY);
-      const cur = activeCardIndexRef.current;
-
-      if (dir > 0 && cur < DOMAINS.length - 1) {
-        e.preventDefault();
-        e.stopPropagation();
-        lastWheel = now;
-        const next = cur === -1 ? 0 : cur + 1;
-        handleSelectCard(next);
-      } else if (dir < 0 && cur > -1) {
-        e.preventDefault();
-        e.stopPropagation();
-        lastWheel = now;
-        const prev = cur - 1;
-        if (prev === -1) {
-          handleCloseToDeck();
-        } else {
-          handleSelectCard(prev);
-        }
-      }
-    };
-
-    el.addEventListener('wheel', onWheel, { passive: false });
-    return () => el.removeEventListener('wheel', onWheel);
   }, [handleSelectCard, handleCloseToDeck]);
 
   // Keyboard navigation within domain section
