@@ -94,7 +94,7 @@ export const siteConfig = {
       sections: [
         { id: 'domains', number: '04', title: 'Technology Domains', theme: 'dark' as const },
         { id: 'approach', number: '05', title: 'Learning Approach', theme: 'light' as const },
-        { id: 'curriculum', number: '06', title: 'Curriculum', theme: 'dark' as const },
+        { id: 'curriculum', number: '06', title: 'Curriculum', theme: 'light' as const },
         { id: 'showcase', number: '07', title: 'Student Projects', theme: 'light' as const },
       ],
     },
