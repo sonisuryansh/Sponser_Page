@@ -174,74 +174,39 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
             </div>
           </div>
 
-          {/* Executive Interaction Hub: 3 Distinctive Tactile Channels */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-4 mb-7">
+          {/* Executive Interaction Hub: Compact, Refined Tactile Channels */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-7">
             {/* Primary Action Button: Schedule Consultation */}
-            <div className="md:col-span-6 flex">
-              <button
-                onClick={onOpenContact}
-                className="w-full group relative flex items-center justify-between p-4 sm:p-5 bg-gradient-to-r from-[#c8a45d] to-[#dfc07e] hover:from-[#dfc07e] hover:to-[#e8ce97] text-[#0A1016] rounded-none shadow-[0_10px_30px_rgba(200,164,93,0.3)] hover:shadow-[0_15px_40px_rgba(200,164,93,0.5)] transition-all duration-300 cursor-pointer active:scale-[0.99] focus:outline-none"
-              >
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <Calendar className="w-4 h-4 text-[#0A1016]" />
-                    <span className="font-mono text-[10px] uppercase tracking-widest font-bold text-[#0A1016]/80">
-                      Primary Next Step
-                    </span>
-                  </div>
-                  <div className="font-sans font-bold text-sm sm:text-base tracking-wide text-[#0A1016]">
-                    {siteConfig.closing.ctaText}
-                  </div>
-                </div>
-                <div className="w-9 h-9 rounded-full bg-[#0A1016] text-[#c8a45d] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
-              </button>
-            </div>
+            <button
+              onClick={onOpenContact}
+              className="group inline-flex items-center gap-3 px-5 sm:px-6 py-3 bg-gradient-to-r from-[#c8a45d] to-[#dfc07e] hover:from-[#dfc07e] hover:to-[#e8ce97] text-[#0A1016] font-mono text-xs sm:text-[12.5px] uppercase tracking-wider font-bold shadow-[0_6px_20px_rgba(200,164,93,0.3)] hover:shadow-[0_10px_25px_rgba(200,164,93,0.45)] transition-all cursor-pointer active:scale-95"
+            >
+              <Calendar className="w-4 h-4 text-[#0A1016]" />
+              <span>{siteConfig.closing.ctaText}</span>
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </button>
 
-            {/* Direct Official Website Card */}
-            <div className="md:col-span-3 flex">
-              <a
-                href={siteConfig.closing.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full group flex flex-col justify-between p-4 sm:p-5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 rounded-none transition-all duration-300 cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-[#c8a45d]" />
-                    <span className="font-mono text-[9.5px] uppercase tracking-wider text-white/50">
-                      Official Web
-                    </span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
-                <div className="font-mono text-xs sm:text-[13px] text-white font-medium tracking-wide group-hover:text-[#c8a45d] transition-colors">
-                  www.medhaarc.com
-                </div>
-              </a>
-            </div>
+            {/* Direct Official Website Capsule */}
+            <a
+              href={siteConfig.closing.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 px-4 py-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 text-white font-mono text-xs sm:text-[12px] tracking-wide transition-all cursor-pointer"
+            >
+              <Globe className="w-3.5 h-3.5 text-[#c8a45d]" />
+              <span>www.medhaarc.com</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
 
-            {/* Direct Institutional Inquiries Email Card */}
-            <div className="md:col-span-3 flex">
-              <a
-                href="mailto:team@medhaarc.com"
-                className="w-full group flex flex-col justify-between p-4 sm:p-5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 rounded-none transition-all duration-300 cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-[#c8a45d]" />
-                    <span className="font-mono text-[9.5px] uppercase tracking-wider text-white/50">
-                      Inquiries
-                    </span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
-                <div className="font-mono text-xs sm:text-[13px] text-white font-medium tracking-wide group-hover:text-[#c8a45d] transition-colors">
-                  team@medhaarc.com
-                </div>
-              </a>
-            </div>
+            {/* Direct Institutional Inquiries Email Capsule */}
+            <a
+              href="mailto:team@medhaarc.com"
+              className="group inline-flex items-center gap-2.5 px-4 py-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 text-white font-mono text-xs sm:text-[12px] tracking-wide transition-all cursor-pointer"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#c8a45d]" />
+              <span>team@medhaarc.com</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
           </div>
 
           {/* Social Channels Strip */}
