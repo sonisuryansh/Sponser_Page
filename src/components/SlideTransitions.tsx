@@ -598,7 +598,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
           <button
             type="button"
             onClick={handleScrollCtaClick}
-            className="slide-scroll-cta-btn group"
+            className={`slide-scroll-cta-btn group ${currentTheme === 'dark' ? 'theme-dark' : 'theme-light'}`}
             aria-label="Scroll to explore next section"
             title="Scroll to explore"
           >
