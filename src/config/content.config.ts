@@ -84,7 +84,7 @@ export const siteConfig = {
       actTitle: 'Who We Are',
       sections: [
         { id: 'home', number: '01', title: 'Home', theme: 'dark' as const },
-        { id: 'about', number: '02', title: 'About', theme: 'light' as const },
+        { id: 'about', number: '02', title: 'About', theme: 'dark' as const },
         { id: 'mission', number: '03', title: 'Our Mission', theme: 'light' as const },
       ],
     },

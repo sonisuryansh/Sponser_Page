@@ -1,166 +1,138 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
+import { ArrowDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const wordColorMap: Record<string, string> = {
-  Understand: 'bg-cyan-500 text-white shadow-sm ring-1 ring-cyan-400',
-  Design: 'bg-purple-600 text-white shadow-sm ring-1 ring-purple-400',
-  Test: 'bg-amber-600 text-white shadow-sm ring-1 ring-amber-400',
-  Apply: 'bg-emerald-600 text-white shadow-sm ring-1 ring-emerald-400',
-};
-
 export const AboutSection: React.FC = () => {
   const [activeWordIndex, setActiveWordIndex] = useState(0);
-  const panelsRef = useRef<HTMLDivElement>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
-  // Sequential light-up of the 4 Focus words
+  // Sequential illumination of the 4 Focus words
   useEffect(() => {
     const words = siteConfig.about.panels[2].highlightWords || ['Understand', 'Design', 'Test', 'Apply'];
     const interval = setInterval(() => {
       setActiveWordIndex((prev) => (prev + 1) % words.length);
-    }, 1100);
+    }, 1200);
     return () => clearInterval(interval);
   }, []);
 
-  // Scrubbed animation: panels staggered rise on scroll into view
+  // Smooth rise animation on scroll into view
   useEffect(() => {
-    const el = panelsRef.current;
+    const el = bannerRef.current;
     if (!el) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
-    const panels = el.querySelectorAll<HTMLElement>('.about-panel');
 
-    // Failsafe: Ensure everything is 100% visible
-    const failsafe = setTimeout(() => {
-      panels.forEach((p) => {
-        p.style.opacity = '1';
-        p.style.transform = 'none';
-      });
-    }, 2500);
-
-    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
-      panels.forEach((p) => {
-        p.style.opacity = '1';
-        p.style.transform = 'none';
-      });
-      return () => clearTimeout(failsafe);
+    if (prefersReducedMotion || isMobile) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      return;
     }
 
     const tween = gsap.fromTo(
-      panels,
-      { y: 36, opacity: 0.15 },
+      el,
+      { y: 50, opacity: 0.3 },
       {
         y: 0,
         opacity: 1,
         duration: 0.9,
-        stagger: 0.15,
         ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
         immediateRender: false,
         scrollTrigger: {
           trigger: el,
-          start: 'top 85%',
+          start: 'top 95%',
           once: true,
         },
       }
     );
 
     return () => {
-      clearTimeout(failsafe);
       tween.scrollTrigger?.kill();
       tween.kill();
     };
   }, []);
 
+  const handleScrollToNext = () => {
+    const nextSection = document.getElementById('mission');
+    if (nextSection) {
+      const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement) => void } }).lenis;
+      if (lenis) {
+        lenis.scrollTo(nextSection);
+      } else {
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const aimText = siteConfig.about.panels[0].description;
+  const visionText = siteConfig.about.panels[1].description;
+  const combinedDescription = `${aimText} ${visionText}`;
+
   return (
-    <ChapterShell id="about" chapterNumber="02" theme="light">
-      <div className="w-full flex-1 flex flex-col justify-between py-2">
-        {/* Eyebrow & Statement Headline */}
-        <div className="mb-2 max-w-4xl">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1.5">
-            {siteConfig.about.eyebrow}
-          </div>
-          <h2 className="font-serif text-[clamp(28px,4vw,56px)] font-normal leading-[1.14] tracking-tight text-[#111111]">
-            {siteConfig.about.headline}
-          </h2>
+    <ChapterShell
+      id="about"
+      chapterNumber="02"
+      theme="dark"
+      media="/assets/students_robotics.webp"
+      overlayOpacity={0.4}
+      fullBleed={true}
+    >
+      <div className="w-full h-full flex flex-col justify-between relative select-none">
+        {/* Upper Photographic Viewport Area */}
+        <div className="flex-1 w-full relative pointer-events-none">
+          {/* Subtle top clearance gradient for fixed header readability */}
+          <div
+            className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"
+            aria-hidden="true"
+          />
         </div>
 
-        {/* Three Equal Panels with Delicate Color Accents */}
+        {/* Signature Maman-style Horizontal Bottom Split Banner */}
         <div
-          ref={panelsRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 border-t border-black/10 pt-6 my-auto"
+          ref={bannerRef}
+          className="w-full flex flex-col lg:flex-row items-stretch z-20 shadow-[0_-15px_45px_rgba(0,0,0,0.45)]"
         >
-          {/* Panel 1: Our Aim */}
-          <div className="about-panel flex flex-col justify-between p-4 bg-gradient-to-b from-amber-50/30 to-white rounded-[3px] border border-amber-500/20 shadow-xs">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] uppercase tracking-[0.18em] text-[#c8a45d] font-mono font-semibold">
-                  01 / Aim
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
-              </div>
-              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mb-3 text-[#111111]">
-                {siteConfig.about.panels[0].title}
-              </h3>
+          {/* Left Block: Solid Red Banner (~75% width on desktop) */}
+          <div className="w-full lg:w-[74%] xl:w-[76%] bg-[#C61122] text-white p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 lg:gap-10">
+            {/* Column 1: Eyebrow + Prominent Statement Headline */}
+            <div className="w-full md:w-[48%] flex flex-col justify-center">
+              <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/80 font-semibold mb-2.5 block">
+                {siteConfig.about.eyebrow}
+              </span>
+              <h2 className="font-serif text-[clamp(22px,2.4vw,34px)] font-normal leading-[1.18] tracking-tight text-white drop-shadow-sm">
+                {siteConfig.about.headline}
+              </h2>
             </div>
-            <p className="text-[16px] md:text-[17px] leading-[1.6] text-[#5b5b5b] font-normal">
-              {siteConfig.about.panels[0].description}
-            </p>
-          </div>
 
-          {/* Panel 2: Our Vision */}
-          <div className="about-panel flex flex-col justify-between p-4 bg-gradient-to-b from-cyan-50/30 to-white rounded-[3px] border border-cyan-500/20 shadow-xs">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] uppercase tracking-[0.18em] text-cyan-600 font-mono font-semibold">
-                  02 / Vision
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-              </div>
-              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mb-3 text-[#111111]">
-                {siteConfig.about.panels[1].title}
-              </h3>
-            </div>
-            <p className="text-[16px] md:text-[17px] leading-[1.6] text-[#5b5b5b] font-normal">
-              {siteConfig.about.panels[1].description}
-            </p>
-          </div>
+            {/* Vertical Hairline Divider on desktop */}
+            <div
+              className="hidden md:block w-px self-stretch bg-white/20 mx-1"
+              aria-hidden="true"
+            />
 
-          {/* Panel 3: Our Focus */}
-          <div className="about-panel flex flex-col justify-between p-4 bg-gradient-to-b from-emerald-50/30 to-white rounded-[3px] border border-emerald-500/20 shadow-xs">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] uppercase tracking-[0.18em] text-emerald-600 font-mono font-semibold">
-                  03 / Focus
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              </div>
-              <h3 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mb-3 text-[#111111]">
-                {siteConfig.about.panels[2].title}
-              </h3>
-            </div>
-            <div>
-              <p className="text-[16px] md:text-[17px] leading-[1.6] text-[#5b5b5b] font-normal mb-5">
-                {siteConfig.about.panels[2].description}
+            {/* Column 2: Mission Paragraph + Interactive Focus Pills */}
+            <div className="w-full md:w-[48%] flex flex-col justify-center">
+              <p className="text-xs sm:text-sm lg:text-[14px] leading-relaxed text-white/95 font-sans mb-4 font-normal">
+                {combinedDescription}
               </p>
 
-              {/* 4 Words lighting in sequence: Understand, Design, Test, Apply */}
-              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-black/10">
+              {/* 4 Interactive Focus Words */}
+              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/20">
                 {siteConfig.about.panels[2].highlightWords?.map((word, idx) => {
                   const isCurrent = activeWordIndex === idx;
-                  const activeColor = wordColorMap[word] || 'bg-black text-white';
 
                   return (
                     <span
                       key={word}
-                      className={`text-xs uppercase tracking-wider px-2.5 py-1 rounded-[2px] transition-all duration-300 font-medium ${
+                      className={`text-[11px] font-mono uppercase tracking-wider px-3 py-1 rounded-[2px] transition-all duration-300 font-medium ${
                         isCurrent
-                          ? `${activeColor} scale-105 shadow-sm`
-                          : 'bg-black/5 text-[#5b5b5b] hover:bg-black/10'
+                          ? 'bg-white text-[#C61122] font-semibold scale-105 shadow-md'
+                          : 'bg-white/10 text-white/90 border border-white/25 hover:bg-white/20'
                       }`}
                     >
                       {word}
@@ -170,11 +142,20 @@ export const AboutSection: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Quiet Subnote Bottom */}
-        <div className="pt-4 border-t border-black/5 flex items-center justify-end text-xs font-mono text-[#5b5b5b]/70">
-          <span>Understand → Design → Test → Apply</span>
+          {/* Right Block: Solid White "Scroll to discover" (~25% width on desktop) */}
+          <button
+            onClick={handleScrollToNext}
+            className="hidden lg:flex lg:w-[26%] xl:w-[24%] bg-white text-[#C61122] flex-col items-center justify-center p-6 lg:p-8 text-center cursor-pointer transition-all duration-300 hover:bg-[#FAF6EE] select-none group border-l border-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C61122]"
+            aria-label="Scroll to discover next section"
+          >
+            <span className="text-xs lg:text-[13px] uppercase tracking-[0.22em] font-semibold font-sans mb-3 text-[#C61122] group-hover:tracking-[0.26em] transition-all duration-300">
+              Scroll to discover
+            </span>
+            <div className="w-8 h-8 rounded-full border border-[#C61122]/30 flex items-center justify-center group-hover:border-[#C61122] group-hover:scale-110 transition-all duration-300">
+              <ArrowDown className="w-4 h-4 text-[#C61122] animate-bounce" />
+            </div>
+          </button>
         </div>
       </div>
     </ChapterShell>

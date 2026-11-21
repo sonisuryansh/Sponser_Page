@@ -9,6 +9,7 @@ export interface ChapterShellProps {
   steps?: number;
   children: React.ReactNode;
   className?: string;
+  fullBleed?: boolean;
 }
 
 export const ChapterShell: React.FC<ChapterShellProps> = ({
@@ -19,6 +20,7 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
   overlayOpacity,
   children,
   className = '',
+  fullBleed = false,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +56,9 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
     >
       {/* 100svh Chapter Shell with tactile top shadow */}
       <div
-        className={`chapter-shell w-full h-full min-h-[100svh] overflow-hidden flex flex-col justify-between pt-[calc(var(--header-h)+24px)] pb-6 box-border ${
+        className={`chapter-shell w-full h-full min-h-[100svh] overflow-hidden flex flex-col justify-between ${
+          fullBleed ? 'p-0' : 'pt-[calc(var(--header-h)+24px)] pb-6'
+        } box-border ${
           isDark
             ? 'bg-[#0a0e14] text-white shadow-[0_-25px_60px_rgba(0,0,0,0.7)]'
             : 'bg-[#ffffff] text-[#111111] shadow-[0_-15px_40px_rgba(0,0,0,0.08)]'
@@ -69,7 +73,7 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
             <img
               src={media}
               alt=""
-              className="w-full h-full object-cover object-center filter brightness-[0.8] contrast-[1.05]"
+              className="chapter-media-img w-full h-full object-cover object-center filter saturate-[0.75] contrast-[1.05] brightness-[0.85] transition-all will-change-transform"
             />
             {activeOverlay > 0 && (
               <div
@@ -80,10 +84,12 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
           </div>
         )}
 
-        {/* 12-Column Centered Content Container */}
+        {/* 12-Column Centered Content Container OR Full-Bleed Container */}
         <div
           ref={contentRef}
-          className="chapter-content relative z-10 w-full max-w-[1200px] mx-auto px-[clamp(20px,5vw,80px)] flex-1 flex flex-col justify-between will-change-transform"
+          className={`chapter-content relative z-10 w-full flex-1 flex flex-col justify-between will-change-transform ${
+            fullBleed ? 'h-full max-w-none p-0' : 'max-w-[1200px] mx-auto px-[clamp(20px,5vw,80px)]'
+          }`}
         >
           {children}
         </div>
