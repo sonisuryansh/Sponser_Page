@@ -967,7 +967,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         </div>
 
         {/* ─── Bottom Domain Stage Controls Bar ─── */}
-        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 pb-1.5 flex flex-col items-center gap-1 shrink-0">
+        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 pb-3 sm:pb-4 flex flex-col items-center shrink-0">
           {/* Domain Step Pills */}
           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-lg">
             <button
@@ -1003,13 +1003,6 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 </button>
               );
             })}
-          </div>
-
-          {/* Dynamic Scroll Interaction Cue */}
-          <div className="text-center font-mono-tech text-[10px] sm:text-[10.5px] text-white/50 tracking-wider flex items-center gap-2">
-            <span>Scroll ↓ to {activeCardIndex === -1 ? 'step through domains' : activeCardIndex === DOMAINS.length - 1 ? 'continue to next chapter' : 'advance to next domain'}</span>
-            <span className="text-white/30">•</span>
-            <span>{activeCardIndex === -1 ? '5 Domains in Deck' : `Domain 0${activeCardIndex + 1} of 05`}</span>
           </div>
         </div>
       </div>
