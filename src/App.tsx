@@ -299,7 +299,11 @@ export function App() {
       {/* Main 14 Presentation Chapters */}
       <main className="w-full">
         {/* ACT 1: Who We Are */}
-        <HeroSection onNavigateNext={() => navigateToIndex(1)} />
+        <HeroSection
+          onNavigateNext={() => navigateToIndex(1)}
+          onOpenContact={() => setIsContactOpen(true)}
+          onExploreCurriculum={() => navigateToSection('curriculum')}
+        />
         <AboutSection />
         <MissionSection />
 

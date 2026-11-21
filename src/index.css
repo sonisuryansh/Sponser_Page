@@ -107,6 +107,27 @@ html.lenis, html.lenis body {
   background: transparent;
 }
 
+/* Reference Animated Text Stroke & Moving Texture Mask */
+.animated-hero-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.95);
+  background-image: url('/assets/text_mask_back.png');
+  background-repeat: repeat-x;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-position: 0 0;
+  animation: backTexture 22s linear infinite;
+}
+
+@keyframes backTexture {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 2000px 0;
+  }
+}
+
 /* Respect Reduced Motion: instant reveals, no pin, no smooth scroll */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

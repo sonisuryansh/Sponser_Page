@@ -1,55 +1,42 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { Globe } from 'lucide-react';
 
 interface HeroSectionProps {
   onNavigateNext: () => void;
+  onOpenContact?: () => void;
+  onExploreCurriculum?: () => void;
 }
 
-const heroDomainColors: Record<string, { dot: string; text: string }> = {
-  'Robotics & Automation': {
-    dot: 'bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.9)]',
-    text: 'text-cyan-200',
-  },
-  'AI & Machine Learning': {
-    dot: 'bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.9)]',
-    text: 'text-emerald-200',
-  },
-  'Data Analytics': {
-    dot: 'bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.9)]',
-    text: 'text-amber-200',
-  },
-  'Aerial Systems': {
-    dot: 'bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.9)]',
-    text: 'text-sky-200',
-  },
-};
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  onNavigateNext,
+  onOpenContact,
+  onExploreCurriculum,
+}) => {
+  const handleExplore = () => {
+    if (onExploreCurriculum) {
+      onExploreCurriculum();
+    } else {
+      const target = document.getElementById('curriculum') || document.getElementById('domains');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        onNavigateNext();
+      }
+    }
+  };
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateNext }) => {
-  const [activeDomainIndex, setActiveDomainIndex] = useState(-1);
-  const headlineRef = useRef<HTMLDivElement>(null);
-  const domainsRef = useRef<HTMLDivElement>(null);
-
-  // Sequentially illuminate the 4 domains on load
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      let index = 0;
-      const interval = setInterval(() => {
-        setActiveDomainIndex(index);
-        index++;
-        if (index >= siteConfig.hero.domains.length) {
-          clearInterval(interval);
-        }
-      }, 300);
-      return () => clearInterval(interval);
-    }, 900);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const handleConnect = () => {
+    if (onOpenContact) {
+      onOpenContact();
+    } else {
+      const target = document.getElementById('closing');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <ChapterShell
@@ -57,79 +44,119 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateNext }) => {
       chapterNumber="01"
       theme="dark"
       media={siteConfig.hero.backgroundImage}
-      overlayOpacity={0.65}
-      className="select-none relative"
+      overlayOpacity={0.52}
+      className="select-none relative flex items-center justify-center"
     >
-      {/* Subtle Cinematic Ambient Color Aura behind Hero */}
+      {/* Subtle Cinematic Vignette Overlay (keeps drone background details visible while ensuring crisp text readability) */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           background:
-            'radial-gradient(circle at 50% 45%, rgba(200,164,93,0.14) 0%, rgba(6,182,212,0.06) 40%, transparent 75%)',
+            'radial-gradient(ellipse at 50% 50%, rgba(12, 28, 44, 0.35) 0%, rgba(6, 12, 18, 0.55) 70%, rgba(2, 4, 8, 0.85) 100%)',
         }}
       />
 
-      <div className="w-full flex-1 flex flex-col justify-between items-center text-center py-4 relative z-10">
-        {/* Top Header Clearance Space */}
-        <div className="pt-2">
-          {/* Logo and Wordmark */}
-          <div className="inline-flex items-center gap-3.5 mb-3">
-            <img
-              src="/assets/medha_arc_nav_logo.webp"
-              alt="MedhaArc Labs Logo"
-              className="w-9 h-9 md:w-11 md:h-11 object-contain brightness-110 drop-shadow-md"
-            />
-            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-white drop-shadow-sm">
-              {siteConfig.hero.title}
-            </h1>
-          </div>
-
-          {/* Subline */}
-          <p className="text-xs sm:text-sm uppercase tracking-[0.22em] text-[#c8a45d] font-sans font-medium">
-            {siteConfig.hero.subline}
-          </p>
+      <div className="w-full flex-1 flex flex-col justify-center items-center text-center py-4 sm:py-6 relative z-10 max-w-6xl mx-auto px-4 my-auto">
+        {/* Top Cyan Pill: • TECHNOLOGY, SHAPED BY CURIOSITY */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full border border-sky-400/40 bg-[#0d2235]/75 backdrop-blur-md shadow-[0_0_16px_rgba(56,189,248,0.2)] mb-3 sm:mb-4">
+          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,1)] animate-pulse" />
+          <span className="font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-sky-300">
+            TECHNOLOGY, SHAPED BY CURIOSITY
+          </span>
         </div>
 
-        {/* Center: Statement Tagline */}
-        <div ref={headlineRef} className="my-auto max-w-4xl px-2">
-          <h2 className="font-serif text-[clamp(34px,5vw,68px)] font-normal leading-[1.12] text-white tracking-tight drop-shadow-md">
-            {siteConfig.hero.tagline}
-          </h2>
+        {/* Eyebrow: WE ARE */}
+        <p className="font-mono text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.35em] text-white/85 mb-1 sm:mb-1.5 drop-shadow">
+          WE ARE
+        </p>
+
+        {/* Big Animated Title: MEDHAARC LAB on a single line */}
+        <h1 className="animated-hero-text font-serif font-black whitespace-nowrap text-[8.5vw] sm:text-[7vw] md:text-[68px] lg:text-[84px] xl:text-[98px] leading-[0.95] tracking-tight uppercase select-none drop-shadow-2xl text-center">
+          MEDHAARC LAB
+        </h1>
+
+        {/* Sub-headline: NEXT-GENERATION K-12 HANDS-ON INNOVATION ECOSYSTEM */}
+        <h2 className="font-mono text-[10px] sm:text-xs md:text-[13px] lg:text-sm font-bold text-white tracking-[0.16em] sm:tracking-[0.24em] uppercase mt-2.5 sm:mt-3 drop-shadow-md whitespace-nowrap">
+          NEXT-GENERATION K-12 HANDS-ON INNOVATION ECOSYSTEM
+        </h2>
+
+        {/* Tagline / Description */}
+        <p className="font-sans text-xs sm:text-sm md:text-[15px] text-white/80 font-normal tracking-wide mt-2.5 sm:mt-3 max-w-lg mx-auto drop-shadow leading-relaxed">
+          Explore Our Technology Curriculum &amp; Innovative School Lab Experiences<br className="hidden sm:inline" /> Here.
+        </p>
+
+        {/* Action Buttons Row */}
+        <div className="mt-6 sm:mt-7 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4.5">
+          <button
+            type="button"
+            onClick={handleExplore}
+            className="border border-white/85 text-white hover:bg-white hover:text-black px-6 sm:px-7 py-2.5 sm:py-3 font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 shadow-md cursor-pointer bg-black/30 backdrop-blur-xs active:scale-95"
+          >
+            EXPLORE LAB CURRICULUM
+          </button>
+
+          <button
+            type="button"
+            onClick={handleConnect}
+            className="border border-white/85 text-white hover:bg-white hover:text-black px-6 sm:px-7 py-2.5 sm:py-3 font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase inline-flex items-center gap-2 transition-all duration-300 shadow-md cursor-pointer bg-black/30 backdrop-blur-xs active:scale-95"
+          >
+            <span>CONNECT WITH US</span>
+            <span className="text-base leading-none font-sans">→</span>
+          </button>
         </div>
 
-        {/* Bottom: Line of four domains with colorful illuminated dots */}
-        <div ref={domainsRef} className="pb-10 md:pb-12 w-full max-w-3xl">
-          <div className="w-20 h-px bg-white/20 mx-auto mb-5" />
-          <div className="flex flex-wrap items-center justify-center gap-y-2 text-xs sm:text-sm md:text-base tracking-wide font-sans text-white/50">
-            {siteConfig.hero.domains.map((domain, idx) => {
-              const isLit = activeDomainIndex >= idx;
-              const colorInfo = heroDomainColors[domain] || {
-                dot: 'bg-white',
-                text: 'text-white',
-              };
+        {/* Social Links Row (Globe, LinkedIn, Instagram) */}
+        <div className="mt-6 sm:mt-7 flex items-center justify-center gap-3.5 sm:gap-4.5">
+          {/* Globe / Web */}
+          <a
+            href="https://medhaarc.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="MedhaArc Official Website"
+            title="MedhaArc Official Website"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/60 hover:border-white flex items-center justify-center text-white/90 hover:text-white bg-black/40 backdrop-blur-sm hover:scale-110 hover:bg-white/15 transition-all duration-300 shadow-lg"
+          >
+            <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
+          </a>
 
-              return (
-                <React.Fragment key={domain}>
-                  <span
-                    className={`inline-flex items-center gap-2 transition-all duration-500 ${
-                      isLit ? `${colorInfo.text} font-medium` : 'text-white/40'
-                    }`}
-                  >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${
-                        isLit ? colorInfo.dot : 'bg-white/20'
-                      }`}
-                    />
-                    <span>{domain}</span>
-                  </span>
-                  {idx < siteConfig.hero.domains.length - 1 && (
-                    <span className="mx-2.5 sm:mx-3 text-white/20 select-none">|</span>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </div>
+          {/* LinkedIn ('in' outline) */}
+          <a
+            href="https://www.linkedin.com/company/medhaarc"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/60 hover:border-white flex items-center justify-center text-white/90 hover:text-white bg-black/40 backdrop-blur-sm hover:scale-110 hover:bg-white/15 transition-all duration-300 shadow-lg"
+          >
+            <span className="font-sans font-bold text-sm sm:text-base text-white/90 leading-none">
+              in
+            </span>
+          </a>
+
+          {/* Instagram */}
+          <a
+            href="https://www.instagram.com/medhaarc"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            title="Instagram"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/60 hover:border-white flex items-center justify-center text-white/90 hover:text-white bg-black/40 backdrop-blur-sm hover:scale-110 hover:bg-white/15 transition-all duration-300 shadow-lg"
+          >
+            <svg
+              className="w-4 h-4 sm:w-5 sm:h-5 text-white/90"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </a>
         </div>
 
         {/* Hidden button for assistive navigation */}
