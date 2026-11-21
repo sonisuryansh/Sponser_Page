@@ -1,210 +1,165 @@
 import React, { useRef, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { Hammer, Compass, Sparkles, ShieldCheck, RefreshCw } from 'lucide-react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const iconMap: Record<string, React.ReactNode> = {
-  Hammer: <Hammer className="w-4 h-4" />,
-  Compass: <Compass className="w-4 h-4" />,
-  Sparkles: <Sparkles className="w-4 h-4" />,
-  ShieldCheck: <ShieldCheck className="w-4 h-4" />,
-  RefreshCw: <RefreshCw className="w-4 h-4" />,
-};
-
-const valueStyleMap: Record<
-  string,
-  {
-    iconBox: string;
-    borderAccent: string;
-    accentDot: string;
-  }
-> = {
-  'Hands-on Learning': {
-    iconBox: 'bg-amber-50 text-amber-600 border-amber-200/80 shadow-xs',
-    borderAccent: 'border-t-2 border-t-amber-500',
-    accentDot: 'bg-amber-500',
-  },
-  'Problem-Solving': {
-    iconBox: 'bg-blue-50 text-blue-600 border-blue-200/80 shadow-xs',
-    borderAccent: 'border-t-2 border-t-blue-500',
-    accentDot: 'bg-blue-500',
-  },
-  'Creativity & Innovation': {
-    iconBox: 'bg-purple-50 text-purple-600 border-purple-200/80 shadow-xs',
-    borderAccent: 'border-t-2 border-t-purple-500',
-    accentDot: 'bg-purple-500',
-  },
-  'Responsible Technology': {
-    iconBox: 'bg-emerald-50 text-emerald-600 border-emerald-200/80 shadow-xs',
-    borderAccent: 'border-t-2 border-t-emerald-500',
-    accentDot: 'bg-emerald-500',
-  },
-  'Continuous Learning': {
-    iconBox: 'bg-cyan-50 text-cyan-600 border-cyan-200/80 shadow-xs',
-    borderAccent: 'border-t-2 border-t-cyan-500',
-    accentDot: 'bg-cyan-500',
-  },
-};
 
 export const MissionSection: React.FC = () => {
-  const quoteRef = useRef<HTMLHeadingElement>(null);
-  const valuesRef = useRef<HTMLDivElement>(null);
-
-  // Quote words split for scrubbed fill animation
-  const quoteWords = siteConfig.mission.statement.split(' ');
+  const contentRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    const qEl = quoteRef.current;
-    const vEl = valuesRef.current;
-    if (!qEl || !vEl) return;
+    const el = contentRef.current;
+    if (!el) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
-    const wordSpans = qEl.querySelectorAll<HTMLElement>('.quote-word');
-    const valueCards = vEl.querySelectorAll<HTMLElement>('.value-card');
 
-    // Failsafe: Ensure words & cards are 100% visible
-    const failsafe = setTimeout(() => {
-      wordSpans.forEach((w) => {
-        w.style.color = '#111111';
-        w.style.opacity = '1';
-      });
-      valueCards.forEach((c) => {
-        c.style.opacity = '1';
-        c.style.transform = 'none';
-      });
-    }, 2500);
-
-    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
-      wordSpans.forEach((w) => {
-        w.style.color = '#111111';
-        w.style.opacity = '1';
-      });
-      valueCards.forEach((c) => {
-        c.style.opacity = '1';
-        c.style.transform = 'none';
-      });
-      return () => clearTimeout(failsafe);
+    if (prefersReducedMotion || isMobile) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      return;
     }
 
     const ctx = gsap.context(() => {
-      // Word-by-word fill (grey to ink)
       gsap.fromTo(
-        wordSpans,
-        { color: '#a0a0a0', opacity: 0.4 },
-        {
-          color: '#111111',
-          opacity: 1,
-          stagger: 0.05,
-          duration: 0.6,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: qEl,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-
-      // Value cards staggered rise
-      gsap.fromTo(
-        valueCards,
-        { y: 32, opacity: 0.2 },
+        el.querySelectorAll('.editorial-reveal'),
+        { y: 20, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          stagger: 0.08,
-          ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          scrollTrigger: {
-            trigger: vEl,
-            start: 'top 88%',
-            once: true,
-          },
+          stagger: 0.07,
+          ease: 'power3.out',
         }
       );
-    });
+    }, el);
 
-    return () => {
-      clearTimeout(failsafe);
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
+  const handleExplore = () => {
+    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
+    if (dots[3]) {
+      dots[3].click();
+    }
+  };
+
   return (
-    <ChapterShell id="mission" chapterNumber="03" theme="light">
-      <div className="w-full flex-1 flex flex-col justify-between py-2">
-        {/* Eyebrow */}
-        <div className="mb-2">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-3">
-            {siteConfig.mission.eyebrow}
-          </div>
-        </div>
+    <ChapterShell
+      id="mission"
+      chapterNumber="03"
+      theme="light"
+      fullBleed={true}
+      className="relative w-full h-[100svh] overflow-hidden bg-[#F1F1EF]"
+    >
+      {/* Decorative Bottom-Left Solid Red Accent Block (Exact Image 1 style) */}
+      <div
+        className="absolute bottom-0 left-0 w-20 sm:w-28 lg:w-32 h-16 sm:h-20 lg:h-24 bg-[#C61122] z-30 pointer-events-none"
+        aria-hidden="true"
+      />
 
-        {/* Large Statement Headline (Scrubbed Word-by-Word Fill) */}
-        <div className="my-auto max-w-4xl">
-          <h2
-            ref={quoteRef}
-            className="font-serif text-[clamp(28px,4.2vw,56px)] font-normal leading-[1.18] tracking-tight text-[#111111]"
-          >
-            &ldquo;
-            {quoteWords.map((word, idx) => (
-              <span key={idx} className="quote-word inline-block mr-[0.28em] transition-colors">
-                {word}
-              </span>
-            ))}
-            &rdquo;
-          </h2>
-        </div>
+      <div className="relative w-full h-full flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+12px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none">
+        
+        {/* Main Inset White Panel (Exact match to Image 1) */}
+        <div className="relative w-full h-full max-h-[760px] max-w-[1340px] bg-[#FFFFFD] shadow-[0_15px_45px_rgba(0,0,0,0.05)] border border-black/5 flex flex-col justify-between p-5 sm:p-7 lg:p-9 box-border z-10">
+          
+          {/* Top & Middle Content Area */}
+          <div ref={contentRef} className="flex-1 flex flex-col justify-between overflow-hidden">
+            
+            {/* Upper Grid: Counter Box + Main Content */}
+            <div className="flex items-stretch gap-6 sm:gap-8 lg:gap-10">
+              
+              {/* Left Architectural Boxed Counter (Image 1 style) */}
+              <div className="hidden sm:flex flex-col items-center justify-between border border-black/10 py-5 px-3 bg-white/60 shrink-0 w-16 lg:w-18 select-none">
+                <span className="font-sans font-bold text-xl lg:text-[22px] text-[#afafaf] -rotate-90 tracking-widest my-8 block">
+                  03/14
+                </span>
+                <div className="flex flex-col items-center gap-2 mb-2 text-[#cfcfcf]">
+                  <span className="w-1 h-1 rounded-full bg-current" />
+                  <span className="w-1 h-1 rounded-full bg-current" />
+                  <span className="w-1 h-1 rounded-full bg-current" />
+                  <span className="w-1 h-1 rounded-full bg-current" />
+                  <span className="w-1 h-1 rounded-full bg-current" />
+                </div>
+              </div>
 
-        {/* Five Values with Distinct Color Accents & Badges */}
-        <div className="border-t border-black/10 pt-4 pb-2">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#5b5b5b] mb-4 font-mono flex items-center justify-between">
-            <span>Core Educational Values</span>
-            <span className="text-[10px] text-black/40">5 Pillars of Learning</span>
-          </div>
-
-          <div ref={valuesRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {siteConfig.mission.values.map((val) => {
-              const style = valueStyleMap[val.name] || {
-                iconBox: 'bg-white text-[#111111] border-black/10',
-                borderAccent: 'border-t border-t-black/20',
-                accentDot: 'bg-black/30',
-              };
-
-              return (
-                <div
-                  key={val.name}
-                  className={`value-card flex flex-col justify-between p-4 bg-white border border-black/10 rounded-[4px] shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 ${style.borderAccent}`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div
-                        className={`w-9 h-9 flex items-center justify-center border rounded-[3px] shrink-0 ${style.iconBox}`}
-                      >
-                        {iconMap[val.icon] || <Sparkles className="w-4 h-4" />}
-                      </div>
-                      <span className={`w-2 h-2 rounded-full ${style.accentDot}`} />
-                    </div>
-
-                    <h3 className="font-serif text-[17px] font-medium text-[#111111] tracking-tight mb-1.5 leading-snug break-words">
-                      {val.name}
-                    </h3>
+              {/* Central Text & Content Area */}
+              <div className="flex-1 max-w-4xl flex flex-col justify-between">
+                <div>
+                  {/* Eyebrow */}
+                  <div className="editorial-reveal text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#111111] mb-2">
+                    {siteConfig.mission.eyebrow}
                   </div>
 
-                  <p className="text-xs text-[#5b5b5b] leading-relaxed break-words mt-2">
-                    {val.description}
+                  {/* Big Crimson Red Headline (Image 1 style) */}
+                  <h2
+                    ref={headlineRef}
+                    className="editorial-reveal font-sans text-xl sm:text-2xl lg:text-[32px] font-bold text-[#C61122] tracking-tight leading-[1.16] mb-3"
+                  >
+                    {siteConfig.mission.statement}
+                  </h2>
+
+                  {/* Narrative Body Copy (Image 1 style) */}
+                  <p className="editorial-reveal text-xs sm:text-[13px] text-[#555555] leading-[1.6] max-w-3xl mb-4 font-normal">
+                    At MedhaArc Labs, we believe technology education moves beyond passive consumption into tangible engineering. From foundational logic to physical prototypes, our curriculum connects core mathematical reasoning with hands-on robotics, AI, data, and autonomous flight.
                   </p>
                 </div>
-              );
-            })}
+
+                {/* 5 Educational Pillars (Refined minimal architectural layout) */}
+                <div className="editorial-reveal pt-3 border-t border-black/10 mt-auto">
+                  <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-[#888888] mb-2 flex items-center justify-between">
+                    <span>Core Educational Values</span>
+                    <span className="text-[10px] text-black/40">5 Pillars of Learning</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 lg:gap-3.5">
+                    {siteConfig.mission.values.map((val, idx) => (
+                      <div
+                        key={val.name}
+                        className="group flex flex-col justify-between pt-1 pb-0.5 border-t border-black/15 hover:border-[#C61122] transition-colors"
+                      >
+                        <div>
+                          <span className="font-mono text-[10px] font-bold text-[#C61122] block mb-0.5">
+                            0{idx + 1}
+                          </span>
+                          <h3 className="font-sans text-[12px] font-bold text-[#111111] leading-tight group-hover:text-[#C61122] transition-colors mb-0.5">
+                            {val.name}
+                          </h3>
+                        </div>
+                        <p className="text-[10.5px] text-[#666666] leading-relaxed line-clamp-3">
+                          {val.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Vertical Divider / Track Line (Exact Image 1 style) */}
+              <div className="hidden lg:flex flex-col items-center justify-between py-2 text-[#cccccc] pl-4">
+                <span className="text-[8px] leading-none select-none">▲</span>
+                <div className="w-[1.5px] h-full bg-black/15 my-1" />
+                <span className="text-[8px] leading-none select-none">▼</span>
+              </div>
+            </div>
+
+            {/* Bottom Trailing Link CTA (Exact Image 1 style) */}
+            <div className="editorial-reveal pt-4 mt-3 border-t border-black/5 flex items-center">
+              <button
+                onClick={handleExplore}
+                className="group flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer w-full max-w-3xl"
+              >
+                <span className="font-sans font-bold text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#C61122] transition-colors shrink-0">
+                  Discover more about our curriculum & specialisations
+                </span>
+                <span className="h-[1px] bg-black/20 group-hover:bg-[#C61122] transition-all flex-1 ml-4" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </ChapterShell>
   );
 };
+
+export default MissionSection;
