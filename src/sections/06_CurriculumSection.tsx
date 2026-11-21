@@ -5,12 +5,12 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 
 const stageImages = [
-  '/assets/blueprint_rover_desk.webp',
-  '/assets/robotics_arm_showcase.webp',
-  '/assets/laptop_analytics.webp',
-  '/assets/students_robotics.webp',
-  '/assets/drone_flight.webp',
-  '/assets/page_08.webp',
+  '/assets/stage_grade_01.webp',
+  '/assets/stage_grade_02.webp',
+  '/assets/stage_grade_03.webp',
+  '/assets/stage_grade_04.webp',
+  '/assets/stage_grade_05.webp',
+  '/assets/stage_grade_06.webp',
 ];
 
 export const CurriculumSection: React.FC = () => {
@@ -136,11 +136,11 @@ export const CurriculumSection: React.FC = () => {
       {/* Main Viewport Container */}
       <div className="relative w-full h-full flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+12px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none z-10">
         
-        {/* Main Split Container (Exact Image 2 Structure) */}
+        {/* Main Split Container (Exact Image 2 Structure - Locked Consistent Dimensions) */}
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative w-full h-full max-h-[780px] max-w-[1380px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
+          className="relative w-full h-[500px] sm:h-[515px] lg:h-[530px] max-h-[calc(100svh-110px)] max-w-[1380px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
         >
           
           {/* Left Vertical Numbering Rail (Exact Image 2 Style: 01, 02, 03... ALL GRADES) */}
@@ -260,15 +260,15 @@ export const CurriculumSection: React.FC = () => {
           </div>
 
           {/* Right Visual Showcase Panel with < | > Top-Right Controls (Exact Image 2 Style) */}
-          <div className="hidden md:block w-[42%] lg:w-[46%] xl:w-[48%] relative overflow-hidden bg-black/10 shrink-0">
+          <div className="hidden md:block w-[42%] lg:w-[46%] xl:w-[48%] relative overflow-hidden bg-[#FAF9F6] shrink-0 self-stretch">
             {/* Stage Showcase Photograph */}
-            <div ref={imageAreaRef} className="w-full h-full relative">
+            <div ref={imageAreaRef} className="absolute inset-0 w-full h-full">
               <img
                 src={activeImage}
                 alt={currentStage.title}
-                className="w-full h-full object-cover object-center filter saturate-[0.8] contrast-[1.05]"
+                className="w-full h-full object-cover object-center filter saturate-[0.85] contrast-[1.04]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10 pointer-events-none" />
             </div>
 
             {/* Top-Right Arrow Navigation Controls (< | >) */}
