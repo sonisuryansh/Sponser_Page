@@ -15,6 +15,8 @@ const stageImages = [
 
 export const CurriculumSection: React.FC = () => {
   const [activeStageIndex, setActiveStageIndex] = useState(0);
+  const [isSectionActive, setIsSectionActive] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const contentAreaRef = useRef<HTMLDivElement>(null);
   const imageAreaRef = useRef<HTMLDivElement>(null);
 
@@ -22,6 +24,52 @@ export const CurriculumSection: React.FC = () => {
     ...siteConfig.curriculum.stages,
     ...(siteConfig.showBeyondGrade10 ? siteConfig.curriculum.beyondGrade10 : []),
   ];
+
+  // Detect whether Section 06 is currently visible and active in viewport
+  useEffect(() => {
+    const el = contentAreaRef.current;
+    if (!el) return;
+
+    const checkActive = () => {
+      const slideWrapper = el.closest<HTMLElement>('.slide-item');
+      if (slideWrapper) {
+        const visible = slideWrapper.style.visibility === 'visible' && slideWrapper.style.opacity !== '0';
+        setIsSectionActive(visible);
+        return visible;
+      }
+      setIsSectionActive(true);
+      return true;
+    };
+
+    checkActive();
+
+    const slideWrapper = el.closest<HTMLElement>('.slide-item');
+    let observer: MutationObserver | null = null;
+    if (slideWrapper) {
+      observer = new MutationObserver(() => {
+        checkActive();
+      });
+      observer.observe(slideWrapper, { attributes: true, attributeFilter: ['style', 'class'] });
+    }
+
+    const pollTimer = setInterval(checkActive, 500);
+
+    return () => {
+      observer?.disconnect();
+      clearInterval(pollTimer);
+    };
+  }, []);
+
+  // Automatically cycle through grades 1 to 6 while staying on this section
+  useEffect(() => {
+    if (!isSectionActive || isHovered || allStages.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setActiveStageIndex((prev) => (prev + 1) % allStages.length);
+    }, 3200);
+
+    return () => clearInterval(timer);
+  }, [isSectionActive, isHovered, allStages.length]);
 
   // Listen to step navigation events (wheel scroll & arrow keys)
   useEffect(() => {
@@ -89,7 +137,11 @@ export const CurriculumSection: React.FC = () => {
       <div className="relative w-full h-full flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+12px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none z-10">
         
         {/* Main Split Container (Exact Image 2 Structure) */}
-        <div className="relative w-full h-full max-h-[780px] max-w-[1380px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden">
+        <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="relative w-full h-full max-h-[780px] max-w-[1380px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
+        >
           
           {/* Left Vertical Numbering Rail (Exact Image 2 Style: 01, 02, 03... ALL GRADES) */}
           <div className="w-16 sm:w-20 lg:w-24 border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-6 lg:py-8 select-none shrink-0">
