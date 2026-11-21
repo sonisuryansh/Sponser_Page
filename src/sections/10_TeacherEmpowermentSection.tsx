@@ -1,18 +1,37 @@
 import React, { useRef, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { ShieldCheck, ArrowRight, Check } from 'lucide-react';
+import { ShieldCheck, Check, GraduationCap, BookOpen, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+const pillarIcons = [
+  <GraduationCap key="1" className="w-4 h-4 text-[#c8a45d]" />,
+  <BookOpen key="2" className="w-4 h-4 text-cyan-600" />,
+  <Sparkles key="3" className="w-4 h-4 text-emerald-600" />,
+];
+
+const pillarDetails = [
+  [
+    'Session facilitation protocols',
+    'Hardware troubleshooting & safety',
+    'Student mentoring frameworks',
+  ],
+  [
+    'Turnkey session plans & safety notes',
+    'Rubrics & assessment check-ins',
+    'Grade-wise activity workbooks',
+  ],
+  [
+    'AI-drafted quizzes & handouts',
+    'Activity note summarization',
+    'Teacher-in-the-loop task agents',
+  ],
+];
 
 export const TeacherEmpowermentSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const columnsRef = useRef<HTMLDivElement>(null);
-  const flowNodesRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
 
-  // Animation on scroll: Columns rise + flow nodes pulse
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -20,166 +39,200 @@ export const TeacherEmpowermentSection: React.FC = () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
 
-    // Failsafe: force visibility
-    const failsafe = setTimeout(() => {
-      const cols = el.querySelectorAll<HTMLElement>('.teacher-col');
-      cols.forEach((c) => {
-        c.style.opacity = '1';
-        c.style.transform = 'none';
-      });
-    }, 2500);
-
-    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
-      return () => clearTimeout(failsafe);
+    if (prefersReducedMotion || isMobile) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      return;
     }
-
-    const cols = el.querySelectorAll<HTMLElement>('.teacher-col');
-    const nodes = flowNodesRef.current?.querySelectorAll<HTMLElement>('.flow-node');
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        cols,
-        { y: 30, opacity: 0.15 },
+        el.querySelectorAll('.editorial-reveal'),
+        { y: 20, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          stagger: 0.12,
-          ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            once: true,
-          },
+          stagger: 0.07,
+          ease: 'power3.out',
         }
       );
+    }, el);
 
-      if (nodes && nodes.length > 0) {
-        gsap.fromTo(
-          nodes,
-          { scale: 0.94, opacity: 0.5 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: 'power2.out',
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: flowNodesRef.current,
-              start: 'top 90%',
-              once: true,
-            },
-          }
-        );
-      }
-    });
-
-    return () => {
-      clearTimeout(failsafe);
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
+  const handleScrollToNext = () => {
+    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
+    if (dots[10]) {
+      dots[10].click();
+    }
+  };
+
   return (
-    <ChapterShell id="teacher-empowerment" chapterNumber="10" theme="light">
-      <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
-        {/* Eyebrow & Message */}
-        <div className="mb-3 max-w-3xl">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1">
-            {siteConfig.teacherEmpowerment.eyebrow}
+    <ChapterShell
+      id="teacher-empowerment"
+      chapterNumber="10"
+      theme="light"
+      fullBleed={true}
+      className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
+    >
+      {/* Main Viewport Container */}
+      <div
+        ref={containerRef}
+        className="relative w-full h-full flex flex-col justify-between pt-[calc(var(--header-h,64px)+14px)] pb-6 px-4 sm:px-8 lg:px-14 box-border select-none z-10 max-w-[1360px] mx-auto"
+      >
+        {/* Top Header: Eyebrow, Main Title & Narrative Message */}
+        <div className="flex-none max-w-4xl">
+          <div className="editorial-reveal flex items-center gap-3 mb-2">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
+              {siteConfig.teacherEmpowerment.eyebrow}
+            </span>
+            <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
+            <span className="font-mono text-[11px] text-[#888888] tracking-wider">
+              10 / 14
+            </span>
           </div>
-          <h2 className="font-serif text-[clamp(26px,3.4vw,44px)] font-normal leading-[1.14] tracking-tight text-[#111111]">
+
+          <h2
+            ref={headlineRef}
+            className="editorial-reveal font-serif text-[clamp(26px,3.4vw,44px)] font-normal leading-[1.14] tracking-tight text-[#111111] mb-1.5"
+          >
             {siteConfig.teacherEmpowerment.headline}
           </h2>
-          <p className="text-base text-[#5b5b5b] font-serif italic">
+
+          <p className="editorial-reveal font-serif text-sm sm:text-base text-[#555555] italic mb-2">
             &ldquo;{siteConfig.teacherEmpowerment.message}&rdquo;
+          </p>
+
+          <p className="editorial-reveal font-sans text-xs sm:text-[13px] text-[#666666] leading-relaxed max-w-2xl font-normal">
+            Technology in the classroom should reduce educator friction, not amplify it. We combine comprehensive faculty training, turnkey lesson blueprints, and AI assistance with strict human oversight.
           </p>
         </div>
 
-        {/* Three Columns: Train, Guide, Assist with Distinct Color Accents */}
-        <div
-          ref={columnsRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-black/10 pt-4 my-auto"
-        >
-          {siteConfig.teacherEmpowerment.columns.map((col, idx) => {
-            const colColors = [
-              'border-t-2 border-t-purple-500 bg-gradient-to-b from-purple-50/30 to-white',
-              'border-t-2 border-t-emerald-500 bg-gradient-to-b from-emerald-50/30 to-white',
-              'border-t-2 border-t-amber-500 bg-gradient-to-b from-amber-50/30 to-white',
-            ];
-            const badgeColors = [
-              'bg-purple-100 text-purple-800 border-purple-200',
-              'bg-emerald-100 text-emerald-800 border-emerald-200',
-              'bg-amber-100 text-amber-800 border-amber-200',
-            ];
+        {/* 3 Core Pillars: Train, Guide, Assist (Refined Architectural Cards) */}
+        <div className="editorial-reveal flex-1 my-auto py-3 flex flex-col justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+            {siteConfig.teacherEmpowerment.columns.map((col, idx) => {
+              const borderAccents = [
+                'hover:border-[#c8a45d] hover:shadow-[0_8px_30px_rgba(200,164,93,0.12)]',
+                'hover:border-cyan-500 hover:shadow-[0_8px_30px_rgba(6,182,212,0.12)]',
+                'hover:border-emerald-500 hover:shadow-[0_8px_30px_rgba(16,185,129,0.12)]',
+              ];
+              const tagColors = [
+                'text-[#c8a45d]',
+                'text-cyan-600',
+                'text-emerald-600',
+              ];
 
-            return (
-              <div
-                key={col.title}
-                className={`teacher-col p-4 sm:p-5 border border-black/10 rounded-[3px] flex flex-col justify-between h-[175px] sm:h-[195px] shadow-xs ${colColors[idx] || colColors[0]}`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] uppercase tracking-[0.18em] text-[#5b5b5b] font-mono">
-                      0{idx + 1}
-                    </span>
-                    {col.badge && (
-                      <span className={`px-2 py-0.5 text-[10px] uppercase font-mono tracking-wider rounded-[2px] border ${badgeColors[idx] || 'bg-black/5 text-black'}`}>
-                        {col.badge}
-                      </span>
-                    )}
+              return (
+                <div
+                  key={col.title}
+                  className={`group relative flex flex-col justify-between p-5 lg:p-6 bg-white/90 border border-black/10 rounded-[3px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-300 ${borderAccents[idx]}`}
+                >
+                  <div>
+                    {/* Header Row */}
+                    <div className="flex items-center justify-between mb-2.5 border-b border-black/5 pb-2">
+                      <div className="flex items-center gap-2">
+                        <span>{pillarIcons[idx]}</span>
+                        <span className={`font-mono text-[10.5px] uppercase tracking-[0.2em] font-bold ${tagColors[idx]}`}>
+                          0{idx + 1} / {col.title}
+                        </span>
+                      </div>
+                      {col.badge && (
+                        <span className="px-2 py-0.5 text-[9.5px] uppercase font-mono tracking-wider rounded-[2px] border border-[#c8a45d]/40 bg-[#c8a45d]/10 text-[#8c6b24] font-semibold">
+                          {col.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-serif text-xl sm:text-2xl font-medium text-[#111111] tracking-tight mb-2 group-hover:text-[#c8a45d] transition-colors">
+                      {col.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="font-sans text-xs sm:text-[12.5px] text-[#555555] leading-relaxed mb-3">
+                      {col.description}
+                    </p>
                   </div>
-                  <h3 className="font-serif text-xl font-medium tracking-tight text-[#111111] mb-1.5">
-                    {col.title}
-                  </h3>
+
+                  {/* Concrete Deliverable Bullet Points */}
+                  <div className="pt-2.5 border-t border-black/5 mt-auto">
+                    <ul className="space-y-1">
+                      {pillarDetails[idx].map((point) => (
+                        <li key={point} className="flex items-center gap-2 text-[11px] text-[#666666] font-sans">
+                          <span className="w-1 h-1 rounded-full bg-black/30" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <p className="text-xs leading-relaxed text-[#5b5b5b]">
-                  {col.description}
-                </p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        {/* Human-in-the-Loop Flow Diagram */}
-        <div className="bg-[#ffffff] border border-black/10 p-4 rounded-[2px] mt-2">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-[#5b5b5b] font-mono mb-3">
-            Human-in-the-Loop Workflow
+        {/* Human-in-the-Loop AI Workflow & Ethical Guardrails Banner */}
+        <div className="editorial-reveal flex-none bg-white/95 border border-black/10 p-4 sm:p-5 rounded-[3px] shadow-[0_2px_15px_rgba(0,0,0,0.02)]">
+          {/* Workflow Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-2.5 border-b border-black/5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888] font-bold">
+              Human-in-the-Loop AI Workflow
+            </span>
+            <span className="font-mono text-[10.5px] text-[#c8a45d] font-semibold">
+              Teacher Oversight at Every Stage
+            </span>
           </div>
 
-          <div ref={flowNodesRef} className="flex flex-wrap items-center justify-between gap-2">
+          {/* 4 Step Nodes Ribbon */}
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-3.5">
             {siteConfig.teacherEmpowerment.flow.map((step, idx) => (
-              <React.Fragment key={step}>
-                <div className="flow-node flex items-center gap-2 px-3 py-1.5 bg-[#fafafa] border border-black/10 rounded-[2px]">
-                  <span className="w-4 h-4 flex items-center justify-center rounded-full bg-black text-white text-[10px] font-mono">
-                    {idx + 1}
-                  </span>
-                  <span className="text-xs font-medium text-[#111111]">{step}</span>
-                </div>
-                {idx < siteConfig.teacherEmpowerment.flow.length - 1 && (
-                  <ArrowRight className="w-3.5 h-3.5 text-black/30 shrink-0 hidden sm:block" />
-                )}
-              </React.Fragment>
+              <div
+                key={step}
+                className="flex items-center gap-2.5 px-3 py-2 bg-[#FAF9F6] border border-black/10 rounded-[2px]"
+              >
+                <span className="w-5 h-5 flex items-center justify-center rounded-full bg-[#111111] text-white text-[10px] font-mono font-bold shrink-0">
+                  {idx + 1}
+                </span>
+                <span className="font-sans text-xs font-semibold text-[#111111] leading-tight">
+                  {step}
+                </span>
+              </div>
             ))}
           </div>
 
-          {/* On-Screen Guardrails */}
-          <div className="mt-3 pt-3 border-t border-black/10 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] text-[#c8a45d] font-mono">
+          {/* Ethical Guardrails Footer */}
+          <div className="pt-2.5 border-t border-black/10 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-1.5 text-[10.5px] uppercase tracking-[0.18em] text-[#c8a45d] font-mono font-bold">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Guardrails:</span>
+              <span>Ethical Guardrails:</span>
             </div>
             {siteConfig.teacherEmpowerment.guardrails.map((gd) => (
-              <div key={gd} className="flex items-center gap-1.5 text-xs text-[#111111]">
-                <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <div key={gd} className="flex items-center gap-1.5 text-[11.5px] text-[#333333] font-sans">
+                <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
                 <span>{gd}</span>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Bottom Trailing Link CTA */}
+        <div className="editorial-reveal flex-none pt-4 border-t border-black/10 flex items-center mt-3">
+          <button
+            onClick={handleScrollToNext}
+            className="group flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer w-full max-w-2xl"
+          >
+            <span className="font-sans font-bold text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
+              Discover student & school institutional benefits
+            </span>
+            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all flex-1 ml-4" />
+          </button>
+        </div>
       </div>
     </ChapterShell>
   );
 };
+
+export default TeacherEmpowermentSection;
