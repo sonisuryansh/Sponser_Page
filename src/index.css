@@ -51,13 +51,13 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Base Chapter Shell Styling: Exactly 100svh on desktop pinned */
+/* Every chapter fills the viewport and grows when its content needs more room. */
 .chapter-shell {
   position: relative;
   width: 100%;
   min-height: 100svh;
-  height: 100svh;
-  overflow: hidden;
+  height: auto;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -73,6 +73,122 @@
     overflow: visible;
     padding-top: calc(var(--header-h) + 20px);
     padding-bottom: 48px;
+  }
+}
+
+/* Slide Transitions & Shutter Styling */
+.slide-transition-root {
+  isolation: isolate;
+  touch-action: pan-y;
+}
+
+.slide-transition-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #F1F1EF;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-scroll-pane {
+  height: 100svh;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.slide-scroll-pane::-webkit-scrollbar {
+  display: none;
+}
+
+.slide-transition-gold-block {
+  position: absolute;
+  z-index: 40;
+  left: 0;
+  bottom: 0;
+  width: 52px;
+  height: 40px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-transition-shutters {
+  position: absolute;
+  z-index: 35;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shutter-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 33.4%;
+  will-change: transform;
+}
+
+.shutter-strip-light {
+  top: 0;
+  background: #F1F1EF;
+}
+
+.shutter-strip-gold {
+  top: 33.3%;
+}
+
+.shutter-strip-dark {
+  top: 66.6%;
+  background: #0a0e14;
+}
+
+.slide-progress {
+  position: absolute;
+  z-index: 40;
+  top: 50%;
+  right: clamp(8px, 2.5vw, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  transform: translateY(-50%);
+}
+
+.slide-progress-button {
+  display: grid;
+  min-width: 16px;
+  min-height: 12px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slide-progress-mark {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  transition: width 250ms ease, height 250ms ease, transform 250ms ease;
+}
+
+.slide-progress-mark.is-active {
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+}
+
+.slide-progress-button:hover .slide-progress-mark:not(.is-active) {
+  transform: scale(1.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-transition-backdrop,
+  .slide-transition-gold-block,
+  .slide-transition-shutters {
+    display: none;
   }
 }
 

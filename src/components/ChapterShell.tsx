@@ -51,17 +51,17 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
       id={id}
       data-chapter={chapterNumber}
       data-theme={theme}
-      className="chapter-wrapper w-full h-[100svh] min-h-[100svh] relative overflow-hidden"
+      className="chapter-wrapper w-full min-h-[100svh] relative overflow-visible"
       style={{ zIndex }}
     >
       {/* 100svh Chapter Shell with tactile top shadow */}
       <div
-        className={`chapter-shell w-full h-full min-h-[100svh] overflow-hidden flex flex-col justify-between ${
+        className={`chapter-shell w-full min-h-[100svh] overflow-visible flex flex-col justify-between ${
           fullBleed ? 'p-0' : 'pt-[calc(var(--header-h)+24px)] pb-6'
         } box-border ${
           isDark
             ? 'bg-[#0a0e14] text-white shadow-[0_-25px_60px_rgba(0,0,0,0.7)]'
-            : 'bg-[#ffffff] text-[#111111] shadow-[0_-15px_40px_rgba(0,0,0,0.08)]'
+            : 'bg-[#FAF6EE] text-[#111111] shadow-[0_-15px_40px_rgba(0,0,0,0.06)]'
         } ${className}`}
       >
         {/* Background Media Layer */}

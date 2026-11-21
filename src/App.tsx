@@ -1,14 +1,11 @@
-import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
-import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { siteConfig } from './config/content.config';
 
 import { Preloader } from './components/Preloader';
 import { Header } from './components/Header';
 import { ChapterHUD } from './components/ChapterHUD';
 import { ContactModal } from './components/ContactModal';
+import { SlideTransitions } from './components/SlideTransitions';
 
 import { HeroSection } from './sections/01_HeroSection';
 import { AboutSection } from './sections/02_AboutSection';
@@ -25,14 +22,10 @@ import { RequirementsSection } from './sections/12_RequirementsSection';
 import { PricingSection } from './sections/13_PricingSection';
 import { ClosingSection } from './sections/14_ClosingSection';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export function App() {
   const [, setIsPreloaderDone] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [isContactOpen, setIsContactOpen] = useState(false);
-
-  const lenisRef = useRef<Lenis | null>(null);
 
   // Ordered list of section metadata (14 sections)
   // Respects swapRequirementsAndPricing toggle
@@ -57,7 +50,7 @@ export function App() {
     return list;
   }, []);
 
-  // Initialize Lenis + GSAP Master Pinning & Transitions
+  // Keep the presentation at its first slide and enable section reveal effects.
   useEffect(() => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
@@ -65,144 +58,21 @@ export function App() {
     window.scrollTo(0, 0);
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
     if (!prefersReducedMotion) {
       document.documentElement.classList.add('js-motion');
     }
 
-    const lenis = new Lenis({
-      lerp: 0.085,
-      smoothWheel: !prefersReducedMotion,
-    });
-    lenisRef.current = lenis;
-    (window as unknown as { lenis: Lenis }).lenis = lenis;
-
-    lenis.on('scroll', ScrollTrigger.update);
-
-    const tickerCb = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(tickerCb);
-    gsap.ticker.lagSmoothing(0);
-
-    // Master ScrollTrigger Pinning and Chapter-to-Chapter Transitions
-    let scrollTriggerContext: gsap.Context | null = null;
-
-    if (!prefersReducedMotion && !isMobile) {
-      scrollTriggerContext = gsap.context(() => {
-        const panels = gsap.utils.toArray<HTMLElement>('.chapter-wrapper');
-
-        panels.forEach((panel, i) => {
-          const nextPanel = panels[i + 1];
-          if (!nextPanel) return;
-
-          const isLight = panel.getAttribute('data-theme') === 'light';
-          const nextIsLight = nextPanel.getAttribute('data-theme') === 'light';
-          const isLightToLight = isLight && nextIsLight;
-
-          // Pin this chapter while next chapter scrolls into view over it
-          ScrollTrigger.create({
-            trigger: panel,
-            start: 'top top',
-            end: () => `+=${panel.offsetHeight}`,
-            pin: true,
-            pinSpacing: false,
-            anticipatePin: 1,
-          });
-
-          const content = panel.querySelector<HTMLElement>('.chapter-content');
-          const media = panel.querySelector<HTMLElement>('.chapter-media');
-          const nextContent = nextPanel.querySelector<HTMLElement>('.chapter-content');
-
-          // Outgoing animation: as nextPanel rises from bottom to top
-          if (content) {
-            gsap.to(content, {
-              yPercent: -8,
-              opacity: 0,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: nextPanel,
-                start: 'top bottom',
-                end: 'top top',
-                scrub: 0.6,
-              },
-            });
-          }
-
-          if (media) {
-            gsap.to(media, {
-              scale: 1.08,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: nextPanel,
-                start: 'top bottom',
-                end: 'top top',
-                scrub: 0.6,
-              },
-            });
-          }
-
-          // Incoming animation for nextPanel
-          if (isLightToLight && nextContent) {
-            // Light to light: soft cross fade + 40px lift
-            gsap.fromTo(
-              nextContent,
-              { y: 40, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: nextPanel,
-                  start: 'top bottom',
-                  end: 'top top',
-                  scrub: 0.6,
-                },
-              }
-            );
-          }
-        });
-      });
-    }
-
-    // Deterministic section tracking synchronized with Lenis scroll
-    const handleLenisScroll = ({ scroll }: { scroll: number }) => {
-      const windowH = window.innerHeight || 800;
-      const idx = Math.min(
-        orderedSections.length - 1,
-        Math.max(0, Math.floor((scroll + windowH * 0.45) / windowH))
-      );
-      setCurrentSectionIndex((prev) => (prev !== idx ? idx : prev));
-    };
-    lenis.on('scroll', handleLenisScroll);
-
     return () => {
-      scrollTriggerContext?.revert();
-      gsap.ticker.remove(tickerCb);
-      lenis.destroy();
       document.documentElement.classList.remove('js-motion');
     };
-  }, [orderedSections]);
+  }, []);
 
-  // Navigate to section with smooth gliding
+  // Navigation controls select a slide; SlideTransitions handles the movement.
   const navigateToSection = useCallback(
     (sectionId: string) => {
-      const targetEl = document.getElementById(sectionId);
-      if (!targetEl) return;
-
       const targetIdx = orderedSections.findIndex((s) => s.id === sectionId);
       if (targetIdx !== -1) {
         setCurrentSectionIndex(targetIdx);
-      }
-
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(targetEl, {
-          duration: 1.0,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
-      } else {
-        targetEl.scrollIntoView({ behavior: 'smooth' });
       }
     },
     [orderedSections]
@@ -219,63 +89,73 @@ export function App() {
     [orderedSections, navigateToSection]
   );
 
-  // Presenter Keyboard Navigation (Arrow Keys move section-by-section)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        isContactOpen ||
-        document.activeElement?.tagName === 'INPUT' ||
-        document.activeElement?.tagName === 'TEXTAREA' ||
-        document.activeElement?.tagName === 'SELECT'
-      ) {
-        return;
-      }
-
-      const currentId = orderedSections[currentSectionIndex]?.id;
-
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        e.preventDefault();
-        const stepEvt = new CustomEvent('medhaarc:step', {
-          cancelable: true,
-          detail: { direction: 1 },
-        });
-        const handled = !window.dispatchEvent(stepEvt);
-        if (!handled) {
-          navigateToIndex(currentSectionIndex + 1);
-        }
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault();
-        const stepEvt = new CustomEvent('medhaarc:step', {
-          cancelable: true,
-          detail: { direction: -1 },
-        });
-        const handled = !window.dispatchEvent(stepEvt);
-        if (!handled) {
-          navigateToIndex(currentSectionIndex - 1);
-        }
-      } else if (e.key === 'ArrowRight' && currentId !== 'domains') {
-        e.preventDefault();
-        navigateToIndex(currentSectionIndex + 1);
-      } else if (e.key === 'ArrowLeft' && currentId !== 'domains') {
-        e.preventDefault();
-        navigateToIndex(currentSectionIndex - 1);
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        navigateToIndex(0);
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        navigateToIndex(orderedSections.length - 1);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSectionIndex, orderedSections, isContactOpen, navigateToIndex]);
-
   const currentSection = orderedSections[currentSectionIndex] || orderedSections[0];
 
+  const slides = useMemo(
+    () =>
+      orderedSections.map((section, index) => {
+        let element;
+
+        switch (section.id) {
+          case 'home':
+            element = (
+              <HeroSection
+                onNavigateNext={() => navigateToIndex(index + 1)}
+                onOpenContact={() => setIsContactOpen(true)}
+                onExploreCurriculum={() => navigateToSection('curriculum')}
+              />
+            );
+            break;
+          case 'about':
+            element = <AboutSection />;
+            break;
+          case 'mission':
+            element = <MissionSection />;
+            break;
+          case 'domains':
+            element = <DomainsSection />;
+            break;
+          case 'approach':
+            element = <LearningApproachSection />;
+            break;
+          case 'curriculum':
+            element = <CurriculumSection />;
+            break;
+          case 'showcase':
+            element = <ProjectShowcaseSection />;
+            break;
+          case 'lab-setup':
+            element = <LabSetupSection />;
+            break;
+          case 'resources':
+            element = <ResourcesSection />;
+            break;
+          case 'teacher-empowerment':
+            element = <TeacherEmpowermentSection />;
+            break;
+          case 'benefits':
+            element = <BenefitsSection />;
+            break;
+          case 'requirements':
+            element = <RequirementsSection />;
+            break;
+          case 'pricing':
+            element = <PricingSection onOpenContact={() => setIsContactOpen(true)} />;
+            break;
+          case 'closing':
+            element = <ClosingSection onOpenContact={() => setIsContactOpen(true)} />;
+            break;
+          default:
+            return null;
+        }
+
+        return { ...section, element };
+      }),
+    [orderedSections, navigateToIndex, navigateToSection]
+  );
+
   return (
-    <div className="relative w-full min-h-screen bg-[#ffffff] text-[#111111] font-sans antialiased selection:bg-[#c8a45d] selection:text-white">
+    <div className="relative w-full min-h-screen bg-[#FAF6EE] text-[#111111] font-sans antialiased selection:bg-[#c8a45d] selection:text-white">
       {/* 00-100 Preloader with tagline wipe */}
       <Preloader onComplete={() => setIsPreloaderDone(true)} />
 
@@ -296,45 +176,15 @@ export function App() {
         onNext={() => navigateToIndex(currentSectionIndex + 1)}
       />
 
-      {/* Main 14 Presentation Chapters */}
+      {/* Main 14 Presentation Chapters rendered via Cinematic Slide Transitions */}
       <main className="w-full">
-        {/* ACT 1: Who We Are */}
-        <HeroSection
-          onNavigateNext={() => navigateToIndex(1)}
-          onOpenContact={() => setIsContactOpen(true)}
-          onExploreCurriculum={() => navigateToSection('curriculum')}
+        <SlideTransitions
+          slides={slides.filter((slide): slide is NonNullable<typeof slide> => slide !== null)}
+          currentIndex={currentSectionIndex}
+          onSlideChange={setCurrentSectionIndex}
+          accentColor="#c8a45d"
+          pageBgColor="#FAF6EE"
         />
-        <AboutSection />
-        <MissionSection />
-
-        {/* ACT 2: What Students Learn */}
-        <DomainsSection />
-        <LearningApproachSection />
-        <CurriculumSection />
-        <ProjectShowcaseSection />
-
-        {/* ACT 3: How It Runs */}
-        <LabSetupSection />
-        <ResourcesSection />
-        <TeacherEmpowermentSection />
-
-        {/* ACT 4: What Students Gain */}
-        <BenefitsSection />
-
-        {/* ACT 5: Terms & Next Step (Order toggleable) */}
-        {!siteConfig.swapRequirementsAndPricing ? (
-          <>
-            <RequirementsSection />
-            <PricingSection onOpenContact={() => setIsContactOpen(true)} />
-          </>
-        ) : (
-          <>
-            <PricingSection onOpenContact={() => setIsContactOpen(true)} />
-            <RequirementsSection />
-          </>
-        )}
-
-        <ClosingSection onOpenContact={() => setIsContactOpen(true)} />
       </main>
 
       {/* Consultation Modal */}

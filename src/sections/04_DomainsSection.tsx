@@ -351,7 +351,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
       if (targetIndex === -1) {
         // Deck State: All cards spread and fanned out
         const origX = Math.round(domain.deckX * spread);
-        const origY = domain.deckY;
+        const origY = domain.deckY + 20;
 
         gsap.to(cardEl, {
           xPercent: -50,
@@ -484,7 +484,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
       <div
         ref={containerRef}
         id="technology-suite"
-        className="relative w-full h-full min-h-full flex flex-col justify-between select-none py-2 sm:py-3 box-border"
+        className="relative w-full h-[100svh] min-h-[100svh] flex flex-col justify-between select-none pt-[calc(var(--header-h)+16px)] pb-6 box-border"
       >
         {/* Hidden SVG Symbols for Bullets and Divider */}
         <svg xmlns="http://www.w3.org/2000/svg" className="hidden" aria-hidden="true">
