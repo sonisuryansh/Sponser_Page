@@ -633,55 +633,56 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         ))}
       </nav>
 
-      {/* Side Scrolling Note (Like Image 2: SCROLL TO EXPLORE + Downward Arrow) */}
-      <aside className="slide-scroll-cta" aria-label="Scroll navigation note">
-        <button
-          type="button"
-          onClick={handleScrollCtaClick}
-          className="slide-scroll-cta-btn group"
-          aria-label={isLastSlide ? 'Scroll back to top' : 'Scroll to explore next section'}
-          title={isLastSlide ? 'Back to the top' : 'Scroll to explore'}
-        >
-          <span
-            className="slide-scroll-cta-label"
-            style={{
-              color: isTransitioning
-                ? accentColor
-                : currentTheme === 'dark'
-                  ? 'rgba(255, 255, 255, 0.75)'
-                  : 'rgba(17, 17, 17, 0.75)',
-            }}
+      {/* Side Scrolling Note (Like Image 2: SCROLL TO EXPLORE + Downward Arrow, Hidden ONLY on Last Section) */}
+      {!isLastSlide && (
+        <aside className="slide-scroll-cta" aria-label="Scroll navigation note">
+          <button
+            type="button"
+            onClick={handleScrollCtaClick}
+            className="slide-scroll-cta-btn group"
+            aria-label="Scroll to explore next section"
+            title="Scroll to explore"
           >
-            {isLastSlide ? 'Back to the top' : 'Scroll to explore'}
-          </span>
-          <div
-            className="slide-scroll-cta-picto"
-            style={{
-              color: isTransitioning
-                ? accentColor
-                : currentTheme === 'dark'
-                  ? '#ffffff'
-                  : '#111111',
-              transform: isLastSlide ? 'rotate(180deg)' : 'none',
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="30"
-              viewBox="0 0 20 34"
-              fill="currentColor"
-              aria-hidden="true"
+            <span
+              className="slide-scroll-cta-label"
+              style={{
+                color: isTransitioning
+                  ? accentColor
+                  : currentTheme === 'dark'
+                    ? 'rgba(255, 255, 255, 0.75)'
+                    : 'rgba(17, 17, 17, 0.75)',
+              }}
             >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M8 0v26.2l-8-8.1v5.7L10 34l10-10.2v-5.7l-8 8.1V0H8z"
-              />
-            </svg>
-          </div>
-        </button>
-      </aside>
+              Scroll to explore
+            </span>
+            <div
+              className="slide-scroll-cta-picto"
+              style={{
+                color: isTransitioning
+                  ? accentColor
+                  : currentTheme === 'dark'
+                    ? '#ffffff'
+                    : '#111111',
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="30"
+                viewBox="0 0 20 34"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M8 0v26.2l-8-8.1v5.7L10 34l10-10.2v-5.7l-8 8.1V0H8z"
+                />
+              </svg>
+            </div>
+          </button>
+        </aside>
+      )}
     </div>
   );
 };
