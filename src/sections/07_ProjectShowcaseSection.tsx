@@ -1,155 +1,188 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { siteConfig, type ProjectItem } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import { ArrowRight, X, Maximize2 } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const domainBadgeColors: Record<string, string> = {
-  'Robotics & Automation': 'bg-cyan-950/85 text-cyan-300 border border-cyan-500/40',
-  'AI & Machine Learning': 'bg-emerald-950/85 text-emerald-300 border border-emerald-500/40',
-  'Data Analytics': 'bg-amber-950/85 text-amber-300 border border-amber-500/40',
-  'Aerial Systems': 'bg-sky-950/85 text-sky-300 border border-sky-500/40',
-  'Sample project': 'bg-[#c8a45d] text-black font-semibold',
+const domainBadgeStyles: Record<string, string> = {
+  'Robotics & Automation': 'bg-cyan-50 text-cyan-800 border-cyan-200/80',
+  'AI & Machine Learning': 'bg-purple-50 text-purple-800 border-purple-200/80',
+  'Data Analytics': 'bg-amber-50 text-amber-800 border-amber-200/80',
+  'Aerial Systems': 'bg-sky-50 text-sky-800 border-sky-200/80',
+  'Sample project': 'bg-[#FAF6EE] text-[#8c6b24] border-[#c8a45d]/40',
 };
 
 export const ProjectShowcaseSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
 
-  // Horizontal scroll pin & scrub on desktop
-  useEffect(() => {
-    const el = containerRef.current;
-    const track = trackRef.current;
-    if (!el || !track) return;
+  const projects = siteConfig.showcase.projects;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
-    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
-      return;
+  const handleScrollToNext = () => {
+    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
+    if (dots[7]) {
+      dots[7].click();
     }
-
-    const scrollAmount = track.scrollWidth - track.clientWidth;
-
-    const ctx = gsap.context(() => {
-      gsap.to(track, {
-        x: () => -scrollAmount,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top top',
-          end: () => `+=${scrollAmount + 200}`,
-          pin: true,
-          scrub: 0.8,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
+  };
 
   return (
-    <ChapterShell id="showcase" chapterNumber="07" theme="light">
-      <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4 pb-3 border-b border-black/10">
-          <div>
-            <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1">
+    <ChapterShell
+      id="showcase"
+      chapterNumber="07"
+      theme="light"
+      fullBleed={true}
+      className="relative w-full h-[100svh] overflow-y-auto bg-[#FAF6EE] select-none"
+    >
+      {/* Scrollable Container with Top Clearance for Fixed Header */}
+      <div
+        ref={containerRef}
+        className="relative w-full min-h-full pt-[calc(var(--header-h,64px)+28px)] pb-20 px-4 sm:px-8 lg:px-14 max-w-[1360px] mx-auto box-border"
+      >
+        {/* Top Header & 2-Column Narrative (Exact Image 1 Style) */}
+        <div className="mb-12 lg:mb-16">
+          <div className="flex items-center gap-3 mb-2.5">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
               {siteConfig.showcase.eyebrow}
-            </div>
-            <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.12] tracking-tight text-[#111111]">
-              {siteConfig.showcase.headline}
-            </h2>
-            <p className="text-sm text-[#5b5b5b] font-sans">
-              {siteConfig.showcase.subline}
-            </p>
+            </span>
+            <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
+            <span className="font-mono text-[11px] text-[#888888] tracking-wider">
+              07 / 14
+            </span>
           </div>
 
-          <div className="inline-flex items-center px-3 py-1 border border-[#c8a45d]/40 bg-[#c8a45d]/10 text-[#c8a45d] text-xs font-mono uppercase tracking-wider rounded-[2px] shrink-0 self-start sm:self-end">
-            {siteConfig.showcase.badge}
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal leading-[1.14] tracking-tight text-[#111111] mb-6 max-w-4xl">
+            {siteConfig.showcase.headline}
+          </h2>
+
+          {/* 2-Column Narrative Intro (Matching Image 1) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 pt-4 border-t border-black/10">
+            <p className="font-sans text-xs sm:text-[13.5px] text-[#555555] leading-[1.7] font-normal">
+              A disciplined, hands-on engineering approach ensures theoretical curiosity becomes functional reality. That's why our students cover every stage from first circuit breadboarding to final prototype testing.
+            </p>
+            <p className="font-sans text-xs sm:text-[13.5px] text-[#555555] leading-[1.7] font-normal">
+              From Grade 9 onwards, students present their capstone builds to teachers, parents, and industry peers—demonstrating real-world problem-solving, code integration, and mechanical rigor.
+            </p>
           </div>
         </div>
 
-        {/* Project Wall (Horizontal Track on Desktop) */}
-        <div className="overflow-hidden w-full my-auto py-2">
-          <div
-            ref={trackRef}
-            className="flex items-stretch gap-5 transition-transform duration-300 will-change-transform"
-          >
-            {siteConfig.showcase.projects.map((proj) => (
+        {/* Alternating Zig-Zag Showcase Rows (Exact Images 1, 2, 3, 4 Layout) */}
+        <div className="flex flex-col">
+          {projects.map((proj, idx) => {
+            const isEven = idx % 2 === 0;
+            const badgeStyle = domainBadgeStyles[proj.domain] || domainBadgeStyles['Sample project'];
+
+            return (
               <div
                 key={proj.id}
-                onClick={() => setSelectedProject(proj)}
-                className="group relative w-[280px] sm:w-[320px] lg:w-[340px] shrink-0 bg-[#fafafa] border border-black/10 hover:border-black/30 rounded-[2px] overflow-hidden flex flex-col justify-between transition-colors duration-300 cursor-pointer shadow-xs"
+                className="py-10 sm:py-14 lg:py-16 border-t border-black/10 flex flex-col md:flex-row items-center gap-8 lg:gap-14"
               >
-                {/* Image with Tag Overlay */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-black/10">
-                  <img
-                    src={proj.image}
-                    alt={proj.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                {/* When Even: Text on Left, Image on Right. When Odd: Image on Left, Text on Right */}
+                <div
+                  className={`w-full md:w-1/2 flex flex-col justify-center ${
+                    isEven ? 'order-1 md:order-1' : 'order-1 md:order-2'
+                  }`}
+                >
+                  <div className="max-w-xl">
+                    {/* Numbering: 01, 02, 03... (Brand gold theme, NOT red!) */}
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="font-mono text-sm sm:text-base lg:text-[17px] font-bold text-[#c8a45d]">
+                        0{idx + 1}
+                      </span>
+                      <span className="w-1 h-1 rounded-full bg-black/20" />
+                      <span
+                        className={`font-mono text-[10.5px] uppercase tracking-wider px-2.5 py-0.5 rounded-[2px] border font-semibold ${badgeStyle}`}
+                      >
+                        {proj.domain}
+                      </span>
+                      <span className="font-mono text-[10.5px] text-[#888888]">
+                        {proj.grade}
+                      </span>
+                    </div>
 
-                  {/* Grade and Domain Badges */}
-                  <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
-                    <span className="px-2 py-0.5 bg-black/80 backdrop-blur-xs text-[10px] font-mono text-white rounded-[2px]">
-                      {proj.grade}
-                    </span>
-                    <span
-                      className={`px-2 py-0.5 text-[10px] font-mono rounded-[2px] backdrop-blur-xs ${
-                        domainBadgeColors[proj.domain] || (proj.isRealWork ? 'bg-black/70 text-white/90' : 'bg-[#c8a45d] text-black font-semibold')
-                      }`}
+                    {/* Project Title */}
+                    <h3 className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-medium text-[#111111] leading-tight mb-3">
+                      {proj.name}
+                    </h3>
+
+                    {/* Summary / Narrative */}
+                    <p className="font-sans text-xs sm:text-[13.5px] text-[#555555] leading-[1.7] font-normal mb-5">
+                      {proj.summary}
+                    </p>
+
+                    {/* Action CTA */}
+                    <button
+                      onClick={() => setSelectedProject(proj)}
+                      className="group inline-flex items-center gap-3 font-sans font-bold text-[11px] uppercase tracking-[0.2em] text-[#111111] hover:text-[#c8a45d] transition-colors cursor-pointer"
                     >
-                      {proj.domain}
-                    </span>
-                  </div>
-
-                  <div className="absolute top-2.5 right-2.5 p-1 bg-black/60 rounded-[2px] text-white/70 group-hover:text-white transition-colors">
-                    <Maximize2 className="w-3.5 h-3.5" />
+                      <span>Inspect Project Build</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
+                    </button>
                   </div>
                 </div>
 
-                {/* Card Text Content */}
-                <div className="p-4 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-serif text-lg font-medium text-[#111111] tracking-tight mb-1">
-                      {proj.name}
-                    </h3>
-                    <p className="text-xs text-[#5b5b5b] leading-relaxed line-clamp-2">
-                      {proj.summary}
-                    </p>
-                  </div>
+                {/* Photographic Showcase Frame */}
+                <div
+                  className={`w-full md:w-1/2 ${
+                    isEven ? 'order-2 md:order-2' : 'order-2 md:order-1'
+                  }`}
+                >
+                  <div
+                    onClick={() => setSelectedProject(proj)}
+                    className="group relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-[3px] overflow-hidden border border-black/10 bg-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] cursor-pointer"
+                  >
+                    <img
+                      src={proj.image}
+                      alt={proj.name}
+                      className="w-full h-full object-cover object-center filter saturate-[0.8] contrast-[1.04] group-hover:scale-103 transition-transform duration-500 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
-                  <div className="pt-3 mt-3 border-t border-black/10 flex items-center justify-between text-[11px] text-[#c8a45d]">
-                    <span className="uppercase tracking-wider">Inspect Details</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    {/* Top Corner Maximize Pill */}
+                    <div className="absolute top-3 right-3 p-1.5 bg-black/70 backdrop-blur-xs rounded-[2px] text-white/80 group-hover:text-white group-hover:scale-110 transition-all">
+                      <Maximize2 className="w-3.5 h-3.5" />
+                    </div>
+
+                    {/* Bottom Label Overlay */}
+                    <div className="absolute bottom-3 left-3 text-white">
+                      <span className="font-mono text-[10px] uppercase tracking-wider block opacity-75">
+                        {proj.grade} Portfolio
+                      </span>
+                      <span className="font-sans text-[12px] font-semibold">
+                        {proj.name}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
-        {/* Future Readiness Band at End */}
-        <div className="border border-black/10 bg-[#fafafa] p-3.5 rounded-[2px] mt-2">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-[#5b5b5b]">
-            <span className="uppercase tracking-wider font-semibold text-[#111111]">
+        {/* Future Readiness Band */}
+        <div className="pt-10 border-t border-black/10 my-8">
+          <div className="border border-black/10 bg-white/70 p-4 sm:p-5 rounded-[2px] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-[#555555]">
+            <span className="uppercase tracking-wider font-bold text-[#111111]">
               Future Readiness:
             </span>
             <span className="truncate">
-              Physical AI · Generative AI · AI Agents · Digital Twins · Edge AI · Smart IoT · AR/VR · Drones
+              Physical AI · Generative AI · AI Agents · Digital Twins · Edge AI · Smart IoT · Autonomous Drones
             </span>
             <span className="uppercase tracking-widest text-[#c8a45d] shrink-0 font-bold">
               Explore → Experiment → Apply → Build
             </span>
           </div>
+        </div>
+
+        {/* Bottom Trailing Link CTA */}
+        <div className="pt-6 border-t border-black/10 flex items-center">
+          <button
+            onClick={handleScrollToNext}
+            className="group flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer w-full max-w-2xl"
+          >
+            <span className="font-sans font-bold text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
+              Discover our STEM lab infrastructure & setups
+            </span>
+            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all flex-1 ml-4" />
+          </button>
         </div>
       </div>
 
@@ -158,49 +191,53 @@ export const ProjectShowcaseSection: React.FC = () => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setSelectedProject(null)}
         >
-          <div className="relative w-full max-w-2xl bg-white border border-black/15 rounded-[2px] p-6 md:p-8 text-[#111111] overflow-y-auto max-h-[90vh]">
-            <button
-              onClick={() => setSelectedProject(null)}
-              aria-label="Close project modal"
-              className="absolute top-5 right-5 p-2 text-[#5b5b5b] hover:text-black transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-0.5 bg-black/5 text-xs font-mono rounded-[2px]">
-                {selectedProject.grade}
-              </span>
-              <span className="px-2 py-0.5 bg-[#c8a45d]/20 text-[#111111] text-xs font-mono rounded-[2px]">
-                {selectedProject.domain}
-              </span>
-            </div>
-
-            <h3 className="font-serif text-2xl md:text-3xl font-normal tracking-tight text-[#111111] mb-4">
-              {selectedProject.name}
-            </h3>
-
-            <div className="relative aspect-[16/9] rounded-[2px] overflow-hidden border border-black/10 mb-5 bg-black">
+          <div
+            className="relative w-full max-w-3xl bg-white border border-black/15 shadow-2xl rounded-[3px] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Image */}
+            <div className="relative aspect-[16/9] w-full bg-black/10 overflow-hidden">
               <img
                 src={selectedProject.image}
                 alt={selectedProject.name}
                 className="w-full h-full object-cover"
               />
-            </div>
-
-            <p className="text-sm md:text-base text-[#5b5b5b] leading-relaxed mb-6">
-              {selectedProject.summary}
-            </p>
-
-            <div className="pt-3 border-t border-black/10 flex justify-end">
               <button
                 onClick={() => setSelectedProject(null)}
-                className="px-4 py-1.5 border border-black/30 hover:border-black text-xs uppercase tracking-[0.18em] text-[#111111] transition-colors rounded-[2px] cursor-pointer"
+                className="absolute top-3 right-3 p-2 bg-black/70 hover:bg-black text-white rounded-full transition-colors cursor-pointer"
+                aria-label="Close modal"
               >
-                Close View
+                <X className="w-4 h-4" />
               </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 sm:p-8">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="font-mono text-xs font-bold text-[#c8a45d]">
+                  {selectedProject.grade}
+                </span>
+                <span className="w-1 h-1 rounded-full bg-black/30" />
+                <span className="font-mono text-xs text-[#555555]">
+                  {selectedProject.domain}
+                </span>
+              </div>
+
+              <h3 className="font-serif text-2xl sm:text-3xl font-medium text-[#111111] mb-3">
+                {selectedProject.name}
+              </h3>
+
+              <p className="font-sans text-sm text-[#555555] leading-relaxed mb-6">
+                {selectedProject.summary}
+              </p>
+
+              <div className="pt-4 border-t border-black/10 flex justify-between items-center text-xs font-mono text-[#888888]">
+                <span>Student Engineering Capstone</span>
+                <span className="text-[#c8a45d] font-bold">Hands-on Hardware Prototype</span>
+              </div>
             </div>
           </div>
         </div>
@@ -208,3 +245,5 @@ export const ProjectShowcaseSection: React.FC = () => {
     </ChapterShell>
   );
 };
+
+export default ProjectShowcaseSection;
