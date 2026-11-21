@@ -83,11 +83,11 @@ export const RequirementsSection: React.FC = () => {
     <ChapterShell id="requirements" chapterNumber="12" theme="light">
       <div className="w-full flex-1 flex flex-col justify-between py-2 select-none">
         {/* Eyebrow & Headline */}
-        <div className="mb-4 max-w-3xl">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1.5">
+        <div className="mb-4 max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
+          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1.5 text-center">
             {siteConfig.requirements.eyebrow}
           </div>
-          <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.14] tracking-tight text-[#111111]">
+          <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.14] tracking-tight text-[#111111] text-center mx-auto">
             {siteConfig.requirements.headline}
           </h2>
         </div>
