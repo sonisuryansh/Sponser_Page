@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { ArrowUpRight, Globe } from 'lucide-react';
+import { ArrowUpRight, Globe, Mail, Calendar, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -92,86 +92,191 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
       id="closing"
       chapterNumber="14"
       theme="dark"
-      media="/assets/medhaarc_hero_drone.webp"
-      overlayOpacity={0.82}
+      fullBleed={true}
+      className="relative w-full h-[100svh] overflow-hidden bg-[#070B10]"
     >
-      <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
-        {/* Eyebrow */}
-        <div>
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-2">
-            {siteConfig.closing.eyebrow}
-          </div>
-        </div>
+      {/* Background Drone Media with Dynamic Ambient Lighting */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img
+          src="/assets/medhaarc_hero_drone.webp"
+          alt="MedhaArc Labs Autonomous Drone Prototype"
+          className="w-full h-full object-cover object-center filter saturate-[0.6] contrast-[1.12] brightness-[0.4] scale-105"
+        />
+        {/* Soft Vignette and Radial Atmospheric Lighting */}
+        <div className="absolute inset-0 bg-radial-[at_50%_40%] from-transparent via-[#070B10]/80 to-[#070B10]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070B10] via-transparent to-[#070B10]/70" />
+        
+        {/* Subtle Engineering Grid Pattern Overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
+      </div>
 
-        {/* Center: Statement Headline & Sub-line */}
-        <div className="my-auto max-w-4xl">
-          <h2
-            ref={headlineRef}
-            className="font-serif text-[clamp(28px,4.5vw,58px)] font-normal leading-[1.12] tracking-tight text-white mb-4"
-          >
-            {siteConfig.closing.headline}
-          </h2>
+      {/* Main Viewport Container */}
+      <div
+        ref={containerRef}
+        className="relative z-10 w-full h-full flex flex-col justify-between pt-[calc(var(--header-h,64px)+12px)] pb-6 px-4 sm:px-8 lg:px-14 box-border select-none"
+      >
+        {/* Center: The Architectural Executive Monolith Card */}
+        <div className="my-auto w-full max-w-[1240px] mx-auto bg-[#0A1017]/85 backdrop-blur-2xl border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] p-6 sm:p-9 lg:p-11 relative overflow-hidden">
+          
+          {/* Subtle Decorative Architectural Corner Crosshairs */}
+          <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-[#c8a45d]/60 pointer-events-none" />
+          <span className="absolute top-2 right-2 w-2 h-2 border-t border-r border-[#c8a45d]/60 pointer-events-none" />
+          <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-[#c8a45d]/60 pointer-events-none" />
+          <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-[#c8a45d]/60 pointer-events-none" />
 
-          {/* Connecting Quote for the Client */}
-          <p className="text-base sm:text-lg md:text-xl text-white/80 font-serif italic mb-8 max-w-3xl leading-relaxed">
-            &ldquo;{siteConfig.closing.line}&rdquo;
-          </p>
-
-          {/* CTAs: Consultation Button + Website Link + Email */}
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            <button
-              onClick={onOpenContact}
-              className="group relative inline-flex items-center gap-2.5 px-6 py-3 border border-[#c8a45d] bg-[#c8a45d]/10 hover:bg-[#c8a45d] text-[#FAF6EE] hover:text-[#111111] rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer"
-            >
-              <span className="text-xs font-semibold uppercase tracking-[0.2em]">
-                {siteConfig.closing.ctaText}
+          {/* Top Metadata Row: Chapter Indicator & 4 Connected Domains */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-5 mb-6 border-b border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c8a45d] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c8a45d]" />
               </span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </button>
+              <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
+                {siteConfig.closing.eyebrow}
+              </span>
+              <span className="font-mono text-[10.5px] text-white/40 tracking-wider">
+                • 14 / 14
+              </span>
+            </div>
 
-            <a
-              href="https://www.medhaarc.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-5 py-3 border border-white/20 hover:border-white/50 text-white/90 hover:text-white rounded-[2px] bg-white/[0.04] hover:bg-white/[0.08] transition-all cursor-pointer"
-            >
-              <Globe className="w-4 h-4 text-[#c8a45d]" />
-              <span className="text-xs font-mono tracking-wider font-medium">www.medhaarc.com</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-
-            <a
-              href="mailto:team@medhaarc.com"
-              className="text-xs text-white/60 hover:text-[#c8a45d] tracking-wider transition-colors font-mono underline-offset-4 hover:underline"
-            >
-              team@medhaarc.com
-            </a>
+            {/* 4 Connected Domains Pill Strip */}
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              {siteConfig.closing.domainsRow.map((domain) => (
+                <span
+                  key={domain}
+                  className="font-mono text-[9.5px] uppercase tracking-wider px-2.5 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-white/70"
+                >
+                  {domain}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {/* Social Channels Row */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[#c8a45d] font-mono mr-1">
-              Connect:
-            </span>
-            {socialChannels.map((soc) => (
+          {/* Core Invitation Content: Headline & Vision Quote */}
+          <div className="max-w-4xl mb-8">
+            <h2
+              ref={headlineRef}
+              className="font-serif text-[clamp(28px,3.8vw,54px)] font-normal leading-[1.12] tracking-tight text-white mb-4"
+            >
+              {siteConfig.closing.headline}
+            </h2>
+
+            <div className="border-l-2 border-[#c8a45d] pl-4 sm:pl-5 py-0.5">
+              <p className="text-base sm:text-lg md:text-xl text-white/85 font-serif italic leading-relaxed">
+                &ldquo;{siteConfig.closing.line}&rdquo;
+              </p>
+            </div>
+          </div>
+
+          {/* Executive Interaction Hub: 3 Distinctive Tactile Channels */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-4 mb-7">
+            {/* Primary Action Button: Schedule Consultation */}
+            <div className="md:col-span-6 flex">
+              <button
+                onClick={onOpenContact}
+                className="w-full group relative flex items-center justify-between p-4 sm:p-5 bg-gradient-to-r from-[#c8a45d] to-[#dfc07e] hover:from-[#dfc07e] hover:to-[#e8ce97] text-[#0A1016] rounded-none shadow-[0_10px_30px_rgba(200,164,93,0.3)] hover:shadow-[0_15px_40px_rgba(200,164,93,0.5)] transition-all duration-300 cursor-pointer active:scale-[0.99] focus:outline-none"
+              >
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Calendar className="w-4 h-4 text-[#0A1016]" />
+                    <span className="font-mono text-[10px] uppercase tracking-widest font-bold text-[#0A1016]/80">
+                      Primary Next Step
+                    </span>
+                  </div>
+                  <div className="font-sans font-bold text-sm sm:text-base tracking-wide text-[#0A1016]">
+                    {siteConfig.closing.ctaText}
+                  </div>
+                </div>
+                <div className="w-9 h-9 rounded-full bg-[#0A1016] text-[#c8a45d] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </button>
+            </div>
+
+            {/* Direct Official Website Card */}
+            <div className="md:col-span-3 flex">
               <a
-                key={soc.name}
-                href={soc.url}
+                href={siteConfig.closing.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={soc.name}
-                className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-[2px] border border-white/10 hover:border-[#c8a45d]/60 bg-white/[0.03] hover:bg-white/[0.08] text-white/70 hover:text-[#c8a45d] transition-all text-xs font-mono"
+                className="w-full group flex flex-col justify-between p-4 sm:p-5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 rounded-none transition-all duration-300 cursor-pointer"
               >
-                <span className="text-white/60 group-hover:text-[#c8a45d] transition-colors">{soc.icon}</span>
-                <span className="text-[11px] tracking-wide">{soc.name}</span>
-                <ArrowUpRight className="w-3 h-3 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-[#c8a45d]" />
+                    <span className="font-mono text-[9.5px] uppercase tracking-wider text-white/50">
+                      Official Web
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+                <div className="font-mono text-xs sm:text-[13px] text-white font-medium tracking-wide group-hover:text-[#c8a45d] transition-colors">
+                  www.medhaarc.com
+                </div>
               </a>
-            ))}
+            </div>
+
+            {/* Direct Institutional Inquiries Email Card */}
+            <div className="md:col-span-3 flex">
+              <a
+                href="mailto:team@medhaarc.com"
+                className="w-full group flex flex-col justify-between p-4 sm:p-5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 rounded-none transition-all duration-300 cursor-pointer"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-[#c8a45d]" />
+                    <span className="font-mono text-[9.5px] uppercase tracking-wider text-white/50">
+                      Inquiries
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+                <div className="font-mono text-xs sm:text-[13px] text-white font-medium tracking-wide group-hover:text-[#c8a45d] transition-colors">
+                  team@medhaarc.com
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {/* Social Channels Strip */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-5 border-t border-white/10">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#c8a45d] font-bold mr-1">
+                Official Channels:
+              </span>
+              {socialChannels.map((soc) => (
+                <a
+                  key={soc.name}
+                  href={soc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={soc.name}
+                  className="group inline-flex items-center gap-2 px-3 py-1.5 bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/60 rounded-none text-white/70 hover:text-[#c8a45d] transition-all text-xs font-mono"
+                >
+                  <span className="text-white/60 group-hover:text-[#c8a45d] transition-colors">
+                    {soc.icon}
+                  </span>
+                  <span className="text-[11px] tracking-wide">{soc.name}</span>
+                  <ArrowUpRight className="w-3 h-3 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2 text-[10.5px] font-mono text-white/45">
+              <Sparkles className="w-3.5 h-3.5 text-[#c8a45d]/80" />
+              <span>K-12 School Technology Innovation Ecosystem</span>
+            </div>
           </div>
         </div>
 
-        {/* Footer: MedhaArc Labs | X Private Limited */}
-        <footer className="w-full border-t border-white/10 pt-4 pb-2 text-xs text-white/50 tracking-wider flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* Bottom Publication Footer */}
+        <footer className="w-full max-w-[1240px] mx-auto border-t border-white/10 pt-3 pb-1 text-xs text-white/50 tracking-wider flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-3">
             <span>{siteConfig.closing.footerText}</span>
             <span className="text-white/20 select-none">•</span>
@@ -184,11 +289,13 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
               medhaarc.com
             </a>
           </div>
-          <div className="flex items-center gap-6">
-            <span>{siteConfig.tagline}</span>
+          <div className="flex items-center gap-4">
+            <span className="font-serif italic text-white/60">{siteConfig.tagline}</span>
           </div>
         </footer>
       </div>
     </ChapterShell>
   );
 };
+
+export default ClosingSection;
