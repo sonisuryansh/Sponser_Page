@@ -1,490 +1,812 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { siteConfig, type DomainItem } from '../config/content.config';
-import { ChapterShell } from '../components/ChapterShell';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Cog,
-  Radio,
-  Bot,
-  Network,
-  Cpu,
-  Shield,
-  BarChart3,
-  ScatterChart,
-  Search,
-  Plane,
-  Target,
-  Compass,
-  X,
-  ArrowRight,
-} from 'lucide-react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {
+  Compass,
+  Bot,
+  Cpu,
+  BarChart3,
+  Plane,
+  ShieldCheck,
+  ChevronRight,
+  X,
+  Sparkles,
+} from 'lucide-react';
+import { ChapterShell } from '../components/ChapterShell';
+import { Magnetic } from '../components/motion/Magnetic';
+import { AnimatedCounter } from '../components/motion/AnimatedCounter';
+import { LineReveal } from '../components/motion/LineReveal';
 
-gsap.registerPlugin(ScrollTrigger);
+interface DomainData {
+  id: string;
+  slideId: string;
+  slideIndex: number;
+  chapter: string;
+  domainNumber: string;
+  name: string;
+  fullName: string;
+  italicWord: string;
+  tag: string;
+  tagline: string;
+  description: string;
+  bg: string;
+  textColor: string;
+  accent: string;
+  glowColor: string;
+  rotation: number;
+  deckX: number;
+  deckY: number;
+  badgeText: string;
+  badgeBg: string;
+  badgeTextColor: string;
+  badgeIcon: React.ReactNode;
+  icon: React.ReactNode;
+  slideNumber: string;
+  items: string[];
+  metrics: { value: number; suffix: string; label: string }[];
+  tags: string[];
+  pillars: { num: string; title: string; desc: string }[];
+  badgeNote?: string;
+  badgeIconNote?: React.ReactNode;
+  image: string;
+  imageCaption: string;
+  imageSubcaption: string;
+  imageTag: string;
+}
 
-const iconClusterMap: Record<string, React.ReactNode> = {
-  Gear: <Cog className="w-4 h-4" />,
-  Sensor: <Radio className="w-4 h-4" />,
-  RobotArm: <Bot className="w-4 h-4" />,
-  Network: <Network className="w-4 h-4" />,
-  Cpu: <Cpu className="w-4 h-4" />,
-  Shield: <Shield className="w-4 h-4" />,
-  BarChart3: <BarChart3 className="w-4 h-4" />,
-  Scatter: <ScatterChart className="w-4 h-4" />,
-  Search: <Search className="w-4 h-4" />,
-  Plane: <Plane className="w-4 h-4" />,
-  Target: <Target className="w-4 h-4" />,
-  Compass: <Compass className="w-4 h-4" />,
-};
-
-// Rich domain color & badge theme mapping
-const domainThemeMap: Record<
-  string,
+const DOMAINS: DomainData[] = [
   {
-    accent: string;
-    badgeText: string;
-    badgeBg: string;
-    borderDefault: string;
-    borderActive: string;
-    cardBg: string;
-    glowBg: string;
-    badgeLabel: string;
-    flowPill: string;
-  }
-> = {
-  robotics: {
-    accent: '#06b6d4',
-    badgeText: 'text-cyan-400',
-    badgeBg: 'bg-cyan-950/80 border-cyan-500/40 text-cyan-300',
-    borderDefault: 'border-cyan-500/20 hover:border-cyan-400/60',
-    borderActive: 'border-cyan-400 ring-1 ring-cyan-400/40',
-    cardBg: 'bg-gradient-to-b from-[#0f1f2e] via-[#0d1722] to-[#0a1017]',
-    glowBg: 'radial-gradient(circle at top right, rgba(6,182,212,0.18) 0%, transparent 65%)',
-    badgeLabel: 'EMBEDDED BENCH',
-    flowPill: 'bg-cyan-500/15 border-cyan-500/30 text-cyan-200',
+    id: 'math-foundations',
+    slideId: 'slide-4',
+    slideIndex: 3,
+    chapter: '04',
+    domainNumber: 'Bedrock Foundation',
+    name: 'math & logic',
+    fullName: 'Mathematical & Computational',
+    italicWord: 'Foundations',
+    tag: 'Bedrock Foundation',
+    tagline: 'Formal Logic, Vectors & Discrete Structures',
+    description:
+      'Discrete logic, vector transforms, and statistical models powering modern engineering.',
+    bg: '#182433',
+    textColor: '#ffffff',
+    accent: '#818cf8',
+    glowColor: 'rgba(129, 140, 248, 0.45)',
+    rotation: -6,
+    deckX: -420,
+    deckY: -7,
+    badgeText: 'LOGIC & PROOF',
+    badgeBg: '#818cf8',
+    badgeTextColor: '#0f172a',
+    badgeIcon: <Compass className="w-3.5 h-3.5" />,
+    icon: <Compass className="w-5 h-5 text-[#818cf8]" />,
+    slideNumber: '04',
+    items: [
+      'Boolean Logic & State Machines',
+      'Vectors, Kinematics & Geometry',
+      'Distributions & Statistical Inference',
+      'Algorithmic Convergence Loops',
+    ],
+    metrics: [
+      { value: 100, suffix: '%', label: 'Formal Rigor' },
+      { value: 4, suffix: ' Pillars', label: 'Bedrock Concepts' },
+      { value: 1000, suffix: '+', label: 'Algorithmic Loops' },
+    ],
+    tags: ['Boolean Logic', 'Vectors & Transforms', 'Statistical Inference', 'Convergence'],
+    pillars: [
+      { num: '01', title: 'Boolean Logic', desc: 'State automata & bitwise rules' },
+      { num: '02', title: 'Vectors & 3D Geometry', desc: 'Spatial transforms & matrix projections' },
+      { num: '03', title: 'Statistical Inference', desc: 'Variance analysis & empirical models' },
+      { num: '04', title: 'Algorithmic Loops', desc: 'Iterative optimization & recursion' },
+    ],
+    badgeNote: 'Mathematical rigor underlying robotics, neural models, and flight physics.',
+    badgeIconNote: <Sparkles className="w-4 h-4 text-[#818cf8]" />,
+    image: '/assets/page_06.webp',
+    imageCaption: 'Computational Bedrock',
+    imageSubcaption: 'Matrix transforms & discrete logic',
+    imageTag: 'Bedrock Core',
   },
-  aiml: {
-    accent: '#10b981',
-    badgeText: 'text-emerald-400',
-    badgeBg: 'bg-emerald-950/80 border-emerald-500/40 text-emerald-300',
-    borderDefault: 'border-emerald-500/20 hover:border-emerald-400/60',
-    borderActive: 'border-emerald-400 ring-1 ring-emerald-400/40',
-    cardBg: 'bg-gradient-to-b from-[#0d221c] via-[#0b1a16] to-[#08120f]',
-    glowBg: 'radial-gradient(circle at top right, rgba(16,185,129,0.18) 0%, transparent 65%)',
-    badgeLabel: 'NEURAL MODELS',
-    flowPill: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-200',
-  },
-  data: {
-    accent: '#f59e0b',
-    badgeText: 'text-amber-400',
-    badgeBg: 'bg-amber-950/80 border-amber-500/40 text-amber-300',
-    borderDefault: 'border-amber-500/20 hover:border-amber-400/60',
-    borderActive: 'border-amber-400 ring-1 ring-amber-400/40',
-    cardBg: 'bg-gradient-to-b from-[#241a0d] via-[#1a140b] to-[#120d07]',
-    glowBg: 'radial-gradient(circle at top right, rgba(245,158,11,0.18) 0%, transparent 65%)',
-    badgeLabel: 'TELEMETRY LAB',
-    flowPill: 'bg-amber-500/15 border-amber-500/30 text-amber-200',
-  },
-  aerial: {
+  {
+    id: 'robotics',
+    slideId: 'slide-5',
+    slideIndex: 4,
+    chapter: '05',
+    domainNumber: 'Engineering Domain 01',
+    name: 'robotics',
+    fullName: 'Robotics &',
+    italicWord: 'Automation',
+    tag: 'Physical Computing',
+    tagline: 'Physical Computing & Embedded Mechanics',
+    description:
+      'Sensory feedback, motor actuation, and embedded logic bridging code with mechanics.',
+    bg: '#1c4250',
+    textColor: '#ffffff',
     accent: '#38bdf8',
-    badgeText: 'text-sky-400',
-    badgeBg: 'bg-sky-950/80 border-sky-500/40 text-sky-300',
-    borderDefault: 'border-sky-500/20 hover:border-sky-400/60',
-    borderActive: 'border-sky-400 ring-1 ring-sky-400/40',
-    cardBg: 'bg-gradient-to-b from-[#0c1e2b] via-[#0a1722] to-[#071017]',
-    glowBg: 'radial-gradient(circle at top right, rgba(56,189,248,0.18) 0%, transparent 65%)',
-    badgeLabel: 'AUTONOMOUS FLIGHT',
-    flowPill: 'bg-sky-500/15 border-sky-500/30 text-sky-200',
+    glowColor: 'rgba(56, 189, 248, 0.45)',
+    rotation: -2.5,
+    deckX: -210,
+    deckY: 13,
+    badgeText: 'EMBEDDED BENCH',
+    badgeBg: '#38bdf8',
+    badgeTextColor: '#0c2331',
+    badgeIcon: <Bot className="w-3.5 h-3.5" />,
+    icon: <Bot className="w-5 h-5 text-[#38bdf8]" />,
+    slideNumber: '05',
+    items: [
+      'Microcontrollers & Embedded C',
+      'Sensors & Sensory Feedback',
+      'Motor Drivers & PWM Actuators',
+      'Mechanical Prototyping & CAD',
+    ],
+    metrics: [
+      { value: 6, suffix: ' DoF', label: 'Arm Kinematics' },
+      { value: 24, suffix: '+', label: 'Sensors & Actuators' },
+      { value: 100, suffix: '%', label: 'Bench Practical' },
+    ],
+    tags: ['Sensors', 'Actuators', 'Embedded C', '3D Design'],
+    pillars: [
+      { num: '01', title: 'Electronics & Circuits', desc: 'Voltage regulation & breadboard circuits' },
+      { num: '02', title: 'Sensors & Motors', desc: 'Servo control & PWM calibration' },
+      { num: '03', title: 'Embedded Code', desc: 'MicroPython & hardware interrupts' },
+      { num: '04', title: '3D Mechanics', desc: 'CAD spatial modeling & kinematics' },
+    ],
+    badgeNote: 'DESIGN → BUILD → CODE → TEST → ITERATE',
+    badgeIconNote: <ChevronRight className="w-4 h-4 text-[#38bdf8]" />,
+    image: '/assets/page_13.webp',
+    imageCaption: 'Actuation Station',
+    imageSubcaption: '6-Axis kinematics & gripper feedback',
+    imageTag: 'School Lab Platform',
   },
-};
+  {
+    id: 'ai-ml',
+    slideId: 'slide-6',
+    slideIndex: 5,
+    chapter: '06',
+    domainNumber: 'Engineering Domain 02',
+    name: 'ai & ml',
+    fullName: 'AI & Machine',
+    italicWord: 'Learning',
+    tag: 'Cognitive Models',
+    tagline: 'Intelligent Systems & Machine Reasoning',
+    description:
+      'Intelligent inference, computer vision, and responsible safety guardrails.',
+    bg: '#254456',
+    textColor: '#ffffff',
+    accent: '#6ee7b7',
+    glowColor: 'rgba(110, 231, 183, 0.45)',
+    rotation: 1.5,
+    deckX: 0,
+    deckY: -15,
+    badgeText: 'NEURAL MODELS',
+    badgeBg: '#6ee7b7',
+    badgeTextColor: '#064e3b',
+    badgeIcon: <Cpu className="w-3.5 h-3.5" />,
+    icon: <Cpu className="w-5 h-5 text-[#6ee7b7]" />,
+    slideNumber: '06',
+    items: [
+      'Machine Learning Principles',
+      'Supervised Training & Weights',
+      'Computer Vision & Audio ML',
+      'Ethical Safety Guardrails',
+    ],
+    metrics: [
+      { value: 98, suffix: '%', label: 'Vision Accuracy' },
+      { value: 15, suffix: ' FPS', label: 'Edge ML Latency' },
+      { value: 100, suffix: '%', label: 'Ethics Guardrails' },
+    ],
+    tags: ['Neural Networks', 'Computer Vision', 'Ethical AI', 'Edge Inference'],
+    pillars: [
+      { num: '01', title: 'Data & Patterns', desc: 'Feature engineering & classifiers' },
+      { num: '02', title: 'Computer Vision', desc: 'Edge convolution & gesture tracking' },
+      { num: '03', title: 'Neural Models', desc: 'Tokenization & prompt logic' },
+      { num: '04', title: 'Ethics & Safety', desc: 'Bias detection & privacy boundaries' },
+    ],
+    badgeNote: 'Responsible AI citizenship, privacy safeguards, and ethics curriculum built-in.',
+    badgeIconNote: <ShieldCheck className="w-4 h-4 text-[#6ee7b7]" />,
+    image: '/assets/page_02.webp',
+    imageCaption: 'Simulation & Vision',
+    imageSubcaption: 'Spatial models & neural inference',
+    imageTag: 'Neural Inference',
+  },
+  {
+    id: 'data-analytics',
+    slideId: 'slide-7',
+    slideIndex: 6,
+    chapter: '07',
+    domainNumber: 'Engineering Domain 03',
+    name: 'data analytics',
+    fullName: 'Data',
+    italicWord: 'Analytics',
+    tag: 'Evidence & Insights',
+    tagline: 'Evidence, Statistics & Live Telemetry',
+    description:
+      'Transforming raw sensor telemetry into structured insights through 4 empirical stages.',
+    bg: '#8c4427',
+    textColor: '#ffffff',
+    accent: '#fed7aa',
+    glowColor: 'rgba(254, 215, 170, 0.45)',
+    rotation: 4.5,
+    deckX: 210,
+    deckY: 5,
+    badgeText: 'TELEMETRY LAB',
+    badgeBg: '#fb923c',
+    badgeTextColor: '#431407',
+    badgeIcon: <BarChart3 className="w-3.5 h-3.5" />,
+    icon: <BarChart3 className="w-5 h-5 text-[#fed7aa]" />,
+    slideNumber: '07',
+    items: [
+      'Data Wrangling & Cleaning',
+      'Trend & Outlier Detection',
+      'Hypothesis Formulation',
+      'Visual Storytelling & Charts',
+    ],
+    metrics: [
+      { value: 50, suffix: ' Hz', label: 'Sensor Telemetry' },
+      { value: 4, suffix: ' Stages', label: 'Pipeline Depth' },
+      { value: 100, suffix: '%', label: 'Empirical Proof' },
+    ],
+    tags: ['Data Structuring', 'Statistical Interpretation', 'Data Visualization', 'Hypothesis'],
+    pillars: [
+      { num: '01', title: 'Collection', desc: 'Sensor telemetry & IMU harvest' },
+      { num: '02', title: 'Analysis', desc: 'Variance & anomaly filtering' },
+      { num: '03', title: 'Visualisation', desc: 'Real-time telemetry charts' },
+      { num: '04', title: 'Insights', desc: 'Optimization & parameter tuning' },
+    ],
+    badgeNote: 'Hypothesis → Experimentation → Telemetry → Empirical Conclusion',
+    badgeIconNote: <ChevronRight className="w-4 h-4 text-[#fed7aa]" />,
+    image: '/assets/laptop_analytics.webp',
+    imageCaption: 'Telemetry Lab',
+    imageSubcaption: 'Multi-variate telemetry & synthesis',
+    imageTag: 'Live Telemetry',
+  },
+  {
+    id: 'aerial-systems',
+    slideId: 'slide-8',
+    slideIndex: 7,
+    chapter: '08',
+    domainNumber: 'Engineering Domain 04',
+    name: 'aerial systems',
+    fullName: 'Aerial',
+    italicWord: 'Systems',
+    tag: 'Flight Aerodynamics',
+    tagline: 'Aerodynamics, Flight Mechanics & Spatial Robotics',
+    description:
+      'Aerodynamics, 3D spatial mapping, and gyro stabilization in safe lab environments.',
+    bg: '#141d27',
+    textColor: '#ffffff',
+    accent: '#93c5fd',
+    glowColor: 'rgba(147, 197, 253, 0.45)',
+    rotation: 7.5,
+    deckX: 420,
+    deckY: 25,
+    badgeText: 'AUTONOMOUS FLIGHT',
+    badgeBg: '#60a5fa',
+    badgeTextColor: '#0f172a',
+    badgeIcon: <Plane className="w-3.5 h-3.5" />,
+    icon: <Plane className="w-5 h-5 text-[#93c5fd]" />,
+    slideNumber: '08',
+    items: [
+      'Multi-Rotor Aerodynamics',
+      '3D Spatial Telemetry & IMUs',
+      'Autonomous Waypoints',
+      'Laboratory Tethered Protocols',
+    ],
+    metrics: [
+      { value: 4, suffix: ' Motors', label: 'Brushless Thrust' },
+      { value: 3, suffix: ' Axis', label: 'IMU Stabilization' },
+      { value: 100, suffix: '%', label: 'Tethered Safety' },
+    ],
+    tags: ['Aerodynamics', 'Gyro & IMU', 'Navigation', 'Lab Safety'],
+    pillars: [
+      { num: '01', title: 'Aerodynamics & Lift', desc: 'Airfoils & quad-rotor thrust dynamics' },
+      { num: '02', title: 'Stabilization', desc: 'PID balance & IMU calibration' },
+      { num: '03', title: 'Waypoints', desc: '3D coordinates & autonomous paths' },
+      { num: '04', title: 'Sensory Mapping', desc: 'Altitude sensing & collision avoidance' },
+    ],
+    badgeNote: 'STRICT LAB PROTOCOL: Safe tethered flight cages and controlled indoor arenas.',
+    badgeIconNote: <ShieldCheck className="w-4 h-4 text-[#93c5fd]" />,
+    image: '/assets/page_08.webp',
+    imageCaption: 'Spatial Mapping',
+    imageSubcaption: '3D Waypoint & Inertial Guidance',
+    imageTag: 'Safe Lab Protocol',
+  },
+];
 
-export const DomainsSection: React.FC = () => {
-  const [selectedDomain, setSelectedDomain] = useState<DomainItem | null>(null);
-  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
-  const fanDeckRef = useRef<HTMLDivElement>(null);
+export interface DomainsSectionProps {
+  onSlideChange?: (index: number) => void;
+}
 
-  // GSAP Fan-in animation on scroll
-  useEffect(() => {
-    const el = fanDeckRef.current;
-    if (!el) return;
+export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-    const cards = el.querySelectorAll<HTMLElement>('.domain-fan-card');
+  const [activeCardIndex, setActiveCardIndex] = useState<number>(-1);
+  const [activeDataStage, setActiveDataStage] = useState<number>(0);
 
-    // Failsafe: force cards visible
-    const failsafe = setTimeout(() => {
-      cards.forEach((c) => {
-        c.style.opacity = '1';
-        c.style.transform = 'none';
-      });
-    }, 2500);
+  // Responsive spread and panel dimension calculator
+  const getLayoutDimensions = useCallback(() => {
+    const vw = typeof window !== 'undefined' ? window.innerWidth : 1440;
+    const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
 
-    if (prefersReducedMotion || isMobile || !document.documentElement.classList.contains('js-motion')) {
-      cards.forEach((c) => {
-        c.style.opacity = '1';
-        c.style.transform = 'none';
-      });
-      return () => clearTimeout(failsafe);
-    }
+    const spread = vw < 640 ? 0.38 : vw < 768 ? 0.50 : vw < 1080 ? 0.72 : vw < 1366 ? 0.88 : 1.0;
+    const deckCardW = vw < 640 ? 260 : vw < 768 ? 280 : 310;
+    const deckCardH = vw < 640 ? 410 : vw < 768 ? 430 : 460;
+    const panelW = Math.min(840, Math.floor(vw * (vw < 640 ? 0.94 : vw < 1024 ? 0.88 : 0.65)));
+    const panelH = Math.min(520, Math.floor(vh * (vh < 750 ? 0.72 : 0.66)));
 
-    const tween = gsap.fromTo(
-      cards,
-      {
-        y: 80,
-        opacity: 0.2,
-        rotate: (i) => (i - 1.5) * -4,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        rotate: 0,
-        duration: 1.0,
-        stagger: 0.1,
-        ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        immediateRender: false,
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          once: true,
-        },
-      }
-    );
-
-    return () => {
-      clearTimeout(failsafe);
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    };
+    return { spread, deckCardW, deckCardH, panelW, panelH };
   }, []);
 
-  // Lock body scroll and pause Lenis when deep dive modal is open
-  useEffect(() => {
-    const lenis = (window as unknown as { lenis?: { stop: () => void; start: () => void } }).lenis;
-    if (selectedDomain) {
-      document.body.style.overflow = 'hidden';
-      lenis?.stop();
-    } else {
-      document.body.style.overflow = '';
-      lenis?.start();
+  // Animate card positions dynamically based on activeCardIndex
+  const updateCardLayout = useCallback((targetIndex: number) => {
+    const { spread, deckCardW, deckCardH, panelW, panelH } = getLayoutDimensions();
+
+    DOMAINS.forEach((domain, idx) => {
+      const cardEl = cardRefs.current[idx];
+      if (!cardEl) return;
+
+      const deckFace = cardEl.querySelector('.deck-face');
+      const expandedFace = cardEl.querySelector('.expanded-face');
+
+      if (targetIndex === -1) {
+        // Deck State: All cards spread and fanned out
+        const origX = Math.round(domain.deckX * spread);
+        const origY = domain.deckY;
+
+        gsap.to(cardEl, {
+          xPercent: -50,
+          yPercent: -50,
+          x: origX,
+          y: origY,
+          rotation: domain.rotation,
+          width: deckCardW,
+          height: deckCardH,
+          borderRadius: 20,
+          opacity: 1,
+          scale: 1,
+          zIndex: idx + 1,
+          boxShadow: '0 24px 60px rgba(0,0,0,0.55)',
+          duration: 0.55,
+          ease: 'power2.out',
+        });
+
+        if (deckFace) {
+          gsap.to(deckFace, { autoAlpha: 1, duration: 0.35, ease: 'power1.out' });
+        }
+        if (expandedFace) {
+          gsap.to(expandedFace, { autoAlpha: 0, pointerEvents: 'none', duration: 0.25, ease: 'power1.in' });
+        }
+      } else if (targetIndex === idx) {
+        // Active Expanded Card: Centered, 0 rotation, expanded width & height
+        gsap.to(cardEl, {
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: -14,
+          rotation: 0,
+          width: panelW,
+          height: panelH,
+          borderRadius: 24,
+          opacity: 1,
+          scale: 1,
+          zIndex: 60,
+          boxShadow: `0 28px 80px -15px ${domain.glowColor}, 0 0 0 1px rgba(255,255,255,0.25)`,
+          duration: 0.55,
+          ease: 'power3.out',
+        });
+
+        if (deckFace) {
+          gsap.to(deckFace, { autoAlpha: 0, duration: 0.25, ease: 'power1.out' });
+        }
+        if (expandedFace) {
+          gsap.fromTo(
+            expandedFace,
+            { autoAlpha: 0, scale: 0.96 },
+            { autoAlpha: 1, scale: 1, pointerEvents: 'auto', duration: 0.45, ease: 'power2.out', delay: 0.15 }
+          );
+        }
+      } else {
+        // Inactive background cards: Dimmed out and scaled down
+        const origX = Math.round(domain.deckX * spread);
+        const origY = domain.deckY;
+
+        gsap.to(cardEl, {
+          xPercent: -50,
+          yPercent: -50,
+          x: origX,
+          y: origY,
+          rotation: domain.rotation,
+          width: deckCardW,
+          height: deckCardH,
+          borderRadius: 20,
+          opacity: 0.18,
+          scale: 0.93,
+          zIndex: idx + 1,
+          boxShadow: '0 10px 30px rgba(0,0,0,0.4)',
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+
+        if (deckFace) {
+          gsap.to(deckFace, { autoAlpha: 1, duration: 0.35, ease: 'power1.out' });
+        }
+        if (expandedFace) {
+          gsap.to(expandedFace, { autoAlpha: 0, pointerEvents: 'none', duration: 0.25, ease: 'power1.in' });
+        }
+      }
+    });
+
+    // Dim header slightly when a card is expanded
+    if (headerRef.current) {
+      gsap.to(headerRef.current, {
+        opacity: targetIndex === -1 ? 1 : 0.25,
+        y: targetIndex === -1 ? 0 : -8,
+        duration: 0.4,
+        ease: 'power2.out',
+      });
     }
-    return () => {
-      document.body.style.overflow = '';
-      lenis?.start();
-    };
-  }, [selectedDomain]);
+  }, [getLayoutDimensions]);
 
-  // Step-through navigation via presenter events
+  // Handle switching cards
+  const handleSelectCard = (index: number) => {
+    setActiveCardIndex(index);
+    updateCardLayout(index);
+    if (index >= 0) {
+      onSlideChange?.(DOMAINS[index].slideIndex);
+    }
+  };
+
+  const handleCloseToDeck = () => {
+    setActiveCardIndex(-1);
+    updateCardLayout(-1);
+  };
+
+  // Initial layout on mount & resize
   useEffect(() => {
-    const handleStep = (e: Event) => {
-      const el = fanDeckRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const isVisible = rect.top >= -window.innerHeight * 0.3 && rect.bottom <= window.innerHeight * 1.3;
-      if (!isVisible) return;
+    updateCardLayout(activeCardIndex);
 
-      const customEvent = e as CustomEvent<{ direction: number }>;
-      const dir = customEvent.detail?.direction || 1;
-      const domains = siteConfig.domainsSection.domains;
-
-      if (dir > 0 && activeCardIndex !== null && activeCardIndex < domains.length - 1) {
-        e.preventDefault();
-        setActiveCardIndex((prev) => (prev === null ? 0 : prev + 1));
-      } else if (dir < 0 && activeCardIndex !== null && activeCardIndex > 0) {
-        e.preventDefault();
-        setActiveCardIndex((prev) => (prev === null ? 0 : prev - 1));
-      }
+    const handleResize = () => {
+      updateCardLayout(activeCardIndex);
     };
 
-    window.addEventListener('medhaarc:step', handleStep);
-    return () => window.removeEventListener('medhaarc:step', handleStep);
-  }, [activeCardIndex]);
-
-  // Keyboard navigation within domain fan (only when section is on screen)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedDomain) {
-        if (e.key === 'Escape') setSelectedDomain(null);
-        return;
-      }
-      const el = fanDeckRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const isVisible = rect.top >= -window.innerHeight * 0.4 && rect.bottom <= window.innerHeight * 1.4;
-      if (!isVisible) return;
-
-      const domains = siteConfig.domainsSection.domains;
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        setActiveCardIndex((prev) => (prev === null ? 0 : (prev + 1) % domains.length));
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        setActiveCardIndex((prev) => (prev === null ? domains.length - 1 : (prev - 1 + domains.length) % domains.length));
-      } else if (e.key === 'Enter' && activeCardIndex !== null) {
-        e.preventDefault();
-        setSelectedDomain(domains[activeCardIndex]);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedDomain, activeCardIndex]);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [activeCardIndex, updateCardLayout]);
 
   return (
-    <ChapterShell id="domains" chapterNumber="04" theme="dark">
-      <div className="w-full flex-1 flex flex-col justify-between py-2 select-none">
-        {/* Section Header */}
-        <div className="mb-4 max-w-3xl">
-          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1.5">
-            {siteConfig.domainsSection.eyebrow}
-          </div>
-          <h2 className="font-serif text-[clamp(26px,3.4vw,46px)] font-normal leading-[1.14] tracking-tight text-white">
-            {siteConfig.domainsSection.headline}
+    <ChapterShell
+      id="domains"
+      chapterNumber="04"
+      theme="dark"
+      fullBleed={true}
+      className="relative flex flex-col justify-between overflow-hidden bg-[#0A1016]"
+    >
+      <div
+        ref={containerRef}
+        id="technology-suite"
+        className="relative w-full h-full min-h-full flex flex-col justify-between select-none py-2 sm:py-3 box-border"
+      >
+        {/* Hidden SVG Symbols for Bullets and Divider */}
+        <svg xmlns="http://www.w3.org/2000/svg" className="hidden" aria-hidden="true">
+          <symbol id="truus-bullet-icon" viewBox="0 0 13 16">
+            <path
+              d="M12.2765 7.03536V7.0403C12.2519 7.1343 12.0977 7.23633 12.0197 7.31177C11.5445 7.73351 11.0321 8.12803 10.6259 8.62706C10.3265 8.99562 10.0295 9.36293 9.75533 9.75128C9.66653 9.87186 9.55433 9.96647 9.47513 10.0901C9.39653 10.2157 9.34613 10.3579 9.26873 10.4865C9.18053 10.625 9.11813 10.7778 9.05033 10.9274C8.96213 11.1074 8.82353 11.2614 8.74373 11.4475C8.64773 11.6985 8.57213 11.9558 8.45573 12.1988C8.30093 12.6311 8.11493 13.0522 7.97573 13.49C7.89953 13.8171 7.91513 14.1585 7.81193 14.4806C7.72553 14.7793 7.71053 15.0873 7.71173 15.3964C7.70573 15.5127 7.73633 15.6951 7.65593 15.7483C7.62773 15.7557 7.58993 15.7199 7.55633 15.6617C7.44893 15.4645 7.40393 15.2326 7.29653 15.0279C7.13393 14.7094 6.87713 14.4559 6.68273 14.1572C6.57713 13.9989 6.48353 13.832 6.36533 13.6823C6.25973 13.5456 6.13073 13.4282 6.01673 13.2977C5.90753 13.1734 5.81633 13.0336 5.70653 12.9112C5.14013 12.3299 4.57133 11.7369 3.91793 11.2614C3.79493 11.1723 3.64673 11.1346 3.50753 11.0839C3.30113 10.9917 3.10253 10.8538 2.88293 10.7815C2.40293 10.6046 1.93733 10.3598 1.43633 10.2596C1.20593 10.2151 0.970727 10.212 0.736727 10.2107C0.555527 10.2052 0.0203267 10.2441 0.424127 9.98069C0.650927 9.83661 0.868127 9.68016 1.08713 9.52495C1.29353 9.3821 1.50893 9.25286 1.70393 9.09394C2.22653 8.61779 2.74913 8.15277 3.20813 7.60798C3.76013 6.9358 4.21373 6.18138 4.55453 5.36759C4.73033 4.99038 4.93673 4.62739 5.06693 4.23101C5.17553 3.83896 5.34293 3.46175 5.45093 3.07155C5.61113 2.35176 5.71013 1.61589 5.82173 0.888061C5.83433 0.813237 5.85113 0.755728 5.87093 0.750781C5.88893 0.744597 5.90873 0.775516 5.92793 0.829933C5.98313 0.989475 6.03353 1.15211 6.08753 1.31289C6.27773 1.91952 6.50993 2.51192 6.76673 3.08949C7.05473 3.75301 7.38413 4.41096 7.84553 4.96812C8.09333 5.25134 8.31833 5.55743 8.55593 5.84807C8.89613 6.20302 9.29213 6.52458 9.72413 6.73854C9.95513 6.85417 10.2005 6.95126 10.4573 6.98774C10.6247 7.01433 10.7819 7.0737 10.9523 7.09101C11.3123 7.12379 11.6693 7.03288 12.0257 6.99826C12.1391 6.98774 12.2645 6.96857 12.2759 7.03659L12.2765 7.03536Z"
+              fill="currentColor"
+            />
+          </symbol>
+          <symbol id="truus-card-divider" viewBox="0 0 250 5">
+            <path
+              d="M2.0019 3.05432C84.0122 2.70675 166.022 2.34756 248.04 2C244.505 2.66037 240.969 3.32077 237.434 3.98115"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </symbol>
+        </svg>
+
+        {/* ─── Top Header (Preserved Truus Title) ─── */}
+        <div
+          ref={headerRef}
+          className="w-full text-center pt-2 sm:pt-3 px-4 relative z-10 transition-all duration-500"
+        >
+          <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-white tracking-tight leading-tight">
+            our core technology <span className="italic font-semibold text-[#10b981]">ecosystem:</span>
           </h2>
+
+          {/* Hand-drawn Truus Style Underline */}
+          <div className="w-36 sm:w-48 mx-auto -mt-0.5 mb-1">
+            <svg viewBox="0 0 159 17" fill="none" className="w-full text-[#10b981]">
+              <path
+                d="M1 12.1515C53.0771 5.7187 105.529 2.30552 158 1.93652"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M30.2672 15.9461C64.1899 12.8158 98.2663 11.3583 132.33 11.5735"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <p className="font-sans-modern text-[11px] sm:text-xs text-white/75 font-normal max-w-lg mx-auto">
+            Hover on any card to explore its engineering depth. Scroll to trigger the shared-element deep dive.
+          </p>
         </div>
 
-        {/* Four Distinctly Colored Cards in Fan */}
-        <div
-          ref={fanDeckRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full my-auto"
-        >
-          {siteConfig.domainsSection.domains.map((domain, idx) => {
-            const isKeyboardActive = activeCardIndex !== null && activeCardIndex === idx;
-            const theme = domainThemeMap[domain.id] || domainThemeMap.robotics;
+        {/* ─── The Stage: Exact 5 Persistent DOM Cards That Morph Physically ─── */}
+        <div className="relative w-full flex-1 flex items-center justify-center overflow-visible pb-6 sm:pb-8 lg:pb-10">
+          {DOMAINS.map((card, idx) => {
+            const isCardActive = activeCardIndex === idx;
 
             return (
-              <motion.div
-                key={domain.id}
-                layoutId={`card-container-${domain.id}`}
+              <div
+                key={card.id}
+                ref={(el) => {
+                  cardRefs.current[idx] = el;
+                }}
                 onClick={() => {
-                  setActiveCardIndex(idx);
-                  setSelectedDomain(domain);
+                  if (activeCardIndex !== idx) {
+                    handleSelectCard(idx);
+                  }
                 }}
-                className={`domain-fan-card group relative h-[310px] sm:h-[350px] lg:h-[370px] p-5 md:p-6 flex flex-col justify-between rounded-[4px] transition-all duration-300 cursor-pointer overflow-hidden border shadow-lg ${
-                  theme.cardBg
-                } ${
-                  isKeyboardActive
-                    ? `${theme.borderActive} shadow-xl scale-[1.02]`
-                    : `${theme.borderDefault} hover:scale-[1.01]`
-                }`}
                 style={{
-                  boxShadow: isKeyboardActive
-                    ? `0 12px 35px -8px ${theme.accent}40`
-                    : '0 8px 24px -10px rgba(0,0,0,0.5)',
+                  backgroundColor: card.bg,
+                  color: card.textColor,
+                  left: '50%',
+                  top: '50%',
+                  transformOrigin: 'center center',
                 }}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className={`truus-morph-card absolute w-[280px] sm:w-[310px] h-[430px] sm:h-[460px] cursor-pointer rounded-2xl shadow-2xl border border-white/20 select-none overflow-visible will-change-transform ${
+                  isCardActive ? 'cursor-default ring-1 ring-white/30' : 'hover:-translate-y-2 transition-transform duration-300'
+                }`}
               >
-                {/* Ambient Radial Color Glow in Top Corner */}
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity"
-                  style={{ background: theme.glowBg }}
-                  aria-hidden="true"
-                />
+                {/* =========================================================================
+                    FACE 1: DECK STATE (100% Exact Existing Design Preserved, Zero Clipping)
+                    ========================================================================= */}
+                <div className="deck-face absolute inset-0 p-5 sm:p-6 flex flex-col justify-between z-10 overflow-visible">
+                  {/* Floating Badge on top right - fully visible outside top border */}
+                  <div
+                    style={{ backgroundColor: card.badgeBg, color: card.badgeTextColor }}
+                    className="absolute -top-3.5 right-4 px-3 py-1 rounded-full shadow-lg font-mono-tech text-[10px] font-bold tracking-wider flex items-center gap-1.5 border border-black/15 z-10"
+                  >
+                    {card.badgeIcon}
+                    <span>{card.badgeText}</span>
+                  </div>
 
-                {/* Top: Chapter index + Domain Badge Pill + Moving Icons */}
-                <div className="relative z-10 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-mono text-white/50">
-                      CH 0{idx + 4}
-                    </span>
+                  <div>
+                    {/* Top Row: Chapter Number + Tag (Cleanly positioned on left so badge never covers it) */}
+                    <div className="flex items-center gap-2 text-xs font-mono-tech opacity-80 mb-2 pt-0.5 max-w-[65%]">
+                      <span className="font-bold text-white/95 font-mono-tech text-[10.5px] bg-white/15 px-1.5 py-0.5 rounded border border-white/10 shrink-0">
+                        CH {card.slideNumber}
+                      </span>
+                      <span className="uppercase tracking-wider text-[10px] sm:text-[10.5px] font-semibold text-white/75 truncate">
+                        {card.tag}
+                      </span>
+                    </div>
+
+                    <h3 className="font-serif-editorial text-2xl sm:text-[28px] font-extrabold capitalize leading-tight tracking-tight mb-2 text-white">
+                      {card.name}
+                    </h3>
+
+                    {/* Hand-drawn SVG divider */}
+                    <div className="w-full my-1.5 text-white/35">
+                      <svg width="100%" height="8" aria-hidden="true">
+                        <use href="#truus-card-divider" />
+                      </svg>
+                    </div>
+
+                    {/* Bullet list with star bullets */}
+                    <ul className="space-y-2.5 mt-3 font-sans-modern text-[12px] sm:text-[12.5px] font-medium text-white/90">
+                      {card.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-2.5 leading-snug">
+                          <svg
+                            width="12"
+                            height="14"
+                            className="shrink-0 mt-0.5"
+                            style={{ color: card.accent }}
+                            aria-hidden="true"
+                          >
+                            <use href="#truus-bullet-icon" />
+                          </svg>
+                          <span className="leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Bottom Card Action Footer (Generous spacing, zero text overlap) */}
+                  <div className="pt-3 border-t border-white/15 flex items-center justify-between text-[11px] font-mono-tech">
+                    <span className="text-white/60">Click to inspect</span>
                     <span
-                      className={`px-2 py-0.5 rounded-[2px] border text-[9px] font-mono uppercase tracking-wider font-semibold ${theme.badgeBg}`}
+                      style={{ color: card.accent }}
+                      className="font-bold flex items-center gap-1 hover:translate-x-1 transition-transform"
                     >
-                      {theme.badgeLabel}
+                      Explore →
                     </span>
                   </div>
+                </div>
 
-                  <div className="flex items-center gap-1.5 text-white/60 group-hover:text-white transition-colors">
-                    {domain.movingIcons.map((ic, i) => (
-                      <motion.span
-                        key={ic}
-                        animate={{ y: [0, -3, 0] }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          delay: i * 0.4,
-                          ease: 'easeInOut',
-                        }}
-                        className="p-0.5"
-                        style={{ color: theme.accent }}
+                {/* =========================================================================
+                    FACE 2: EXPANDED PRESENTATION PANEL (Transforms Inside the Same DOM Element)
+                    ========================================================================= */}
+                <div className="expanded-face absolute inset-0 p-4 sm:p-5 lg:p-6 flex flex-col justify-between z-30 overflow-hidden opacity-0 pointer-events-none select-text text-white rounded-3xl">
+                  {/* Card Top Domain Bar */}
+                  <div className="flex items-center justify-between pb-2 mb-1.5 border-b border-white/12 shrink-0">
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className="w-8 h-8 rounded-lg flex items-center justify-center border border-white/20 shadow-inner shrink-0"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
                       >
-                        {iconClusterMap[ic]}
-                      </motion.span>
-                    ))}
+                        {card.icon}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="font-mono-tech text-[10.5px] tracking-wider uppercase font-bold"
+                            style={{ color: card.accent }}
+                          >
+                            {card.domainNumber}
+                          </span>
+                        </div>
+                        <span className="font-mono-tech text-[11px] sm:text-xs text-white/75 block leading-tight">
+                          {card.tagline}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <div
+                        style={{ backgroundColor: card.badgeBg, color: card.badgeTextColor }}
+                        className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-tech text-[10px] font-bold shadow-xs"
+                      >
+                        <span>{card.badgeText}</span>
+                      </div>
+
+                      {/* Close / Contract back to Deck */}
+                      <Magnetic strength={0.2}>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCloseToDeck();
+                          }}
+                          title="Contract back to 5-Card Deck"
+                          className="flex items-center gap-1 px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 text-white font-mono-tech text-xs transition-all shadow-xs cursor-pointer active:scale-95"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                          <span>Deck View</span>
+                        </button>
+                      </Magnetic>
+                    </div>
+                  </div>
+
+                  <LineReveal color={card.accent} height={1.5} className="mb-2 shrink-0" />
+
+                  {/* Main Content Grid: Balanced & Proportionate Square Distribution */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-center my-auto flex-1 min-h-0">
+                    {/* Left Column: Headlines, Metrics & 2 Core Pillars */}
+                    <div className="lg:col-span-6 space-y-2 sm:space-y-2.5 flex flex-col justify-center">
+                      <div>
+                        <h3 className="font-serif-editorial text-lg sm:text-xl lg:text-[22px] font-normal text-white tracking-tight leading-snug">
+                          {card.fullName}{' '}
+                          <span className="italic font-light" style={{ color: card.accent }}>
+                            {card.italicWord}
+                          </span>
+                        </h3>
+                        <p className="font-sans-modern text-[11.5px] sm:text-xs text-white/80 mt-1 leading-relaxed font-normal max-w-md">
+                          {card.description}
+                        </p>
+                      </div>
+
+                      {/* Live Animated Metrics Strip */}
+                      <div className="grid grid-cols-3 gap-2 py-2 px-3.5 border border-white/10 bg-white/5 rounded-xl">
+                        {card.metrics.map((m, mIdx) => (
+                          <div key={mIdx} className="text-left">
+                            <div
+                              className="font-mono-tech text-sm sm:text-base font-bold"
+                              style={{ color: mIdx === 0 ? card.accent : '#ffffff' }}
+                            >
+                              <AnimatedCounter value={m.value} suffix={m.suffix} />
+                            </div>
+                            <div className="font-mono-tech text-[9.5px] text-white/60 uppercase leading-tight">
+                              {m.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* 2 Core Pillars Grid */}
+                      <div className="grid grid-cols-2 gap-2.5 pt-0.5">
+                        {card.pillars.slice(0, 2).map((item, pIdx) => {
+                          const isStageSelected = activeDataStage === pIdx;
+                          return (
+                            <Magnetic key={item.num} strength={0.15}>
+                              <div
+                                onClick={(e) => {
+                                  if (card.id === 'data-analytics') {
+                                    e.stopPropagation();
+                                    setActiveDataStage(pIdx);
+                                  }
+                                }}
+                                className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-300 h-full ${
+                                  card.id === 'data-analytics'
+                                    ? isStageSelected
+                                      ? 'bg-white/20 border-white ring-1 ring-white/40 shadow-xs cursor-pointer'
+                                      : 'bg-black/25 border-white/10 hover:bg-white/10 hover:border-white/20 cursor-pointer'
+                                    : 'bg-black/25 border-white/10 hover:bg-white/10 hover:border-white/20 shadow-xs'
+                                }`}
+                              >
+                                <div
+                                  className="font-mono-tech text-[9.5px] font-bold"
+                                  style={{ color: card.accent }}
+                                >
+                                  {card.id === 'data-analytics' ? `STAGE ${item.num}` : `CORE PILLAR ${item.num}`}
+                                </div>
+                                <div className="font-sans-modern text-xs font-semibold text-white leading-tight mt-1 truncate">
+                                  {item.title}
+                                </div>
+                                <div className="font-sans-modern text-[10.5px] text-white/70 mt-1 leading-snug">
+                                  {item.desc}
+                                </div>
+                              </div>
+                            </Magnetic>
+                          );
+                        })}
+                      </div>
+
+                      {/* Bottom Verification Note to fill space cleanly */}
+                      <div className="flex items-center justify-between text-[11px] font-mono-tech text-white/60 pt-2 border-t border-white/8">
+                        <span className="flex items-center gap-1.5 truncate">
+                          <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: card.accent }} />
+                          <span className="truncate">{card.badgeNote || `${card.fullName} verified curriculum`}</span>
+                        </span>
+                        <span className="shrink-0 text-white/40 font-medium ml-2">Domain Spec</span>
+                      </div>
+                    </div>
+
+                    {/* Right Column: Controlled Height Visual Card with Hardware Visual */}
+                    <div className="lg:col-span-6 flex justify-center items-center h-full">
+                      <div className="relative overflow-hidden rounded-2xl bg-black border border-white/20 shadow-xl w-full max-w-[310px] sm:max-w-[330px] lg:max-w-[340px] h-[240px] sm:h-[260px] lg:h-[280px] group">
+                        <img
+                          src={card.image}
+                          alt={card.imageCaption}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+
+                        <div className="absolute bottom-3 left-3.5 right-3.5 flex items-end justify-between text-white">
+                          <div>
+                            <span
+                              className="font-mono-tech text-[9.5px] tracking-wider uppercase font-bold block leading-tight mb-0.5"
+                              style={{ color: card.accent }}
+                            >
+                              {card.imageCaption}
+                            </span>
+                            <p className="font-serif-editorial text-[10.5px] sm:text-[11px] italic text-white/95 font-light leading-tight">
+                              {card.imageSubcaption}
+                            </p>
+                          </div>
+                          <span className="font-mono-tech text-[9px] text-white/80 bg-white/15 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
+                            {card.imageTag}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                {/* Center / Body: Big Domain Name & Short Line */}
-                <div className="relative z-10 my-auto">
-                  <motion.h3
-                    layoutId={`card-title-${domain.id}`}
-                    className="font-serif text-2xl sm:text-[28px] lg:text-[32px] font-normal leading-[1.12] tracking-tight text-white mb-2.5"
-                  >
-                    {domain.name}
-                  </motion.h3>
-                  <p className="text-xs sm:text-sm leading-relaxed text-white/80 line-clamp-3">
-                    {domain.shortLine}
-                  </p>
-                </div>
-
-                {/* Bottom Underline Link */}
-                <div className="relative z-10 pt-3 border-t border-white/15 flex items-center justify-between text-[11px] uppercase tracking-wider text-white/70 group-hover:text-white">
-                  <span
-                    className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-current after:origin-left group-hover:after:scale-x-100 after:scale-x-0 after:transition-transform"
-                    style={{ color: theme.accent }}
-                  >
-                    Explore Deep Dive
-                  </span>
-                  <ArrowRight
-                    className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform"
-                    style={{ color: theme.accent }}
-                  />
-                </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-
-        {/* Foundation Strip at Base (Royal Indigo / Gold Logic & Proof) */}
-        <div className="border border-indigo-500/25 bg-gradient-to-r from-indigo-950/40 via-[#101420] to-[#121624] px-5 py-3 rounded-[3px] flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-4 ml-0 md:ml-52 shadow-md">
-          <div className="flex items-center gap-3">
-            <span className="px-2 py-0.5 rounded-[2px] bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 font-mono text-[9px] uppercase tracking-wider font-semibold shrink-0">
-              LOGIC & PROOF
-            </span>
-            <div className="flex items-center gap-1.5 text-sm text-[#c8a45d] font-mono px-2 py-0.5 bg-white/5 rounded-[2px]">
-              {siteConfig.domainsSection.mathFoundation.symbols.map((sym) => (
-                <span key={sym}>{sym}</span>
-              ))}
-            </div>
-            <div>
-              <h4 className="font-serif text-sm md:text-base font-medium text-white inline-block mr-2">
-                {siteConfig.domainsSection.mathFoundation.title}:
-              </h4>
-              <span className="text-xs text-white/75">
-                {siteConfig.domainsSection.mathFoundation.description}
-              </span>
-            </div>
-          </div>
-          <span className="text-[10px] uppercase tracking-[0.16em] text-indigo-300/70 self-end sm:self-center shrink-0">
-            Unifying Base
-          </span>
-        </div>
       </div>
-
-      {/* Shared-Element Deep Dive Modal (Framer Motion) */}
-      <AnimatePresence>
-        {selectedDomain && (
-          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8 bg-black/85 backdrop-blur-md">
-            <motion.div
-              layoutId={`card-container-${selectedDomain.id}`}
-              data-lenis-prevent="true"
-              className="relative w-full max-w-4xl bg-[#0f1722] border border-white/20 rounded-[4px] p-6 md:p-10 text-white shadow-2xl overflow-y-auto max-h-[90vh]"
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedDomain(null)}
-                aria-label="Close details"
-                className="absolute top-6 right-6 p-2 text-white/60 hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Modal Header */}
-              <div className="mb-6 pb-4 border-b border-white/10 pr-10">
-                <div className="flex items-center gap-2 mb-2">
-                  <span
-                    className={`px-2.5 py-0.5 rounded-[2px] border text-[10px] font-mono uppercase tracking-widest font-semibold ${
-                      domainThemeMap[selectedDomain.id]?.badgeBg || 'bg-white/10 text-white'
-                    }`}
-                  >
-                    {domainThemeMap[selectedDomain.id]?.badgeLabel || 'SPECIALISATION'}
-                  </span>
-                  <span className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-mono">
-                    Engineering Deep Dive
-                  </span>
-                </div>
-                <motion.h3
-                  layoutId={`card-title-${selectedDomain.id}`}
-                  className="font-serif text-3xl sm:text-4xl text-white font-normal"
-                >
-                  {selectedDomain.name}
-                </motion.h3>
-                <p className="text-sm sm:text-base text-white/75 mt-2 font-sans">
-                  {selectedDomain.shortLine}
-                </p>
-              </div>
-
-              {/* Process Flow Badges */}
-              <div className="mb-8">
-                <span className="text-[11px] uppercase tracking-wider text-white/50 font-mono block mb-3">
-                  Iterative Engineering Cycle:
-                </span>
-                <div className="flex flex-wrap items-center gap-2">
-                  {selectedDomain.processFlow.map((step, idx) => (
-                    <React.Fragment key={step}>
-                      <span
-                        className={`px-3 py-1 rounded-[2px] border text-xs font-mono tracking-wider ${
-                          domainThemeMap[selectedDomain.id]?.flowPill || 'bg-white/5 border-white/15 text-white'
-                        }`}
-                      >
-                        {step}
-                      </span>
-                      {idx < selectedDomain.processFlow.length - 1 && (
-                        <ArrowRight className="w-3.5 h-3.5 text-white/30 shrink-0" />
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-
-              {/* What Students Do */}
-              <div className="mb-8">
-                <span className="text-[11px] uppercase tracking-wider text-white/50 font-mono block mb-3">
-                  Practical Student Activities:
-                </span>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {selectedDomain.whatStudentsDo.map((act, i) => (
-                    <div
-                      key={i}
-                      className="p-4 rounded-[2px] bg-white/[0.03] border border-white/10 text-xs sm:text-sm text-white/90 leading-relaxed flex flex-col justify-between"
-                    >
-                      <span
-                        className="font-mono text-xs mb-2 block"
-                        style={{ color: domainThemeMap[selectedDomain.id]?.accent || '#c8a45d' }}
-                      >
-                        PRACTICE 0{i + 1}
-                      </span>
-                      <p>{act}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Special Note if Present */}
-              {selectedDomain.specialNote && (
-                <div className="p-4 rounded-[2px] bg-sky-950/40 border border-sky-500/30 text-xs text-sky-200 font-sans mb-6">
-                  <span className="font-semibold uppercase tracking-wider block mb-1">
-                    Flight Safety Standard:
-                  </span>
-                  {selectedDomain.specialNote}
-                </div>
-              )}
-
-              {/* Close Action */}
-              <div className="pt-4 border-t border-white/10 flex justify-end">
-                <button
-                  onClick={() => setSelectedDomain(null)}
-                  className="px-6 py-2 border border-white/30 hover:border-white text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
-                >
-                  Close Deep Dive
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </ChapterShell>
   );
 };
+
+export default DomainsSection;
