@@ -686,5 +686,12 @@ export const siteConfig = {
     ],
     ctaText: 'Schedule a School Consultation',
     footerText: 'MedhaArc Labs | X Private Limited',
+    websiteUrl: 'https://www.medhaarc.com/',
+    socialLinks: [
+      { name: 'Instagram', url: 'https://www.instagram.com/medhaarc' },
+      { name: 'X', url: 'https://x.com/medhaarc' },
+      { name: 'Facebook', url: 'https://www.facebook.com/people/MedhaArc/61595117606026/' },
+      { name: 'LinkedIn', url: 'http://linkedin.com/company/medhaarc/' },
+    ],
   },
 };
