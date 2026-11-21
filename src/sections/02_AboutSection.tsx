@@ -87,9 +87,9 @@ export const AboutSection: React.FC = () => {
         ref={containerRef}
         className="relative w-full h-full flex flex-col justify-between pt-[calc(var(--header-h,64px)+16px)] pb-8 px-4 sm:px-8 lg:px-14 box-border select-none z-10 max-w-[1360px] mx-auto"
       >
-        {/* Top Eyebrow & Main Statement Headline */}
-        <div className="flex-none max-w-4xl">
-          <div className="editorial-reveal flex items-center gap-3 mb-2.5">
+        {/* Top Eyebrow & Main Statement Headline (Centered) */}
+        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center">
+          <div className="editorial-reveal flex items-center justify-center gap-3 mb-2.5">
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
               {siteConfig.about.eyebrow}
             </span>
@@ -101,12 +101,12 @@ export const AboutSection: React.FC = () => {
 
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-[clamp(26px,3.6vw,48px)] font-normal leading-[1.16] tracking-tight text-[#111111] mb-2"
+            className="editorial-reveal font-serif text-[clamp(28px,3.8vw,50px)] font-normal leading-[1.16] tracking-tight text-[#111111] mb-2 text-center"
           >
             {siteConfig.about.headline}
           </h2>
 
-          <p className="editorial-reveal font-sans text-xs sm:text-[13.5px] text-[#666666] leading-relaxed max-w-2xl font-normal">
+          <p className="editorial-reveal font-sans text-xs sm:text-[13.5px] text-[#666666] leading-relaxed max-w-xl text-center font-normal">
             At MedhaArc Labs, our foundational pillars ensure every lesson transitions from theoretical comprehension to physical engineering and real-world mastery.
           </p>
         </div>
@@ -196,16 +196,17 @@ export const AboutSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Trailing Line CTA (advancing smoothly to Section 03) */}
-        <div className="editorial-reveal flex-none pt-4 border-t border-black/10 flex items-center">
+        {/* Bottom Trailing Line CTA (Centered) */}
+        <div className="editorial-reveal flex-none pt-4 border-t border-black/10 flex items-center justify-center">
           <button
             onClick={handleScrollToNext}
-            className="group flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer w-full max-w-2xl"
+            className="group flex items-center justify-center text-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer max-w-xl mx-auto"
           >
+            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-12 mr-3" />
             <span className="font-sans font-bold text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
               Discover our guiding purpose & core values
             </span>
-            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all flex-1 ml-4" />
+            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-12 ml-3" />
           </button>
         </div>
       </div>

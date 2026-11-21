@@ -92,15 +92,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
   return (
     <ChapterShell id="pricing" chapterNumber="13" theme="light">
       <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
-        {/* Eyebrow & Headline */}
-        <div className="mb-3 max-w-3xl">
+        {/* Eyebrow & Headline (Centered) */}
+        <div className="mb-4 max-w-3xl mx-auto text-center flex flex-col items-center">
           <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1">
             {siteConfig.pricing.eyebrow}
           </div>
-          <h2 className="font-serif text-[clamp(26px,3.4vw,44px)] font-normal leading-[1.14] tracking-tight text-[#111111] mb-1">
+          <h2 className="font-serif text-[clamp(26px,3.4vw,44px)] font-normal leading-[1.14] tracking-tight text-[#111111] mb-1.5 text-center">
             {siteConfig.pricing.headline}
           </h2>
-          <p className="text-xs text-[#5b5b5b] font-mono uppercase tracking-wider">
+          <p className="text-xs text-[#5b5b5b] font-mono uppercase tracking-wider text-center">
             {siteConfig.pricing.label}
           </p>
         </div>

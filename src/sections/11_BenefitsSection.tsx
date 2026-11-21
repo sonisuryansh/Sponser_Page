@@ -82,9 +82,9 @@ export const BenefitsSection: React.FC = () => {
         ref={containerRef}
         className="relative w-full h-full flex flex-col justify-between pt-[calc(var(--header-h,64px)+14px)] pb-6 px-4 sm:px-8 lg:px-14 box-border select-none z-10 max-w-[1360px] mx-auto"
       >
-        {/* Top Header: Eyebrow, Main Title & Narrative Message */}
-        <div className="flex-none max-w-4xl">
-          <div className="editorial-reveal flex items-center gap-3 mb-2">
+        {/* Top Header: Eyebrow, Main Title & Narrative Message (Centered) */}
+        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center">
+          <div className="editorial-reveal flex items-center justify-center gap-3 mb-2">
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
               {siteConfig.benefits.eyebrow}
             </span>
@@ -96,16 +96,16 @@ export const BenefitsSection: React.FC = () => {
 
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-[clamp(26px,3.4vw,44px)] font-normal leading-[1.14] tracking-tight text-[#111111] mb-1.5"
+            className="editorial-reveal font-serif text-[clamp(26px,3.4vw,44px)] font-normal leading-[1.14] tracking-tight text-[#111111] mb-1.5 text-center"
           >
             {siteConfig.benefits.headline}
           </h2>
 
-          <p className="editorial-reveal font-serif text-sm sm:text-base text-[#555555] italic mb-2">
+          <p className="editorial-reveal font-serif text-sm sm:text-base text-[#555555] italic mb-2 text-center">
             &ldquo;{siteConfig.benefits.schoolLine}&rdquo;
           </p>
 
-          <p className="editorial-reveal font-sans text-xs sm:text-[13px] text-[#666666] leading-relaxed max-w-2xl font-normal">
+          <p className="editorial-reveal font-sans text-xs sm:text-[13px] text-[#666666] leading-relaxed max-w-2xl text-center font-normal">
             Technology education provides immense institutional and parental value when students build tangible projects that families can celebrate, verify, and document for their academic futures.
           </p>
         </div>
@@ -204,16 +204,17 @@ export const BenefitsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Trailing Link CTA */}
-        <div className="editorial-reveal flex-none pt-4 border-t border-black/10 flex items-center mt-3">
+        {/* Bottom Trailing Link CTA (Centered) */}
+        <div className="editorial-reveal flex-none pt-4 border-t border-black/10 flex items-center justify-center mt-3">
           <button
             onClick={handleScrollToNext}
-            className="group flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer w-full max-w-2xl"
+            className="group flex items-center justify-center text-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer max-w-xl mx-auto"
           >
+            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-12 mr-3" />
             <span className="font-sans font-bold text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
               Discover school requirements & partnership boundaries
             </span>
-            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all flex-1 ml-4" />
+            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-12 ml-3" />
           </button>
         </div>
       </div>

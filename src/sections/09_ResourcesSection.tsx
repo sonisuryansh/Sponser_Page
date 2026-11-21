@@ -71,22 +71,20 @@ export const ResourcesSection: React.FC = () => {
   return (
     <ChapterShell id="resources" chapterNumber="09" theme="light">
       <div ref={containerRef} className="w-full flex-1 flex flex-col justify-between py-2 select-none">
-        {/* Eyebrow & Headline */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4 pb-3 border-b border-black/10">
-          <div>
-            <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1">
-              {siteConfig.resources.eyebrow}
-            </div>
-            <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.14] tracking-tight text-[#111111]">
-              {siteConfig.resources.headline}
-            </h2>
-            <p className="text-sm text-[#5b5b5b] font-sans">
-              {siteConfig.resources.paragraph}
-            </p>
+        {/* Eyebrow & Headline (Centered) */}
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-4 pb-3 border-b border-black/10">
+          <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1">
+            {siteConfig.resources.eyebrow}
           </div>
+          <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.14] tracking-tight text-[#111111] mb-1">
+            {siteConfig.resources.headline}
+          </h2>
+          <p className="text-sm text-[#5b5b5b] font-sans mb-2">
+            {siteConfig.resources.paragraph}
+          </p>
 
           {!siteConfig.confirm.lmsReady && (
-            <div className="px-3 py-1 bg-[#fafafa] border border-black/15 text-[#5b5b5b] text-xs font-mono uppercase tracking-wider rounded-[2px] self-start sm:self-end">
+            <div className="px-3 py-1 bg-[#fafafa] border border-black/15 text-[#5b5b5b] text-xs font-mono uppercase tracking-wider rounded-[2px] mt-1">
               {siteConfig.resources.statusNotice}
             </div>
           )}
