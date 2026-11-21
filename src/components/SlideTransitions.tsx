@@ -20,7 +20,6 @@ interface SlideTransitionsProps {
   pageBgColor?: string;
 }
 
-const ease = 'power3.inOut';
 const animatedTargetsSelector =
   'h1,h2,.statement-headline,p,.about-panel,.value-card,.domain-fan-card,.approach-block,.curriculum-card,.project-card,.resource-card,article';
 const bodyTargetsSelector =
@@ -37,6 +36,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   const [isTransitioning, setIsTransitioning] = useState(false);
   const activeIndexRef = useRef(currentIndex);
   const transitioningRef = useRef(false);
+  const lastGestureTimeRef = useRef(0);
   const wrappersRef = useRef<(HTMLDivElement | null)[]>([]);
   const backdropRef = useRef<HTMLDivElement>(null);
   const goldBlockRef = useRef<HTMLDivElement>(null);
@@ -71,53 +71,44 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       if (!fromWrapper || !toWrapper) return;
 
       const isForward = targetIndex > fromIndex;
-      const lowIndex = Math.min(fromIndex, targetIndex);
-      const highIndex = Math.max(fromIndex, targetIndex);
-      const lowWrapper = wrappersRef.current[lowIndex];
-      const highWrapper = wrappersRef.current[highIndex];
-      if (!lowWrapper || !highWrapper) return;
-
-      const lowFrame = lowWrapper.querySelector<HTMLElement>('.slide-frame');
-      const lowContent = lowWrapper.querySelector<HTMLElement>('.chapter-content');
-      const highContent = highWrapper.querySelector<HTMLElement>('.chapter-content');
-      const lowImage = lowWrapper.querySelector<HTMLElement>('.chapter-media-img');
-      const highImage = highWrapper.querySelector<HTMLElement>('.chapter-media-img');
+      const fromFrame = fromWrapper.querySelector<HTMLElement>('.slide-frame');
+      const fromContent = fromWrapper.querySelector<HTMLElement>('.chapter-content');
+      const toContent = toWrapper.querySelector<HTMLElement>('.chapter-content');
       const fromScrollPane = fromWrapper.querySelector<HTMLElement>('.slide-scroll-pane');
       const scrollPane = toWrapper.querySelector<HTMLElement>('.slide-scroll-pane');
+      const toImage = toWrapper.querySelector<HTMLElement>('.chapter-media-img');
+      const strips = shuttersRef.current?.querySelectorAll<HTMLElement>('.shutter-strip');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const motionVariant = targetIndex % 3;
 
       transitioningRef.current = true;
       setIsTransitioning(true);
-      if (scrollPane) {
-        scrollPane.scrollTop = isForward ? 0 : scrollPane.scrollHeight - scrollPane.clientHeight;
-      }
+
+      if (scrollPane) scrollPane.scrollTop = 0;
       if (fromScrollPane) fromScrollPane.style.overflowY = 'hidden';
       if (scrollPane) scrollPane.style.overflowY = 'hidden';
 
       onSlideChange(targetIndex);
-      gsap.set([lowWrapper, highWrapper], { visibility: 'visible' });
-      gsap.set(lowWrapper, { zIndex: 10 });
-      gsap.set(highWrapper, { zIndex: 20 });
 
-      const finish = (index: number) => {
-        const inactiveWrapper = index === lowIndex ? highWrapper : lowWrapper;
-        const activeWrapper = index === lowIndex ? lowWrapper : highWrapper;
+      gsap.set([fromWrapper, toWrapper], { visibility: 'visible' });
+      gsap.set(fromWrapper, { zIndex: 10, opacity: 1 });
+      gsap.set(toWrapper, { zIndex: 20, opacity: 0 });
 
-        gsap.set(inactiveWrapper, { visibility: 'hidden', zIndex: 0, opacity: 0 });
-        gsap.set(activeWrapper, { visibility: 'visible', zIndex: 10, opacity: 1 });
+      const finish = () => {
+        gsap.set(fromWrapper, { visibility: 'hidden', zIndex: 0, opacity: 0 });
+        gsap.set(toWrapper, { visibility: 'visible', zIndex: 10, opacity: 1 });
         if (fromScrollPane) fromScrollPane.style.overflowY = '';
         if (scrollPane) {
           scrollPane.style.overflowY = '';
-          scrollPane.scrollTop = isForward ? 0 : scrollPane.scrollHeight - scrollPane.clientHeight;
+          scrollPane.scrollTop = 0;
         }
-        gsap.set([lowFrame, lowContent], { clearProps: 'transform,opacity,clipPath' });
+
+        gsap.set([fromFrame, fromContent, toContent], { clearProps: 'transform,opacity,clipPath,scale' });
         gsap.set(
           [
-            lowContent?.querySelectorAll(animatedTargetsSelector),
-            highContent?.querySelectorAll(animatedTargetsSelector),
+            fromContent?.querySelectorAll(animatedTargetsSelector),
+            toContent?.querySelectorAll(animatedTargetsSelector),
           ],
-          { clearProps: 'transform,opacity,clipPath' }
+          { clearProps: 'transform,opacity,clipPath,scale' }
         );
         gsap.set(backdropRef.current, { opacity: 0 });
         gsap.set(goldBlockRef.current, { y: 60, opacity: 0 });
@@ -129,233 +120,191 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
           });
         }
 
-        activeIndexRef.current = index;
-        setActiveIndex(index);
-        onSlideChange(index);
+        activeIndexRef.current = targetIndex;
+        setActiveIndex(targetIndex);
+        onSlideChange(targetIndex);
         transitioningRef.current = false;
         setIsTransitioning(false);
+        lastGestureTimeRef.current = Date.now();
       };
 
       if (reducedMotion) {
-        gsap.set(toWrapper, { visibility: 'visible', zIndex: 20, opacity: 0 });
         gsap
-          .timeline({
-            onComplete: () => finish(targetIndex),
-          })
-          .to(fromWrapper, { opacity: 0, duration: 0.18, ease: 'power1.out' })
-          .to(toWrapper, { opacity: 1, duration: 0.18, ease: 'power1.out' }, '<');
+          .timeline({ onComplete: finish })
+          .to(fromWrapper, { opacity: 0, duration: 0.2, ease: 'power1.out' })
+          .to(toWrapper, { opacity: 1, duration: 0.2, ease: 'power1.out' }, '<');
         return;
       }
 
-      const headingTargets = highContent?.querySelectorAll<HTMLElement>('h1,h2,.statement-headline');
-      const bodyTargets = highContent?.querySelectorAll<HTMLElement>(bodyTargetsSelector);
-      const outgoingTargets = lowContent?.querySelectorAll<HTMLElement>(animatedTargetsSelector);
-      const strips = shuttersRef.current?.querySelectorAll<HTMLElement>('.shutter-strip');
-      const headingFrom =
-        motionVariant === 1
-          ? { x: 28, y: 0, opacity: 0, clipPath: 'inset(0 100% 0 0)' }
-          : motionVariant === 2
-            ? { x: 0, y: -22, opacity: 0, clipPath: 'inset(100% 0 0 0)' }
-            : { x: 0, y: 26, opacity: 0, clipPath: 'inset(0 0 100% 0)' };
-      const bodyFrom =
-        motionVariant === 1
-          ? { x: 22, y: 12, scale: 0.97, opacity: 0 }
-          : motionVariant === 2
-            ? { x: 0, y: -20, scale: 0.97, opacity: 0 }
-            : { x: 0, y: 20, scale: 1, opacity: 0 };
-      const outgoingTo =
-        motionVariant === 1
-          ? { x: -20, y: 0, opacity: 0 }
-          : motionVariant === 2
-            ? { x: 0, y: 20, opacity: 0 }
-            : { x: 0, y: -20, opacity: 0 };
+      // Directional shutter trajectories:
+      // Forward (down): enter from +110% (right) -> 0% -> exit to -110% (left)
+      // Reverse (up): enter from -110% (left) -> 0% -> exit to +110% (right)
+      const enterX = isForward ? 110 : -110;
+      const enterY = isForward ? -12 : 12;
+      const enterSkew = isForward ? -4 : 4;
 
-      gsap.set([lowWrapper, highWrapper], { opacity: 1 });
-      gsap.set(lowWrapper, { opacity: 1 });
-      gsap.set(highWrapper, { opacity: 0 });
-      gsap.set(
-        [
-          lowContent?.querySelectorAll(animatedTargetsSelector),
-          highContent?.querySelectorAll(animatedTargetsSelector),
-        ],
-        { clearProps: 'transform,opacity,clipPath' }
-      );
+      const exitX = isForward ? -110 : 110;
+      const exitY = isForward ? 12 : -12;
+      const exitSkew = isForward ? 4 : -4;
 
-      const timeline = gsap.timeline({
-        paused: true,
-        onComplete: () => finish(highIndex),
-        onReverseComplete: () => finish(lowIndex),
-      });
-
-      timeline
-        .fromTo(
-          lowFrame,
-          { scale: 1 },
-          { scale: 0.92, duration: 0.9, ease },
-          0
-        )
-        .fromTo(
-          lowWrapper,
-          { opacity: 1 },
-          { opacity: 0, duration: 0.72, ease: 'power2.in' },
-          0.08
-        )
-        .fromTo(
-          highWrapper,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.78, ease: 'power2.out' },
-          0.56
-        );
-
-      if (highContent) {
-        timeline.fromTo(
-          highContent,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.32, ease: 'power2.out' },
-          1.02
-        );
+      if (strips?.length) {
+        gsap.set(strips, {
+          xPercent: enterX,
+          yPercent: enterY,
+          skewX: enterSkew,
+        });
       }
 
+      const incomingHeadings = toContent?.querySelectorAll<HTMLElement>('h1,h2,.statement-headline');
+      const incomingBody = toContent?.querySelectorAll<HTMLElement>(bodyTargetsSelector);
+      const outgoingTargets = fromContent?.querySelectorAll<HTMLElement>(animatedTargetsSelector);
+
+      const timeline = gsap.timeline({
+        onComplete: finish,
+      });
+
+      // 1. Zoom out outgoing frame subtly
+      if (fromFrame) {
+        timeline.to(fromFrame, { scale: 0.94, duration: 0.42, ease: 'power2.out' }, 0);
+      }
+
+      // 2. Outgoing targets slide slightly away
       if (outgoingTargets?.length) {
         timeline.to(
           outgoingTargets,
-          { ...outgoingTo, duration: 0.36, stagger: 0.02, ease: 'power2.in' },
-          0.06
+          {
+            x: isForward ? -25 : 25,
+            opacity: 0,
+            duration: 0.32,
+            stagger: 0.015,
+            ease: 'power2.in',
+          },
+          0.04
         );
       }
 
-      if (lowImage) {
-        timeline
-          .to(
-            lowImage,
-            {
-              filter: 'saturate(0.85) contrast(1) brightness(1) blur(4px)',
-              duration: 0.34,
-              ease: 'power2.out',
-            },
-            0
-          )
-          .to(
-            lowImage,
-            {
-              filter: 'saturate(0.7) contrast(1.05) brightness(0.85) blur(0px)',
-              duration: 0.52,
-              ease: 'power2.inOut',
-            },
-            0.34
-          );
-      }
-
-      if (highImage) {
-        timeline.fromTo(
-          highImage,
-          {
-            x: motionVariant === 1 ? 18 : motionVariant === 2 ? 0 : -14,
-            y: motionVariant === 2 ? -14 : 8,
-            scale: motionVariant === 1 ? 1.07 : 1.04,
-            filter: 'saturate(0.85) contrast(1) brightness(1) blur(4px)',
-          },
-          {
-            x: 0,
-            y: 0,
-            scale: 1,
-            filter: 'saturate(0.7) contrast(1.05) brightness(0.85) blur(0px)',
-            duration: 0.62,
-            ease: 'power2.out',
-          },
-          0.74
-        );
-      }
-
+      // 3. Backdrop darkens during curtain sweep
       if (backdropRef.current) {
         timeline
-          .fromTo(
-            backdropRef.current,
-            { opacity: 0 },
-            { opacity: 1, duration: 0.58, ease: 'power2.out' },
-            0
-          )
-          .to(backdropRef.current, { opacity: 0, duration: 0.44, ease: 'power2.in' }, 1.22);
+          .fromTo(backdropRef.current, { opacity: 0 }, { opacity: 0.88, duration: 0.4, ease: 'power2.out' }, 0)
+          .to(backdropRef.current, { opacity: 0, duration: 0.36, ease: 'power2.in' }, 0.54);
       }
 
+      // 4. Shutters sweep IN to cover the screen
+      if (strips?.length) {
+        timeline.to(
+          strips,
+          {
+            xPercent: 0,
+            yPercent: 0,
+            skewX: 0,
+            duration: 0.42,
+            stagger: 0.05,
+            ease: 'power3.inOut',
+          },
+          0.04
+        );
+      }
+
+      // 5. Gold accent block accentuates the transition
       if (goldBlockRef.current) {
         timeline
           .fromTo(
             goldBlockRef.current,
-            { y: 60, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.38, ease: 'power2.out' },
-            0.34
-          )
-          .to(goldBlockRef.current, { y: 60, opacity: 0, duration: 0.32, ease: 'power2.in' }, 1.3);
-      }
-
-      if (strips?.length) {
-        timeline
-          .fromTo(
-            strips,
-            { xPercent: 110, yPercent: -12, skewX: -4 },
-            {
-              xPercent: 0,
-              yPercent: 0,
-              skewX: 0,
-              duration: 0.42,
-              stagger: 0.08,
-              ease,
-            },
-            0.48
+            { y: 50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' },
+            0.22
           )
           .to(
-            strips,
-            {
-              xPercent: -110,
-              yPercent: 12,
-              duration: 0.38,
-              stagger: 0.06,
-              ease,
-            },
-            1.08
+            goldBlockRef.current,
+            { y: -30, opacity: 0, duration: 0.26, ease: 'power2.in' },
+            0.52
           );
       }
 
-      if (headingTargets?.length) {
-        timeline.fromTo(
-          headingTargets,
-          headingFrom,
+      // 6. SWAP SLIDES while screen is fully covered by shutters at t = 0.44s
+      timeline.add(() => {
+        gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden' });
+        gsap.set(toWrapper, { opacity: 1, visibility: 'visible' });
+      }, 0.44);
+
+      // 7. Shutters sweep OUT to reveal new slide
+      if (strips?.length) {
+        timeline.to(
+          strips,
           {
-            x: 0,
+            xPercent: exitX,
+            yPercent: exitY,
+            skewX: exitSkew,
+            duration: 0.42,
+            stagger: 0.05,
+            ease: 'power3.inOut',
+          },
+          0.46
+        );
+      }
+
+      // 8. Incoming content reveals with crisp forward animation
+      if (toContent) {
+        timeline.fromTo(
+          toContent,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3, ease: 'power2.out' },
+          0.48
+        );
+      }
+
+      if (incomingHeadings?.length) {
+        timeline.fromTo(
+          incomingHeadings,
+          {
+            y: isForward ? 22 : -22,
+            opacity: 0,
+            clipPath: isForward ? 'inset(0 0 100% 0)' : 'inset(100% 0 0 0)',
+          },
+          {
             y: 0,
             opacity: 1,
             clipPath: 'inset(0 0 0% 0)',
-            duration: 0.4,
-            stagger: 0.08,
+            duration: 0.38,
+            stagger: 0.05,
             ease: 'power3.out',
           },
-          1.08
+          0.5
         );
       }
 
-      if (bodyTargets?.length) {
-        const bodyStagger = Math.min(0.06, 0.35 / bodyTargets.length);
+      if (incomingBody?.length) {
+        const bodyStagger = Math.min(0.035, 0.25 / incomingBody.length);
         timeline.fromTo(
-          bodyTargets,
-          bodyFrom,
+          incomingBody,
+          { y: isForward ? 16 : -16, opacity: 0 },
           {
-            x: 0,
             y: 0,
-            scale: 1,
             opacity: 1,
-            duration: 0.4,
+            duration: 0.36,
             stagger: bodyStagger,
             ease: 'power2.out',
           },
-          1.12
+          0.54
         );
       }
 
-      if (isForward) {
-        timeline.progress(0).play();
-      } else {
-        timeline.progress(1).reverse();
+      if (toImage) {
+        timeline.fromTo(
+          toImage,
+          {
+            scale: 1.05,
+            filter: 'saturate(0.85) brightness(1.05) blur(3px)',
+          },
+          {
+            scale: 1,
+            filter: 'saturate(0.75) brightness(0.85) blur(0px)',
+            duration: 0.48,
+            ease: 'power2.out',
+          },
+          0.46
+        );
       }
     },
     [onSlideChange, slides.length]
@@ -369,8 +318,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
   const handleGesture = useCallback(
     (direction: number) => {
+      const now = Date.now();
       if (
         transitioningRef.current ||
+        now - lastGestureTimeRef.current < 450 ||
         document.querySelector('[aria-modal="true"]')
       ) {
         return;
@@ -380,11 +331,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         '.slide-scroll-pane'
       );
       if (pane && pane.scrollHeight > pane.clientHeight + 8) {
-        const atTop = pane.scrollTop <= 2;
-        const atBottom = pane.scrollTop + pane.clientHeight >= pane.scrollHeight - 2;
+        const atTop = pane.scrollTop <= 4;
+        const atBottom = pane.scrollTop + pane.clientHeight >= pane.scrollHeight - 4;
         if ((direction > 0 && !atBottom) || (direction < 0 && !atTop)) return;
       }
 
+      lastGestureTimeRef.current = now;
       if (direction > 0) {
         goToSlide(activeIndexRef.current + 1);
       } else {
