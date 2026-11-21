@@ -86,29 +86,20 @@ export const LearningApproachSection: React.FC = () => {
           {/* Top & Middle Content Area */}
           <div ref={contentRef} className="flex-1 flex flex-col justify-between overflow-hidden">
             
-            {/* Grid: Boxed Vertical Counter + Main Editorial Body + Right Track */}
+            {/* Main Editorial Body */}
             <div className="flex-1 flex items-stretch gap-6 sm:gap-8 lg:gap-10 overflow-hidden">
-              
-              {/* Left Architectural Boxed Counter */}
-              <div className="hidden sm:flex flex-col items-center justify-between border border-black/10 py-5 px-3 bg-white/60 shrink-0 w-16 lg:w-18 select-none">
-                <span className="font-sans font-bold text-xl lg:text-[22px] text-[#afafaf] -rotate-90 tracking-widest my-8 block">
-                  05/14
-                </span>
-                <div className="flex flex-col items-center gap-2 mb-2 text-[#cfcfcf]">
-                  <span className="w-1 h-1 rounded-full bg-current" />
-                  <span className="w-1 h-1 rounded-full bg-current" />
-                  <span className="w-1 h-1 rounded-full bg-current" />
-                  <span className="w-1 h-1 rounded-full bg-current" />
-                  <span className="w-1 h-1 rounded-full bg-current" />
-                </div>
-              </div>
-
               {/* Central Text & Content Area */}
-              <div className="flex-1 max-w-3xl flex flex-col justify-between overflow-hidden">
+              <div className="flex-1 flex flex-col justify-between overflow-hidden">
                 <div>
-                  {/* Eyebrow */}
-                  <div className="editorial-reveal text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#c8a45d] mb-2">
-                    {siteConfig.approach.eyebrow}
+                  {/* Eyebrow & Chapter Indicator */}
+                  <div className="editorial-reveal flex items-center gap-2.5 mb-2">
+                    <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#c8a45d]">
+                      {siteConfig.approach.eyebrow}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
+                    <span className="font-mono text-[10px] text-[#888888] tracking-wider">
+                      05 / 14
+                    </span>
                   </div>
 
                   {/* Elegant Dark Headline */}
