@@ -679,9 +679,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
             </svg>
           </div>
 
-          <p className="font-sans-modern text-[11px] sm:text-xs text-white/75 font-normal max-w-lg mx-auto">
-            Hover on any card to explore its engineering depth. Scroll to trigger the shared-element deep dive.
-          </p>
+
         </div>
 
         {/* ─── The Stage: Exact 5 Persistent DOM Cards That Morph Physically ─── */}
