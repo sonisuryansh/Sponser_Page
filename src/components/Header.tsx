@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Maximize, Minimize } from 'lucide-react';
 
 interface HeaderProps {
   currentSectionId: string;
@@ -16,6 +16,35 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenContact,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Sync fullscreen state with document
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        }
+      }
+    } catch (err) {
+      console.warn('Fullscreen toggle failed:', err);
+    }
+  };
 
   // Close menu on ESC key
   useEffect(() => {
@@ -83,11 +112,11 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </button>
 
-        {/* Actions Right: Consultation Link + Menu Toggle */}
-        <div className="flex items-center gap-6">
+        {/* Actions Right: Consultation Link + Menu Toggle + Fullscreen Toggle */}
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
           <button
             onClick={onOpenContact}
-            className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] transition-colors relative pb-0.5 cursor-pointer after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-current after:origin-left hover:after:scale-x-100 after:scale-x-0 after:transition-transform ${
+            className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] transition-colors relative pb-0.5 cursor-pointer mr-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-current after:origin-left hover:after:scale-x-100 after:scale-x-0 after:transition-transform ${
               isDark ? 'text-white/80 hover:text-white' : 'text-[#111111]/80 hover:text-[#111111]'
             }`}
           >
@@ -95,7 +124,7 @@ export const Header: React.FC<HeaderProps> = ({
             <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
           </button>
 
-          {/* Outline-only Menu button */}
+          {/* Outline-only Menu button (shifted slightly left to make room for fullscreen) */}
           <button
             onClick={() => setIsMenuOpen(true)}
             aria-label="Open presentation menu"
@@ -107,6 +136,24 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <span className="text-xs uppercase tracking-[0.18em]">Menu</span>
             <Menu className="w-4 h-4" />
+          </button>
+
+          {/* Fullscreen Toggle Button right next to Menu */}
+          <button
+            onClick={toggleFullscreen}
+            aria-label={isFullscreen ? 'Exit fullscreen mode' : 'Enter fullscreen mode'}
+            title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+            className={`flex items-center justify-center p-2 border rounded-[2px] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
+              isDark
+                ? 'border-white/30 hover:border-white text-white hover:bg-white/10'
+                : 'border-black/30 hover:border-black text-[#111111] hover:bg-black/5'
+            }`}
+          >
+            {isFullscreen ? (
+              <Minimize className="w-4 h-4" />
+            ) : (
+              <Maximize className="w-4 h-4" />
+            )}
           </button>
         </div>
       </header>
