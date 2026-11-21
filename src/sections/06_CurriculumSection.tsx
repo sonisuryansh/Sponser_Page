@@ -108,16 +108,12 @@ export const CurriculumSection: React.FC = () => {
                     <button
                       key={stage.id}
                       onClick={() => setActiveStageIndex(idx)}
-                      className={`group relative flex items-center justify-between text-left cursor-pointer transition-all focus:outline-none ${
+                      className={`group relative flex items-center justify-between text-left cursor-pointer transition-colors focus:outline-none ${
                         isActive ? 'text-[#c8a45d]' : 'text-[#888888] hover:text-[#111111]'
                       }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
-                      <span
-                        className={`font-mono text-sm sm:text-base lg:text-[17px] transition-all ${
-                          isActive ? 'font-bold scale-110' : 'font-medium'
-                        }`}
-                      >
+                      <span className="font-mono text-sm sm:text-base lg:text-[16px] font-semibold tracking-wider">
                         0{idx + 1}
                       </span>
                       {isActive && (
