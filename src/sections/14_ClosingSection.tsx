@@ -112,24 +112,13 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
             {siteConfig.closing.headline}
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl text-white/80 font-serif italic mb-6 max-w-3xl">
+          {/* Connecting Quote for the Client */}
+          <p className="text-base sm:text-lg md:text-xl text-white/80 font-serif italic mb-8 max-w-3xl leading-relaxed">
             &ldquo;{siteConfig.closing.line}&rdquo;
           </p>
 
-          {/* Four Domains as a Quiet Row */}
-          <div className="border-t border-b border-white/10 py-3 mb-6 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-sans tracking-wide text-white/60">
-            {siteConfig.closing.domainsRow.map((dom, idx) => (
-              <React.Fragment key={dom}>
-                <span className="hover:text-white transition-colors">{dom}</span>
-                {idx < siteConfig.closing.domainsRow.length - 1 && (
-                  <span className="text-white/20 select-none hidden sm:inline">|</span>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-
-          {/* CTAs: Consultation Button + Website Link */}
-          <div className="flex flex-wrap items-center gap-4 mb-6">
+          {/* CTAs: Consultation Button + Website Link + Email */}
+          <div className="flex flex-wrap items-center gap-4 mb-8">
             <button
               onClick={onOpenContact}
               className="group relative inline-flex items-center gap-2.5 px-6 py-3 border border-[#c8a45d] bg-[#c8a45d]/10 hover:bg-[#c8a45d] text-[#FAF6EE] hover:text-[#111111] rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer"
@@ -151,9 +140,12 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
-            <span className="text-xs text-white/50 tracking-wider">
-              {siteConfig.confirm.contactEmail}
-            </span>
+            <a
+              href="mailto:team@medhaarc.com"
+              className="text-xs text-white/60 hover:text-[#c8a45d] tracking-wider transition-colors font-mono underline-offset-4 hover:underline"
+            >
+              team@medhaarc.com
+            </a>
           </div>
 
           {/* Social Channels Row */}

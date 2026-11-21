@@ -72,7 +72,7 @@ export const siteConfig = {
     certificatesOffered: true, // [confirm] formal recognition for completed levels
     competitionsOffered: true, // [confirm] opportunities to participate in national/regional competitions
     pricingFootnoteExtra: '', // [confirm] any school-specific duration or terms
-    contactEmail: 'contact@medhaarclabs.com',
+    contactEmail: 'team@medhaarc.com',
     contactPhone: '+91 98765 43210',
     contactLink: '#contact',
   },
