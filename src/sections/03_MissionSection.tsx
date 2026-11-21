@@ -38,10 +38,7 @@ export const MissionSection: React.FC = () => {
   }, []);
 
   const handleExplore = () => {
-    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
-    if (dots[3]) {
-      dots[3].click();
-    }
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 3 }));
   };
 
   return (

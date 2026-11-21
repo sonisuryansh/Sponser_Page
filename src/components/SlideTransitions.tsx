@@ -410,6 +410,17 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   }, [handleGesture]);
 
   useEffect(() => {
+    const handleGoTo = (e: Event) => {
+      const customEvent = e as CustomEvent<number>;
+      if (typeof customEvent.detail === 'number') {
+        goToSlide(customEvent.detail);
+      }
+    };
+    window.addEventListener('go-to-slide', handleGoTo);
+    return () => window.removeEventListener('go-to-slide', handleGoTo);
+  }, [goToSlide]);
+
+  useEffect(() => {
     const wheelObserver = Observer.create({
       target: window,
       type: 'wheel',
@@ -559,31 +570,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         <div className="shutter-strip shutter-strip-gold" style={{ backgroundColor: accentColor }} />
         <div className="shutter-strip shutter-strip-dark" />
       </div>
-
-      <nav className="slide-progress" aria-label="Slide progress">
-        {slides.map((slide, index) => (
-          <button
-            key={slide.id}
-            type="button"
-            aria-label={`Jump to slide ${index + 1}`}
-            aria-current={index === activeIndex ? 'step' : undefined}
-            className="slide-progress-button"
-            onClick={() => goToSlide(index)}
-          >
-            <span
-              className={`slide-progress-mark${index === activeIndex ? ' is-active' : ''}`}
-              style={{
-                backgroundColor:
-                  index === activeIndex
-                    ? accentColor
-                    : slides[activeIndex]?.theme === 'dark'
-                      ? 'rgba(255,255,255,0.4)'
-                      : 'rgba(17,17,17,0.35)',
-              }}
-            />
-          </button>
-        ))}
-      </nav>
 
       {/* Side Scrolling Note (Like Image 2: SCROLL TO EXPLORE + Downward Arrow, Hidden ONLY on Last Section) */}
       {!isLastSlide && (

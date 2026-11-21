@@ -18,10 +18,7 @@ export const ProjectShowcaseSection: React.FC = () => {
   const projects = siteConfig.showcase.projects;
 
   const handleScrollToNext = () => {
-    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
-    if (dots[7]) {
-      dots[7].click();
-    }
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 7 }));
   };
 
   return (

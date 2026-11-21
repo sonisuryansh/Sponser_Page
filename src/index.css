@@ -148,47 +148,6 @@
   background: #0a0e14;
 }
 
-.slide-progress {
-  position: absolute;
-  z-index: 40;
-  top: 42%;
-  right: clamp(8px, 2.5vw, 32px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  transform: translateY(-50%);
-}
-
-.slide-progress-button {
-  display: grid;
-  min-width: 16px;
-  min-height: 12px;
-  place-items: center;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.slide-progress-mark {
-  display: block;
-  width: 4px;
-  height: 4px;
-  border-radius: 999px;
-  transition: width 250ms ease, height 250ms ease, transform 250ms ease;
-}
-
-.slide-progress-mark.is-active {
-  width: 4px;
-  height: 18px;
-  border-radius: 2px;
-}
-
-.slide-progress-button:hover .slide-progress-mark:not(.is-active) {
-  transform: scale(1.45);
-}
-
 /* Side Scrolling Note (Image 2 style: SCROLL TO EXPLORE + Downward Arrow) */
 .slide-scroll-cta {
   position: absolute;

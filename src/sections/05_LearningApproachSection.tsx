@@ -48,10 +48,7 @@ export const LearningApproachSection: React.FC = () => {
   }, []);
 
   const handleExplore = () => {
-    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
-    if (dots[5]) {
-      dots[5].click();
-    }
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 5 }));
   };
 
   return (

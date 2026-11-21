@@ -67,10 +67,7 @@ export const AboutSection: React.FC = () => {
   }, []);
 
   const handleScrollToNext = () => {
-    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
-    if (dots[2]) {
-      dots[2].click();
-    }
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 2 }));
   };
 
   return (

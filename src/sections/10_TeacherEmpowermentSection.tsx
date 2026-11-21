@@ -63,10 +63,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
   }, []);
 
   const handleScrollToNext = () => {
-    const dots = document.querySelectorAll<HTMLButtonElement>('.slide-progress-button');
-    if (dots[10]) {
-      dots[10].click();
-    }
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 10 }));
   };
 
   return (
