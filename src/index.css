@@ -146,7 +146,7 @@
 .slide-progress {
   position: absolute;
   z-index: 40;
-  top: 50%;
+  top: 42%;
   right: clamp(8px, 2.5vw, 32px);
   display: flex;
   flex-direction: column;
@@ -182,6 +182,68 @@
 
 .slide-progress-button:hover .slide-progress-mark:not(.is-active) {
   transform: scale(1.45);
+}
+
+/* Side Scrolling Note (Image 2 style: SCROLL TO EXPLORE + Downward Arrow) */
+.slide-scroll-cta {
+  position: absolute;
+  z-index: 45;
+  right: clamp(8px, 2.4vw, 32px);
+  bottom: clamp(18px, 4vh, 44px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.slide-scroll-cta-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: transparent;
+  border: none;
+  padding: 6px 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+
+.slide-scroll-cta-label {
+  display: block;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.28em;
+  font-size: 8.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', 'Inter', -apple-system, sans-serif;
+  transition: color 0.4s ease, opacity 0.3s ease;
+}
+
+.slide-scroll-cta-btn:hover .slide-scroll-cta-label {
+  color: #c8a45d !important;
+}
+
+.slide-scroll-cta-picto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 32px;
+  transition: color 0.4s ease, transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.slide-scroll-cta-btn:hover .slide-scroll-cta-picto {
+  color: #c8a45d !important;
+  transform: translateY(4px);
+}
+
+@media (max-width: 640px) {
+  .slide-scroll-cta {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

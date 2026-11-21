@@ -34,6 +34,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   pageBgColor = '#FAF6EE',
 }) => {
   const [activeIndex, setActiveIndex] = useState(currentIndex);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const activeIndexRef = useRef(currentIndex);
   const transitioningRef = useRef(false);
   const wrappersRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -87,6 +88,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const motionVariant = targetIndex % 3;
 
       transitioningRef.current = true;
+      setIsTransitioning(true);
       if (scrollPane) {
         scrollPane.scrollTop = isForward ? 0 : scrollPane.scrollHeight - scrollPane.clientHeight;
       }
@@ -131,6 +133,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         setActiveIndex(index);
         onSlideChange(index);
         transitioningRef.current = false;
+        setIsTransitioning(false);
       };
 
       if (reducedMotion) {
@@ -548,6 +551,18 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [goToSlide, handleGesture, slides]);
 
+  const isLastSlide = activeIndex === slides.length - 1;
+  const currentTheme = slides[activeIndex]?.theme ?? 'dark';
+
+  const handleScrollCtaClick = useCallback(() => {
+    if (transitioningRef.current) return;
+    if (isLastSlide) {
+      goToSlide(0);
+    } else {
+      goToSlide(activeIndex + 1);
+    }
+  }, [activeIndex, isLastSlide, goToSlide]);
+
   return (
     <div
       className="slide-transition-root relative h-[100svh] min-h-[100svh] w-full overflow-hidden"
@@ -617,6 +632,56 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
           </button>
         ))}
       </nav>
+
+      {/* Side Scrolling Note (Like Image 2: SCROLL TO EXPLORE + Downward Arrow) */}
+      <aside className="slide-scroll-cta" aria-label="Scroll navigation note">
+        <button
+          type="button"
+          onClick={handleScrollCtaClick}
+          className="slide-scroll-cta-btn group"
+          aria-label={isLastSlide ? 'Scroll back to top' : 'Scroll to explore next section'}
+          title={isLastSlide ? 'Back to the top' : 'Scroll to explore'}
+        >
+          <span
+            className="slide-scroll-cta-label"
+            style={{
+              color: isTransitioning
+                ? accentColor
+                : currentTheme === 'dark'
+                  ? 'rgba(255, 255, 255, 0.75)'
+                  : 'rgba(17, 17, 17, 0.75)',
+            }}
+          >
+            {isLastSlide ? 'Back to the top' : 'Scroll to explore'}
+          </span>
+          <div
+            className="slide-scroll-cta-picto"
+            style={{
+              color: isTransitioning
+                ? accentColor
+                : currentTheme === 'dark'
+                  ? '#ffffff'
+                  : '#111111',
+              transform: isLastSlide ? 'rotate(180deg)' : 'none',
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="30"
+              viewBox="0 0 20 34"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M8 0v26.2l-8-8.1v5.7L10 34l10-10.2v-5.7l-8 8.1V0H8z"
+              />
+            </svg>
+          </div>
+        </button>
+      </aside>
     </div>
   );
 };
