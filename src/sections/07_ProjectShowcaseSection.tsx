@@ -36,7 +36,7 @@ export const ProjectShowcaseSection: React.FC = () => {
       >
         {/* Top Header & 2-Column Narrative (Exact Image 1 Style) */}
         <div className="mb-12 lg:mb-16">
-          <div className="flex items-center gap-3 mb-2.5">
+          <div className="flex items-center justify-center gap-3 mb-2.5">
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
               {siteConfig.showcase.eyebrow}
             </span>
@@ -46,7 +46,7 @@ export const ProjectShowcaseSection: React.FC = () => {
             </span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal leading-[1.14] tracking-tight text-[#111111] mb-6 max-w-4xl">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal leading-[1.14] tracking-tight text-[#111111] mb-6 max-w-4xl text-center mx-auto">
             {siteConfig.showcase.headline}
           </h2>
 
