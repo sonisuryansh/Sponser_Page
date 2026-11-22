@@ -74,13 +74,13 @@ export const BenefitsSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
     >
-      {/* Main Viewport Container (Locked to single window, zero scroll) */}
+      {/* Main Viewport Container (Centered in 100svh window) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full max-h-[100svh] flex flex-col justify-between pt-[calc(var(--header-h,64px)+6px)] pb-2.5 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1360px] mx-auto overflow-hidden"
+        className="relative w-full my-auto flex flex-col justify-center py-2 sm:py-3 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1360px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title & Narrative Message (Centered & Proportional) */}
-        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center">
+        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-2.5">
           <div className="editorial-reveal flex items-center justify-center mb-1">
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
               {siteConfig.benefits.eyebrow}
@@ -104,7 +104,7 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* 5 Distinct Architectural Value Cards */}
-        <div className="editorial-reveal flex-1 my-auto py-1 sm:py-2 flex flex-col justify-center min-h-0">
+        <div className="editorial-reveal flex-none my-1 sm:my-2 flex flex-col justify-center min-h-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 lg:gap-3">
             {siteConfig.benefits.cards.map((card, idx) => {
               const borderHoverAccents = [
@@ -172,7 +172,7 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Institutional Value Summary Ribbon */}
-        <div className="editorial-reveal flex-none bg-white/95 border border-black/10 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-[3px] shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+        <div className="editorial-reveal flex-none bg-white/95 border border-black/10 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-[3px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] mt-2 sm:mt-2.5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
@@ -198,7 +198,7 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Bottom Trailing Link CTA (Centered) */}
-        <div className="editorial-reveal flex-none pt-2.5 border-t border-black/10 flex items-center justify-center mt-1.5">
+        <div className="editorial-reveal flex-none pt-2.5 border-t border-black/10 flex items-center justify-center mt-2">
           <button
             onClick={handleScrollToNext}
             className="group flex items-center justify-center text-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer max-w-xl mx-auto"

@@ -74,13 +74,13 @@ export const TeacherEmpowermentSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
-      {/* Main Viewport Container */}
+      {/* Main Viewport Container (Centered in 100svh window) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full max-h-[100svh] flex flex-col justify-between pt-[calc(var(--header-h,64px)+6px)] pb-3 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1320px] mx-auto overflow-hidden"
+        className="relative w-full my-auto flex flex-col justify-center py-2 sm:py-3 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1320px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title & Narrative Message (Centered & Proportional) */}
-        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center">
+        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-2.5">
           <div className="editorial-reveal flex items-center justify-center mb-1">
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
               {siteConfig.teacherEmpowerment.eyebrow}
@@ -104,7 +104,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
         </div>
 
         {/* 3 Core Pillars: Train, Guide, Assist (Refined Architectural Cards) */}
-        <div className="editorial-reveal flex-1 my-auto py-1 sm:py-2 flex flex-col justify-center min-h-0">
+        <div className="editorial-reveal flex-none my-1 sm:my-2 flex flex-col justify-center min-h-0">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-5">
             {siteConfig.teacherEmpowerment.columns.map((col, idx) => {
               const borderAccents = [
