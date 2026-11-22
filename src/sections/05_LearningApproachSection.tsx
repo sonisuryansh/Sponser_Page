@@ -84,14 +84,10 @@ export const LearningApproachSection: React.FC = () => {
           {/* Top & Middle Content Area */}
           <div ref={contentRef} className="w-full flex flex-col gap-3.5 sm:gap-4">
             <div>
-              {/* Eyebrow & Chapter Indicator */}
+              {/* Eyebrow */}
               <div className="editorial-reveal flex items-center gap-2.5 mb-2">
                 <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#c8a45d]">
                   {siteConfig.approach.eyebrow}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
-                <span className="font-mono text-[10px] text-[#888888] tracking-wider">
-                  05 / 14
                 </span>
               </div>
 

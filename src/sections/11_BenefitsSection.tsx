@@ -81,13 +81,9 @@ export const BenefitsSection: React.FC = () => {
       >
         {/* Top Header: Eyebrow, Main Title & Narrative Message (Centered & Proportional) */}
         <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center">
-          <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
+          <div className="editorial-reveal flex items-center justify-center mb-1">
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
               {siteConfig.benefits.eyebrow}
-            </span>
-            <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
-            <span className="font-mono text-[10.5px] text-[#888888] tracking-wider">
-              11 / 14
             </span>
           </div>
 

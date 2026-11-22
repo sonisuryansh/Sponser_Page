@@ -68,10 +68,6 @@ export const ProjectShowcaseSection: React.FC = () => {
               <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.24em] text-[#c8a45d]">
                 {siteConfig.showcase.eyebrow}
               </span>
-              <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
-              <span className="font-mono text-[10px] sm:text-[11px] text-[#888888] tracking-wider">
-                07 / 14
-              </span>
             </div>
 
             <h2 className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-normal leading-tight tracking-tight text-[#111111]">

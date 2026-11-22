@@ -140,9 +140,6 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
               <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
                 {siteConfig.closing.eyebrow}
               </span>
-              <span className="font-mono text-[10.5px] text-white/40 tracking-wider">
-                • 14 / 14
-              </span>
             </div>
 
             {/* 4 Connected Domains Pill Strip */}

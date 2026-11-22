@@ -68,14 +68,10 @@ export const MissionSection: React.FC = () => {
 
             {/* Top Area: Eyebrow, Statement Headline & Narrative Copy */}
             <div className="flex-none">
-              {/* Eyebrow & Chapter Indicator */}
+              {/* Eyebrow */}
               <div className="editorial-reveal flex items-center gap-2 mb-1.5 sm:mb-2">
                 <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.24em] text-[#c8a45d]">
                   {siteConfig.mission.eyebrow}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
-                <span className="font-mono text-[10px] sm:text-[11px] text-[#888888] tracking-wider">
-                  03 / 14
                 </span>
               </div>
 
