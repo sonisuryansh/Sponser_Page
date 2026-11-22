@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { siteConfig, type ProjectItem } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { ArrowRight, X, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, X, Maximize2 } from 'lucide-react';
 
 const domainBadgeStyles: Record<string, string> = {
   'Robotics & Automation': 'bg-cyan-50 text-cyan-800 border-cyan-200/80',
@@ -38,14 +38,6 @@ export const ProjectShowcaseSection: React.FC = () => {
     return () => clearInterval(timer);
   }, [isHovered, selectedProject, projects.length]);
 
-  const handlePrev = () => {
-    setActiveProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  };
-
-  const handleNext = () => {
-    setActiveProjectIndex((prev) => (prev + 1) % projects.length);
-  };
-
   const handleScrollToNext = () => {
     window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 7 }));
   };
@@ -60,94 +52,66 @@ export const ProjectShowcaseSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
     >
-      {/* 100svh Locked Single-Screen Container */}
+      {/* 100svh Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full max-h-[100svh] flex flex-col justify-between pt-[calc(var(--header-h,64px)+8px)] pb-3 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1360px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-6 px-3 sm:px-6 lg:px-8 box-border select-none z-10"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Top Header & 2-Column Narrative */}
-        <div className="flex-none max-w-4xl mx-auto w-full text-center">
-          <div className="flex items-center justify-center gap-2.5 mb-1">
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
-              {siteConfig.showcase.eyebrow}
-            </span>
-            <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
-            <span className="font-mono text-[10.5px] text-[#888888] tracking-wider">
-              07 / 14
-            </span>
-          </div>
-
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-normal leading-tight tracking-tight text-[#111111] mb-1.5">
-            {siteConfig.showcase.headline}
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 pt-1.5 border-t border-black/10 text-left">
-            <p className="font-sans text-[11px] sm:text-[12px] text-[#555555] leading-relaxed font-normal">
-              A disciplined, hands-on engineering approach ensures theoretical curiosity becomes functional reality. That's why our students cover every stage from first circuit breadboarding to final prototype testing.
-            </p>
-            <p className="font-sans text-[11px] sm:text-[12px] text-[#555555] leading-relaxed font-normal">
-              From Grade 9 onwards, students present their capstone builds to teachers, parents, and industry peers—demonstrating real-world problem-solving, code integration, and mechanical rigor.
-            </p>
-          </div>
-        </div>
-
-        {/* Middle Project Showcase Area (Locked into single viewport) */}
-        <div className="flex-1 min-h-0 flex flex-col justify-center my-auto py-1 sm:py-2 max-w-5xl mx-auto w-full">
-          {/* Quick Project Switcher Pills */}
-          <div className="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-black/10">
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-              {projects.map((proj, idx) => {
-                const isActive = activeProjectIndex === idx;
-                return (
-                  <button
-                    key={proj.id}
-                    onClick={() => setActiveProjectIndex(idx)}
-                    className={`group px-2.5 sm:px-3 py-1 rounded-[3px] border font-mono text-[10px] sm:text-[11px] tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
-                      isActive
-                        ? 'bg-[#111111] border-[#111111] text-[#FAF6EE] shadow-sm'
-                        : 'bg-white/80 border-black/10 text-[#666666] hover:text-[#111111] hover:border-black/30'
-                    }`}
-                  >
-                    <span className={isActive ? 'text-[#c8a45d] font-bold' : 'text-[#888888]'}>
-                      0{idx + 1}
-                    </span>
-                    <span className="font-sans font-medium hidden sm:inline truncate max-w-[130px] lg:max-w-[160px]">
-                      {proj.name}
-                    </span>
-                    <span className={`text-[9px] px-1 py-0.2 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-[#777777]'}`}>
-                      {proj.grade}
-                    </span>
-                  </button>
-                );
-              })}
+        {/* Main Inset White Panel (Unified Card framing all Section 07 elements) */}
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-[4px] flex flex-col justify-between p-5 sm:p-6 lg:p-7 box-border z-10">
+          
+          {/* Top Header: Eyebrow & Headline (Clean, no 2-column narrative text) */}
+          <div className="flex-none text-center mb-3 sm:mb-3.5">
+            <div className="flex items-center justify-center gap-2 mb-1.5">
+              <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.24em] text-[#c8a45d]">
+                {siteConfig.showcase.eyebrow}
+              </span>
+              <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
+              <span className="font-mono text-[10px] sm:text-[11px] text-[#888888] tracking-wider">
+                07 / 14
+              </span>
             </div>
 
-            {/* Stepper Arrows */}
-            <div className="flex items-center gap-1 shrink-0">
-              <button
-                onClick={handlePrev}
-                className="p-1 rounded-[2px] border border-black/15 bg-white/80 hover:bg-white text-[#111111] transition-colors cursor-pointer"
-                aria-label="Previous project"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="p-1 rounded-[2px] border border-black/15 bg-white/80 hover:bg-white text-[#111111] transition-colors cursor-pointer"
-                aria-label="Next project"
-              >
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-normal leading-tight tracking-tight text-[#111111]">
+              {siteConfig.showcase.headline}
+            </h2>
           </div>
 
-          {/* Active Project Card with Compact Image Frame */}
-          <div className="bg-white border border-black/10 rounded-[4px] p-4 sm:p-5 lg:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col md:flex-row items-center gap-5 lg:gap-8">
+          {/* Quick Project Switcher Pills (Centered & clean without arrow buttons) */}
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap mb-3.5 pb-2.5 border-b border-black/8">
+            {projects.map((proj, idx) => {
+              const isActive = activeProjectIndex === idx;
+              return (
+                <button
+                  key={proj.id}
+                  onClick={() => setActiveProjectIndex(idx)}
+                  className={`group px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-[3px] border font-mono text-[10px] sm:text-[11px] tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+                    isActive
+                      ? 'bg-[#111111] border-[#111111] text-[#FAF6EE] shadow-sm'
+                      : 'bg-[#FAF9F6] border-black/8 text-[#666666] hover:text-[#111111] hover:border-black/25'
+                  }`}
+                >
+                  <span className={isActive ? 'text-[#c8a45d] font-bold' : 'text-[#888888]'}>
+                    0{idx + 1}
+                  </span>
+                  <span className="font-sans font-medium truncate max-w-[140px] lg:max-w-[170px]">
+                    {proj.name}
+                  </span>
+                  <span className={`text-[9.5px] px-1.5 py-0.2 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-[#777777]'}`}>
+                    {proj.grade}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Project Presentation: Details on Left, Compact Photo on Right */}
+          <div className="flex flex-col md:flex-row items-center gap-5 lg:gap-8 bg-[#FAF9F6] border border-black/8 rounded-[3px] p-4 sm:p-5 lg:p-6 mb-3.5">
             {/* Left Narrative & Metadata */}
             <div className="flex-1 w-full min-w-0">
-              <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                 <span className="font-mono text-sm sm:text-base font-bold text-[#c8a45d]">
                   0{activeProjectIndex + 1}
                 </span>
@@ -165,7 +129,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                 </span>
               </div>
 
-              <h3 className="font-serif text-xl sm:text-2xl lg:text-[26px] font-medium text-[#111111] leading-tight mb-2">
+              <h3 className="font-serif text-xl sm:text-2xl lg:text-[25px] font-medium text-[#111111] leading-tight mb-2">
                 {currentProject.name}
               </h3>
 
@@ -174,11 +138,11 @@ export const ProjectShowcaseSection: React.FC = () => {
               </p>
 
               {/* Hardware / Spec Chips */}
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 pt-2 border-t border-black/10">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3.5 pt-2 border-t border-black/8">
                 {activeChips.map((chip) => (
                   <span
                     key={chip}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-[#FAF9F6] border border-black/10 font-sans text-[10.5px] text-[#333333]"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-white border border-black/8 font-sans text-[10.5px] text-[#333333]"
                   >
                     <span className="w-1 h-1 rounded-full bg-[#c8a45d]" />
                     {chip}
@@ -186,7 +150,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                 ))}
               </div>
 
-              {/* Action Link */}
+              {/* Inspect Action Button */}
               <button
                 onClick={() => setSelectedProject(currentProject)}
                 className="group inline-flex items-center gap-2.5 font-sans font-bold text-[10.5px] uppercase tracking-[0.2em] text-[#111111] hover:text-[#c8a45d] transition-colors cursor-pointer"
@@ -196,7 +160,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               </button>
             </div>
 
-            {/* Right Compact Image Frame (Controlled height so whole section locks in 1 window) */}
+            {/* Right Compact Image Frame */}
             <div
               onClick={() => setSelectedProject(currentProject)}
               className="relative w-full md:w-[320px] lg:w-[380px] h-[160px] sm:h-[185px] lg:h-[200px] rounded-[3px] overflow-hidden border border-black/10 bg-black/5 shadow-[0_4px_16px_rgba(0,0,0,0.06)] group cursor-pointer shrink-0"
@@ -224,35 +188,36 @@ export const ProjectShowcaseSection: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Future Readiness Band & Trailing Link */}
-        <div className="flex-none pt-1">
-          <div className="border border-black/10 bg-white/70 px-3 py-1.5 sm:px-4 sm:py-2 rounded-[2px] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono text-[#555555] mb-2">
-            <div className="flex items-center gap-2 truncate">
-              <span className="uppercase tracking-wider font-bold text-[#111111]">
-                Future Readiness:
-              </span>
-              <span className="truncate text-[#666666]">
-                Physical AI · Generative AI · AI Agents · Digital Twins · Edge AI · Smart IoT · Autonomous Drones
+          {/* Bottom Future Readiness Band & Trailing Link */}
+          <div className="flex-none pt-1 border-t border-black/8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px] sm:text-[10.5px] font-mono text-[#555555] mb-2">
+              <div className="flex items-center gap-2 truncate">
+                <span className="uppercase tracking-wider font-bold text-[#111111]">
+                  Future Readiness:
+                </span>
+                <span className="truncate text-[#666666]">
+                  Physical AI · Generative AI · AI Agents · Digital Twins · Edge AI · Smart IoT · Autonomous Drones
+                </span>
+              </div>
+              <span className="uppercase tracking-widest text-[#c8a45d] shrink-0 font-bold text-[10px]">
+                Explore → Experiment → Apply → Build
               </span>
             </div>
-            <span className="uppercase tracking-widest text-[#c8a45d] shrink-0 font-bold text-[10px]">
-              Explore → Experiment → Apply → Build
-            </span>
+
+            <div className="flex items-center justify-between">
+              <button
+                onClick={handleScrollToNext}
+                className="group flex items-center text-left focus:outline-none cursor-pointer w-full max-w-xl"
+              >
+                <span className="font-sans font-bold text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
+                  Discover our STEM lab infrastructure & setups
+                </span>
+                <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all flex-1 ml-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex items-center">
-            <button
-              onClick={handleScrollToNext}
-              className="group flex items-center text-left focus:outline-none cursor-pointer w-full max-w-xl"
-            >
-              <span className="font-sans font-bold text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
-                Discover our STEM lab infrastructure & setups
-              </span>
-              <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all flex-1 ml-4" />
-            </button>
-          </div>
         </div>
       </div>
 
