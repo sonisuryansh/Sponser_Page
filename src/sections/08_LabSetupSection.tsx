@@ -150,7 +150,7 @@ export const LabSetupSection: React.FC = () => {
         </div>
 
         {/* Top-Down Lab Layout & Interactive Hotspot Zones */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center my-auto border-t border-white/10 pt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch my-auto border-t border-white/10 pt-4">
           {/* Lab Visualization Photo with Zone Pins */}
           <div className="lg:col-span-7 relative aspect-[16/10] max-h-[300px] sm:max-h-[340px] rounded-[3px] overflow-hidden border border-white/20 bg-black/40 shadow-xl">
             <img
@@ -210,7 +210,7 @@ export const LabSetupSection: React.FC = () => {
             ref={sidePanelRef}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="lg:col-span-5 p-5 sm:p-6 rounded-[3px] bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/15 backdrop-blur-md flex flex-col justify-between min-h-[260px] shadow-lg"
+            className="lg:col-span-5 p-5 sm:p-6 lg:p-7 rounded-[3px] bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/15 backdrop-blur-md flex flex-col justify-between h-full min-h-[260px] shadow-lg"
           >
             <div>
               <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5">
@@ -222,7 +222,7 @@ export const LabSetupSection: React.FC = () => {
                 </span>
               </div>
 
-              <h3 className="font-serif text-2xl text-white font-normal mb-2">
+              <h3 className="font-serif text-2xl lg:text-3xl text-white font-normal mb-2.5">
                 {currentZone.name}
               </h3>
 
