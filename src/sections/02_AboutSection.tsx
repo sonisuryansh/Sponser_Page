@@ -78,10 +78,10 @@ export const AboutSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
-      {/* Main Viewport Container */}
+      {/* Main Viewport Container (Centered in 100svh window) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full flex flex-col justify-between pt-[calc(var(--header-h,64px)+10px)] pb-5 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1380px] mx-auto"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between pt-[calc(var(--header-h,64px)+12px)] pb-6 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1380px] mx-auto"
       >
         {/* Top Header Bar: Strategic Focus, Aim & Vision, and Hands-on badge */}
         <div className="editorial-reveal flex-none flex flex-wrap items-center justify-between gap-3 pb-2.5 border-b border-black/10">

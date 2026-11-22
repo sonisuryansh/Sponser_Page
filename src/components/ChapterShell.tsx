@@ -88,7 +88,7 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
         <div
           ref={contentRef}
           className={`chapter-content relative z-10 w-full flex-1 flex flex-col justify-between will-change-transform ${
-            fullBleed ? 'h-full max-w-none p-0' : 'max-w-[1200px] mx-auto px-[clamp(20px,5vw,80px)]'
+            fullBleed ? 'h-full min-h-full max-w-none p-0' : 'max-w-[1200px] mx-auto px-[clamp(20px,5vw,80px)]'
           }`}
         >
           {children}
