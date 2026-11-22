@@ -964,45 +964,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           })}
         </div>
 
-        {/* ─── Bottom Domain Stage Controls Bar ─── */}
-        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 pb-3 sm:pb-4 flex flex-col items-center shrink-0">
-          {/* Domain Step Pills */}
-          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-lg">
-            <button
-              type="button"
-              onClick={handleCloseToDeck}
-              className={`font-mono-tech text-[10.5px] px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                activeCardIndex === -1
-                  ? 'bg-white/25 text-white font-bold border border-white/30 shadow-xs'
-                  : 'text-white/60 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              Deck View
-            </button>
-            <span className="w-1 h-1 rounded-full bg-white/20" />
-            {DOMAINS.map((domain, dIdx) => {
-              const isCur = activeCardIndex === dIdx;
-              return (
-                <button
-                  key={domain.id}
-                  type="button"
-                  onClick={() => handleSelectCard(dIdx)}
-                  style={{
-                    backgroundColor: isCur ? domain.accent : undefined,
-                    color: isCur ? '#000000' : undefined,
-                  }}
-                  className={`font-mono-tech text-[10.5px] px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                    isCur
-                      ? 'font-bold shadow-md'
-                      : 'text-white/70 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  0{dIdx + 1} {domain.name}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+
       </div>
     </ChapterShell>
   );
