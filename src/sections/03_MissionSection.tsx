@@ -58,10 +58,10 @@ export const MissionSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#F1F1EF]"
     >
-      <div className="relative w-full h-full flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-4 px-3 sm:px-6 lg:px-8 box-border select-none">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-6 px-3 sm:px-6 lg:px-8 box-border select-none">
 
-        {/* Main Inset White Panel - Expanded to fill viewport with even distribution */}
-        <div className="relative w-full h-full max-h-[700px] max-w-[1400px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-[4px] flex flex-col justify-between p-4 sm:p-6 lg:p-7 xl:p-8 box-border z-10">
+        {/* Main Inset White Panel - Centered vertically in viewport */}
+        <div className="relative w-full my-auto max-w-[1400px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-[4px] flex flex-col justify-between p-4 sm:p-6 lg:p-7 xl:p-8 box-border z-10">
 
           {/* Main Content Area Evenly Distributed */}
           <div ref={contentRef} className="flex-1 flex flex-col justify-between h-full overflow-hidden">
