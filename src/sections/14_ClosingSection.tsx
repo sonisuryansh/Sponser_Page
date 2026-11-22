@@ -116,13 +116,13 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         />
       </div>
 
-      {/* Main Viewport Container */}
+      {/* Main Viewport Container (Centered in 100svh window) */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full h-full flex flex-col justify-between pt-[calc(var(--header-h,64px)+12px)] pb-6 px-4 sm:px-8 lg:px-14 box-border select-none"
+        className="relative z-10 w-full my-auto flex flex-col justify-center py-3 sm:py-4 px-4 sm:px-8 lg:px-14 box-border select-none"
       >
         {/* Center: The Architectural Executive Monolith Card */}
-        <div className="my-auto w-full max-w-[1240px] mx-auto bg-[#0A1017]/85 backdrop-blur-2xl border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] p-6 sm:p-9 lg:p-11 relative overflow-hidden">
+        <div className="w-full max-w-[1240px] mx-auto bg-[#0A1017]/85 backdrop-blur-2xl border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] p-6 sm:p-8 lg:p-8 relative overflow-hidden mb-3">
           
           {/* Subtle Decorative Architectural Corner Crosshairs */}
           <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-[#c8a45d]/60 pointer-events-none" />
@@ -131,7 +131,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
           <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-[#c8a45d]/60 pointer-events-none" />
 
           {/* Top Metadata Row: Chapter Indicator & 4 Connected Domains */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-5 mb-6 border-b border-white/10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 mb-5 border-b border-white/10">
             <div className="flex items-center gap-2.5">
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c8a45d] opacity-75" />
@@ -156,31 +156,31 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
           </div>
 
           {/* Core Invitation Content: Headline & Vision Quote */}
-          <div className="max-w-4xl mb-8">
+          <div className="max-w-4xl mb-6">
             <h2
               ref={headlineRef}
-              className="font-serif text-[clamp(28px,3.8vw,54px)] font-normal leading-[1.12] tracking-tight text-white mb-4"
+              className="font-serif text-[clamp(26px,3.5vw,48px)] font-normal leading-[1.12] tracking-tight text-white mb-3"
             >
               {siteConfig.closing.headline}
             </h2>
 
             <div className="border-l-2 border-[#c8a45d] pl-4 sm:pl-5 py-0.5">
-              <p className="text-base sm:text-lg md:text-xl text-white/85 font-serif italic leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-white/85 font-serif italic leading-relaxed">
                 &ldquo;{siteConfig.closing.line}&rdquo;
               </p>
             </div>
           </div>
 
           {/* Executive Interaction Hub: Compact, Refined Tactile Channels */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-7">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-5">
             {/* Primary Action Button: Schedule Consultation */}
             <button
               onClick={onOpenContact}
-              className="group inline-flex items-center gap-3 px-5 sm:px-6 py-3 bg-gradient-to-r from-[#c8a45d] to-[#dfc07e] hover:from-[#dfc07e] hover:to-[#e8ce97] text-[#0A1016] font-mono text-xs sm:text-[12.5px] uppercase tracking-wider font-bold shadow-[0_6px_20px_rgba(200,164,93,0.3)] hover:shadow-[0_10px_25px_rgba(200,164,93,0.45)] transition-all cursor-pointer active:scale-95"
+              className="group inline-flex items-center gap-2 px-3.5 sm:px-4.5 py-2 bg-gradient-to-r from-[#c8a45d] to-[#dfc07e] hover:from-[#dfc07e] hover:to-[#e8ce97] text-[#0A1016] font-mono text-[11px] sm:text-xs uppercase tracking-wider font-bold shadow-[0_4px_16px_rgba(200,164,93,0.25)] hover:shadow-[0_8px_20px_rgba(200,164,93,0.4)] transition-all cursor-pointer active:scale-95"
             >
-              <Calendar className="w-4 h-4 text-[#0A1016]" />
+              <Calendar className="w-3.5 h-3.5 text-[#0A1016]" />
               <span>{siteConfig.closing.ctaText}</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
 
             {/* Direct Official Website Capsule */}
@@ -188,27 +188,27 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
               href={siteConfig.closing.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2.5 px-4 py-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 text-white font-mono text-xs sm:text-[12px] tracking-wide transition-all cursor-pointer"
+              className="group inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 text-white font-mono text-[11px] sm:text-xs tracking-wide transition-all cursor-pointer"
             >
-              <Globe className="w-3.5 h-3.5 text-[#c8a45d]" />
+              <Globe className="w-3 h-3 text-[#c8a45d]" />
               <span>www.medhaarc.com</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-3 h-3 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
             {/* Direct Institutional Inquiries Email Capsule */}
             <a
               href="mailto:team@medhaarc.com"
-              className="group inline-flex items-center gap-2.5 px-4 py-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 text-white font-mono text-xs sm:text-[12px] tracking-wide transition-all cursor-pointer"
+              className="group inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-[#c8a45d]/70 text-white font-mono text-[11px] sm:text-xs tracking-wide transition-all cursor-pointer"
             >
-              <Mail className="w-3.5 h-3.5 text-[#c8a45d]" />
+              <Mail className="w-3 h-3 text-[#c8a45d]" />
               <span>team@medhaarc.com</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-3 h-3 text-white/40 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </div>
 
           {/* Social Channels Strip */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-5 border-t border-white/10">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-4 border-t border-white/10">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#c8a45d] font-bold mr-1">
                 Official Channels:
               </span>
@@ -219,19 +219,19 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={soc.name}
-                  className="group inline-flex items-center gap-2 px-3 py-1.5 bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/60 rounded-none text-white/70 hover:text-[#c8a45d] transition-all text-xs font-mono"
+                  className="group inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/60 rounded-none text-white/70 hover:text-[#c8a45d] transition-all text-[11px] font-mono"
                 >
                   <span className="text-white/60 group-hover:text-[#c8a45d] transition-colors">
                     {soc.icon}
                   </span>
-                  <span className="text-[11px] tracking-wide">{soc.name}</span>
-                  <ArrowUpRight className="w-3 h-3 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <span className="text-[10.5px] tracking-wide">{soc.name}</span>
+                  <ArrowUpRight className="w-2.5 h-2.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
               ))}
             </div>
 
-            <div className="flex items-center gap-2 text-[10.5px] font-mono text-white/45">
-              <Sparkles className="w-3.5 h-3.5 text-[#c8a45d]/80" />
+            <div className="flex items-center gap-2 text-[10px] font-mono text-white/45">
+              <Sparkles className="w-3 h-3 text-[#c8a45d]/80" />
               <span>K-12 School Technology Innovation Ecosystem</span>
             </div>
           </div>
