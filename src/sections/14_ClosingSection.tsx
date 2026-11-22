@@ -155,24 +155,24 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
             </div>
           </div>
 
-          {/* Core Invitation Content: Headline & Vision Quote */}
-          <div className="max-w-4xl mb-6">
+          {/* Core Invitation Content: Headline & Vision Quote (Centered) */}
+          <div className="max-w-5xl mx-auto text-center mb-6">
             <h2
               ref={headlineRef}
-              className="font-serif text-[clamp(26px,3.5vw,48px)] font-normal leading-[1.12] tracking-tight text-white mb-3"
+              className="font-serif text-[clamp(26px,3.5vw,48px)] font-normal leading-[1.12] tracking-tight text-white mb-3 text-center"
             >
               {siteConfig.closing.headline}
             </h2>
 
-            <div className="border-l-2 border-[#c8a45d] pl-4 sm:pl-5 py-0.5">
-              <p className="text-sm sm:text-base md:text-lg text-white/85 font-serif italic leading-relaxed">
+            <div className="py-0.5 mx-auto">
+              <p className="text-sm sm:text-base md:text-lg text-white/85 font-serif italic leading-relaxed text-center">
                 &ldquo;{siteConfig.closing.line}&rdquo;
               </p>
             </div>
           </div>
 
-          {/* Executive Interaction Hub: Compact, Refined Tactile Channels */}
-          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-5">
+          {/* Executive Interaction Hub: Compact, Refined Tactile Channels (Centered) */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-5">
             {/* Primary Action Button: Schedule Consultation */}
             <button
               onClick={onOpenContact}
