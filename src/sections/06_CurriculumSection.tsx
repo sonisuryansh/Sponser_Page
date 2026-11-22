@@ -134,25 +134,25 @@ export const CurriculumSection: React.FC = () => {
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
       {/* Main Viewport Container */}
-      <div className="relative w-full h-full flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+12px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none z-10">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none z-10">
         
-        {/* Main Split Container (Exact Image 2 Structure - Locked Consistent Dimensions) */}
+        {/* Main Split Container - Compact proportions eliminating internal voids */}
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative w-full h-[500px] sm:h-[515px] lg:h-[530px] max-h-[calc(100svh-110px)] max-w-[1380px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
+          className="relative w-full my-auto h-[390px] sm:h-[405px] lg:h-[420px] max-h-[calc(100svh-120px)] max-w-[1160px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
         >
           
-          {/* Left Vertical Numbering Rail (Exact Image 2 Style: 01, 02, 03... ALL GRADES) */}
-          <div className="w-16 sm:w-20 lg:w-24 border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-6 lg:py-8 select-none shrink-0">
+          {/* Left Vertical Numbering Rail */}
+          <div className="w-14 sm:w-16 lg:w-20 border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-4 lg:py-5 select-none shrink-0">
             {/* Top Indicator */}
             <div className="px-3 sm:px-4">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] font-semibold block mb-6">
+              <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] font-semibold block mb-3 sm:mb-4">
                 GRADES
               </span>
 
               {/* Number Buttons List */}
-              <div className="flex flex-col gap-4 sm:gap-5">
+              <div className="flex flex-col gap-2.5 sm:gap-3">
                 {allStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
 
@@ -165,12 +165,12 @@ export const CurriculumSection: React.FC = () => {
                       }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
-                      <span className="font-mono text-sm sm:text-base lg:text-[16px] font-semibold tracking-wider">
+                      <span className="font-mono text-xs sm:text-sm lg:text-[15px] font-semibold tracking-wider">
                         0{idx + 1}
                       </span>
                       {isActive && (
                         <span
-                          className="w-[3px] h-5 bg-[#c8a45d] rounded-l absolute -right-3 sm:-right-4"
+                          className="w-[3px] h-4 bg-[#c8a45d] rounded-l absolute -right-3 sm:-right-4"
                           aria-hidden="true"
                         />
                       )}
@@ -181,7 +181,7 @@ export const CurriculumSection: React.FC = () => {
             </div>
 
             {/* Bottom Rail Label */}
-            <div className="px-3 sm:px-4 pt-4 border-t border-black/5">
+            <div className="px-3 sm:px-4 pt-3 border-t border-black/5">
               <span className="font-mono text-[8.5px] uppercase tracking-widest text-[#888888] font-bold block">
                 ROADMAP
               </span>
@@ -191,35 +191,35 @@ export const CurriculumSection: React.FC = () => {
           {/* Middle Content Area (Stage Details) */}
           <div
             ref={contentAreaRef}
-            className="flex-1 flex flex-col justify-between p-6 sm:p-8 lg:p-10 overflow-hidden bg-white"
+            className="flex-1 flex flex-col justify-between p-5 sm:p-6 lg:p-7 overflow-hidden bg-white"
           >
             {/* Top Section Eyebrow, Grade Badge & Stage Title */}
             <div>
-              <div className="stage-anim flex items-center justify-between gap-3 mb-2.5">
-                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
+              <div className="stage-anim flex items-center justify-between gap-3 mb-1.5">
+                <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
                   {siteConfig.curriculum.eyebrow}
                 </span>
-                <span className="px-2.5 py-0.5 rounded-[2px] bg-[#c8a45d]/10 border border-[#c8a45d]/40 text-[#8c6b24] font-mono text-[11px] font-semibold tracking-wider">
+                <span className="px-2 py-0.5 rounded-[2px] bg-[#c8a45d]/10 border border-[#c8a45d]/40 text-[#8c6b24] font-mono text-[10.5px] font-semibold tracking-wider">
                   {currentStage.gradeLabel}
                 </span>
               </div>
 
               {/* Stage Title */}
-              <h2 className="stage-anim font-serif text-2xl sm:text-3xl lg:text-[38px] font-medium text-[#111111] leading-[1.15] tracking-tight mb-3">
+              <h2 className="stage-anim font-serif text-xl sm:text-2xl lg:text-[28px] font-medium text-[#111111] leading-[1.15] tracking-tight mb-2">
                 {currentStage.title}
               </h2>
 
               {/* Focus Description */}
-              <p className="stage-anim font-sans text-xs sm:text-[13.5px] text-[#555555] leading-[1.65] max-w-xl mb-4 font-normal">
+              <p className="stage-anim font-sans text-xs sm:text-[12.5px] text-[#555555] leading-normal max-w-xl mb-2.5 font-normal">
                 {currentStage.focus}
               </p>
 
               {/* Chips / Topics */}
-              <div className="stage-anim flex flex-wrap gap-2 pt-2 border-t border-black/10">
+              <div className="stage-anim flex flex-wrap gap-1.5 sm:gap-2 pt-1.5 border-t border-black/10">
                 {currentStage.chips.map((chip) => (
                   <div
                     key={chip}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[2px] bg-[#FAF9F6] border border-black/10 font-sans text-[11px] text-[#222222]"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-[#FAF9F6] border border-black/10 font-sans text-[10.5px] text-[#222222]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
                     <span>{chip}</span>
@@ -228,8 +228,8 @@ export const CurriculumSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Bottom Metadata Strip (Image 2 signature bottom details) */}
-            <div className="stage-anim pt-4 mt-auto border-t border-black/10">
+            {/* Bottom Metadata Strip */}
+            <div className="stage-anim pt-3 mt-auto border-t border-black/10">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] block mb-1">
