@@ -75,11 +75,11 @@ export const LearningApproachSection: React.FC = () => {
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#F1F1EF]/40 via-transparent to-transparent" />
       </div>
 
-      {/* Main Viewport Container - Aligned upward for elevated comfortable reading position */}
-      <div className="relative w-full h-full flex flex-col justify-start items-start pt-[calc(var(--header-h,64px)+14px)] sm:pt-[calc(var(--header-h,64px)+20px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none z-10">
+      {/* Main Viewport Container - Vertically centered in viewport */}
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-start pt-[calc(var(--header-h,64px)+10px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none z-10">
         
         {/* Main Inset White Panel */}
-        <div className="relative w-full sm:w-[92%] lg:w-[76%] xl:w-[74%] bg-[#FFFFFD] shadow-[0_15px_45px_rgba(0,0,0,0.05)] border border-black/5 flex flex-col p-6 sm:p-7 lg:p-8 box-border">
+        <div className="relative w-full sm:w-[92%] lg:w-[76%] xl:w-[74%] my-auto bg-[#FFFFFD] shadow-[0_15px_45px_rgba(0,0,0,0.05)] border border-black/5 flex flex-col p-6 sm:p-7 lg:p-8 box-border">
           
           {/* Top & Middle Content Area */}
           <div ref={contentRef} className="w-full flex flex-col gap-3.5 sm:gap-4">
