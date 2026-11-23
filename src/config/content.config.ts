@@ -9,7 +9,7 @@
  * - No "Recommended" tag and no "Select tier" buttons
  * - Plain school English (no unexplained technical jargon)
  * - Name is MedhaArc Labs everywhere. Tagline: "From Curiosity to Engineering and Innovation."
- * - Footer: "MedhaArc Labs | X Private Limited"
+ * - Footer: "MedhaArc Labs | MedhaArc Private Limited"
  */
 
 export interface DomainItem {
@@ -55,7 +55,7 @@ export interface PricingTier {
 export const siteConfig = {
   // Brand
   brandName: 'MedhaArc Labs',
-  legalEntity: 'X Private Limited',
+  legalEntity: 'MedhaArc Private Limited',
   tagline: 'From Curiosity to Engineering and Innovation.',
   heroSubline: 'A school-focused technology learning initiative',
 
@@ -684,7 +684,7 @@ export const siteConfig = {
       'Aerial Systems',
     ],
     ctaText: 'Schedule a School Consultation',
-    footerText: 'MedhaArc Labs | X Private Limited',
+    footerText: 'MedhaArc Labs | MedhaArc Private Limited',
     websiteUrl: 'https://www.medhaarc.com/',
     socialLinks: [
       { name: 'Instagram', url: 'https://www.instagram.com/medhaarc' },
