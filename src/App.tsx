@@ -30,7 +30,7 @@ export function App() {
   // Ordered list of section metadata (14 sections)
   // Respects swapRequirementsAndPricing toggle
   const orderedSections = useMemo(() => {
-    const list: Array<{ id: string; title: string; number: string; theme: 'dark' | 'light' }> = [];
+    const list: Array<{ id: string; title: string; subtitle?: string; number: string; theme: 'dark' | 'light' }> = [];
 
     siteConfig.acts.forEach((act) => {
       act.sections.forEach((sec) => {

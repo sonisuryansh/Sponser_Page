@@ -99,6 +99,24 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleSelectSection = (id: string) => {
     setIsMenuOpen(false);
+
+    // Calculate flat slide index across 5 Acts
+    let flatIdx = 0;
+    let found = false;
+    for (const act of siteConfig.acts) {
+      for (const sec of act.sections) {
+        if (sec.id === id) {
+          found = true;
+          break;
+        }
+        flatIdx++;
+      }
+      if (found) break;
+    }
+
+    if (found) {
+      window.dispatchEvent(new CustomEvent('go-to-slide', { detail: flatIdx }));
+    }
     onNavigate(id);
   };
 
@@ -234,25 +252,41 @@ export const Header: React.FC<HeaderProps> = ({
                   </p>
                 </div>
 
-                <ul className="space-y-3.5">
+                <ul className="space-y-2.5 sm:space-y-3">
                   {act.sections.map((section) => {
                     const isActive = currentSectionId === section.id;
+                    const subtitle = (section as { subtitle?: string }).subtitle;
                     return (
                       <li key={section.id}>
                         <button
                           onClick={() => handleSelectSection(section.id)}
-                          className={`group flex items-baseline text-left w-full transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white cursor-pointer ${
+                          className={`group flex flex-col text-left w-full p-2 -mx-2 rounded-[3px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer ${
                             isActive
-                              ? 'text-white font-medium'
-                              : 'text-white/60 hover:text-white'
+                              ? 'bg-white/[0.08] border-l-2 border-[#c8a45d] text-white pl-2.5 shadow-[inset_0_0_12px_rgba(200,164,93,0.1)]'
+                              : 'hover:bg-white/[0.04] border-l-2 border-transparent hover:border-white/30 text-white/70 hover:text-white pl-2'
                           }`}
                         >
-                          <span className="text-[11px] font-mono text-white/40 mr-2.5">
-                            {section.number}
-                          </span>
-                          <span className="text-sm md:text-[15px] tracking-wide relative pb-0.5 group-hover:after:scale-x-100 after:scale-x-0 after:origin-left after:transition-transform after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-white">
-                            {section.title}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`text-[10px] font-mono transition-colors ${
+                                isActive ? 'text-[#c8a45d] font-bold' : 'text-white/40 group-hover:text-white/70'
+                              }`}
+                            >
+                              {section.number}
+                            </span>
+                            <span
+                              className={`text-sm md:text-[14px] font-serif tracking-tight transition-colors ${
+                                isActive ? 'text-white font-medium' : 'text-white/85 group-hover:text-white'
+                              }`}
+                            >
+                              {section.title}
+                            </span>
+                          </div>
+                          {subtitle && (
+                            <span className="text-[10.5px] font-sans text-white/45 group-hover:text-white/70 mt-0.5 leading-tight pl-4 sm:pl-4.5 transition-colors">
+                              {subtitle}
+                            </span>
+                          )}
                         </button>
                       </li>
                     );
