@@ -49,14 +49,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       className="select-none relative flex items-center justify-center min-h-[100svh] w-full"
     >
       <div className="w-full flex-1 flex flex-col justify-center items-center text-center py-6 sm:py-8 relative z-10 max-w-6xl mx-auto px-4 my-auto">
-        {/* Top Cyan Badge (Square Technical Box): • TECHNOLOGY, SHAPED BY CURIOSITY */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-[2px] border border-sky-400/40 bg-[#0d2235]/75 backdrop-blur-md shadow-[0_0_16px_rgba(56,189,248,0.2)] mb-3 sm:mb-4">
-          <span className="w-1.5 h-1.5 rounded-[1px] bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,1)] animate-pulse" />
-          <span className="font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-sky-300">
-            TECHNOLOGY, SHAPED BY CURIOSITY
-          </span>
-        </div>
-
         {/* Eyebrow: WE ARE */}
         <p className="font-mono text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.35em] text-white/85 mb-1 sm:mb-1.5 drop-shadow">
           WE ARE

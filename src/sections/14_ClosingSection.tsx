@@ -121,8 +121,32 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         ref={containerRef}
         className="relative z-10 w-full my-auto flex flex-col justify-center py-3 sm:py-4 px-4 sm:px-8 lg:px-14 box-border select-none"
       >
-        {/* Center: The Architectural Executive Monolith Card */}
-        <div className="w-full max-w-[1240px] mx-auto bg-[#0A1017]/85 backdrop-blur-2xl border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] p-6 sm:p-8 lg:p-8 relative overflow-hidden mb-3">
+        {/* Top Header: Eyebrow, Main Title & Vision Quote (Outside Box) */}
+        <div className="max-w-4xl mx-auto text-center mb-5 sm:mb-6">
+          <div className="flex items-center justify-center gap-2 mb-2 sm:mb-2.5">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c8a45d] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c8a45d]" />
+            </span>
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
+              {siteConfig.closing.eyebrow}
+            </span>
+          </div>
+
+          <h2
+            ref={headlineRef}
+            className="font-serif text-[clamp(26px,3.8vw,48px)] font-normal leading-[1.14] tracking-tight text-white mb-2 text-center"
+          >
+            {siteConfig.closing.headline}
+          </h2>
+
+          <p className="text-sm sm:text-base md:text-lg text-white/80 font-serif italic leading-relaxed text-center">
+            &ldquo;{siteConfig.closing.line}&rdquo;
+          </p>
+        </div>
+
+        {/* Center: The Architectural Executive Action Hub Box */}
+        <div className="w-full max-w-[1240px] mx-auto bg-[#0A1017]/85 backdrop-blur-2xl border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] p-5 sm:p-6 lg:p-7 relative overflow-hidden mb-3">
           
           {/* Subtle Decorative Architectural Corner Crosshairs */}
           <span className="absolute top-2 left-2 w-2 h-2 border-t border-l border-[#c8a45d]/60 pointer-events-none" />
@@ -130,49 +154,20 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
           <span className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-[#c8a45d]/60 pointer-events-none" />
           <span className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-[#c8a45d]/60 pointer-events-none" />
 
-          {/* Top Metadata Row: Chapter Indicator & 4 Connected Domains */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 mb-5 border-b border-white/10">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c8a45d] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c8a45d]" />
+          {/* Top Domain Pill Strip inside Box */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 pb-3.5 mb-4 border-b border-white/10">
+            {siteConfig.closing.domainsRow.map((domain) => (
+              <span
+                key={domain}
+                className="font-mono text-[9.5px] uppercase tracking-wider px-2.5 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-white/70"
+              >
+                {domain}
               </span>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
-                {siteConfig.closing.eyebrow}
-              </span>
-            </div>
-
-            {/* 4 Connected Domains Pill Strip */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              {siteConfig.closing.domainsRow.map((domain) => (
-                <span
-                  key={domain}
-                  className="font-mono text-[9.5px] uppercase tracking-wider px-2.5 py-0.5 rounded-[2px] bg-white/[0.05] border border-white/10 text-white/70"
-                >
-                  {domain}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Core Invitation Content: Headline & Vision Quote (Centered) */}
-          <div className="max-w-5xl mx-auto text-center mb-6">
-            <h2
-              ref={headlineRef}
-              className="font-serif text-[clamp(26px,3.5vw,48px)] font-normal leading-[1.12] tracking-tight text-white mb-3 text-center"
-            >
-              {siteConfig.closing.headline}
-            </h2>
-
-            <div className="py-0.5 mx-auto">
-              <p className="text-sm sm:text-base md:text-lg text-white/85 font-serif italic leading-relaxed text-center">
-                &ldquo;{siteConfig.closing.line}&rdquo;
-              </p>
-            </div>
+            ))}
           </div>
 
           {/* Executive Interaction Hub: Compact, Refined Tactile Channels (Centered) */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-5">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-4">
             {/* Primary Action Button: Schedule Consultation */}
             <button
               onClick={onOpenContact}
@@ -207,7 +202,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
           </div>
 
           {/* Social Channels Strip */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-4 border-t border-white/10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3.5 border-t border-white/10">
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#c8a45d] font-bold mr-1">
                 Official Channels:
