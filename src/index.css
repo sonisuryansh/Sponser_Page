@@ -107,17 +107,6 @@
   display: none;
 }
 
-.slide-transition-gold-block {
-  position: absolute;
-  z-index: 40;
-  left: 0;
-  bottom: 0;
-  width: 52px;
-  height: 40px;
-  opacity: 0;
-  pointer-events: none;
-}
-
 .slide-transition-shutters {
   position: absolute;
   z-index: 35;

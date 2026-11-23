@@ -39,7 +39,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   const lastGestureTimeRef = useRef(0);
   const wrappersRef = useRef<(HTMLDivElement | null)[]>([]);
   const backdropRef = useRef<HTMLDivElement>(null);
-  const goldBlockRef = useRef<HTMLDivElement>(null);
   const shuttersRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -50,7 +49,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         skewX: -4,
       });
     }
-    gsap.set(goldBlockRef.current, { y: 60, opacity: 0 });
     gsap.set(backdropRef.current, { opacity: 0 });
   }, []);
 
@@ -111,7 +109,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
           { clearProps: 'transform,opacity,clipPath,scale' }
         );
         gsap.set(backdropRef.current, { opacity: 0 });
-        gsap.set(goldBlockRef.current, { y: 60, opacity: 0 });
         if (shuttersRef.current) {
           gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
             xPercent: 110,
@@ -206,23 +203,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         );
       }
 
-      // 5. Gold accent block accentuates the transition
-      if (goldBlockRef.current) {
-        timeline
-          .fromTo(
-            goldBlockRef.current,
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' },
-            0.22
-          )
-          .to(
-            goldBlockRef.current,
-            { y: -30, opacity: 0, duration: 0.26, ease: 'power2.in' },
-            0.52
-          );
-      }
-
-      // 6. SWAP SLIDES while screen is fully covered by shutters at t = 0.44s
+      // 5. SWAP SLIDES while screen is fully covered by shutters at t = 0.44s
       timeline.add(() => {
         gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden' });
         gsap.set(toWrapper, { opacity: 1, visibility: 'visible' });
@@ -580,12 +561,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         })}
       </div>
 
-      <div
-        ref={goldBlockRef}
-        className="slide-transition-gold-block"
-        style={{ backgroundColor: accentColor }}
-        aria-hidden="true"
-      />
       <div ref={shuttersRef} className="slide-transition-shutters" aria-hidden="true">
         <div className="shutter-strip shutter-strip-light" />
         <div className="shutter-strip shutter-strip-gold" style={{ backgroundColor: accentColor }} />
