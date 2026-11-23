@@ -83,7 +83,7 @@ export const AboutSection: React.FC = () => {
         ref={containerRef}
         className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between pt-[calc(var(--header-h,64px)+12px)] pb-6 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1380px] mx-auto"
       >
-        {/* Top Header Bar: Strategic Focus, Aim & Vision, and Hands-on badge */}
+        {/* Top Header Bar: Strategic Focus, Aim & Vision */}
         <div className="editorial-reveal flex-none flex flex-wrap items-center justify-between gap-3 pb-2.5 border-b border-black/10">
           <div className="flex items-center gap-2.5">
             <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[#0284c7] font-bold">
@@ -95,19 +95,14 @@ export const AboutSection: React.FC = () => {
             </span>
           </div>
 
-          <p className="font-serif italic text-xs sm:text-[13px] text-[#666666] hidden md:block max-w-xl text-center">
+          <p className="font-serif italic text-xs sm:text-[13px] text-[#666666] hidden md:block text-right">
             &ldquo;Transforming passive consumers of technology into active creators, thinkers, and innovators.&rdquo;
           </p>
-
-          <div className="flex items-center gap-2 px-3 py-1 bg-white/90 border border-black/10 rounded-full shadow-xs text-[10.5px] font-mono text-[#333333]">
-            <span className="text-[#0284c7] font-bold">✦</span>
-            <span>4 Connected Domains • Hands-On Labs</span>
-          </div>
         </div>
 
         {/* 3-Column Editorial Core Composition (Aim, Photo Hero, Vision & Focus) */}
         <div className="flex-1 my-auto py-2 flex flex-col justify-center">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-center">
 
             {/* Left Column: Our Aim & Core Objective (Span 3 of 12) */}
             <div className="editorial-reveal lg:col-span-3 flex flex-col justify-center">
@@ -138,7 +133,7 @@ export const AboutSection: React.FC = () => {
 
             {/* Center Column: School Lab Session Photo Card (Span 5 of 12) */}
             <div className="editorial-reveal lg:col-span-5 flex flex-col items-center justify-center">
-              <div className="relative w-full max-w-[430px] aspect-[4/3.1] rounded-2xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-black/10 group bg-neutral-900">
+              <div className="relative w-full max-w-[500px] aspect-[4/3.1] rounded-2xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-black/10 group bg-neutral-900">
                 <img
                   src="/assets/aim_vision_lab_session.webp"
                   alt="School Laboratory Session"
