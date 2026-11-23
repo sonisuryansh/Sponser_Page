@@ -40,6 +40,7 @@ export interface CurriculumStage {
   title: string;
   focus: string;
   chips: string[];
+  outcome?: string;
 }
 
 export interface PricingTier {
@@ -303,6 +304,7 @@ export const siteConfig = {
         title: 'Digital Creation & Logic',
         focus: 'Digital creation, visual/block-based coding, logic, and foundational design',
         chips: ['Block Coding', 'Logic & Sequences', 'Foundational Design'],
+        outcome: 'Students transition from consumers to builders, designing interactive animations and sequential algorithms using intuitive visual blocks.',
       },
       {
         id: 'grade-5-6',
@@ -310,6 +312,7 @@ export const siteConfig = {
         title: 'Introductory Electronics & Construction',
         focus: 'Block coding, logic, digital creation, and introductory electronics and design',
         chips: ['Physical Computing', 'Sensory Feedback', 'Visual Programming'],
+        outcome: 'Learners wire practical circuits, interface tactile sensors with motor actuators, and bridge digital code with mechanical movement.',
       },
       {
         id: 'grade-7',
@@ -317,6 +320,7 @@ export const siteConfig = {
         title: 'Python Foundations',
         focus: 'Python foundations and introductory programming projects',
         chips: ['Syntax & Flow', 'Variables & Loops', 'Mini Projects'],
+        outcome: 'Students advance from visual blocks to text-based Python syntax, mastering variables, logic loops, and modular functions through guided mini-builds.',
       },
       {
         id: 'grade-8',
@@ -324,6 +328,7 @@ export const siteConfig = {
         title: 'Python Development & Electronics',
         focus: 'Python development, problem-solving, electronics, and suitable data structures',
         chips: ['Data Structures', 'Microcontroller Logic', 'System Problem-Solving'],
+        outcome: 'Combines Python programming with microcontrollers, enabling students to harvest live sensor data and build automated response systems.',
       },
       {
         id: 'grade-9',
@@ -331,6 +336,7 @@ export const siteConfig = {
         title: 'Advanced Programming & Systems',
         focus: 'Advanced programming foundations, electronics/IoT, and systems thinking',
         chips: ['Connected Sensors', 'Systems Thinking', 'Annual Project Showcase'],
+        outcome: 'Focuses on connected IoT telemetry, network protocols, and systems thinking, preparing students for annual engineering showcases.',
       },
       {
         id: 'grade-10',
@@ -338,6 +344,7 @@ export const siteConfig = {
         title: 'Data Analytics & Capstone Builds',
         focus: 'Data Analytics using suitable tools and project-based analysis',
         chips: ['Data Analysis', 'Hypothesis Testing', 'Capstone Portfolio'],
+        outcome: 'Students execute end-to-end engineering capstones, analyzing multi-sensor datasets and presenting working prototypes to teachers and peers.',
       },
     ] as CurriculumStage[],
     beyondGrade10: [
@@ -347,6 +354,7 @@ export const siteConfig = {
         title: 'Statistical Modeling & Machine Learning',
         focus: 'Statistics foundations, Machine Learning concepts and model training',
         chips: ['Model Architecture', 'Statistical Inference', 'Applied Exploration'],
+        outcome: 'Hands-on exploration of statistical inference, data pipelines, and machine learning models applied to real-world datasets.',
       },
       {
         id: 'grade-12',
@@ -354,6 +362,7 @@ export const siteConfig = {
         title: 'Integrated AI & Autonomous Systems',
         focus: 'AI/ML integrated with Robotics, spatial intelligence, and senior capstones',
         chips: ['Vision Models', 'Integrated Robotics', 'Senior Portfolio'],
+        outcome: 'Advanced synthesis of deep learning models and autonomous robotics systems with real-time feedback loops.',
       },
     ] as CurriculumStage[],
   },

@@ -226,6 +226,18 @@ export const CurriculumSection: React.FC = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Learning Outcome / 1-2 Line Description */}
+              {currentStage.outcome && (
+                <div className="stage-anim mt-3 pt-2.5 border-t border-black/8">
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
+                    LEARNING OUTCOME
+                  </span>
+                  <p className="font-sans text-xs sm:text-[12px] text-[#555555] leading-relaxed max-w-xl font-normal">
+                    {currentStage.outcome}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Bottom Metadata Strip */}
