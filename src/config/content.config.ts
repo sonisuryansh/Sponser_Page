@@ -628,7 +628,7 @@ export const siteConfig = {
     eyebrow: 'Transparent Investment',
     headline: 'Pricing Packages',
     label: 'Proposed pricing, per student per month',
-    footnote: 'Kits stay in the school lab and are shared. Final terms are agreed with each school.',
+    footnote: 'Kits stay in the school lab and are shared. Final terms are agreed with each school. Applicable GST extra. Terms & Conditions apply.',
     tiers: [
       {
         id: 'foundation',
