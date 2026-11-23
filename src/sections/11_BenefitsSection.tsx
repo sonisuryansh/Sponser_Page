@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { Wrench, Boxes, Award, Trophy, FolderKanban, Check, Sparkles } from 'lucide-react';
+import { Wrench, Boxes, Award, Trophy, FolderKanban, Check, Sparkles, X, Info } from 'lucide-react';
 import gsap from 'gsap';
 
 const benefitIcons: Record<string, React.ReactNode> = {
@@ -28,9 +28,47 @@ const pillarKeyDeliverables = [
   'Documented portfolio for higher education',
 ];
 
+const benefitPopups = [
+  {
+    title: 'Practical Engineering Rigor',
+    purpose: 'Equips students with hands-on problem-solving, computational logic, and mechanical design skills that classroom textbooks alone cannot impart.',
+    badge: 'Direct Student Competence',
+  },
+  {
+    title: 'Tangible Proof of Learning',
+    purpose: 'Transforms abstract formulas into working physical hardware—rovers, sensors, and flight drones—giving parents and school leadership visible proof of innovation.',
+    badge: 'Transparent Parent Value',
+  },
+  {
+    title: 'Accredited Milestone Credentials',
+    purpose: 'Grants formal, verifiable certificates upon completing each grade-wise level, providing accredited recognition for college profiles and academic records.',
+    badge: 'Accredited Recognition',
+  },
+  {
+    title: 'Inter-School & Regional Arenas',
+    purpose: 'Prepares and coaches school teams for prestigious regional and national STEM hackathons, building institutional reputation and school pride.',
+    badge: 'Institutional Prestige',
+  },
+  {
+    title: 'Career & College Portfolio Assets',
+    purpose: 'Builds an authenticated, verifiable digital archive of every working prototype and code repository, serving as an indispensable edge for higher education admissions.',
+    badge: 'Higher Ed Admission Edge',
+  },
+];
+
 export const BenefitsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
+
+  // Close popup on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveCardIndex(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -89,14 +127,10 @@ export const BenefitsSection: React.FC = () => {
 
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[34px] font-normal leading-tight tracking-tight text-[#111111] mb-1 text-center"
+            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[34px] font-normal leading-tight tracking-tight text-[#111111] mb-1.5 text-center"
           >
             {siteConfig.benefits.headline}
           </h2>
-
-          <p className="editorial-reveal font-serif text-xs sm:text-[13px] text-[#555555] italic mb-1 text-center">
-            &ldquo;{siteConfig.benefits.schoolLine}&rdquo;
-          </p>
 
           <p className="editorial-reveal font-sans text-[11px] sm:text-xs text-[#666666] leading-relaxed max-w-xl text-center font-normal">
             Technology education provides immense institutional and parental value when students build tangible projects that families can celebrate, verify, and document for their academic futures.
@@ -125,11 +159,13 @@ export const BenefitsSection: React.FC = () => {
 
               // Clean description removing raw [confirm] notes
               const cleanDescription = card.description.replace(/\[confirm\]/g, '').trim();
+              const isPopupOpen = activeCardIndex === idx;
 
               return (
                 <div
                   key={card.title}
-                  className={`group relative flex flex-col justify-between p-3 sm:p-3.5 lg:p-4 bg-white/95 border border-black/10 rounded-[3px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-all duration-300 ${borderHoverAccents[idx]}`}
+                  onClick={() => setActiveCardIndex(isPopupOpen ? null : idx)}
+                  className={`group relative flex flex-col justify-between p-3 sm:p-3.5 lg:p-4 bg-white/95 border border-black/10 rounded-[3px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-all duration-300 cursor-pointer ${borderHoverAccents[idx]}`}
                 >
                   <div>
                     {/* Header Row */}
@@ -160,11 +196,72 @@ export const BenefitsSection: React.FC = () => {
 
                   {/* Concrete Student Outcome Highlight */}
                   <div className="pt-2 border-t border-black/5 mt-auto">
-                    <div className="flex items-start gap-1.5 text-[9.5px] sm:text-[10px] text-[#666666] font-sans leading-tight">
+                    <div className="flex items-start gap-1.5 text-[9.5px] sm:text-[10px] text-[#666666] font-sans leading-tight mb-1.5">
                       <Check className="w-3 h-3 text-[#c8a45d] shrink-0 mt-0.5 stroke-[2.5]" />
-                      <span>{pillarKeyDeliverables[idx]}</span>
+                      <span className="truncate">{pillarKeyDeliverables[idx]}</span>
+                    </div>
+
+                    {/* Subtle Click Indicator */}
+                    <div className="flex items-center justify-between pt-1 border-t border-black/5 text-[9px] font-mono text-[#c8a45d] font-bold">
+                      <span>Why this matters</span>
+                      <Info className="w-3 h-3 group-hover:scale-110 transition-transform" />
                     </div>
                   </div>
+
+                  {/* Card-Anchored Purpose Popover Overlay (Usi Card Ke Pas) */}
+                  {isPopupOpen && (
+                    <div
+                      className="absolute inset-0 z-30 bg-[#FFFFFD] border-2 border-[#c8a45d] rounded-[3px] p-2.5 sm:p-3 flex flex-col justify-between shadow-[0_12px_36px_rgba(0,0,0,0.14)] animate-in fade-in zoom-in-95 duration-200 select-text"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div>
+                        {/* Popover Header */}
+                        <div className="flex items-center justify-between pb-1 mb-1.5 border-b border-black/8">
+                          <div className="flex items-center gap-1">
+                            <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-[#c8a45d]">
+                              0{idx + 1} &bull; {card.title}
+                            </span>
+                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveCardIndex(null);
+                            }}
+                            className="p-0.5 text-[#666666] hover:text-[#111111] bg-black/5 hover:bg-black/10 rounded-full transition-colors cursor-pointer"
+                            aria-label="Close details"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+
+                        {/* Popover Heading */}
+                        <h4 className="font-serif text-[13.5px] sm:text-[14px] font-medium text-[#111111] mb-1 leading-snug">
+                          {benefitPopups[idx].title}
+                        </h4>
+
+                        {/* Light Informative Description */}
+                        <p className="font-sans text-[10px] sm:text-[10.5px] text-[#444444] leading-relaxed">
+                          {benefitPopups[idx].purpose}
+                        </p>
+                      </div>
+
+                      {/* Popover Bottom Bar */}
+                      <div className="pt-1.5 border-t border-black/8 mt-auto flex items-center justify-between">
+                        <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#888888] font-semibold truncate mr-1">
+                          {benefitPopups[idx].badge}
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveCardIndex(null);
+                          }}
+                          className="font-mono text-[9px] text-[#c8a45d] font-bold hover:underline cursor-pointer shrink-0"
+                        >
+                          Close &times;
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
