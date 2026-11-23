@@ -502,8 +502,8 @@ export const siteConfig = {
     statusNotice: 'Resources are being developed grade by grade.',
     tiles: [
       {
-        title: 'Books',
-        description: 'Grade-wise workbooks that guide each activity.',
+        title: 'E-Books',
+        description: 'Grade-wise digital workbooks that guide each hands-on activity.',
         tag: 'Workbook',
       },
       {
