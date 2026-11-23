@@ -59,27 +59,27 @@ export const LearningApproachSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#F1F1EF]"
     >
-      {/* Background Section Image Visible on the Right 28% with soft bottom & left fades */}
+      {/* Background Section Image Visible on the Right Half (50%) with soft gradient blend */}
       <div
-        className="absolute top-0 right-0 w-full sm:w-[35%] lg:w-[28%] h-full z-0 overflow-hidden pointer-events-none select-none"
+        className="absolute top-0 right-0 w-full sm:w-[50%] lg:w-[50%] h-full z-0 overflow-hidden pointer-events-none select-none"
         aria-hidden="true"
       >
         <img
           src="/assets/students_robotics.webp"
           alt="Students engaged in hands-on robotics and technology learning"
-          className="w-full h-full object-cover object-center filter saturate-[0.7] contrast-[1.05] brightness-[0.92]"
+          className="w-full h-full object-cover object-center filter saturate-[0.75] contrast-[1.05] brightness-[0.95]"
         />
-        {/* Graded gentle overlays ensuring the right edge and bottom scroll indicator are crisp */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F1F1EF] via-[#F1F1EF]/15 to-[#F1F1EF]/35" />
-        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#F1F1EF] via-[#F1F1EF]/60 to-transparent" />
+        {/* Graded gentle overlays ensuring clean blend into background and crisp text */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F1F1EF] via-[#F1F1EF]/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F1F1EF] via-[#F1F1EF]/60 to-transparent" />
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#F1F1EF]/40 via-transparent to-transparent" />
       </div>
 
       {/* Main Viewport Container - Standardized 1240px & Vertically centered */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-start pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-start pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-0 box-border select-none z-10 max-w-[1240px] mx-auto">
         
-        {/* Main Inset White Panel */}
-        <div className="relative w-full sm:w-[92%] lg:w-[76%] xl:w-[74%] my-auto bg-[#FFFFFD] shadow-[0_15px_45px_rgba(0,0,0,0.05)] border border-black/5 flex flex-col p-6 sm:p-7 lg:p-8 box-border">
+        {/* Main Inset White Panel - Standardized Left Alignment & Half-Page Width */}
+        <div className="relative w-full lg:w-[54%] xl:w-[52%] max-w-[660px] my-auto bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[4px] flex flex-col p-6 sm:p-7 box-border">
           
           {/* Top & Middle Content Area */}
           <div ref={contentRef} className="w-full flex flex-col gap-3.5 sm:gap-4">
