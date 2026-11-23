@@ -75,32 +75,65 @@ export const ProjectShowcaseSection: React.FC = () => {
             </h2>
           </div>
 
-          {/* Quick Project Switcher Pills (Centered & clean without arrow buttons) */}
-          <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap mb-3.5 pb-2.5 border-b border-black/8">
-            {projects.map((proj, idx) => {
-              const isActive = activeProjectIndex === idx;
-              return (
-                <button
-                  key={proj.id}
-                  onClick={() => setActiveProjectIndex(idx)}
-                  className={`group px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-[3px] border font-mono text-[10px] sm:text-[11px] tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
-                    isActive
-                      ? 'bg-[#111111] border-[#111111] text-[#FAF6EE] shadow-sm'
-                      : 'bg-[#FAF9F6] border-black/8 text-[#666666] hover:text-[#111111] hover:border-black/25'
-                  }`}
-                >
-                  <span className={isActive ? 'text-[#c8a45d] font-bold' : 'text-[#888888]'}>
-                    0{idx + 1}
-                  </span>
-                  <span className="font-sans font-medium truncate max-w-[140px] lg:max-w-[170px]">
-                    {proj.name}
-                  </span>
-                  <span className={`text-[9.5px] px-1.5 py-0.2 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-[#777777]'}`}>
-                    {proj.grade}
-                  </span>
-                </button>
-              );
-            })}
+          {/* Quick Project Switcher Pills (3 on Top, 2 Below Centered) */}
+          <div className="flex flex-col items-center justify-center gap-2 mb-3.5 pb-2.5 border-b border-black/8">
+            {/* Top Row: 3 Projects Centered */}
+            <div className="flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
+              {projects.slice(0, 3).map((proj, idx) => {
+                const actualIdx = idx;
+                const isActive = activeProjectIndex === actualIdx;
+                return (
+                  <button
+                    key={proj.id}
+                    onClick={() => setActiveProjectIndex(actualIdx)}
+                    className={`group px-3 py-1.5 rounded-[3px] border font-mono text-[10px] sm:text-[11px] tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+                      isActive
+                        ? 'bg-[#111111] border-[#111111] text-[#FAF6EE] shadow-sm'
+                        : 'bg-[#FAF9F6] border-black/8 text-[#666666] hover:text-[#111111] hover:border-black/25'
+                    }`}
+                  >
+                    <span className={isActive ? 'text-[#c8a45d] font-bold' : 'text-[#888888]'}>
+                      0{actualIdx + 1}
+                    </span>
+                    <span className="font-sans font-medium whitespace-nowrap">
+                      {proj.name}
+                    </span>
+                    <span className={`text-[9.5px] px-1.5 py-0.5 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-[#777777]'}`}>
+                      {proj.grade}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Bottom Row: 2 Projects Centered */}
+            <div className="flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
+              {projects.slice(3, 5).map((proj, idx) => {
+                const actualIdx = idx + 3;
+                const isActive = activeProjectIndex === actualIdx;
+                return (
+                  <button
+                    key={proj.id}
+                    onClick={() => setActiveProjectIndex(actualIdx)}
+                    className={`group px-3 py-1.5 rounded-[3px] border font-mono text-[10px] sm:text-[11px] tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+                      isActive
+                        ? 'bg-[#111111] border-[#111111] text-[#FAF6EE] shadow-sm'
+                        : 'bg-[#FAF9F6] border-black/8 text-[#666666] hover:text-[#111111] hover:border-black/25'
+                    }`}
+                  >
+                    <span className={isActive ? 'text-[#c8a45d] font-bold' : 'text-[#888888]'}>
+                      0{actualIdx + 1}
+                    </span>
+                    <span className="font-sans font-medium whitespace-nowrap">
+                      {proj.name}
+                    </span>
+                    <span className={`text-[9.5px] px-1.5 py-0.5 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-[#777777]'}`}>
+                      {proj.grade}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Active Project Presentation: Details on Left, Compact Photo on Right */}
