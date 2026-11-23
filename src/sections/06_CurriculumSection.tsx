@@ -135,14 +135,14 @@ export const CurriculumSection: React.FC = () => {
     >
       {/* Main Viewport Container */}
       <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10">
-        
+
         {/* Main Split Container - Standardized 1240px & Scaled to Match Other Section Cards */}
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className="relative w-full my-auto h-[460px] sm:h-[490px] lg:h-[515px] xl:h-[525px] max-h-[calc(100svh-115px)] max-w-[1240px] bg-white border border-black/10 shadow-[0_18px_50px_rgba(0,0,0,0.05)] flex items-stretch overflow-hidden rounded-[4px]"
         >
-          
+
           {/* Left Vertical Numbering Rail */}
           <div className="w-14 sm:w-16 lg:w-[84px] border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-5 lg:py-6 select-none shrink-0">
             {/* Top Indicator */}
@@ -160,9 +160,8 @@ export const CurriculumSection: React.FC = () => {
                     <button
                       key={stage.id}
                       onClick={() => setActiveStageIndex(idx)}
-                      className={`group relative flex items-center justify-between text-left cursor-pointer transition-colors focus:outline-none ${
-                        isActive ? 'text-[#c8a45d]' : 'text-[#888888] hover:text-[#111111]'
-                      }`}
+                      className={`group relative flex items-center justify-between text-left cursor-pointer transition-colors focus:outline-none ${isActive ? 'text-[#c8a45d]' : 'text-[#888888] hover:text-[#111111]'
+                        }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
                       <span className="font-mono text-xs sm:text-sm lg:text-[15.5px] font-semibold tracking-wider">

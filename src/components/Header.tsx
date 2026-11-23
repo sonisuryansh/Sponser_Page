@@ -139,31 +139,14 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand / Logo Left */}
         <button
           onClick={() => handleSelectSection('home')}
-          className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer"
+          className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer group"
           aria-label="MedhaArc Labs home"
         >
           <img
-            src="/assets/medha_arc_nav_logo.webp"
-            alt=""
-            className={`w-7 h-7 object-contain transition-all duration-300 ${
-              isDark ? 'brightness-110' : 'brightness-0'
-            }`}
-            onError={(e) => {
-              (e.currentTarget as HTMLElement).style.display = 'none';
-            }}
+            src={isDark ? '/assets/medhaarc_official_logo_white.png' : '/assets/medhaarc_official_logo.png'}
+            alt={siteConfig.brandName}
+            className="h-10 sm:h-11 md:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
           />
-          <div className="flex flex-col">
-            <span className="font-serif text-lg md:text-xl font-medium tracking-tight leading-none">
-              {siteConfig.brandName}
-            </span>
-            <span
-              className={`text-[10px] uppercase tracking-[0.18em] mt-1 ${
-                isDark ? 'text-white/60' : 'text-[#5b5b5b]'
-              }`}
-            >
-              School Initiative
-            </span>
-          </div>
         </button>
 
         {/* Actions Right: Consultation Link + Menu Toggle + Fullscreen Toggle */}
