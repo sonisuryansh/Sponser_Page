@@ -136,23 +136,23 @@ export const CurriculumSection: React.FC = () => {
       {/* Main Viewport Container */}
       <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10">
         
-        {/* Main Split Container - Standardized 1240px */}
+        {/* Main Split Container - Standardized 1240px & Scaled to Match Other Section Cards */}
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative w-full my-auto h-[390px] sm:h-[405px] lg:h-[420px] max-h-[calc(100svh-120px)] max-w-[1240px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
+          className="relative w-full my-auto h-[460px] sm:h-[490px] lg:h-[515px] xl:h-[525px] max-h-[calc(100svh-115px)] max-w-[1240px] bg-white border border-black/10 shadow-[0_18px_50px_rgba(0,0,0,0.05)] flex items-stretch overflow-hidden rounded-[4px]"
         >
           
           {/* Left Vertical Numbering Rail */}
-          <div className="w-14 sm:w-16 lg:w-20 border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-4 lg:py-5 select-none shrink-0">
+          <div className="w-14 sm:w-16 lg:w-[84px] border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-5 lg:py-6 select-none shrink-0">
             {/* Top Indicator */}
             <div className="px-3 sm:px-4">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] font-semibold block mb-3 sm:mb-4">
+              <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] font-semibold block mb-3.5 sm:mb-4">
                 GRADES
               </span>
 
               {/* Number Buttons List */}
-              <div className="flex flex-col gap-2.5 sm:gap-3">
+              <div className="flex flex-col gap-3 sm:gap-3.5 lg:gap-4">
                 {allStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
 
@@ -165,12 +165,12 @@ export const CurriculumSection: React.FC = () => {
                       }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
-                      <span className="font-mono text-xs sm:text-sm lg:text-[15px] font-semibold tracking-wider">
+                      <span className="font-mono text-xs sm:text-sm lg:text-[15.5px] font-semibold tracking-wider">
                         0{idx + 1}
                       </span>
                       {isActive && (
                         <span
-                          className="w-[3px] h-4 bg-[#c8a45d] rounded-l absolute -right-3 sm:-right-4"
+                          className="w-[3px] h-5 bg-[#c8a45d] rounded-l absolute -right-3 sm:-right-4"
                           aria-hidden="true"
                         />
                       )}
@@ -181,8 +181,8 @@ export const CurriculumSection: React.FC = () => {
             </div>
 
             {/* Bottom Rail Label */}
-            <div className="px-3 sm:px-4 pt-3 border-t border-black/5">
-              <span className="font-mono text-[8.5px] uppercase tracking-widest text-[#888888] font-bold block">
+            <div className="px-3 sm:px-4 pt-3.5 border-t border-black/5">
+              <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-widest text-[#888888] font-bold block">
                 ROADMAP
               </span>
             </div>
@@ -191,35 +191,35 @@ export const CurriculumSection: React.FC = () => {
           {/* Middle Content Area (Stage Details) */}
           <div
             ref={contentAreaRef}
-            className="flex-1 flex flex-col justify-between p-5 sm:p-6 lg:p-7 overflow-hidden bg-white"
+            className="flex-1 flex flex-col justify-between p-6 sm:p-7 lg:p-8 overflow-hidden bg-white"
           >
             {/* Top Section Eyebrow, Grade Badge & Stage Title */}
             <div>
-              <div className="stage-anim flex items-center justify-between gap-3 mb-1.5">
-                <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
+              <div className="stage-anim flex items-center justify-between gap-3 mb-2">
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
                   {siteConfig.curriculum.eyebrow}
                 </span>
-                <span className="px-2 py-0.5 rounded-[2px] bg-[#c8a45d]/10 border border-[#c8a45d]/40 text-[#8c6b24] font-mono text-[10.5px] font-semibold tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-[2px] bg-[#c8a45d]/10 border border-[#c8a45d]/40 text-[#8c6b24] font-mono text-[10.5px] sm:text-[11px] font-semibold tracking-wider">
                   {currentStage.gradeLabel}
                 </span>
               </div>
 
               {/* Stage Title */}
-              <h2 className="stage-anim font-serif text-xl sm:text-2xl lg:text-[28px] font-medium text-[#111111] leading-[1.15] tracking-tight mb-2">
+              <h2 className="stage-anim font-serif text-2xl sm:text-[28px] lg:text-[32px] xl:text-[34px] font-medium text-[#111111] leading-[1.15] tracking-tight mb-2.5">
                 {currentStage.title}
               </h2>
 
               {/* Focus Description */}
-              <p className="stage-anim font-sans text-xs sm:text-[12.5px] text-[#555555] leading-normal max-w-xl mb-2.5 font-normal">
+              <p className="stage-anim font-sans text-xs sm:text-[13px] text-[#555555] leading-relaxed max-w-xl mb-3 sm:mb-3.5 font-normal">
                 {currentStage.focus}
               </p>
 
               {/* Chips / Topics */}
-              <div className="stage-anim flex flex-wrap gap-1.5 sm:gap-2 pt-1.5 border-t border-black/10">
+              <div className="stage-anim flex flex-wrap gap-2 sm:gap-2.5 pt-2 border-t border-black/10">
                 {currentStage.chips.map((chip) => (
                   <div
                     key={chip}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-[#FAF9F6] border border-black/10 font-sans text-[10.5px] text-[#222222]"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[2px] bg-[#FAF9F6] border border-black/10 font-sans text-[11px] sm:text-[11.5px] text-[#222222]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
                     <span>{chip}</span>
@@ -229,11 +229,11 @@ export const CurriculumSection: React.FC = () => {
 
               {/* Learning Outcome / 1-2 Line Description */}
               {currentStage.outcome && (
-                <div className="stage-anim mt-3 pt-2.5 border-t border-black/8">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
+                <div className="stage-anim mt-3.5 pt-3 border-t border-black/8">
+                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
                     LEARNING OUTCOME
                   </span>
-                  <p className="font-sans text-xs sm:text-[12px] text-[#555555] leading-relaxed max-w-xl font-normal">
+                  <p className="font-sans text-xs sm:text-[13px] text-[#555555] leading-relaxed max-w-xl font-normal">
                     {currentStage.outcome}
                   </p>
                 </div>
@@ -241,29 +241,29 @@ export const CurriculumSection: React.FC = () => {
             </div>
 
             {/* Bottom Metadata Strip */}
-            <div className="stage-anim pt-3 mt-auto border-t border-black/10">
+            <div className="stage-anim pt-3.5 mt-auto border-t border-black/10">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] block mb-1">
+                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] block mb-1">
                     STAGE
                   </span>
-                  <span className="font-sans text-[12px] font-semibold text-[#111111]">
+                  <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#111111]">
                     Stage 0{activeStageIndex + 1} ({currentStage.gradeLabel})
                   </span>
                 </div>
                 <div>
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] block mb-1">
+                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] block mb-1">
                     FOUNDATION
                   </span>
-                  <span className="font-sans text-[12px] font-semibold text-[#111111]">
+                  <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#111111]">
                     {currentStage.chips[0] || 'Core Engineering'}
                   </span>
                 </div>
                 <div>
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] block mb-1">
+                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] block mb-1">
                     MILESTONE
                   </span>
-                  <span className="font-sans text-[12px] font-semibold text-[#111111]">
+                  <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#111111]">
                     {currentStage.chips[currentStage.chips.length - 1] || 'Hands-on Build'}
                   </span>
                 </div>
