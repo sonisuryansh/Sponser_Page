@@ -88,16 +88,16 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
           </div>
         ) : (
           <div>
-            <div className="text-[11px] uppercase tracking-[0.2em] text-[#c8a45d] mb-1">
+            <div className="text-[11px] uppercase tracking-[0.2em] text-[#c8a45d] mb-1 text-center font-medium">
               Academic Partnership
             </div>
             <h2
               id="contact-modal-title"
-              className="font-serif text-2xl md:text-3xl font-medium tracking-tight text-[#111111] mb-2"
+              className="font-serif text-2xl md:text-3xl font-medium tracking-tight text-[#111111] mb-2 text-center"
             >
               Schedule a School Consultation
             </h2>
-            <p className="text-sm text-[#5b5b5b] mb-6 leading-relaxed">
+            <p className="text-sm text-[#5b5b5b] mb-6 leading-relaxed text-center max-w-lg mx-auto">
               Explore how {siteConfig.brandName} aligns with your institution&apos;s curriculum, infrastructure, and learning goals.
             </p>
 
