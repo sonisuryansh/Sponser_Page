@@ -58,49 +58,49 @@ export const MissionSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#F1F1EF]"
     >
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-6 px-3 sm:px-6 lg:px-8 box-border select-none">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none">
 
-        {/* Main Inset White Panel - Centered vertically in viewport */}
-        <div className="relative w-full my-auto max-w-[1400px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-[4px] flex flex-col justify-between p-4 sm:p-6 lg:p-7 xl:p-8 box-border z-10">
+        {/* Main Inset White Panel - Standardized 1240px & Centered vertically in viewport */}
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-[4px] flex flex-col justify-between p-6 sm:p-7 lg:p-8 box-border z-10">
 
           {/* Main Content Area Evenly Distributed */}
           <div ref={contentRef} className="flex-1 flex flex-col justify-between h-full overflow-hidden">
 
-            {/* Top Area: Eyebrow, Statement Headline & Narrative Copy */}
-            <div className="flex-none">
+            {/* Top Area: Eyebrow, Statement Headline & Narrative Copy (Centered) */}
+            <div className="flex-none text-center max-w-3xl mx-auto mb-3 sm:mb-4">
               {/* Eyebrow */}
-              <div className="editorial-reveal flex items-center gap-2 mb-1.5 sm:mb-2">
+              <div className="editorial-reveal flex items-center justify-center gap-2 mb-2">
                 <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.24em] text-[#c8a45d]">
                   {siteConfig.mission.eyebrow}
                 </span>
               </div>
 
-              {/* Elegant Grand Headline */}
+              {/* Elegant Grand Headline (Short & Centered) */}
               <h2
                 ref={headlineRef}
-                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[32px] xl:text-[36px] font-normal text-[#111111] tracking-tight leading-[1.18] mb-2 max-w-5xl"
+                className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-normal text-[#111111] tracking-tight leading-[1.2] mb-2 sm:mb-2.5 text-center"
               >
                 &ldquo;{siteConfig.mission.statement}&rdquo;
               </h2>
 
-              {/* Narrative Body Copy */}
-              <p className="editorial-reveal text-xs sm:text-[13px] lg:text-[13.5px] text-[#555555] leading-relaxed max-w-4xl font-normal">
+              {/* Narrative Body Copy (Centered) */}
+              <p className="editorial-reveal text-xs sm:text-[13px] text-[#555555] leading-relaxed max-w-2xl mx-auto font-normal text-center">
                 At MedhaArc Labs, we believe technology education moves beyond passive consumption into tangible engineering. From foundational logic to physical prototypes, our curriculum connects core mathematical reasoning with hands-on robotics, AI, data, and autonomous flight.
               </p>
             </div>
 
             {/* Middle Area: 5 Core Educational Pillars */}
-            <div className="editorial-reveal my-auto py-2 sm:py-3">
-              <div className="text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] font-mono text-[#888888] mb-2 sm:mb-2.5 flex items-center justify-between pb-1.5 border-b border-black/8">
+            <div className="editorial-reveal my-auto py-3">
+              <div className="text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] font-mono text-[#888888] mb-3 flex items-center justify-between pb-1.5 border-b border-black/8">
                 <span className="font-bold text-[#111111]">Core Educational Values</span>
                 <span className="text-black/40">5 Pillars of Learning</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3 lg:gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5">
                 {siteConfig.mission.values.map((val, idx) => (
                   <div
                     key={val.name}
-                    className="group relative flex flex-col justify-between p-3 sm:p-3.5 lg:p-4 bg-[#FAF9F6] border border-black/8 rounded-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-[#c8a45d] hover:shadow-[0_6px_24px_rgba(200,164,93,0.08)] transition-all duration-300"
+                    className="group relative flex flex-col justify-between p-4 sm:p-4.5 bg-[#FAF9F6] border border-black/8 rounded-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-[#c8a45d] hover:shadow-[0_6px_24px_rgba(200,164,93,0.08)] transition-all duration-300 min-h-[160px] sm:min-h-[175px]"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-black/5">

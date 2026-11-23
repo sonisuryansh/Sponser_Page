@@ -116,10 +116,10 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         />
       </div>
 
-      {/* Main Viewport Container (Centered in 100svh window) */}
+      {/* Main Viewport Container (Centered in 100svh window, Standardized) */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full my-auto flex flex-col justify-center py-3 sm:py-4 px-4 sm:px-8 lg:px-14 box-border select-none"
+        className="relative z-10 w-full my-auto flex flex-col justify-center py-3 sm:py-4 px-4 sm:px-6 lg:px-8 box-border select-none"
       >
         {/* Top Header: Eyebrow, Main Title & Vision Quote (Outside Box) */}
         <div className="max-w-4xl mx-auto text-center mb-5 sm:mb-6">

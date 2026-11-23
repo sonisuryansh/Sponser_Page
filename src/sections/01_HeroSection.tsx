@@ -21,7 +21,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       fullBleed={true}
       className="select-none relative flex items-center justify-center min-h-[100svh] w-full"
     >
-      <div className="w-full flex-1 flex flex-col justify-center items-center text-center py-6 sm:py-8 relative z-10 max-w-6xl mx-auto px-4 my-auto">
+      <div className="w-full flex-1 flex flex-col justify-center items-center text-center py-6 sm:py-8 relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 my-auto">
         {/* Eyebrow: WE ARE */}
         <p className="font-mono text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.35em] text-white/85 mb-1 sm:mb-1.5 drop-shadow">
           WE ARE

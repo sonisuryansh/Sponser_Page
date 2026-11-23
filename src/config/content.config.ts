@@ -163,7 +163,7 @@ export const siteConfig = {
   // Act 1: 03 Mission
   mission: {
     eyebrow: 'Guiding Purpose',
-    statement: 'Deliver structured, practical technology education that connects concepts with real applications.',
+    statement: 'Connecting Concepts to Real-World Engineering',
     values: [
       {
         name: 'Hands-on Learning',

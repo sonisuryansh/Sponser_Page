@@ -74,10 +74,10 @@ export const BenefitsSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
     >
-      {/* Main Viewport Container (Centered in 100svh window) */}
+      {/* Main Viewport Container (Centered in 100svh window, Standardized 1240px) */}
       <div
         ref={containerRef}
-        className="relative w-full my-auto flex flex-col justify-center py-2 sm:py-3 px-4 sm:px-8 lg:px-12 box-border select-none z-10 max-w-[1360px] mx-auto overflow-hidden"
+        className="relative w-full my-auto flex flex-col justify-center py-2 sm:py-3 px-4 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title & Narrative Message (Centered & Proportional) */}
         <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-2.5">

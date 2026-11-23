@@ -134,13 +134,13 @@ export const CurriculumSection: React.FC = () => {
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
       {/* Main Viewport Container */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-3 sm:px-6 lg:px-12 box-border select-none z-10">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10">
         
-        {/* Main Split Container - Compact proportions eliminating internal voids */}
+        {/* Main Split Container - Standardized 1240px */}
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative w-full my-auto h-[390px] sm:h-[405px] lg:h-[420px] max-h-[calc(100svh-120px)] max-w-[1160px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
+          className="relative w-full my-auto h-[390px] sm:h-[405px] lg:h-[420px] max-h-[calc(100svh-120px)] max-w-[1240px] bg-white border border-black/10 shadow-[0_15px_45px_rgba(0,0,0,0.04)] flex items-stretch overflow-hidden"
         >
           
           {/* Left Vertical Numbering Rail */}
