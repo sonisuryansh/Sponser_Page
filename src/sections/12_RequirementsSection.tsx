@@ -87,7 +87,7 @@ export const RequirementsSection: React.FC = () => {
           <div className="text-xs uppercase tracking-[0.2em] text-[#c8a45d] font-medium mb-1.5 text-center">
             {siteConfig.requirements.eyebrow}
           </div>
-          <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.14] tracking-tight text-[#111111] text-center mx-auto">
+          <h2 className="font-serif text-[clamp(26px,3.5vw,46px)] font-normal leading-[1.14] tracking-tight text-[#111111] text-center mx-auto md:whitespace-nowrap">
             {siteConfig.requirements.headline}
           </h2>
         </div>

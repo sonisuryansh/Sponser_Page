@@ -598,10 +598,10 @@ export const siteConfig = {
     ],
   },
 
-  // Act 5: 12 School Requirements & Delivery Responsibilities
+  // Act 5: 12 School Requirements & Delivery
   requirements: {
     eyebrow: 'Clear Partnership Boundaries',
-    headline: 'School Requirements & Delivery Responsibilities',
+    headline: 'School Requirements & Delivery',
     columns: [
       {
         title: 'School provides',
@@ -618,7 +618,6 @@ export const siteConfig = {
           'Curriculum and session plans',
           'Kits and learning materials',
           'MedhaArc Labs Instructors',
-          'Teacher training and platform access',
         ],
       },
     ],
