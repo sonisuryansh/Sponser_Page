@@ -282,13 +282,48 @@ export const CurriculumSection: React.FC = () => {
 
               {/* Learning Outcome / 1-2 Line Description */}
               {currentStage.outcome && (
-                <div className="stage-anim mt-3.5 pt-3 border-t border-black/8">
+                <div className="stage-anim mt-3 pt-2.5 border-t border-black/8">
                   <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
                     LEARNING OUTCOME
                   </span>
-                  <p className="font-sans text-xs sm:text-[13px] text-[#555555] leading-relaxed max-w-xl font-normal">
+                  <p className="font-sans text-xs sm:text-[12.5px] text-[#555555] leading-relaxed max-w-xl font-normal">
                     {currentStage.outcome}
                   </p>
+                </div>
+              )}
+
+              {/* Hands-on Capstone / Term Project & Lab Hardware */}
+              {currentStage.termProject && (
+                <div className="stage-anim mt-3 pt-2.5 border-t border-black/8 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div className="p-2.5 rounded-[2px] bg-[#FAF9F6] border border-black/8">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
+                      <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#888888] font-bold">
+                        Hands-on Term Project
+                      </span>
+                    </div>
+                    <span className="font-sans text-[11.5px] sm:text-xs font-semibold text-[#111111] leading-snug block mb-0.5">
+                      {currentStage.termProject}
+                    </span>
+                    <p className="font-sans text-[10.5px] sm:text-[11px] text-[#666666] leading-snug">
+                      {currentStage.termProjectDesc}
+                    </p>
+                  </div>
+
+                  <div className="p-2.5 rounded-[2px] bg-[#FAF9F6] border border-black/8">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
+                      <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#888888] font-bold">
+                        Lab Platform &amp; Tools
+                      </span>
+                    </div>
+                    <span className="font-sans text-[11.5px] sm:text-xs font-semibold text-[#111111] leading-snug block mb-0.5">
+                      {currentStage.hardwarePlatform}
+                    </span>
+                    <p className="font-sans text-[10.5px] sm:text-[11px] text-[#666666] leading-snug">
+                      {currentStage.hardwarePlatformDesc}
+                    </p>
+                  </div>
                 </div>
               )}
             </div>

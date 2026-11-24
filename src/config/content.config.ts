@@ -41,6 +41,10 @@ export interface CurriculumStage {
   focus: string;
   chips: string[];
   outcome?: string;
+  termProject?: string;
+  termProjectDesc?: string;
+  hardwarePlatform?: string;
+  hardwarePlatformDesc?: string;
 }
 
 export interface PricingTier {
@@ -305,6 +309,10 @@ export const siteConfig = {
         focus: 'Digital creation, visual/block-based coding, logic, and foundational design',
         chips: ['Block Coding', 'Logic & Sequences', 'Foundational Design'],
         outcome: 'Students transition from consumers to builders, designing interactive animations and sequential algorithms using intuitive visual blocks.',
+        termProject: 'Interactive Maze Game & Visual Sequence Builder',
+        termProjectDesc: 'Students program sequential logic, sprite movement, and collision triggers on a digital canvas.',
+        hardwarePlatform: 'Block-Based Development Platform',
+        hardwarePlatformDesc: 'Intuitive drag-and-drop algorithmic blocks, visual animation loops, and introductory spatial coordinates.',
       },
       {
         id: 'grade-5-6',
@@ -313,6 +321,10 @@ export const siteConfig = {
         focus: 'Block coding, logic, digital creation, and introductory electronics and design',
         chips: ['Physical Computing', 'Sensory Feedback', 'Visual Programming'],
         outcome: 'Learners wire practical circuits, interface tactile sensors with motor actuators, and bridge digital code with mechanical movement.',
+        termProject: 'Smart Light-Sensing Circuit & Motorized Fan System',
+        termProjectDesc: 'Learners construct a breadboard circuit connecting a photocell sensor to an automated motor driver.',
+        hardwarePlatform: 'Physical Computing Starter Kit',
+        hardwarePlatformDesc: 'Solderless breadboards, DC motors, LED indicators, and tactile switches introducing real electricity fundamentals.',
       },
       {
         id: 'grade-7-8',
@@ -321,6 +333,10 @@ export const siteConfig = {
         focus: 'Python development, problem-solving, electronics, and suitable data structures',
         chips: ['Python Programming', 'Data Structures', 'Microcontroller Logic'],
         outcome: 'Students advance from visual blocks to text-based Python syntax, combining code with microcontrollers to harvest live sensor data and build automated response systems.',
+        termProject: 'Automated Obstacle Rover with Distance Sensing',
+        termProjectDesc: 'Students write Python logic on microcontrollers to measure distance in real time and navigate around obstacles.',
+        hardwarePlatform: 'Microcontroller & Sensor Shield',
+        hardwarePlatformDesc: 'MicroPython embedded syntax, ultrasonic rangefinders, dual H-bridge motor drivers, and serial telemetry.',
       },
       {
         id: 'grade-9',
@@ -329,6 +345,10 @@ export const siteConfig = {
         focus: 'Advanced programming foundations, electronics/IoT, and systems thinking',
         chips: ['Connected Sensors', 'Systems Thinking', 'Annual Project Showcase'],
         outcome: 'Focuses on connected IoT telemetry, network protocols, and systems thinking, preparing students for annual engineering showcases.',
+        termProject: 'Connected IoT Weather Station & Tabletop Flight Rig',
+        termProjectDesc: 'Learners deploy sensor nodes logging temperature, humidity, and pressure for school showcase presentation.',
+        hardwarePlatform: 'IoT Sensor Platform & Flight Controls',
+        hardwarePlatformDesc: 'Multi-sensor telemetry modules, 3-axis gyro calibration, wired telemetry protocols, and project exhibition readiness.',
       },
       {
         id: 'grade-10',
@@ -337,6 +357,10 @@ export const siteConfig = {
         focus: 'Data Analytics using suitable tools and project-based analysis',
         chips: ['Data Analysis', 'Hypothesis Testing', 'Capstone Portfolio'],
         outcome: 'Students execute end-to-end engineering capstones, analyzing multi-sensor datasets and presenting working prototypes to teachers and peers.',
+        termProject: 'Recyclable Classifier & Term Capstone Portfolio',
+        termProjectDesc: 'Students build an end-to-end multi-sensor system, analyze operational data, and present a verified prototype.',
+        hardwarePlatform: 'Data Analytics & Engineering Rig',
+        hardwarePlatformDesc: 'Statistical data processing tools, variance filtering, hardware telemetry charts, and formal capstone documentation.',
       },
       {
         id: 'grade-11',
@@ -345,6 +369,10 @@ export const siteConfig = {
         focus: 'Statistics foundations, Machine Learning concepts and model training',
         chips: ['Model Architecture', 'Statistical Inference', 'Applied Exploration'],
         outcome: 'Hands-on exploration of statistical inference, data pipelines, and machine learning models applied to real-world datasets.',
+        termProject: 'Statistical Sensor Model & Supervised Classifier',
+        termProjectDesc: 'Students collect multi-sensor readings, engineer predictive features, and train supervised machine learning models.',
+        hardwarePlatform: 'Machine Learning Edge Model Kit',
+        hardwarePlatformDesc: 'Data preprocessing pipelines, linear and logistic classification, model evaluation rubrics, and privacy guardrails.',
       },
       {
         id: 'grade-12',
@@ -353,6 +381,10 @@ export const siteConfig = {
         focus: 'AI/ML integrated with Robotics, spatial intelligence, and senior capstones',
         chips: ['Vision Models', 'Integrated Robotics', 'Senior Portfolio'],
         outcome: 'Advanced synthesis of deep learning models and autonomous robotics systems with real-time feedback loops.',
+        termProject: 'Autonomous Guidance Vehicle & Articulated Arm',
+        termProjectDesc: 'Senior capstone synthesizing computer vision, 3-DOF robotic kinematics, and real-time closed-loop control.',
+        hardwarePlatform: 'Integrated Robotics & AI Suite',
+        hardwarePlatformDesc: 'Edge neural camera models, multi-servo inverse kinematics, serial telemetry feedback, and accredited portfolio defense.',
       },
     ] as CurriculumStage[],
     beyondGrade10: [] as CurriculumStage[],
