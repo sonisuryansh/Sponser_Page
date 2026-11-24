@@ -144,32 +144,36 @@ export const CurriculumSection: React.FC = () => {
         >
 
           {/* Left Vertical Numbering Rail */}
-          <div className="w-14 sm:w-16 lg:w-[84px] border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-5 lg:py-6 select-none shrink-0">
+          <div className="w-24 sm:w-28 lg:w-[124px] border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-5 lg:py-6 select-none shrink-0">
             {/* Top Indicator */}
-            <div className="px-3 sm:px-4">
-              <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] font-semibold block mb-3.5 sm:mb-4">
+            <div className="px-2.5 sm:px-3">
+              <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] font-semibold block mb-3.5 sm:mb-4 px-1">
                 GRADES
               </span>
 
-              {/* Number Buttons List */}
-              <div className="flex flex-col gap-3 sm:gap-3.5 lg:gap-4">
+              {/* Grade Buttons List */}
+              <div className="flex flex-col gap-2 sm:gap-2.5 lg:gap-3">
                 {allStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
+                  const displayGrade = stage.gradeLabel.replace('Grades 5 to 6', 'Grade 5–6');
 
                   return (
                     <button
                       key={stage.id}
                       onClick={() => setActiveStageIndex(idx)}
-                      className={`group relative flex items-center justify-between text-left cursor-pointer transition-colors focus:outline-none ${isActive ? 'text-[#c8a45d]' : 'text-[#888888] hover:text-[#111111]'
-                        }`}
+                      className={`group relative flex items-center justify-between text-left cursor-pointer transition-colors focus:outline-none px-2 sm:px-2.5 py-1 rounded-[2px] ${
+                        isActive
+                          ? 'text-[#c8a45d] bg-[#c8a45d]/10 font-bold'
+                          : 'text-[#666666] hover:text-[#111111] hover:bg-black/[0.03]'
+                      }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
-                      <span className="font-mono text-xs sm:text-sm lg:text-[15.5px] font-semibold tracking-wider">
-                        0{idx + 1}
+                      <span className="font-mono text-[11px] sm:text-[11.5px] lg:text-[12.5px] tracking-wide whitespace-nowrap">
+                        {displayGrade}
                       </span>
                       {isActive && (
                         <span
-                          className="w-[3px] h-5 bg-[#c8a45d] rounded-l absolute -right-3 sm:-right-4"
+                          className="w-[3px] h-full bg-[#c8a45d] rounded-l absolute right-0 top-0"
                           aria-hidden="true"
                         />
                       )}
@@ -180,7 +184,7 @@ export const CurriculumSection: React.FC = () => {
             </div>
 
             {/* Bottom Rail Label */}
-            <div className="px-3 sm:px-4 pt-3.5 border-t border-black/5">
+            <div className="px-3.5 pt-3.5 border-t border-black/5">
               <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-widest text-[#888888] font-bold block">
                 ROADMAP
               </span>
