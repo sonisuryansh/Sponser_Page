@@ -105,22 +105,22 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#080A0D] select-none"
     >
-      {/* Dark Aerospace-Inspired Background with Refined Atmospheric Vignette */}
+      {/* Dark Aerospace-Inspired Background with Clearly Visible Drone Silhouette */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
         <img
           src="/assets/medhaarc_hero_drone.webp"
           alt="MedhaArc Labs Autonomous Drone Prototype"
-          className="w-full h-full object-cover object-center filter blur-[8px] saturate-[0.25] contrast-[1.25] brightness-[0.2] scale-110"
+          className="w-full h-full object-cover object-center filter blur-[2px] saturate-[0.8] contrast-[1.1] brightness-[0.72] scale-105"
           loading="eager"
         />
-        {/* Deep Black Aerospace Gradients with Subtle Champagne Gold Center Glow */}
-        <div className="absolute inset-0 bg-radial-[at_50%_48%] from-[#c8a45d]/[0.07] via-[#080A0D]/75 to-[#080A0D]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080A0D] via-transparent to-[#080A0D]/90" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080A0D]/80 via-transparent to-[#080A0D]" />
+        {/* Refined Vignette: Clear Center Visibility with Cinematic Dark Edges */}
+        <div className="absolute inset-0 bg-radial-[at_50%_50%] from-[#080A0D]/20 via-[#080A0D]/55 to-[#080A0D]/90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080A0D] via-transparent to-[#080A0D]/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080A0D]/65 via-transparent to-[#080A0D]/75" />
 
         {/* Aerospace Precision Micro-Grid (Subtle 32px Matrix) */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
             backgroundSize: '32px 32px',
