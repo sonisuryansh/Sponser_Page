@@ -5,11 +5,49 @@ import { BookOpen, Layers, CheckSquare, Video, ArrowRight, X, CheckCircle2 } fro
 import gsap from 'gsap';
 
 const tileIcons: Record<string, React.ReactNode> = {
-  'E-Books': <BookOpen className="w-5 h-5 text-[#c8a45d]" />,
-  Books: <BookOpen className="w-5 h-5 text-[#c8a45d]" />,
-  Modules: <Layers className="w-5 h-5 text-[#c8a45d]" />,
-  Quizzes: <CheckSquare className="w-5 h-5 text-[#c8a45d]" />,
-  Videos: <Video className="w-5 h-5 text-[#c8a45d]" />,
+  'E-Books': <BookOpen className="w-4 h-4" />,
+  Books: <BookOpen className="w-4 h-4" />,
+  Modules: <Layers className="w-4 h-4" />,
+  Quizzes: <CheckSquare className="w-4 h-4" />,
+  Videos: <Video className="w-4 h-4" />,
+};
+
+const tileThemeMap: Record<string, { themeClass: string; color: string; bgSoft: string; badgeBorder: string; badgeText: string }> = {
+  'E-Books': {
+    themeClass: 'resource-theme-amber',
+    color: '#D97706',
+    bgSoft: '#FEF3C7',
+    badgeBorder: 'rgba(217, 119, 6, 0.3)',
+    badgeText: '#92400E',
+  },
+  Books: {
+    themeClass: 'resource-theme-amber',
+    color: '#D97706',
+    bgSoft: '#FEF3C7',
+    badgeBorder: 'rgba(217, 119, 6, 0.3)',
+    badgeText: '#92400E',
+  },
+  Modules: {
+    themeClass: 'resource-theme-blue',
+    color: '#0284C7',
+    bgSoft: '#E0F2FE',
+    badgeBorder: 'rgba(2, 132, 199, 0.3)',
+    badgeText: '#075985',
+  },
+  Quizzes: {
+    themeClass: 'resource-theme-green',
+    color: '#059669',
+    bgSoft: '#DCFCE7',
+    badgeBorder: 'rgba(16, 185, 129, 0.3)',
+    badgeText: '#065F46',
+  },
+  Videos: {
+    themeClass: 'resource-theme-purple',
+    color: '#7C3AED',
+    bgSoft: '#F3E8FF',
+    badgeBorder: 'rgba(139, 92, 246, 0.3)',
+    badgeText: '#5B21B6',
+  },
 };
 
 interface ResourceDetail {
@@ -164,11 +202,12 @@ export const ResourcesSection: React.FC = () => {
           >
             {siteConfig.resources.tiles.map((tile) => {
               const detail = resourceDetails[tile.title] || resourceDetails['E-Books'];
+              const theme = tileThemeMap[tile.title] || tileThemeMap['E-Books'];
 
               return (
                 <div
                   key={tile.title}
-                  className="resource-flip-wrapper resource-tile"
+                  className={`resource-flip-wrapper resource-tile ${theme.themeClass}`}
                 >
                   <div
                     onClick={() => setSelectedTile(tile.title)}
@@ -188,27 +227,27 @@ export const ResourcesSection: React.FC = () => {
                       <div>
                         {/* Icon & Category Tag */}
                         <div className="flex items-center justify-between mb-3">
-                          <div className="w-8 h-8 flex items-center justify-center border border-black/8 bg-white rounded-[3px] shadow-xs group-hover:border-[#c8a45d]/40 transition-colors">
-                            {tileIcons[tile.title] || <BookOpen className="w-4 h-4 text-[#c8a45d]" />}
+                          <div className="resource-icon-box w-8 h-8 flex items-center justify-center border rounded-[3px] shadow-2xs transition-colors">
+                            {tileIcons[tile.title] || <BookOpen className="w-4 h-4" />}
                           </div>
-                          <span className="text-[9px] font-mono uppercase tracking-widest text-[#888888] font-semibold px-2 py-0.5 bg-black/[0.03] rounded-[2px]">
+                          <span className="resource-tag-badge text-[9px] font-mono uppercase tracking-widest font-semibold px-2 py-0.5 rounded-[2px]">
                             {tile.tag}
                           </span>
                         </div>
 
                         {/* Tile Title */}
-                        <h3 className="font-serif text-xl sm:text-[22px] font-medium tracking-tight text-[#111111] group-hover:text-[#c8a45d] transition-colors mb-1.5">
+                        <h3 className="resource-tile-title font-serif text-xl sm:text-[22px] font-medium tracking-tight mb-1.5 transition-colors">
                           {tile.title}
                         </h3>
 
                         {/* Tile Description */}
-                        <p className="text-xs leading-relaxed text-[#555555]">
+                        <p className="resource-tile-desc text-xs leading-relaxed">
                           {tile.description}
                         </p>
                       </div>
 
                       {/* Bottom Open Affordance */}
-                      <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-[#c8a45d] font-bold pt-2.5 border-t border-black/5 mt-auto group-hover:text-[#111111] transition-colors">
+                      <div className="resource-bottom-bar flex items-center justify-between text-[10px] font-mono uppercase tracking-wider font-bold pt-2.5 border-t mt-auto transition-colors">
                         <span>Hover to view specs</span>
                         <span className="text-xs">↻</span>
                       </div>
@@ -218,7 +257,7 @@ export const ResourcesSection: React.FC = () => {
                     <div className="resource-flip-face resource-flip-back select-none">
                       <div>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold">
+                          <span className="resource-back-tag font-mono text-[9px] uppercase tracking-wider font-bold">
                             Inside {tile.title}
                           </span>
                           <span className="text-[8.5px] font-mono text-[#777] bg-black/[0.04] px-1.5 py-0.5 rounded-[2px]">
@@ -231,18 +270,18 @@ export const ResourcesSection: React.FC = () => {
                         <ul className="space-y-1.5 text-[10.5px] sm:text-[11px] text-[#555555] leading-snug">
                           {detail.features.slice(0, 3).map((feat, fIdx) => (
                             <li key={fIdx} className="flex items-start gap-1.5">
-                              <span className="w-1 h-1 rounded-full bg-[#c8a45d] mt-1.5 shrink-0" />
+                              <span className="resource-back-dot w-1 h-1 rounded-full mt-1.5 shrink-0" />
                               <span className="line-clamp-2">{feat}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-black/5 mt-auto">
-                        <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#c8a45d] font-bold group-hover:text-[#111] transition-colors">
+                      <div className="resource-back-cta flex items-center justify-between pt-2 border-t border-black/5 mt-auto">
+                        <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold group-hover:translate-x-0.5 transition-transform">
                           Click for Full Specs
                         </span>
-                        <ArrowRight className="w-3 h-3 text-[#c8a45d] group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </div>
@@ -263,84 +302,100 @@ export const ResourcesSection: React.FC = () => {
       </div>
 
       {/* Interactive Detail Modal for Selected Resource */}
-      {selectedTile && activeDetail && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
-          onClick={() => setSelectedTile(null)}
-        >
+      {selectedTile && activeDetail && (() => {
+        const modalTheme = tileThemeMap[selectedTile] || tileThemeMap['E-Books'];
+        return (
           <div
-            className="relative w-full max-w-2xl bg-[#FFFFFD] border border-black/15 shadow-2xl rounded-[4px] p-6 sm:p-8 overflow-hidden select-text"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
+            onClick={() => setSelectedTile(null)}
           >
-            {/* Top Modal Header */}
-            <div className="flex items-center justify-between pb-3.5 border-b border-black/8 mb-5">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 flex items-center justify-center border border-black/10 bg-[#FAF9F6] rounded-[3px]">
-                  {tileIcons[selectedTile] || <BookOpen className="w-5 h-5 text-[#c8a45d]" />}
+            <div
+              className="relative w-full max-w-2xl bg-[#FFFFFD] border border-black/15 shadow-2xl rounded-[4px] p-6 sm:p-8 overflow-hidden select-text"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Top Modal Header */}
+              <div className="flex items-center justify-between pb-3.5 border-b border-black/8 mb-5">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-9 h-9 flex items-center justify-center border rounded-[3px]"
+                    style={{
+                      backgroundColor: modalTheme.bgSoft,
+                      borderColor: modalTheme.badgeBorder,
+                      color: modalTheme.color,
+                    }}
+                  >
+                    {tileIcons[selectedTile] || <BookOpen className="w-5 h-5" />}
+                  </div>
+                  <div>
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-widest font-bold block"
+                      style={{ color: modalTheme.color }}
+                    >
+                      {activeDetail.tag}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-[26px] font-medium text-[#111111] leading-tight">
+                      {activeDetail.title}
+                    </h3>
+                  </div>
                 </div>
-                <div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#c8a45d] font-bold block">
-                    {activeDetail.tag}
-                  </span>
-                  <h3 className="font-serif text-2xl sm:text-[26px] font-medium text-[#111111] leading-tight">
-                    {activeDetail.title}
-                  </h3>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedTile(null)}
+                  className="p-1.5 text-[#666666] hover:text-[#111111] bg-black/5 hover:bg-black/10 rounded-full transition-colors cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Modal Summary Description */}
+              <p className="font-sans text-xs sm:text-[13px] text-[#444444] leading-relaxed mb-5">
+                {activeDetail.summary}
+              </p>
+
+              {/* Key Features Bullet List */}
+              <div className="mb-5">
+                <span className="font-mono text-[9.5px] uppercase tracking-widest text-[#888888] font-bold block mb-2.5">
+                  Key Components & Student Value
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {activeDetail.features.map((feat, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 bg-[#FAF9F6] border border-black/6 rounded-[3px] flex items-start gap-2.5"
+                    >
+                      <CheckCircle2
+                        className="w-4 h-4 shrink-0 mt-0.5"
+                        style={{ color: modalTheme.color }}
+                      />
+                      <span className="font-sans text-xs text-[#333333] leading-relaxed">
+                        {feat}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedTile(null)}
-                className="p-1.5 text-[#666666] hover:text-[#111111] bg-black/5 hover:bg-black/10 rounded-full transition-colors cursor-pointer"
-                aria-label="Close modal"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Modal Summary Description */}
-            <p className="font-sans text-xs sm:text-[13px] text-[#444444] leading-relaxed mb-5">
-              {activeDetail.summary}
-            </p>
-
-            {/* Key Features Bullet List */}
-            <div className="mb-5">
-              <span className="font-mono text-[9.5px] uppercase tracking-widest text-[#888888] font-bold block mb-2.5">
-                Key Components & Student Value
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {activeDetail.features.map((feat, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 bg-[#FAF9F6] border border-black/6 rounded-[3px] flex items-start gap-2.5"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-[#c8a45d] shrink-0 mt-0.5" />
-                    <span className="font-sans text-xs text-[#333333] leading-relaxed">
-                      {feat}
+              {/* Bottom Specs Strip */}
+              <div className="pt-4 border-t border-black/8 grid grid-cols-3 gap-3">
+                {activeDetail.specs.map((spec, idx) => (
+                  <div key={idx}>
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] block mb-1">
+                      {spec.label}
+                    </span>
+                    <span className="font-sans text-xs font-semibold text-[#111111] block">
+                      {spec.value}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Bottom Specs Strip */}
-            <div className="pt-4 border-t border-black/8 grid grid-cols-3 gap-3">
-              {activeDetail.specs.map((spec, idx) => (
-                <div key={idx}>
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] block mb-1">
-                    {spec.label}
-                  </span>
-                  <span className="font-sans text-xs font-semibold text-[#111111] block">
-                    {spec.value}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </ChapterShell>
   );
 };
