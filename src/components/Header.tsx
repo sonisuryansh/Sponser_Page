@@ -126,15 +126,14 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 pointer-events-auto select-none transition-all duration-300 ${
-          isScrolled
-            ? isDark
-              ? 'bg-[#0A1016]/92 backdrop-blur-md border-b border-white/10 shadow-md text-white'
-              : 'bg-[#FAF6EE]/94 backdrop-blur-md border-b border-black/8 shadow-xs text-[#111111]'
-            : isDark
-              ? 'bg-transparent text-white'
-              : 'bg-transparent text-[#111111]'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 pointer-events-auto select-none transition-all duration-300 ${isScrolled
+          ? isDark
+            ? 'bg-[#0A1016]/92 backdrop-blur-md border-b border-white/10 shadow-md text-white'
+            : 'bg-[#FAF6EE]/94 backdrop-blur-md border-b border-black/8 shadow-xs text-[#111111]'
+          : isDark
+            ? 'bg-transparent text-white'
+            : 'bg-transparent text-[#111111]'
+          }`}
       >
         {/* Brand / Logo Left */}
         <button
@@ -153,9 +152,8 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
           <button
             onClick={onOpenContact}
-            className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] transition-colors relative pb-0.5 cursor-pointer mr-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-current after:origin-left hover:after:scale-x-100 after:scale-x-0 after:transition-transform ${
-              isDark ? 'text-white/80 hover:text-white' : 'text-[#111111]/80 hover:text-[#111111]'
-            }`}
+            className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] transition-colors relative pb-0.5 cursor-pointer mr-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-current after:origin-left hover:after:scale-x-100 after:scale-x-0 after:transition-transform ${isDark ? 'text-white/80 hover:text-white' : 'text-[#111111]/80 hover:text-[#111111]'
+              }`}
           >
             <span>Consultation</span>
             <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
@@ -165,11 +163,10 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => setIsMenuOpen(true)}
             aria-label="Open presentation menu"
-            className={`flex items-center gap-2 px-3 py-1.5 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
-              isDark
-                ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
-                : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
-            }`}
+            className={`flex items-center gap-2 px-3 py-1.5 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${isDark
+              ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
+              : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
+              }`}
           >
             <span className="text-xs uppercase tracking-[0.18em]">Menu</span>
             <Menu className="w-4 h-4" />
@@ -180,11 +177,10 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={toggleFullscreen}
             aria-label={isFullscreen ? 'Exit fullscreen mode' : 'Enter fullscreen mode'}
             title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-            className={`flex items-center justify-center p-2 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${
-              isDark
-                ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
-                : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
-            }`}
+            className={`flex items-center justify-center p-2 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${isDark
+              ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
+              : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
+              }`}
           >
             {isFullscreen ? (
               <Minimize className="w-4 h-4" />
@@ -243,24 +239,21 @@ export const Header: React.FC<HeaderProps> = ({
                       <li key={section.id}>
                         <button
                           onClick={() => handleSelectSection(section.id)}
-                          className={`group flex flex-col text-left w-full p-2 -mx-2 rounded-[3px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer ${
-                            isActive
-                              ? 'bg-white/[0.08] border-l-2 border-[#c8a45d] text-white pl-2.5 shadow-[inset_0_0_12px_rgba(200,164,93,0.1)]'
-                              : 'hover:bg-white/[0.04] border-l-2 border-transparent hover:border-white/30 text-white/70 hover:text-white pl-2'
-                          }`}
+                          className={`group flex flex-col text-left w-full p-2 -mx-2 rounded-[3px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer ${isActive
+                            ? 'bg-white/[0.08] border-l-2 border-[#c8a45d] text-white pl-2.5 shadow-[inset_0_0_12px_rgba(200,164,93,0.1)]'
+                            : 'hover:bg-white/[0.04] border-l-2 border-transparent hover:border-white/30 text-white/70 hover:text-white pl-2'
+                            }`}
                         >
                           <div className="flex items-center gap-2">
                             <span
-                              className={`text-[10px] font-mono transition-colors ${
-                                isActive ? 'text-[#c8a45d] font-bold' : 'text-white/40 group-hover:text-white/70'
-                              }`}
+                              className={`text-[10px] font-mono transition-colors ${isActive ? 'text-[#c8a45d] font-bold' : 'text-white/40 group-hover:text-white/70'
+                                }`}
                             >
                               {section.number}
                             </span>
                             <span
-                              className={`text-sm md:text-[14px] font-serif tracking-tight transition-colors ${
-                                isActive ? 'text-white font-medium' : 'text-white/85 group-hover:text-white'
-                              }`}
+                              className={`text-sm md:text-[14px] font-serif tracking-tight transition-colors ${isActive ? 'text-white font-medium' : 'text-white/85 group-hover:text-white'
+                                }`}
                             >
                               {section.title}
                             </span>
