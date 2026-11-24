@@ -138,20 +138,20 @@ export const TeacherEmpowermentSection: React.FC = () => {
               const isFlipped = activePillarIndex === idx;
 
               return (
-                <div
-                  key={col.title}
-                  onClick={() => setActivePillarIndex(isFlipped ? null : idx)}
-                  className={`pillar-flip-card ${isFlipped ? 'is-flipped' : ''}`}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setActivePillarIndex(isFlipped ? null : idx);
-                    }
-                  }}
-                  aria-label={`Toggle details for ${col.title}`}
-                >
+                <div key={col.title} className="pillar-flip-wrapper">
+                  <div
+                    onClick={() => setActivePillarIndex(isFlipped ? null : idx)}
+                    className={`pillar-flip-card ${isFlipped ? 'is-flipped' : ''}`}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setActivePillarIndex(isFlipped ? null : idx);
+                      }
+                    }}
+                    aria-label={`Toggle details for ${col.title}`}
+                  >
                   {/* FRONT FACE — Brand Gradient (Blue / Orange / Yellow) with Glowing Orb */}
                   <div className={`pillar-flip-face pillar-flip-front ${colorClasses[idx]}`}>
                     <div>
@@ -226,7 +226,8 @@ export const TeacherEmpowermentSection: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              );
+              </div>
+            );
             })}
           </div>
         </div>

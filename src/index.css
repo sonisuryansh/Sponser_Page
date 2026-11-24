@@ -292,122 +292,109 @@ html.lenis body {
 }
 
 /* 3D Interactive Resource Book Cards (Smooth Book Open & Full Content Reveal) */
-.resource-book {
+/* =========================================================================
+   3D SMOOTH FLIP CARDS (Sections 09, 10, 11)
+   Architecture: Outer wrapper holds 2D bounding box and 3D perspective.
+   Inner card performs hardware-accelerated 3D rotation on wrapper hover.
+   ========================================================================= */
+
+/* 1. LMS & Learning Resources Cards (Section 09) */
+.resource-flip-wrapper {
   position: relative;
-  border-radius: 8px;
   width: 100%;
   height: 236px;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  -webkit-perspective: 1400px;
+  perspective: 1400px;
+}
+
+.resource-flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
   -webkit-transform-style: preserve-3d;
-  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-perspective: 1800px;
-  perspective: 1800px;
+  transform-origin: center center;
+  -webkit-transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
   cursor: pointer;
   outline: none;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
 }
 
-.resource-book:hover {
-  border-color: rgba(200, 164, 93, 0.5);
-  box-shadow: 0 12px 32px rgba(200, 164, 93, 0.12), 0 3px 10px rgba(0, 0, 0, 0.04);
+.resource-flip-wrapper:hover .resource-flip-card,
+.resource-flip-wrapper:focus-within .resource-flip-card,
+.resource-flip-card.is-flipped {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
-.resource-book-cover {
-  top: 0;
-  left: 0;
+.resource-flip-face {
   position: absolute;
-  background-color: #FAF9F6;
-  border: 1px solid rgba(0, 0, 0, 0.09);
+  inset: 0;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
   border-radius: 8px;
-  padding: 20px 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  -webkit-transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, box-shadow 0.35s ease;
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, box-shadow 0.35s ease;
-  -webkit-transform-origin: left center;
-  -ms-transform-origin: left center;
-  transform-origin: left center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-  z-index: 2;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-}
-
-/* Subtle book spine effect */
-.resource-book-cover::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.07), transparent);
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
-.resource-book:hover .resource-book-cover,
-.resource-book:focus-visible .resource-book-cover,
-.resource-book.active-open .resource-book-cover {
-  -webkit-transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, box-shadow 0.35s ease;
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, box-shadow 0.35s ease;
-  -webkit-transform: rotateY(-90deg) scale(0.96);
-  -ms-transform: rotateY(-90deg) scale(0.96);
-  transform: rotateY(-90deg) scale(0.96);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.resource-book-page {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 18px 16px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffffff;
+}
+
+.resource-flip-front {
+  background-color: #FFFFFD;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  padding: 18px 16px;
+  -webkit-transform: rotateY(0deg) translateZ(1px);
+  transform: rotateY(0deg) translateZ(1px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resource-flip-wrapper:hover .resource-flip-front {
+  border-color: rgba(200, 164, 93, 0.4);
+}
+
+.resource-flip-back {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.09);
   border-left: 3.5px solid #c8a45d;
-  box-sizing: border-box;
-  -webkit-transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease;
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease;
-  transform: scale(0.98);
-  opacity: 0.9;
+  box-shadow: 0 12px 32px rgba(200, 164, 93, 0.12), 0 3px 10px rgba(0, 0, 0, 0.04);
+  padding: 16px 15px;
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  transform: rotateY(180deg) translateZ(1px);
 }
 
-.resource-book:hover .resource-book-page,
-.resource-book:focus-visible .resource-book-page {
-  transform: scale(1);
-  opacity: 1;
-}
-
-/* 3D 180-deg Flip Card Component (Section 10 Teacher Empowerment) */
-.pillar-flip-card {
-  height: 236px;
-  cursor: pointer;
+/* 2. 3D 180-deg Flip Card Component (Section 10 Teacher Empowerment) */
+.pillar-flip-wrapper {
   position: relative;
+  width: 100%;
+  height: 236px;
+  -webkit-perspective: 1400px;
+  perspective: 1400px;
+}
+
+.pillar-flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  cursor: pointer;
   -webkit-transform-style: preserve-3d;
-  -ms-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-perspective: 1600px;
-  perspective: 1600px;
   transform-origin: center center;
   will-change: transform;
-  -webkit-transition: transform 0.6s cubic-bezier(0.35, 0.1, 0.2, 1);
-  transition: transform 0.6s cubic-bezier(0.35, 0.1, 0.2, 1);
+  -webkit-transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.pillar-flip-card:hover,
-.pillar-flip-card:focus-visible,
+.pillar-flip-wrapper:hover .pillar-flip-card,
+.pillar-flip-wrapper:focus-within .pillar-flip-card,
 .pillar-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
@@ -422,22 +409,17 @@ html.lenis body {
   -webkit-backface-visibility: hidden;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transform: translate3d(0, 0, 0);
 }
 
 .pillar-flip-front {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 1.35rem 1.45rem;
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  transform: rotateY(0deg) translate3d(0, 0, 0);
+  -webkit-transform: rotateY(0deg) translateZ(1px);
+  transform: rotateY(0deg) translateZ(1px);
 }
 
 .pillar-flip-front>* {
@@ -488,15 +470,9 @@ html.lenis body {
 }
 
 .pillar-flip-back {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
   background: linear-gradient(165deg, #1c1b1a 0%, #0d0c0c 100%);
-  -webkit-transform: rotateY(180deg) translate3d(0, 0, 0);
-  -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg) translate3d(0, 0, 0);
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  transform: rotateY(180deg) translateZ(1px);
   padding: 1.25rem 1.4rem;
   display: flex;
   flex-direction: column;
@@ -505,33 +481,39 @@ html.lenis body {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* 3D 180-deg Flip Card Component (Section 11 Student & School Benefits) */
-.benefit-flip-card {
-  height: 318px;
-  cursor: pointer;
+/* 3. 3D 180-deg Flip Card Component (Section 11 Student & School Benefits) */
+.benefit-flip-wrapper {
   position: relative;
-  -webkit-transform-style: preserve-3d;
-  -ms-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-perspective: 1600px;
-  perspective: 1600px;
-  transform-origin: center center;
-  will-change: transform;
-  -webkit-transition: transform 0.65s cubic-bezier(0.35, 0.1, 0.2, 1);
-  transition: transform 0.65s cubic-bezier(0.35, 0.1, 0.2, 1);
+  width: 100%;
+  height: 318px;
+  -webkit-perspective: 1400px;
+  perspective: 1400px;
 }
 
 @media (min-width: 1280px) {
-  .benefit-flip-card {
+  .benefit-flip-wrapper {
     height: 330px;
   }
 }
 
-.benefit-flip-card:hover,
-.benefit-flip-card:focus-visible,
+.benefit-flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  will-change: transform;
+  -webkit-transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.benefit-flip-wrapper:hover .benefit-flip-card,
+.benefit-flip-wrapper:focus-within .benefit-flip-card,
 .benefit-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
@@ -548,7 +530,6 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transform: translate3d(0, 0, 0);
 }
 
 .benefit-flip-front {
@@ -556,11 +537,12 @@ html.lenis body {
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
   padding: 1.15rem 1.2rem;
-  transform: rotateY(0deg) translate3d(0, 0, 0);
+  -webkit-transform: rotateY(0deg) translateZ(1px);
+  transform: rotateY(0deg) translateZ(1px);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.benefit-flip-card:hover .benefit-flip-front {
+.benefit-flip-wrapper:hover .benefit-flip-front {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
@@ -569,9 +551,8 @@ html.lenis body {
   border: 2px solid #c8a45d;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
   padding: 1.15rem 1.2rem;
-  -webkit-transform: rotateY(180deg) translate3d(0, 0, 0);
-  -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg) translate3d(0, 0, 0);
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  transform: rotateY(180deg) translateZ(1px);
   color: #111111;
 }
 

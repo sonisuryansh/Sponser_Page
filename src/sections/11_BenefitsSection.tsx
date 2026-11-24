@@ -178,20 +178,20 @@ export const BenefitsSection: React.FC = () => {
               const isFlipped = activeCardIndex === idx;
 
               return (
-                <div
-                  key={card.title}
-                  onClick={() => setActiveCardIndex(isFlipped ? null : idx)}
-                  className={`benefit-flip-card group ${isFlipped ? 'is-flipped' : ''}`}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setActiveCardIndex(isFlipped ? null : idx);
-                    }
-                  }}
-                  aria-label={`Turn around to view details for ${card.title}`}
-                >
+                <div key={card.title} className="benefit-flip-wrapper">
+                  <div
+                    onClick={() => setActiveCardIndex(isFlipped ? null : idx)}
+                    className={`benefit-flip-card group ${isFlipped ? 'is-flipped' : ''}`}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setActiveCardIndex(isFlipped ? null : idx);
+                      }
+                    }}
+                    aria-label={`Turn around to view details for ${card.title}`}
+                  >
                   {/* FRONT FACE (Resting state, turns around on hover) */}
                   <div className={`benefit-flip-face benefit-flip-front ${borderHoverAccents[idx]}`}>
                     <div>
@@ -280,7 +280,8 @@ export const BenefitsSection: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              );
+              </div>
+            );
             })}
           </div>
         </div>

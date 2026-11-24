@@ -168,78 +168,82 @@ export const ResourcesSection: React.FC = () => {
               return (
                 <div
                   key={tile.title}
-                  onClick={() => setSelectedTile(tile.title)}
-                  className="resource-book resource-tile group"
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setSelectedTile(tile.title);
-                    }
-                  }}
-                  aria-label={`View ${tile.title} details`}
+                  className="resource-flip-wrapper resource-tile"
                 >
-                  {/* Inside Page (Revealed when cover rotates -80deg) */}
-                  <div className="resource-book-page select-none">
-                    <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold">
-                          Inside {tile.title}
-                        </span>
-                        <span className="text-[8.5px] font-mono text-[#777] bg-black/[0.04] px-1.5 py-0.5 rounded-[2px]">
-                          Specs
-                        </span>
-                      </div>
-                      <h4 className="font-serif text-[14px] sm:text-[15px] font-medium text-[#111111] leading-snug mb-2">
-                        {detail.title}
-                      </h4>
-                      <ul className="space-y-1.5 text-[10.5px] sm:text-[11px] text-[#555555] leading-snug">
-                        {detail.features.slice(0, 3).map((feat, fIdx) => (
-                          <li key={fIdx} className="flex items-start gap-1.5">
-                            <span className="w-1 h-1 rounded-full bg-[#c8a45d] mt-1.5 shrink-0" />
-                            <span className="line-clamp-2">{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-2 border-t border-black/5 mt-auto">
-                      <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#c8a45d] font-bold group-hover:text-[#111] transition-colors">
-                        Click for Full Specs
-                      </span>
-                      <ArrowRight className="w-3 h-3 text-[#c8a45d] group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-
-                  {/* Front Cover (Rotates open on hover) */}
-                  <div className="resource-book-cover select-none">
-                    <div>
-                      {/* Icon & Category Tag */}
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="w-8 h-8 flex items-center justify-center border border-black/8 bg-white rounded-[3px] shadow-xs group-hover:border-[#c8a45d]/40 transition-colors">
-                          {tileIcons[tile.title] || <BookOpen className="w-4 h-4 text-[#c8a45d]" />}
+                  <div
+                    onClick={() => setSelectedTile(tile.title)}
+                    className="resource-flip-card group"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedTile(tile.title);
+                      }
+                    }}
+                    aria-label={`View ${tile.title} details`}
+                  >
+                    {/* Front Face (Cover) */}
+                    <div className="resource-flip-face resource-flip-front select-none">
+                      <div>
+                        {/* Icon & Category Tag */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="w-8 h-8 flex items-center justify-center border border-black/8 bg-white rounded-[3px] shadow-xs group-hover:border-[#c8a45d]/40 transition-colors">
+                            {tileIcons[tile.title] || <BookOpen className="w-4 h-4 text-[#c8a45d]" />}
+                          </div>
+                          <span className="text-[9px] font-mono uppercase tracking-widest text-[#888888] font-semibold px-2 py-0.5 bg-black/[0.03] rounded-[2px]">
+                            {tile.tag}
+                          </span>
                         </div>
-                        <span className="text-[9px] font-mono uppercase tracking-widest text-[#888888] font-semibold px-2 py-0.5 bg-black/[0.03] rounded-[2px]">
-                          {tile.tag}
-                        </span>
+
+                        {/* Tile Title */}
+                        <h3 className="font-serif text-xl sm:text-[22px] font-medium tracking-tight text-[#111111] group-hover:text-[#c8a45d] transition-colors mb-1.5">
+                          {tile.title}
+                        </h3>
+
+                        {/* Tile Description */}
+                        <p className="text-xs leading-relaxed text-[#555555]">
+                          {tile.description}
+                        </p>
                       </div>
 
-                      {/* Tile Title */}
-                      <h3 className="font-serif text-xl sm:text-[22px] font-medium tracking-tight text-[#111111] group-hover:text-[#c8a45d] transition-colors mb-1.5">
-                        {tile.title}
-                      </h3>
-
-                      {/* Tile Description */}
-                      <p className="text-xs leading-relaxed text-[#555555]">
-                        {tile.description}
-                      </p>
+                      {/* Bottom Open Affordance */}
+                      <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-[#c8a45d] font-bold pt-2.5 border-t border-black/5 mt-auto group-hover:text-[#111111] transition-colors">
+                        <span>Hover to view specs</span>
+                        <span className="text-xs">↻</span>
+                      </div>
                     </div>
 
-                    {/* Bottom Open Affordance */}
-                    <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-[#c8a45d] font-bold pt-2.5 border-t border-black/5 mt-auto group-hover:text-[#111111] transition-colors">
-                      <span>Explore Details</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    {/* Back Face (Inside Specs Page) */}
+                    <div className="resource-flip-face resource-flip-back select-none">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold">
+                            Inside {tile.title}
+                          </span>
+                          <span className="text-[8.5px] font-mono text-[#777] bg-black/[0.04] px-1.5 py-0.5 rounded-[2px]">
+                            Specs
+                          </span>
+                        </div>
+                        <h4 className="font-serif text-[14px] sm:text-[15px] font-medium text-[#111111] leading-snug mb-2">
+                          {detail.title}
+                        </h4>
+                        <ul className="space-y-1.5 text-[10.5px] sm:text-[11px] text-[#555555] leading-snug">
+                          {detail.features.slice(0, 3).map((feat, fIdx) => (
+                            <li key={fIdx} className="flex items-start gap-1.5">
+                              <span className="w-1 h-1 rounded-full bg-[#c8a45d] mt-1.5 shrink-0" />
+                              <span className="line-clamp-2">{feat}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-black/5 mt-auto">
+                        <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#c8a45d] font-bold group-hover:text-[#111] transition-colors">
+                          Click for Full Specs
+                        </span>
+                        <ArrowRight className="w-3 h-3 text-[#c8a45d] group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
                   </div>
                 </div>
