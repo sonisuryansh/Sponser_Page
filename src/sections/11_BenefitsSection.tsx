@@ -110,7 +110,7 @@ export const BenefitsSection: React.FC = () => {
       chapterNumber="11"
       theme="light"
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
+      className="relative w-full h-[100svh] overflow-hidden select-none benefits-section-bg"
     >
       {/* Main Viewport Container (Centered in 100svh window, Prominent 1360px Max Width) */}
       <div
@@ -120,19 +120,19 @@ export const BenefitsSection: React.FC = () => {
         {/* Top Header: Eyebrow, Main Title & Narrative Message (Centered, Prominent & Authoritative) */}
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2.5 sm:mb-3.5">
           <div className="editorial-reveal flex items-center justify-center mb-1 sm:mb-1.5">
-            <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
+            <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#b45309] font-bold">
               {siteConfig.benefits.eyebrow}
             </span>
           </div>
 
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-[27px] sm:text-3xl lg:text-[40px] xl:text-[44px] font-normal leading-tight tracking-tight text-[#111111] mb-2 text-center"
+            className="editorial-reveal font-serif text-[27px] sm:text-3xl lg:text-[40px] xl:text-[44px] font-normal leading-tight tracking-tight text-[#0F172A] mb-2 text-center"
           >
             {siteConfig.benefits.headline}
           </h2>
 
-          <p className="editorial-reveal font-sans text-xs sm:text-[13px] lg:text-[13.5px] text-[#555555] leading-relaxed max-w-2xl text-center font-normal">
+          <p className="editorial-reveal font-sans text-xs sm:text-[13px] lg:text-[13.5px] text-[#475569] leading-relaxed max-w-2xl text-center font-normal">
             Technology education provides immense institutional and parental value when students build tangible projects that families can celebrate, verify, and document for their academic futures.
           </p>
         </div>
@@ -287,15 +287,15 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Institutional Value Summary Ribbon */}
-        <div className="editorial-reveal flex-none bg-white/95 border border-black/10 px-4 py-2.5 sm:px-5 sm:py-3 rounded-[4px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] mt-2.5 sm:mt-3">
+        <div className="editorial-reveal flex-none bg-white border border-slate-300/80 px-4 py-2.5 sm:px-5 sm:py-3 rounded-[4px] shadow-[0_10px_28px_rgba(15,23,42,0.08)] mt-2.5 sm:mt-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
-              <span className="uppercase tracking-wider font-bold text-[#111111] text-[11px] sm:text-[11.5px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#b45309]" />
+              <span className="uppercase tracking-wider font-bold text-[#0F172A] text-[11px] sm:text-[11.5px]">
                 Institutional Impact:
               </span>
             </div>
-            <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-[#555555] text-[10.5px] sm:text-[11px]">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-[#475569] text-[10.5px] sm:text-[11px]">
               <span className="flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-emerald-600" /> Transparent Family Visibility
               </span>
@@ -306,23 +306,23 @@ export const BenefitsSection: React.FC = () => {
                 <Check className="w-3.5 h-3.5 text-emerald-600" /> College & Career Portfolio Assets
               </span>
             </div>
-            <span className="uppercase tracking-widest text-[#c8a45d] font-bold text-[10.5px] shrink-0">
+            <span className="uppercase tracking-widest text-[#b45309] font-bold text-[10.5px] shrink-0">
               Measurable Outcomes
             </span>
           </div>
         </div>
 
         {/* Bottom Trailing Link CTA (Centered) */}
-        <div className="editorial-reveal flex-none pt-2.5 sm:pt-3 border-t border-black/10 flex items-center justify-center mt-2">
+        <div className="editorial-reveal flex-none pt-2.5 sm:pt-3 border-t border-slate-300/60 flex items-center justify-center mt-2">
           <button
             onClick={handleScrollToNext}
             className="group flex items-center justify-center text-center focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer max-w-xl mx-auto"
           >
-            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-14 mr-3" />
-            <span className="font-sans font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
+            <span className="h-[1px] bg-slate-400/40 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-14 mr-3" />
+            <span className="font-sans font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0F172A] group-hover:text-[#c8a45d] transition-colors shrink-0">
               Discover school requirements & partnership boundaries
             </span>
-            <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-14 ml-3" />
+            <span className="h-[1px] bg-slate-400/40 group-hover:bg-[#c8a45d] transition-all w-8 sm:w-14 ml-3" />
           </button>
         </div>
       </div>

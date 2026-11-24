@@ -686,6 +686,12 @@ html.lenis body {
 }
 
 /* 3. 3D 180-deg Flip Card Component (Section 11 Student & School Benefits) */
+.benefits-section-bg {
+  background: radial-gradient(rgba(148, 163, 184, 0.28) 1px, transparent 1px),
+              radial-gradient(ellipse at 50% 18%, #F8FAFC 0%, #E2E8F0 55%, #CBD5E1 100%);
+  background-size: 24px 24px, 100% 100%;
+}
+
 .benefit-flip-wrapper {
   position: relative;
   width: 100%;
@@ -737,9 +743,9 @@ html.lenis body {
 }
 
 .benefit-flip-front {
-  background-color: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  background-color: #FFFFFF;
+  border: 1.5px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.11), 0 3px 8px rgba(15, 23, 42, 0.05);
   padding: 1.15rem 1.2rem;
   -webkit-transform: rotateY(0deg) translateZ(1px);
   transform: rotateY(0deg) translateZ(1px);
@@ -747,13 +753,13 @@ html.lenis body {
 }
 
 .benefit-flip-wrapper:hover .benefit-flip-front {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
 .benefit-flip-back {
-  background-color: #FFFFFD;
+  background-color: #FFFFFF;
   border: 2px solid #c8a45d;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(15, 23, 42, 0.08);
   padding: 1.15rem 1.2rem;
   -webkit-transform: rotateY(180deg) translateZ(1px);
   transform: rotateY(180deg) translateZ(1px);
