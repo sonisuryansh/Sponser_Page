@@ -21,11 +21,11 @@ const pillarTags = [
 ];
 
 const pillarKeyDeliverables = [
-  'Algorithmic reasoning & mechanical confidence',
+  'Algorithmic reasoning & practical confidence',
   'Physical hardware showcased term-by-term',
   'Formal certificates for completed grades',
-  'Team preparation for regional challenges',
-  'Documented portfolio for higher education',
+  'Team preparation for student challenges',
+  'Documented portfolio of student builds',
 ];
 
 const benefitPopups = [
@@ -36,23 +36,23 @@ const benefitPopups = [
   },
   {
     title: 'Tangible Proof of Learning',
-    purpose: 'Transforms abstract formulas into working physical hardware—rovers, sensors, and flight drones—giving parents and school leadership visible proof of innovation.',
+    purpose: 'Transforms classroom concepts into working physical hardware—rovers, sensors, and flight drones—giving parents and school leadership visible proof of progress.',
     badge: 'Transparent Parent Value',
   },
   {
-    title: 'Accredited Milestone Credentials',
-    purpose: 'Grants formal, verifiable certificates upon completing each grade-wise level, providing accredited recognition for college profiles and academic records.',
-    badge: 'Accredited Recognition',
+    title: 'Milestone Recognition',
+    purpose: 'Grants formal certificates upon completing each grade-wise level, providing verified recognition for students and academic records.',
+    badge: 'Milestone Recognition',
   },
   {
-    title: 'Inter-School & Regional Arenas',
-    purpose: 'Prepares and coaches school teams for prestigious regional and national STEM hackathons, building institutional reputation and school pride.',
-    badge: 'Institutional Prestige',
+    title: 'Competition Opportunities',
+    purpose: 'Prepares and supports school teams for regional and school-level STEM and robotics challenges, encouraging teamwork and creative problem-solving.',
+    badge: 'Student Participation',
   },
   {
-    title: 'Career & College Portfolio Assets',
-    purpose: 'Builds an authenticated, verifiable digital archive of every working prototype and code repository, serving as an indispensable edge for higher education admissions.',
-    badge: 'Higher Ed Admission Edge',
+    title: 'Student Project Portfolios',
+    purpose: "Builds an organized digital record of each student's working prototypes and code repositories, creating a cumulative archive to show and grow.",
+    badge: 'Cumulative Record',
   },
 ];
 
@@ -299,7 +299,7 @@ export const BenefitsSection: React.FC = () => {
                 <Check className="w-3.5 h-3.5 text-emerald-600" /> Transparent Family Visibility
               </span>
               <span className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-emerald-600" /> Accredited Progressive Curriculum
+                <Check className="w-3.5 h-3.5 text-emerald-600" /> Progressive Structured Curriculum
               </span>
               <span className="flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-emerald-600" /> College & Career Portfolio Assets

@@ -32,7 +32,7 @@ const resourceDetails: Record<string, ResourceDetail> = {
       'Available as both downloadable offline PDFs and interactive digital workbooks.',
     ],
     specs: [
-      { label: 'Coverage', value: 'Grades 4 through 10' },
+      { label: 'Coverage', value: 'Grades 3 through 12' },
       { label: 'Access Mode', value: 'Lab Devices & Offline PDF' },
       { label: 'Format', value: 'Interactive Digital & Print-Ready' },
     ],

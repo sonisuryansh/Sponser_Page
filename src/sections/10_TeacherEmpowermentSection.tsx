@@ -12,9 +12,9 @@ const pillarIcons = [
 
 const pillarDetails = [
   [
+    '4–5 practical AI workshops for faculty',
     'Session facilitation protocols',
     'Hardware troubleshooting & safety',
-    'Student mentoring frameworks',
   ],
   [
     'Turnkey session plans & safety notes',
@@ -30,9 +30,9 @@ const pillarDetails = [
 
 const pillarPopups = [
   {
-    title: 'Faculty Preparation & Mentorship',
-    purpose: 'Designed so teachers never feel overwhelmed or under-prepared in the lab. Covers live hardware diagnostics, electrical safety rules, and practical facilitation methods so educators lead hands-on STEM sessions with confidence.',
-    badge: 'Zero Technical Friction',
+    title: 'Faculty Training & AI Workshops',
+    purpose: 'Provides 4–5 structured AI workshops and hands-on faculty sessions so teachers lead technology and STEM classes with confidence. Covers live hardware diagnostics, electrical safety rules, and classroom facilitation.',
+    badge: 'Faculty Empowerment',
   },
   {
     title: 'Turnkey Classroom Blueprints',
@@ -41,7 +41,7 @@ const pillarPopups = [
   },
   {
     title: 'Human-in-the-Loop AI Assistant',
-    purpose: 'Saves teachers 3+ hours every week through AI-drafted quiz questions, activity notes, and lesson recaps. The educator stays strictly in charge to review, edit, and approve all AI output before students see it.',
+    purpose: 'Assists educators with AI-drafted quiz questions, activity notes, and lesson recaps. The educator stays strictly in charge to review, edit, and approve all AI output before students see it.',
     badge: 'Educator Stays in Charge',
   },
 ];

@@ -27,9 +27,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           WE ARE
         </p>
 
-        {/* Big Animated Title: MEDHAARC LAB on a single line */}
+        {/* Big Animated Title: MEDHAARC LABS on a single line */}
         <h1 className="animated-hero-text font-serif font-black whitespace-nowrap text-[8.5vw] sm:text-[7vw] md:text-[68px] lg:text-[84px] xl:text-[98px] leading-[0.95] tracking-tight uppercase select-none drop-shadow-2xl text-center">
-          MEDHAARC LAB
+          MEDHAARC LABS
         </h1>
 
         {/* Sub-headline: NEXT-GENERATION K-12 HANDS-ON INNOVATION ECOSYSTEM */}

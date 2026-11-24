@@ -109,7 +109,7 @@ export const AboutSection: React.FC = () => {
               <h2 className="font-serif text-[clamp(28px,3vw,42px)] font-bold text-[#111111] leading-[1.08] mb-2 tracking-tight">
                 Our aim <br />
                 <span className="italic font-normal text-[#0284c7]">
-                  is to demystify tech
+                  is to make tech understandable
                 </span>
               </h2>
 

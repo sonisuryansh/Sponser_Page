@@ -299,8 +299,8 @@ export const siteConfig = {
     subnote: 'Proposed roadmap, finalised with each school.',
     stages: [
       {
-        id: 'grade-4',
-        gradeLabel: 'Grade 4',
+        id: 'grade-3-4',
+        gradeLabel: 'Grades 3–4',
         title: 'Digital Creation & Logic',
         focus: 'Digital creation, visual/block-based coding, logic, and foundational design',
         chips: ['Block Coding', 'Logic & Sequences', 'Foundational Design'],
@@ -308,27 +308,19 @@ export const siteConfig = {
       },
       {
         id: 'grade-5-6',
-        gradeLabel: 'Grades 5 to 6',
+        gradeLabel: 'Grades 5–6',
         title: 'Introductory Electronics & Construction',
         focus: 'Block coding, logic, digital creation, and introductory electronics and design',
         chips: ['Physical Computing', 'Sensory Feedback', 'Visual Programming'],
         outcome: 'Learners wire practical circuits, interface tactile sensors with motor actuators, and bridge digital code with mechanical movement.',
       },
       {
-        id: 'grade-7',
-        gradeLabel: 'Grade 7',
-        title: 'Python Foundations',
-        focus: 'Python foundations and introductory programming projects',
-        chips: ['Syntax & Flow', 'Variables & Loops', 'Mini Projects'],
-        outcome: 'Students advance from visual blocks to text-based Python syntax, mastering variables, logic loops, and modular functions through guided mini-builds.',
-      },
-      {
-        id: 'grade-8',
-        gradeLabel: 'Grade 8',
-        title: 'Python Development & Electronics',
+        id: 'grade-7-8',
+        gradeLabel: 'Grades 7–8',
+        title: 'Python Foundations & Electronics',
         focus: 'Python development, problem-solving, electronics, and suitable data structures',
-        chips: ['Data Structures', 'Microcontroller Logic', 'System Problem-Solving'],
-        outcome: 'Combines Python programming with microcontrollers, enabling students to harvest live sensor data and build automated response systems.',
+        chips: ['Python Programming', 'Data Structures', 'Microcontroller Logic'],
+        outcome: 'Students advance from visual blocks to text-based Python syntax, combining code with microcontrollers to harvest live sensor data and build automated response systems.',
       },
       {
         id: 'grade-9',
@@ -346,8 +338,6 @@ export const siteConfig = {
         chips: ['Data Analysis', 'Hypothesis Testing', 'Capstone Portfolio'],
         outcome: 'Students execute end-to-end engineering capstones, analyzing multi-sensor datasets and presenting working prototypes to teachers and peers.',
       },
-    ] as CurriculumStage[],
-    beyondGrade10: [
       {
         id: 'grade-11',
         gradeLabel: 'Grade 11',
@@ -365,6 +355,7 @@ export const siteConfig = {
         outcome: 'Advanced synthesis of deep learning models and autonomous robotics systems with real-time feedback loops.',
       },
     ] as CurriculumStage[],
+    beyondGrade10: [] as CurriculumStage[],
   },
 
   // Act 2: 07 Student Projects Showcase
@@ -533,7 +524,7 @@ export const siteConfig = {
     columns: [
       {
         title: 'Train',
-        description: 'Teacher training on how sessions run and how to support students.',
+        description: 'Teacher training on how sessions run and how to support students, including 4–5 hands-on AI workshops.',
       },
       {
         title: 'Guide',
@@ -606,8 +597,8 @@ export const siteConfig = {
       {
         title: 'School provides',
         items: [
-          'Lab space',
-          'Computers',
+          'Dedicated lab space',
+          'Computers / workstations',
           'Tables and power points',
           'Student scheduling',
         ],

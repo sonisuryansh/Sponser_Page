@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 import { ChapterShell } from '../components/ChapterShell';
 import { Magnetic } from '../components/motion/Magnetic';
-import { AnimatedCounter } from '../components/motion/AnimatedCounter';
 import { LineReveal } from '../components/motion/LineReveal';
 
 interface DomainData {
@@ -40,7 +39,7 @@ interface DomainData {
   icon: React.ReactNode;
   slideNumber: string;
   items: string[];
-  metrics: { value: number; suffix: string; label: string }[];
+  metrics: { value: string; label: string }[];
   tags: string[];
   pillars: { num: string; title: string; desc: string }[];
   badgeNote?: string;
@@ -64,7 +63,7 @@ const DOMAINS: DomainData[] = [
     tag: 'Physical Computing',
     tagline: 'Physical Computing & Embedded Mechanics',
     description:
-      'Sensory feedback, motor actuation, and embedded logic bridging code with mechanics.',
+      'Electronics, sensors, control, coding, and mechanical systems.',
     bg: '#1c4250',
     textColor: '#ffffff',
     accent: '#38bdf8',
@@ -85,9 +84,9 @@ const DOMAINS: DomainData[] = [
       'Mechanical Prototyping & CAD',
     ],
     metrics: [
-      { value: 6, suffix: ' DoF', label: 'Arm Kinematics' },
-      { value: 24, suffix: '+', label: 'Sensors & Actuators' },
-      { value: 100, suffix: '%', label: 'Bench Practical' },
+      { value: 'DESIGN', label: 'Circuits & CAD' },
+      { value: 'BUILD', label: 'Sensors & Motors' },
+      { value: 'CODE', label: 'Embedded Logic' },
     ],
     tags: ['Sensors', 'Actuators', 'Embedded C', '3D Design'],
     pillars: [
@@ -115,7 +114,7 @@ const DOMAINS: DomainData[] = [
     tag: 'Cognitive Models',
     tagline: 'Intelligent Systems & Machine Reasoning',
     description:
-      'Intelligent inference, computer vision, and responsible safety guardrails.',
+      'Intelligent systems, model concepts, and responsible AI use.',
     bg: '#254456',
     textColor: '#ffffff',
     accent: '#6ee7b7',
@@ -136,9 +135,9 @@ const DOMAINS: DomainData[] = [
       'Ethical Safety Guardrails',
     ],
     metrics: [
-      { value: 98, suffix: '%', label: 'Vision Accuracy' },
-      { value: 15, suffix: ' FPS', label: 'Edge ML Latency' },
-      { value: 100, suffix: '%', label: 'Ethics Guardrails' },
+      { value: 'PERCEIVE', label: 'Data & Patterns' },
+      { value: 'TRAIN', label: 'Supervised Models' },
+      { value: 'ETHICS', label: 'Safety Guardrails' },
     ],
     tags: ['Neural Networks', 'Computer Vision', 'Ethical AI', 'Edge Inference'],
     pillars: [
@@ -166,7 +165,7 @@ const DOMAINS: DomainData[] = [
     tag: 'Evidence & Insights',
     tagline: 'Evidence, Statistics & Live Telemetry',
     description:
-      'Transforming raw sensor telemetry into structured insights through 4 empirical stages.',
+      'Working with data, finding patterns, and sharing insights.',
     bg: '#8c4427',
     textColor: '#ffffff',
     accent: '#fed7aa',
@@ -187,9 +186,9 @@ const DOMAINS: DomainData[] = [
       'Visual Storytelling & Charts',
     ],
     metrics: [
-      { value: 50, suffix: ' Hz', label: 'Sensor Telemetry' },
-      { value: 4, suffix: ' Stages', label: 'Pipeline Depth' },
-      { value: 100, suffix: '%', label: 'Empirical Proof' },
+      { value: 'COLLECT', label: 'Raw Observations' },
+      { value: 'ANALYSE', label: 'Trends & Variance' },
+      { value: 'INSIGHT', label: 'Visual Findings' },
     ],
     tags: ['Data Structuring', 'Statistical Interpretation', 'Data Visualization', 'Hypothesis'],
     pillars: [
@@ -217,7 +216,7 @@ const DOMAINS: DomainData[] = [
     tag: 'Flight Aerodynamics',
     tagline: 'Aerodynamics, Flight Mechanics & Spatial Robotics',
     description:
-      'Aerodynamics, 3D spatial mapping, and gyro stabilization in safe lab environments.',
+      'Aerial platforms, flight basics, sensing, and applications.',
     bg: '#141d27',
     textColor: '#ffffff',
     accent: '#93c5fd',
@@ -238,9 +237,9 @@ const DOMAINS: DomainData[] = [
       'Laboratory Tethered Protocols',
     ],
     metrics: [
-      { value: 4, suffix: ' Motors', label: 'Brushless Thrust' },
-      { value: 3, suffix: ' Axis', label: 'IMU Stabilization' },
-      { value: 100, suffix: '%', label: 'Tethered Safety' },
+      { value: 'FLIGHT', label: 'Lift & Stability' },
+      { value: 'SENSORS', label: 'Telemetry Guidance' },
+      { value: 'SAFETY', label: 'Controlled Arena' },
     ],
     tags: ['Aerodynamics', 'Gyro & IMU', 'Navigation', 'Lab Safety'],
     pillars: [
@@ -810,15 +809,15 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                         </p>
                       </div>
 
-                      {/* Live Animated Metrics Strip */}
+                      {/* Core Process & Learning Stages Strip */}
                       <div className="grid grid-cols-3 gap-2 py-1.5 px-3 border border-white/10 bg-white/5 rounded-xl">
                         {card.metrics.map((m, mIdx) => (
                           <div key={mIdx} className="text-left">
                             <div
-                              className="font-mono-tech text-sm sm:text-base font-bold"
+                              className="font-mono-tech text-xs sm:text-sm font-bold tracking-wider"
                               style={{ color: mIdx === 0 ? card.accent : '#ffffff' }}
                             >
-                              <AnimatedCounter value={m.value} suffix={m.suffix} />
+                              {m.value}
                             </div>
                             <div className="font-mono-tech text-[9.5px] text-white/60 uppercase leading-tight truncate">
                               {m.label}

@@ -11,6 +11,7 @@ const stageImages = [
   '/assets/stage_grade_04.webp',
   '/assets/stage_grade_05.webp',
   '/assets/stage_grade_06.webp',
+  '/assets/stage_grade_06.webp',
 ];
 
 export const CurriculumSection: React.FC = () => {
@@ -204,7 +205,7 @@ export const CurriculumSection: React.FC = () => {
               <div className="flex flex-col gap-2 sm:gap-2.5 lg:gap-3">
                 {allStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
-                  const displayGrade = stage.gradeLabel.replace('Grades 5 to 6', 'Grade 5–6');
+                  const displayGrade = stage.gradeLabel;
 
                   return (
                     <button
