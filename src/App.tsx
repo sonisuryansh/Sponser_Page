@@ -57,10 +57,7 @@ export function App() {
     }
     window.scrollTo(0, 0);
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReducedMotion) {
-      document.documentElement.classList.add('js-motion');
-    }
+    document.documentElement.classList.add('js-motion');
 
     return () => {
       document.documentElement.classList.remove('js-motion');

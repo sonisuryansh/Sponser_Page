@@ -76,7 +76,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const scrollPane = toWrapper.querySelector<HTMLElement>('.slide-scroll-pane');
       const toImage = toWrapper.querySelector<HTMLElement>('.chapter-media-img');
       const strips = shuttersRef.current?.querySelectorAll<HTMLElement>('.shutter-strip');
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       transitioningRef.current = true;
       setIsTransitioning(true);
@@ -91,7 +90,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       gsap.set(fromWrapper, { zIndex: 10, opacity: 1 });
       gsap.set(toWrapper, { zIndex: 20, opacity: 0 });
 
+      let watchdogTimer: ReturnType<typeof setTimeout> | null = null;
+
       const finish = () => {
+        if (watchdogTimer) clearTimeout(watchdogTimer);
         gsap.set(fromWrapper, { visibility: 'hidden', zIndex: 0, opacity: 0 });
         gsap.set(toWrapper, { visibility: 'visible', zIndex: 10, opacity: 1 });
         if (fromScrollPane) fromScrollPane.style.overflowY = '';
@@ -125,13 +127,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         lastGestureTimeRef.current = Date.now();
       };
 
-      if (reducedMotion) {
-        gsap
-          .timeline({ onComplete: finish })
-          .to(fromWrapper, { opacity: 0, duration: 0.2, ease: 'power1.out' })
-          .to(toWrapper, { opacity: 1, duration: 0.2, ease: 'power1.out' }, '<');
-        return;
-      }
+      // Failsafe watchdog timer (1100ms) to ensure transition state never deadlocks
+      watchdogTimer = setTimeout(() => {
+        if (transitioningRef.current) {
+          finish();
+        }
+      }, 1100);
 
       // Directional shutter trajectories:
       // Forward (down): enter from +110% (right) -> 0% -> exit to -110% (left)
