@@ -103,22 +103,24 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
       chapterNumber="14"
       theme="dark"
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-hidden bg-[#070A0F]"
+      className="relative w-full h-[100svh] overflow-hidden bg-[#080A0D] select-none"
     >
-      {/* Background Drone Media with Atmospheric Radial Warm Glow */}
+      {/* Dark Aerospace-Inspired Background with Refined Atmospheric Vignette */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
         <img
           src="/assets/medhaarc_hero_drone.webp"
           alt="MedhaArc Labs Autonomous Drone Prototype"
-          className="w-full h-full object-cover object-center filter saturate-[0.4] contrast-[1.15] brightness-[0.24] scale-105"
+          className="w-full h-full object-cover object-center filter saturate-[0.25] contrast-[1.25] brightness-[0.2] scale-105"
+          loading="eager"
         />
-        {/* Ambient Center Glow & Subtle Vignette */}
-        <div className="absolute inset-0 bg-radial-[at_50%_50%] from-[#c8a45d]/[0.08] via-transparent to-[#070A0F]/95" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070A0F] via-transparent to-[#070A0F]/85" />
+        {/* Deep Black Aerospace Gradients with Subtle Champagne Gold Center Glow */}
+        <div className="absolute inset-0 bg-radial-[at_50%_48%] from-[#c8a45d]/[0.07] via-[#080A0D]/75 to-[#080A0D]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080A0D] via-transparent to-[#080A0D]/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080A0D]/80 via-transparent to-[#080A0D]" />
 
-        {/* Minimal Precision Dot Grid */}
+        {/* Aerospace Precision Micro-Grid (Subtle 32px Matrix) */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
             backgroundSize: '32px 32px',
@@ -126,89 +128,87 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         />
       </div>
 
-      {/* Main Viewport Container */}
+      {/* Main Viewport Container (Guaranteed 100svh Full Height Composition) */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full h-full max-w-[1240px] mx-auto flex flex-col justify-between pt-20 pb-5 px-6 sm:px-8 lg:px-12 box-border select-none"
+        className="relative z-10 w-full min-h-[100svh] flex-1 flex flex-col justify-between pt-20 sm:pt-24 pb-4 sm:pb-6 px-5 sm:px-8 lg:px-12 box-border select-none max-w-[1280px] mx-auto"
       >
-        <div /> {/* Top spacing */}
+        {/* Subtle Top Anchor clearance for fixed navigation header */}
+        <div className="flex-none h-2 sm:h-4" />
 
-        {/* Central Executive Focus Area */}
+        {/* Central Executive Focus Area (Perfect Vertical Center) */}
         <div
           ref={contentRef}
-          className="w-full max-w-3xl mx-auto flex flex-col items-center text-center my-auto"
+          className="w-full max-w-3xl mx-auto flex flex-col items-center text-center my-auto py-2 sm:py-4"
         >
-          {/* Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 mb-4 sm:mb-5 backdrop-blur-sm">
-            <span className="flex h-1.5 w-1.5 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c8a45d] opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#c8a45d]" />
-            </span>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[#c8a45d] font-semibold">
-              {siteConfig.closing.eyebrow} • Academic Partnership
+          {/* Eyebrow Badge (Subtle Minimal Aerospace Tag) */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 mb-3.5 sm:mb-4.5 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] animate-pulse" />
+            <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-semibold">
+              {siteConfig.closing.eyebrow} &bull; Academic Partnership
             </span>
           </div>
 
           {/* Editorial Headline */}
-          <h2 className="font-serif text-[clamp(32px,5.2vw,58px)] font-normal leading-[1.12] tracking-tight text-white mb-4 sm:mb-5">
+          <h2 className="font-serif text-[clamp(28px,5vw,56px)] font-normal leading-[1.14] tracking-tight text-[#FAF9F6] mb-3 sm:mb-4 max-w-4xl">
             {siteConfig.closing.headline}
           </h2>
 
-          {/* Subtitle Quote */}
-          <p className="text-base sm:text-lg md:text-xl text-white/75 font-serif italic leading-relaxed max-w-2xl mb-8 sm:mb-10">
+          {/* Subtitle Message */}
+          <p className="font-serif italic text-base sm:text-lg md:text-xl lg:text-[21px] text-white/75 leading-relaxed max-w-2xl mb-7 sm:mb-9 font-normal">
             &ldquo;{siteConfig.closing.line}&rdquo;
           </p>
 
-          {/* Primary Action Button */}
+          {/* Primary Action Button (Sophisticated Muted Champagne Gold) */}
           <button
             onClick={onOpenContact}
-            className="group inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#070A0F] font-mono text-xs sm:text-[13px] uppercase tracking-[0.16em] font-bold rounded-[3px] shadow-[0_6px_28px_rgba(200,164,93,0.32)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.5)] transition-all cursor-pointer active:scale-[0.98] mb-8"
+            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 sm:px-11 py-3.5 sm:py-4 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-xs sm:text-[12.5px] uppercase tracking-[0.18em] font-bold rounded-[3px] shadow-[0_4px_24px_rgba(200,164,93,0.28)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.45)] hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 cursor-pointer"
           >
-            <Calendar className="w-4 h-4 text-[#070A0F]" />
+            <Calendar className="w-4 h-4 text-[#080A0D]" />
             <span>{siteConfig.closing.ctaText}</span>
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-4 h-4 text-[#080A0D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </button>
 
-          {/* Minimal Direct Channels Row (Clean, uncluttered, no chunky boxes) */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-[13px] font-mono text-white/70">
-            {/* Institutional Email */}
+          {/* Contact & Social Links (One Clean Horizontal Row on Desktop, Gracefully Stacking on Mobile) */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-[12.5px] font-mono text-white/70 mt-6 sm:mt-8">
+            {/* Official Email */}
             <button
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 hover:text-[#c8a45d] transition-colors cursor-pointer group"
+              className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
               title="Click to copy official email"
             >
               {copiedEmail ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-400" />
-                  <span className="text-emerald-300 font-semibold">Email Copied!</span>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-300 font-medium">team@medhaarc.com copied!</span>
                 </>
               ) : (
                 <>
-                  <Mail className="w-4 h-4 text-[#c8a45d]/80 group-hover:text-[#c8a45d] transition-colors" />
+                  <Mail className="w-3.5 h-3.5 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
                   <span>team@medhaarc.com</span>
-                  <Copy className="w-3.5 h-3.5 text-white/30 group-hover:text-[#c8a45d] transition-colors" />
+                  <Copy className="w-3 h-3 text-white/30 group-hover:text-[#c8a45d] transition-colors" />
                 </>
               )}
             </button>
 
-            <span className="text-white/20 select-none">•</span>
+            <span className="hidden sm:inline-block w-px h-3.5 bg-white/15 select-none" />
 
             {/* Official Website */}
             <a
               href={siteConfig.closing.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 hover:text-[#c8a45d] transition-colors group cursor-pointer"
+              className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
             >
-              <Globe className="w-4 h-4 text-[#c8a45d]/80 group-hover:text-[#c8a45d] transition-colors" />
+              <Globe className="w-3.5 h-3.5 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
               <span>medhaarc.com</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-white/30 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-3 h-3 text-white/30 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
-            <span className="text-white/20 select-none hidden sm:inline">•</span>
+            <span className="hidden sm:inline-block w-px h-3.5 bg-white/15 select-none" />
 
-            {/* Clean Social Icons */}
-            <div className="flex items-center gap-3">
+            {/* Clean Social Links */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {socialChannels.map((soc) => (
                 <a
                   key={soc.name}
@@ -216,8 +216,8 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={soc.name}
-                  className="text-white/50 hover:text-[#c8a45d] transition-colors p-1"
                   title={soc.name}
+                  className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/40 text-white/50 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer hover:scale-105"
                 >
                   {soc.icon}
                 </a>
@@ -226,12 +226,12 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
           </div>
         </div>
 
-        {/* Minimal Centered Publication Footer */}
-        <footer className="w-full border-t border-white/10 pt-4 pb-2 flex flex-col sm:flex-row items-center justify-between text-xs text-white/45 tracking-wider gap-2">
-          <div className="flex items-center gap-2">
-            <span>{siteConfig.closing.footerText}</span>
-            <span className="text-white/20 select-none">•</span>
-            <span className="font-mono text-[#c8a45d]/80">K-12 School Ecosystem</span>
+        {/* Minimal Centered Publication Footer (Naturally Positioned at Bottom) */}
+        <footer className="w-full flex-none border-t border-white/10 pt-3.5 pb-2 sm:pb-3 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-white/45 tracking-wider gap-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <span className="text-white/60 font-sans">{siteConfig.closing.footerText}</span>
+            <span className="text-white/20 select-none hidden sm:inline">&bull;</span>
+            <span className="font-mono text-[#c8a45d]/85">K-12 School Technology Ecosystem</span>
           </div>
           <p className="font-serif italic text-white/55 text-xs text-center sm:text-right">
             &ldquo;{siteConfig.tagline}&rdquo;
