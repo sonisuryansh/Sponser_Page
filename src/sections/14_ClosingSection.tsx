@@ -150,31 +150,31 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
           </div>
 
           {/* Editorial Headline */}
-          <h2 className="font-serif text-[clamp(28px,5vw,56px)] font-normal leading-[1.14] tracking-tight text-[#FAF9F6] mb-3 sm:mb-4 max-w-4xl">
+          <h2 className="font-serif text-[clamp(25px,6vw,56px)] sm:text-[clamp(32px,5vw,56px)] font-normal leading-[1.14] tracking-tight text-[#FAF9F6] mb-2.5 sm:mb-4 max-w-4xl px-2 sm:px-0">
             {siteConfig.closing.headline}
           </h2>
 
           {/* Subtitle Message */}
-          <p className="font-serif italic text-base sm:text-lg md:text-xl lg:text-[21px] text-white/75 leading-relaxed max-w-2xl mb-7 sm:mb-9 font-normal">
+          <p className="font-serif italic text-[14.5px] sm:text-base md:text-lg lg:text-[20px] text-white/75 leading-relaxed max-w-2xl mb-6 sm:mb-9 font-normal px-2 sm:px-0">
             &ldquo;{siteConfig.closing.line}&rdquo;
           </p>
 
           {/* Primary Action Button (Sophisticated Muted Champagne Gold) */}
           <button
             onClick={onOpenContact}
-            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 sm:px-11 py-3.5 sm:py-4 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-xs sm:text-[12.5px] uppercase tracking-[0.18em] font-bold rounded-[3px] shadow-[0_4px_24px_rgba(200,164,93,0.28)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.45)] hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 cursor-pointer"
+            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 sm:px-11 py-3.5 sm:py-4 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-xs sm:text-[12.5px] uppercase tracking-[0.16em] sm:tracking-[0.18em] font-bold rounded-[3px] shadow-[0_4px_24px_rgba(200,164,93,0.28)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.45)] hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 cursor-pointer"
           >
             <Calendar className="w-4 h-4 text-[#080A0D]" />
             <span>{siteConfig.closing.ctaText}</span>
             <ArrowUpRight className="w-4 h-4 text-[#080A0D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </button>
 
-          {/* Contact & Social Links (One Clean Horizontal Row on Desktop, Gracefully Stacking on Mobile) */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-[12.5px] font-mono text-white/70 mt-6 sm:mt-8">
+          {/* Contact & Social Links (Responsive Stack on Mobile, Single Row on Desktop) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs sm:text-[12.5px] font-mono text-white/70 mt-5 sm:mt-8 w-full max-w-sm sm:max-w-none mx-auto">
             {/* Official Email */}
             <button
               onClick={handleCopyEmail}
-              className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 sm:py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
               title="Click to copy official email"
             >
               {copiedEmail ? (
@@ -198,7 +198,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
               href={siteConfig.closing.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 sm:py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
             >
               <Globe className="w-3.5 h-3.5 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
               <span>medhaarc.com</span>
@@ -208,7 +208,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
             <span className="hidden sm:inline-block w-px h-3.5 bg-white/15 select-none" />
 
             {/* Clean Social Links */}
-            <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="flex items-center justify-center gap-2.5 sm:gap-2 mt-1 sm:mt-0">
               {socialChannels.map((soc) => (
                 <a
                   key={soc.name}
@@ -217,7 +217,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
                   rel="noopener noreferrer"
                   aria-label={soc.name}
                   title={soc.name}
-                  className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/40 text-white/50 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer hover:scale-105"
+                  className="w-8 h-8 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/40 text-white/50 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer hover:scale-105"
                 >
                   {soc.icon}
                 </a>
@@ -227,8 +227,8 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         </div>
 
         {/* Minimal Centered Publication Footer (Naturally Positioned at Bottom) */}
-        <footer className="w-full flex-none border-t border-white/10 pt-3.5 pb-2 sm:pb-3 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-white/45 tracking-wider gap-2">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+        <footer className="w-full flex-none border-t border-white/10 pt-3 pb-2 sm:pb-3 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-white/45 tracking-wider gap-2 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2">
             <span className="text-white/60 font-sans">{siteConfig.closing.footerText}</span>
             <span className="text-white/20 select-none hidden sm:inline">&bull;</span>
             <span className="font-mono text-[#c8a45d]/85">K-12 School Technology Ecosystem</span>

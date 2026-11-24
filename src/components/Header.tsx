@@ -126,7 +126,7 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-6 md:px-12 pointer-events-auto select-none transition-all duration-300 ${isScrolled
+        className={`fixed top-0 left-0 right-0 z-50 h-[64px] sm:h-[72px] flex items-center justify-between px-3.5 sm:px-6 md:px-12 pointer-events-auto select-none transition-all duration-300 ${isScrolled
           ? isDark
             ? 'bg-[#0A1016]/92 backdrop-blur-md border-b border-white/10 shadow-md text-white'
             : 'bg-[#FAF6EE]/94 backdrop-blur-md border-b border-black/8 shadow-xs text-[#111111]'
@@ -138,18 +138,18 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand / Logo Left */}
         <button
           onClick={() => handleSelectSection('home')}
-          className="flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer group"
+          className="flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer group shrink-0"
           aria-label="MedhaArc Labs home"
         >
           <img
             src={isDark ? '/assets/medhaarc_horizontal_logo_white.png' : '/assets/medhaarc_horizontal_logo.png'}
             alt={siteConfig.brandName}
-            className="h-7 sm:h-[30px] md:h-[32px] w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-6 sm:h-7 md:h-[30px] lg:h-[32px] w-auto object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </button>
 
         {/* Actions Right: Consultation Link + Menu Toggle + Fullscreen Toggle */}
-        <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-4 shrink-0">
           <button
             onClick={onOpenContact}
             className={`hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] transition-colors relative pb-0.5 cursor-pointer mr-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-current after:origin-left hover:after:scale-x-100 after:scale-x-0 after:transition-transform ${isDark ? 'text-white/80 hover:text-white' : 'text-[#111111]/80 hover:text-[#111111]'
@@ -159,33 +159,33 @@ export const Header: React.FC<HeaderProps> = ({
             <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
           </button>
 
-          {/* Outline-only Menu button (shifted slightly left to make room for fullscreen) */}
+          {/* Outline-only Menu button */}
           <button
             onClick={() => setIsMenuOpen(true)}
             aria-label="Open presentation menu"
-            className={`flex items-center gap-2 px-3 py-1.5 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${isDark
+            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${isDark
               ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
               : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
               }`}
           >
-            <span className="text-xs uppercase tracking-[0.18em]">Menu</span>
-            <Menu className="w-4 h-4" />
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.18em]">Menu</span>
+            <Menu className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
 
-          {/* Fullscreen Toggle Button right next to Menu */}
+          {/* Fullscreen Toggle Button */}
           <button
             onClick={toggleFullscreen}
             aria-label={isFullscreen ? 'Exit fullscreen mode' : 'Enter fullscreen mode'}
             title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-            className={`flex items-center justify-center p-2 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${isDark
+            className={`flex items-center justify-center p-1.5 sm:p-2 border rounded-[2px] transition-all focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer ${isDark
               ? 'border-white/30 hover:border-white text-white bg-white/5 hover:bg-white/10'
               : 'border-black/30 hover:border-black text-[#111111] bg-black/5 hover:bg-black/10'
               }`}
           >
             {isFullscreen ? (
-              <Minimize className="w-4 h-4" />
+              <Minimize className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             ) : (
-              <Maximize className="w-4 h-4" />
+              <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             )}
           </button>
         </div>

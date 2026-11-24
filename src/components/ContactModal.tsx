@@ -57,13 +57,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     >
       <div
         ref={dialogRef}
-        className="relative w-full max-w-xl bg-[#ffffff] text-[#111111] border border-black/10 rounded-[2px] p-8 md:p-10 shadow-2xl overflow-y-auto max-h-[90vh]"
+        className="relative w-full max-w-xl bg-[#ffffff] text-[#111111] border border-black/10 rounded-[2px] p-5 sm:p-8 md:p-10 shadow-2xl overflow-y-auto max-h-[92vh]"
       >
         {/* Close Button */}
         <button
           onClick={handleClose}
           aria-label="Close dialog"
-          className="absolute top-6 right-6 p-2 text-[#5b5b5b] hover:text-[#111111] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-black cursor-pointer"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-[#5b5b5b] hover:text-[#111111] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-black cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
