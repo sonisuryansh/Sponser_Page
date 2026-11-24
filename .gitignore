@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 scratch/
+brain/
 artifacts_video_frames/
 recon/video/
 
