@@ -157,46 +157,94 @@ export const ResourcesSection: React.FC = () => {
             )}
           </div>
 
-          {/* 4 Interactive Resource Cards Grid */}
+          {/* 4 Interactive Resource Cards Grid with 3D Book Cover Open Effect */}
           <div
             ref={tilesRef}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 my-auto"
           >
-            {siteConfig.resources.tiles.map((tile) => (
-              <button
-                key={tile.title}
-                onClick={() => setSelectedTile(tile.title)}
-                className="group resource-tile text-left p-5 sm:p-6 bg-[#FAF9F6] hover:bg-white border border-black/8 hover:border-[#c8a45d]/60 rounded-[4px] flex flex-col justify-between h-[210px] sm:h-[225px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#c8a45d]"
-              >
-                <div>
-                  {/* Icon & Category Tag */}
-                  <div className="flex items-center justify-between mb-3.5">
-                    <div className="w-9 h-9 flex items-center justify-center border border-black/8 bg-white rounded-[3px] shadow-xs group-hover:border-[#c8a45d]/40 transition-colors">
-                      {tileIcons[tile.title] || <BookOpen className="w-5 h-5 text-[#c8a45d]" />}
+            {siteConfig.resources.tiles.map((tile) => {
+              const detail = resourceDetails[tile.title] || resourceDetails['E-Books'];
+
+              return (
+                <div
+                  key={tile.title}
+                  onClick={() => setSelectedTile(tile.title)}
+                  className="resource-book resource-tile group"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedTile(tile.title);
+                    }
+                  }}
+                  aria-label={`View ${tile.title} details`}
+                >
+                  {/* Inside Page (Revealed when cover rotates -80deg) */}
+                  <div className="resource-book-page select-none">
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold">
+                          Inside {tile.title}
+                        </span>
+                        <span className="text-[8.5px] font-mono text-[#777] bg-black/[0.04] px-1.5 py-0.5 rounded-[2px]">
+                          Specs
+                        </span>
+                      </div>
+                      <h4 className="font-serif text-[14px] sm:text-[15px] font-medium text-[#111111] leading-snug mb-2">
+                        {detail.title}
+                      </h4>
+                      <ul className="space-y-1.5 text-[10.5px] sm:text-[11px] text-[#555555] leading-snug">
+                        {detail.features.slice(0, 3).map((feat, fIdx) => (
+                          <li key={fIdx} className="flex items-start gap-1.5">
+                            <span className="w-1 h-1 rounded-full bg-[#c8a45d] mt-1.5 shrink-0" />
+                            <span className="line-clamp-2">{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <span className="text-[9.5px] font-mono uppercase tracking-widest text-[#888888] font-semibold px-2 py-0.5 bg-black/[0.03] rounded-[2px]">
-                      {tile.tag}
-                    </span>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-black/5 mt-auto">
+                      <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#c8a45d] font-bold group-hover:text-[#111] transition-colors">
+                        Click for Full Specs
+                      </span>
+                      <ArrowRight className="w-3 h-3 text-[#c8a45d] group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
 
-                  {/* Tile Title */}
-                  <h3 className="font-serif text-xl sm:text-[22px] font-medium tracking-tight text-[#111111] group-hover:text-[#c8a45d] transition-colors mb-2">
-                    {tile.title}
-                  </h3>
+                  {/* Front Cover (Rotates open on hover) */}
+                  <div className="resource-book-cover select-none">
+                    <div>
+                      {/* Icon & Category Tag */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="w-8 h-8 flex items-center justify-center border border-black/8 bg-white rounded-[3px] shadow-xs group-hover:border-[#c8a45d]/40 transition-colors">
+                          {tileIcons[tile.title] || <BookOpen className="w-4 h-4 text-[#c8a45d]" />}
+                        </div>
+                        <span className="text-[9px] font-mono uppercase tracking-widest text-[#888888] font-semibold px-2 py-0.5 bg-black/[0.03] rounded-[2px]">
+                          {tile.tag}
+                        </span>
+                      </div>
 
-                  {/* Tile Description */}
-                  <p className="text-xs leading-relaxed text-[#555555]">
-                    {tile.description}
-                  </p>
-                </div>
+                      {/* Tile Title */}
+                      <h3 className="font-serif text-xl sm:text-[22px] font-medium tracking-tight text-[#111111] group-hover:text-[#c8a45d] transition-colors mb-1.5">
+                        {tile.title}
+                      </h3>
 
-                {/* Bottom Click Affordance */}
-                <div className="flex items-center gap-1.5 text-[10.5px] font-mono uppercase tracking-wider text-[#c8a45d] font-bold pt-3 border-t border-black/5 mt-auto group-hover:text-[#111111] transition-colors">
-                  <span>Explore Details</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      {/* Tile Description */}
+                      <p className="text-xs leading-relaxed text-[#555555]">
+                        {tile.description}
+                      </p>
+                    </div>
+
+                    {/* Bottom Open Affordance */}
+                    <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-[#c8a45d] font-bold pt-2.5 border-t border-black/5 mt-auto group-hover:text-[#111111] transition-colors">
+                      <span>Explore Details</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
-              </button>
-            ))}
+              );
+            })}
           </div>
 
           {/* Bottom Card Footer Strip */}
