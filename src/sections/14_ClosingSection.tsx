@@ -110,7 +110,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         <img
           src="/assets/medhaarc_hero_drone.webp"
           alt="MedhaArc Labs Autonomous Drone Prototype"
-          className="w-full h-full object-cover object-center filter saturate-[0.25] contrast-[1.25] brightness-[0.2] scale-105"
+          className="w-full h-full object-cover object-center filter blur-[8px] saturate-[0.25] contrast-[1.25] brightness-[0.2] scale-110"
           loading="eager"
         />
         {/* Deep Black Aerospace Gradients with Subtle Champagne Gold Center Glow */}
