@@ -57,35 +57,19 @@ export const LearningApproachSection: React.FC = () => {
       chapterNumber="05"
       theme="light"
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-hidden bg-[#F1F1EF]"
+      className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
     >
-      {/* Background Section Image Visible on the Right Half (50%) with soft gradient blend */}
-      <div
-        className="absolute top-0 right-0 w-full sm:w-[50%] lg:w-[50%] h-full z-0 overflow-hidden pointer-events-none select-none"
-        aria-hidden="true"
-      >
-        <img
-          src="/assets/instructor_guided_learning.webp"
-          alt="Instructor guiding students through practical engineering and technology learning"
-          className="w-full h-full object-cover object-center filter saturate-[0.85] contrast-[1.05] brightness-[0.98]"
-        />
-        {/* Graded gentle overlays ensuring clean blend into background and crisp text */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F1F1EF] via-[#F1F1EF]/30 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F1F1EF] via-[#F1F1EF]/60 to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#F1F1EF]/40 via-transparent to-transparent" />
-      </div>
-
-      {/* Main Viewport Container - Standardized 1240px & Vertically centered */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-start pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-0 box-border select-none z-10 max-w-[1240px] mx-auto">
+      {/* Main Viewport Container - Standardized 1240px & Centered */}
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto">
         
-        {/* Main Inset White Panel - Standardized Left Alignment & Half-Page Width */}
-        <div className="relative w-full lg:w-[54%] xl:w-[52%] max-w-[660px] my-auto bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[4px] flex flex-col p-6 sm:p-7 box-border">
+        {/* Main Inset White Panel - Centered Unified Card framing Content & Instructor Photo */}
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[4px] flex flex-col lg:flex-row items-stretch overflow-hidden box-border">
           
-          {/* Top & Middle Content Area */}
-          <div ref={contentRef} className="w-full flex flex-col gap-3.5 sm:gap-4">
+          {/* Left Content Area */}
+          <div ref={contentRef} className="flex-1 flex flex-col justify-between p-5 sm:p-6 lg:p-7 gap-3 sm:gap-3.5">
             <div>
               {/* Eyebrow */}
-              <div className="editorial-reveal flex items-center gap-2.5 mb-2">
+              <div className="editorial-reveal flex items-center gap-2.5 mb-1.5">
                 <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#c8a45d]">
                   {siteConfig.approach.eyebrow}
                 </span>
@@ -94,13 +78,13 @@ export const LearningApproachSection: React.FC = () => {
               {/* Elegant Dark Headline */}
               <h2
                 ref={headlineRef}
-                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[30px] font-normal text-[#111111] tracking-tight leading-[1.18] mb-2.5"
+                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[28px] font-normal text-[#111111] tracking-tight leading-[1.2] mb-2"
               >
                 {siteConfig.approach.headline}
               </h2>
 
               {/* Narrative Body Copy */}
-              <p className="editorial-reveal text-xs sm:text-[13px] text-[#555555] leading-[1.6] max-w-2xl font-normal">
+              <p className="editorial-reveal text-xs sm:text-[12.5px] text-[#555555] leading-[1.6] font-normal mb-3">
                 At MedhaArc Labs, our pedagogical approach bridges abstract principles with physical systems. Rather than passive computer screen consumption, students construct real functional hardware, test sensor circuits, and deploy code that directly influences the physical environment.
               </p>
             </div>
@@ -112,11 +96,11 @@ export const LearningApproachSection: React.FC = () => {
                 <span className="text-[10px] text-black/40">Hands-on Engineering</span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                 {siteConfig.approach.blocks.map((block, idx) => (
                   <div
                     key={block.title}
-                    className="group flex flex-col justify-between pt-1.5 pb-1 border-t border-black/15 hover:border-[#c8a45d] transition-colors"
+                    className="group flex flex-col justify-between p-2.5 bg-[#FAF9F6] border border-black/8 rounded-[3px] hover:border-[#c8a45d] transition-colors"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-1">
@@ -125,7 +109,7 @@ export const LearningApproachSection: React.FC = () => {
                         </span>
                         <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]/60" />
                       </div>
-                      <h3 className="font-sans text-[12.5px] font-bold text-[#111111] leading-tight group-hover:text-[#c8a45d] transition-colors mb-1">
+                      <h3 className="font-sans text-[12px] font-bold text-[#111111] leading-tight group-hover:text-[#c8a45d] transition-colors mb-1">
                         {block.title}
                       </h3>
                     </div>
@@ -138,7 +122,7 @@ export const LearningApproachSection: React.FC = () => {
             </div>
 
             {/* Six Core Learning Principles */}
-            <div className="editorial-reveal pt-2.5 border-t border-black/10">
+            <div className="editorial-reveal pt-2 border-t border-black/10">
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="font-mono text-[9.5px] uppercase tracking-wider text-black/40 font-semibold">
                   Core Learning Principles:
@@ -158,18 +142,39 @@ export const LearningApproachSection: React.FC = () => {
             </div>
 
             {/* Bottom Trailing Link CTA */}
-            <div className="editorial-reveal pt-2.5 border-t border-black/10 flex items-center">
+            <div className="editorial-reveal pt-2 border-t border-black/10 flex items-center">
               <button
                 onClick={handleExplore}
                 className="group flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c8a45d] cursor-pointer w-full max-w-2xl"
               >
-                <span className="font-sans font-bold text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
+                <span className="font-sans font-bold text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-[#111111] group-hover:text-[#c8a45d] transition-colors shrink-0">
                   Discover more about our curriculum & progression
                 </span>
                 <span className="h-[1px] bg-black/20 group-hover:bg-[#c8a45d] transition-all flex-1 ml-4" />
               </button>
             </div>
           </div>
+
+          {/* Right Image Frame - Integrated into the unified centered card */}
+          <div className="hidden lg:block w-[360px] xl:w-[410px] shrink-0 relative bg-black/5 border-l border-black/8 overflow-hidden group">
+            <img
+              src="/assets/instructor_guided_learning.webp"
+              alt="Instructor guiding students through practical engineering and technology learning"
+              className="w-full h-full object-cover object-center filter saturate-[0.88] contrast-[1.04] group-hover:scale-103 transition-transform duration-700 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+            
+            {/* Bottom Photo Overlay */}
+            <div className="absolute bottom-3.5 left-3.5 right-3.5 text-white">
+              <span className="font-mono text-[9px] uppercase tracking-wider block opacity-80 text-[#c8a45d] font-bold">
+                Instructor-Guided Session
+              </span>
+              <span className="font-serif text-[13px] font-medium leading-tight text-white/95 block">
+                Practical Learning &amp; Faculty Mentorship
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
     </ChapterShell>
