@@ -144,7 +144,7 @@ export const Header: React.FC<HeaderProps> = ({
           <img
             src={isDark ? '/assets/medhaarc_horizontal_logo_white.png' : '/assets/medhaarc_horizontal_logo.png'}
             alt={siteConfig.brandName}
-            className="h-9 sm:h-[38px] md:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-7 sm:h-[30px] md:h-[32px] w-auto object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </button>
 
