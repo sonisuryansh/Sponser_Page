@@ -502,8 +502,79 @@ html.lenis body {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+/* 3D 180-deg Flip Card Component (Section 11 Student & School Benefits) */
+.benefit-flip-card {
+  height: 318px;
+  cursor: pointer;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 1600px;
+  perspective: 1600px;
+  transform-origin: center center;
+  will-change: transform;
+  -webkit-transition: transform 0.65s cubic-bezier(0.35, 0.1, 0.2, 1);
+  transition: transform 0.65s cubic-bezier(0.35, 0.1, 0.2, 1);
+}
+
+@media (min-width: 1280px) {
+  .benefit-flip-card {
+    height: 330px;
+  }
+}
+
+.benefit-flip-card:hover,
+.benefit-flip-card:focus-visible,
+.benefit-flip-card.is-flipped {
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.benefit-flip-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 6px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translate3d(0, 0, 0);
+}
+
+.benefit-flip-front {
+  background-color: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  padding: 1.15rem 1.2rem;
+  transform: rotateY(0deg) translate3d(0, 0, 0);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-flip-card:hover .benefit-flip-front {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.benefit-flip-back {
+  background-color: #FFFFFD;
+  border: 2px solid #c8a45d;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  padding: 1.15rem 1.2rem;
+  -webkit-transform: rotateY(180deg) translate3d(0, 0, 0);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg) translate3d(0, 0, 0);
+  color: #111111;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .pillar-flip-card {
+  .pillar-flip-card,
+  .benefit-flip-card {
     transition: none !important;
   }
 }

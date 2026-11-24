@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { Wrench, Boxes, Award, Trophy, FolderKanban, Check, Sparkles, X, Info } from 'lucide-react';
+import { Wrench, Boxes, Award, Trophy, FolderKanban, Check, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 
 const benefitIcons: Record<string, React.ReactNode> = {
@@ -137,16 +137,32 @@ export const BenefitsSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 5 Distinct Architectural Value Cards (Enlarged, Roomy & Engaging) */}
+        {/* 5 Distinct Architectural Value Cards (Smooth 3D Flip Turn-Around on Hover) */}
         <div className="editorial-reveal flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4">
             {siteConfig.benefits.cards.map((card, idx) => {
               const borderHoverAccents = [
-                'hover:border-cyan-500 hover:shadow-[0_12px_36px_rgba(6,182,212,0.14)]',
-                'hover:border-emerald-500 hover:shadow-[0_12px_36px_rgba(16,185,129,0.14)]',
+                'hover:border-cyan-500/80 hover:shadow-[0_12px_36px_rgba(6,182,212,0.14)]',
+                'hover:border-emerald-500/80 hover:shadow-[0_12px_36px_rgba(16,185,129,0.14)]',
                 'hover:border-[#c8a45d] hover:shadow-[0_12px_36px_rgba(200,164,93,0.14)]',
-                'hover:border-purple-500 hover:shadow-[0_12px_36px_rgba(168,85,247,0.14)]',
-                'hover:border-sky-500 hover:shadow-[0_12px_36px_rgba(56,189,248,0.14)]',
+                'hover:border-purple-500/80 hover:shadow-[0_12px_36px_rgba(168,85,247,0.14)]',
+                'hover:border-sky-500/80 hover:shadow-[0_12px_36px_rgba(56,189,248,0.14)]',
+              ];
+
+              const backBorderAccents = [
+                'border-2 border-cyan-500 shadow-[0_16px_40px_rgba(6,182,212,0.16)]',
+                'border-2 border-emerald-500 shadow-[0_16px_40px_rgba(16,185,129,0.16)]',
+                'border-2 border-[#c8a45d] shadow-[0_16px_40px_rgba(200,164,93,0.16)]',
+                'border-2 border-purple-500 shadow-[0_16px_40px_rgba(168,85,247,0.16)]',
+                'border-2 border-sky-500 shadow-[0_16px_40px_rgba(56,189,248,0.16)]',
+              ];
+
+              const accentTextColors = [
+                'text-cyan-700',
+                'text-emerald-700',
+                'text-[#c8a45d]',
+                'text-purple-700',
+                'text-sky-700',
               ];
 
               const tagColors = [
@@ -159,109 +175,110 @@ export const BenefitsSection: React.FC = () => {
 
               // Clean description removing raw [confirm] notes
               const cleanDescription = card.description.replace(/\[confirm\]/g, '').trim();
-              const isPopupOpen = activeCardIndex === idx;
+              const isFlipped = activeCardIndex === idx;
 
               return (
                 <div
                   key={card.title}
-                  onClick={() => setActiveCardIndex(isPopupOpen ? null : idx)}
-                  className={`group relative flex flex-col justify-between p-3.5 sm:p-4 lg:p-4.5 xl:p-5 bg-white/95 border border-black/10 rounded-[5px] min-h-[290px] sm:min-h-[305px] lg:min-h-[318px] xl:min-h-[330px] shadow-[0_3px_15px_rgba(0,0,0,0.03)] transition-all duration-300 cursor-pointer ${borderHoverAccents[idx]}`}
+                  onClick={() => setActiveCardIndex(isFlipped ? null : idx)}
+                  className={`benefit-flip-card group ${isFlipped ? 'is-flipped' : ''}`}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveCardIndex(isFlipped ? null : idx);
+                    }
+                  }}
+                  aria-label={`Turn around to view details for ${card.title}`}
                 >
-                  <div>
-                    {/* Header Row */}
-                    <div className="flex items-center justify-between mb-2 border-b border-black/5 pb-2">
-                      <div className="w-8 h-8 flex items-center justify-center rounded-[3px] bg-[#FAF9F6] border border-black/10">
-                        {benefitIcons[card.icon] || <Sparkles className="w-4 h-4 text-[#c8a45d]" />}
+                  {/* FRONT FACE (Resting state, turns around on hover) */}
+                  <div className={`benefit-flip-face benefit-flip-front ${borderHoverAccents[idx]}`}>
+                    <div>
+                      {/* Header Row */}
+                      <div className="flex items-center justify-between mb-2 border-b border-black/5 pb-2">
+                        <div className="w-8 h-8 flex items-center justify-center rounded-[3px] bg-[#FAF9F6] border border-black/10">
+                          {benefitIcons[card.icon] || <Sparkles className="w-4 h-4 text-[#c8a45d]" />}
+                        </div>
+                        <span className="font-mono text-[10.5px] sm:text-[11px] text-[#888888] font-bold">
+                          0{idx + 1}
+                        </span>
                       </div>
-                      <span className="font-mono text-[10.5px] sm:text-[11px] text-[#888888] font-bold">
-                        0{idx + 1}
+
+                      {/* Title */}
+                      <h3 className="font-serif text-[17px] sm:text-lg lg:text-[20px] xl:text-[21px] font-medium text-[#111111] tracking-tight mb-1 group-hover:text-[#c8a45d] transition-colors leading-snug">
+                        {card.title}
+                      </h3>
+
+                      {/* Pillar Tag */}
+                      <span className={`inline-block font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider px-2 py-0.5 rounded-[2px] border mb-2 font-semibold ${tagColors[idx]}`}>
+                        {pillarTags[idx]}
+                      </span>
+
+                      {/* Description */}
+                      <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#555555] leading-relaxed mb-2.5">
+                        {cleanDescription}
+                      </p>
+                    </div>
+
+                    {/* Concrete Student Outcome Highlight */}
+                    <div className="pt-2.5 border-t border-black/8 mt-auto">
+                      <div className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#666666] font-sans leading-tight mb-2">
+                        <Check className="w-3.5 h-3.5 text-[#c8a45d] shrink-0 mt-0.5 stroke-[2.5]" />
+                        <span className="truncate">{pillarKeyDeliverables[idx]}</span>
+                      </div>
+
+                      {/* Hover Turn-around Affordance */}
+                      <div className="flex items-center justify-between pt-1.5 border-t border-black/5 text-[9.5px] sm:text-[10px] font-mono text-[#c8a45d] font-bold">
+                        <span>Hover to turn around</span>
+                        <span className="text-xs transition-transform group-hover:rotate-180 duration-500">↻</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* BACK FACE (Detailed view revealed on hover / turn around) */}
+                  <div className={`benefit-flip-face benefit-flip-back ${backBorderAccents[idx]}`}>
+                    <div>
+                      {/* Top Header */}
+                      <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-black/8">
+                        <span className={`font-mono text-[9.5px] sm:text-[10px] uppercase tracking-widest font-bold ${accentTextColors[idx]}`}>
+                          0{idx + 1} &bull; {card.title}
+                        </span>
+                        <div className="w-6 h-6 flex items-center justify-center rounded-[3px] bg-black/[0.04]">
+                          {benefitIcons[card.icon]}
+                        </div>
+                      </div>
+
+                      {/* Back Heading */}
+                      <h4 className="font-serif text-[14.5px] sm:text-base font-medium text-[#111111] mb-1.5 leading-snug">
+                        {benefitPopups[idx].title}
+                      </h4>
+
+                      {/* Purpose Narrative */}
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#444444] leading-relaxed mb-2.5">
+                        {benefitPopups[idx].purpose}
+                      </p>
+
+                      {/* Concrete Deliverable Badge */}
+                      <div className="p-2 rounded-[3px] bg-black/[0.03] border border-black/6 flex items-start gap-1.5">
+                        <Check className={`w-3.5 h-3.5 ${accentTextColors[idx]} shrink-0 mt-0.5 stroke-[2.5]`} />
+                        <span className="font-sans text-[10.5px] text-[#333333] leading-snug">
+                          {pillarKeyDeliverables[idx]}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Back Bottom Bar */}
+                    <div className="pt-2 border-t border-black/8 mt-auto flex items-center justify-between">
+                      <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#888888] font-semibold truncate mr-1">
+                        {benefitPopups[idx].badge}
+                      </span>
+                      <span className={`font-mono text-[9.5px] ${accentTextColors[idx]} font-bold flex items-center gap-1`}>
+                        <span>Turn back</span>
+                        <span className="text-xs">↻</span>
                       </span>
                     </div>
-
-                    {/* Title */}
-                    <h3 className="font-serif text-[17px] sm:text-lg lg:text-[20px] xl:text-[21px] font-medium text-[#111111] tracking-tight mb-1 group-hover:text-[#c8a45d] transition-colors leading-snug">
-                      {card.title}
-                    </h3>
-
-                    {/* Pillar Tag */}
-                    <span className={`inline-block font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider px-2 py-0.5 rounded-[2px] border mb-2 font-semibold ${tagColors[idx]}`}>
-                      {pillarTags[idx]}
-                    </span>
-
-                    {/* Description */}
-                    <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#555555] leading-relaxed mb-2.5">
-                      {cleanDescription}
-                    </p>
                   </div>
-
-                  {/* Concrete Student Outcome Highlight */}
-                  <div className="pt-2.5 border-t border-black/8 mt-auto">
-                    <div className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#666666] font-sans leading-tight mb-2">
-                      <Check className="w-3.5 h-3.5 text-[#c8a45d] shrink-0 mt-0.5 stroke-[2.5]" />
-                      <span className="truncate">{pillarKeyDeliverables[idx]}</span>
-                    </div>
-
-                    {/* Subtle Click Indicator */}
-                    <div className="flex items-center justify-between pt-1.5 border-t border-black/5 text-[9.5px] sm:text-[10px] font-mono text-[#c8a45d] font-bold">
-                      <span>Why this matters</span>
-                      <Info className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-                    </div>
-                  </div>
-
-                  {/* Card-Anchored Purpose Popover Overlay (Usi Card Ke Pas) */}
-                  {isPopupOpen && (
-                    <div
-                      className="absolute inset-0 z-30 bg-[#FFFFFD] border-2 border-[#c8a45d] rounded-[5px] p-3.5 sm:p-4.5 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.16)] animate-in fade-in zoom-in-95 duration-200 select-text"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <div>
-                        {/* Popover Header */}
-                        <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-black/8">
-                          <div className="flex items-center gap-1">
-                            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-widest font-bold text-[#c8a45d]">
-                              0{idx + 1} &bull; {card.title}
-                            </span>
-                          </div>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveCardIndex(null);
-                            }}
-                            className="p-1 text-[#666666] hover:text-[#111111] bg-black/5 hover:bg-black/10 rounded-full transition-colors cursor-pointer"
-                            aria-label="Close details"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-
-                        {/* Popover Heading */}
-                        <h4 className="font-serif text-[14.5px] sm:text-base font-medium text-[#111111] mb-1.5 leading-snug">
-                          {benefitPopups[idx].title}
-                        </h4>
-
-                        {/* Light Informative Description */}
-                        <p className="font-sans text-[11px] sm:text-[11.5px] text-[#444444] leading-relaxed">
-                          {benefitPopups[idx].purpose}
-                        </p>
-                      </div>
-
-                      {/* Popover Bottom Bar */}
-                      <div className="pt-2 border-t border-black/8 mt-auto flex items-center justify-between">
-                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#888888] font-semibold truncate mr-1">
-                          {benefitPopups[idx].badge}
-                        </span>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveCardIndex(null);
-                          }}
-                          className="font-mono text-[9.5px] text-[#c8a45d] font-bold hover:underline cursor-pointer shrink-0"
-                        >
-                          Close &times;
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             })}
