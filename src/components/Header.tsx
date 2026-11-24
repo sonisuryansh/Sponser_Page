@@ -138,13 +138,13 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand / Logo Left */}
         <button
           onClick={() => handleSelectSection('home')}
-          className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer group"
+          className="flex items-center text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-current cursor-pointer group"
           aria-label="MedhaArc Labs home"
         >
           <img
-            src={isDark ? '/assets/medhaarc_official_logo_white.png' : '/assets/medhaarc_official_logo.png'}
+            src={isDark ? '/assets/medhaarc_horizontal_logo_white.png' : '/assets/medhaarc_horizontal_logo.png'}
             alt={siteConfig.brandName}
-            className="h-10 sm:h-11 md:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-9 sm:h-[38px] md:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </button>
 
