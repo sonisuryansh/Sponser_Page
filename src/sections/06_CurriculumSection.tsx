@@ -16,7 +16,8 @@ const stageImages = [
 export const CurriculumSection: React.FC = () => {
   const [activeStageIndex, setActiveStageIndex] = useState(0);
   const [isSectionActive, setIsSectionActive] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const steppableRef = useRef<HTMLDivElement>(null);
+  const activeStageIndexRef = useRef(activeStageIndex);
   const contentAreaRef = useRef<HTMLDivElement>(null);
   const imageAreaRef = useRef<HTMLDivElement>(null);
 
@@ -24,6 +25,10 @@ export const CurriculumSection: React.FC = () => {
     ...siteConfig.curriculum.stages,
     ...(siteConfig.showBeyondGrade10 ? siteConfig.curriculum.beyondGrade10 : []),
   ];
+
+  useEffect(() => {
+    activeStageIndexRef.current = activeStageIndex;
+  }, [activeStageIndex]);
 
   // Detect whether Section 06 is currently visible and active in viewport
   useEffect(() => {
@@ -60,41 +65,85 @@ export const CurriculumSection: React.FC = () => {
     };
   }, []);
 
-  // Automatically cycle through grades 1 to 6 while staying on this section
+  // Step through grades on scroll / gesture, and only advance slide when reaching boundary
   useEffect(() => {
-    if (!isSectionActive || isHovered || allStages.length <= 1) return;
+    const el = steppableRef.current;
+    if (!el) return;
 
-    const timer = setInterval(() => {
-      setActiveStageIndex((prev) => (prev + 1) % allStages.length);
-    }, 3200);
-
-    return () => clearInterval(timer);
-  }, [isSectionActive, isHovered, allStages.length]);
-
-  // Listen to step navigation events (wheel scroll & arrow keys)
-  useEffect(() => {
     const handleStep = (e: Event) => {
-      const el = contentAreaRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const isVisible = rect.top >= -window.innerHeight * 0.5 && rect.bottom <= window.innerHeight * 1.5;
-      if (!isVisible) return;
-
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
+      const cur = activeStageIndexRef.current;
 
-      if (dir > 0 && activeStageIndex < allStages.length - 1) {
-        e.preventDefault();
-        setActiveStageIndex((s) => s + 1);
-      } else if (dir < 0 && activeStageIndex > 0) {
-        e.preventDefault();
-        setActiveStageIndex((s) => s - 1);
+      if (dir > 0) {
+        // Forward scroll (down): step forward through grades (0 -> 1 -> 2 -> 3 -> 4 -> 5)
+        if (cur < allStages.length - 1) {
+          e.preventDefault();
+          setActiveStageIndex(cur + 1);
+        }
+        // At the last grade (Grade 10), e.preventDefault() is NOT called,
+        // so SlideTransitions naturally proceeds to Slide 07!
+      } else if (dir < 0) {
+        // Reverse scroll (up): step backward through grades (5 -> 4 -> 3 -> 2 -> 1 -> 0)
+        if (cur > 0) {
+          e.preventDefault();
+          setActiveStageIndex(cur - 1);
+        }
+        // At the first grade (Grade 4), e.preventDefault() is NOT called,
+        // so SlideTransitions naturally returns to Slide 05!
       }
     };
 
-    window.addEventListener('medhaarc:step', handleStep);
-    return () => window.removeEventListener('medhaarc:step', handleStep);
-  }, [activeStageIndex, allStages.length]);
+    const handleEnter = (e: Event) => {
+      const customEvent = e as CustomEvent<{ direction: number }>;
+      const dir = customEvent.detail?.direction || 1;
+      if (dir > 0) {
+        // Entering going forward (from slide 05) -> start at first grade (Grade 4)
+        setActiveStageIndex(0);
+      } else {
+        // Entering going backward (from slide 07) -> start at last grade (Grade 10)
+        setActiveStageIndex(allStages.length - 1);
+      }
+    };
+
+    el.addEventListener('slide:step', handleStep);
+    el.addEventListener('slide:enter', handleEnter);
+
+    return () => {
+      el.removeEventListener('slide:step', handleStep);
+      el.removeEventListener('slide:enter', handleEnter);
+    };
+  }, [allStages.length]);
+
+  // Arrow key navigation when section is visible
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        document.activeElement?.tagName === 'INPUT' ||
+        document.activeElement?.tagName === 'TEXTAREA' ||
+        document.querySelector('[aria-modal="true"]') ||
+        !isSectionActive
+      ) {
+        return;
+      }
+
+      const cur = activeStageIndexRef.current;
+      if (e.key === 'ArrowRight') {
+        if (cur < allStages.length - 1) {
+          e.preventDefault();
+          setActiveStageIndex(cur + 1);
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (cur > 0) {
+          e.preventDefault();
+          setActiveStageIndex(cur - 1);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isSectionActive, allStages.length]);
 
   // Gentle transition when active stage changes
   useEffect(() => {
@@ -134,14 +183,14 @@ export const CurriculumSection: React.FC = () => {
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
       {/* Main Viewport Container */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10">
+      <div
+        ref={steppableRef}
+        data-steppable="true"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10"
+      >
 
         {/* Main Split Container - Standardized 1240px & Scaled to Match Other Section Cards */}
-        <div
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="relative w-full my-auto h-[460px] sm:h-[490px] lg:h-[515px] xl:h-[525px] max-h-[calc(100svh-115px)] max-w-[1240px] bg-white border border-black/10 shadow-[0_18px_50px_rgba(0,0,0,0.05)] flex items-stretch overflow-hidden rounded-[4px]"
-        >
+        <div className="relative w-full my-auto h-[460px] sm:h-[490px] lg:h-[515px] xl:h-[525px] max-h-[calc(100svh-115px)] max-w-[1240px] bg-white border border-black/10 shadow-[0_18px_50px_rgba(0,0,0,0.05)] flex items-stretch overflow-hidden rounded-[4px]">
 
           {/* Left Vertical Numbering Rail */}
           <div className="w-24 sm:w-28 lg:w-[124px] border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-5 lg:py-6 select-none shrink-0">

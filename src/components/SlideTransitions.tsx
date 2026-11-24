@@ -207,6 +207,17 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       timeline.add(() => {
         gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden' });
         gsap.set(toWrapper, { opacity: 1, visibility: 'visible' });
+
+        const steppable = toWrapper.querySelector<HTMLElement>('[data-steppable="true"]');
+        if (steppable) {
+          const isStepBackFromAdjacent = fromIndex === targetIndex + 1;
+          steppable.dispatchEvent(
+            new CustomEvent('slide:enter', {
+              bubbles: true,
+              detail: { direction: isStepBackFromAdjacent ? -1 : 1 },
+            })
+          );
+        }
       }, 0.44);
 
       // 7. Shutters sweep OUT to reveal new slide
@@ -413,9 +424,15 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
   useEffect(() => {
     const handleGoTo = (e: Event) => {
-      const customEvent = e as CustomEvent<number>;
-      if (typeof customEvent.detail === 'number') {
-        goToSlide(customEvent.detail);
+      const customEvent = e as CustomEvent<any>;
+      const targetIdx =
+        typeof customEvent.detail === 'number'
+          ? customEvent.detail
+          : typeof customEvent.detail?.index === 'number'
+          ? customEvent.detail.index
+          : null;
+      if (typeof targetIdx === 'number') {
+        goToSlide(targetIdx);
       }
     };
     window.addEventListener('go-to-slide', handleGoTo);
@@ -486,14 +503,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       }
 
       if (direction === null) return;
-      const stepEvent = new CustomEvent('medhaarc:step', {
-        cancelable: true,
-        detail: { direction },
-      });
-      if (slides[activeIndexRef.current]?.id === 'curriculum' && !window.dispatchEvent(stepEvent)) {
-        event.preventDefault();
-        return;
-      }
 
       event.preventDefault();
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
