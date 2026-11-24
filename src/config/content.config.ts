@@ -211,7 +211,7 @@ export const siteConfig = {
           'Program microcontrollers to read environmental sensors and actuate motors reliably.',
           'Test mechanical stability, diagnose wiring faults, and iterate on functional prototypes.',
         ],
-        image: '/assets/students_robotics.webp',
+        image: '/assets/students_robotics_assembly.webp',
       },
       {
         id: 'aiml',
@@ -225,7 +225,7 @@ export const siteConfig = {
           'Train simple supervised models using student-collected sample datasets.',
           'Examine fairness, privacy, and ethics in automated decision-making systems.',
         ],
-        image: '/assets/laptop_analytics.webp',
+        image: '/assets/computer_vision_object_recognition.webp',
       },
       {
         id: 'data',
@@ -253,7 +253,7 @@ export const siteConfig = {
           'Practice indoor control training: flying through hoops and around low and high obstacles, with safety first.',
           'Collect aerial telemetry data and explore how autonomous navigation operates responsibly.',
         ],
-        image: '/assets/drone_flight.webp',
+        image: '/assets/indoor_drone_flight_hoops.webp',
         specialNote: 'Indoor control training: flying through hoops and around low and high obstacles, with safety first.',
       },
     ] as DomainItem[],

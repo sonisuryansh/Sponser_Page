@@ -65,9 +65,9 @@ export const LearningApproachSection: React.FC = () => {
         aria-hidden="true"
       >
         <img
-          src="/assets/students_robotics.webp"
-          alt="Students engaged in hands-on robotics and technology learning"
-          className="w-full h-full object-cover object-center filter saturate-[0.75] contrast-[1.05] brightness-[0.95]"
+          src="/assets/instructor_guided_learning.webp"
+          alt="Instructor guiding students through practical engineering and technology learning"
+          className="w-full h-full object-cover object-center filter saturate-[0.85] contrast-[1.05] brightness-[0.98]"
         />
         {/* Graded gentle overlays ensuring clean blend into background and crisp text */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#F1F1EF] via-[#F1F1EF]/30 to-transparent" />
