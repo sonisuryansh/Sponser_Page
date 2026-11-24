@@ -27,7 +27,7 @@ export const ProjectShowcaseSection: React.FC = () => {
 
   const projects = siteConfig.showcase.projects;
   const currentProject = projects[activeProjectIndex] || projects[0];
-  const activeChips = projectChips[currentProject.id] || ['Core Engineering', 'Hands-on Prototype', 'Grade Build'];
+  const activeChips = projectChips[currentProject.id] || ['Core Engineering', 'Hands-on Prototype', 'Project Build'];
 
   // Handle auto-advance when section is idle and not hovered
   useEffect(() => {
@@ -86,20 +86,14 @@ export const ProjectShowcaseSection: React.FC = () => {
                   <button
                     key={proj.id}
                     onClick={() => setActiveProjectIndex(actualIdx)}
-                    className={`group px-3 py-1.5 rounded-[3px] border font-mono text-[10px] sm:text-[11px] tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+                    className={`group px-3.5 py-1.5 rounded-[3px] border font-sans text-[11px] sm:text-xs font-medium tracking-wide transition-all cursor-pointer flex items-center justify-center ${
                       isActive
                         ? 'bg-[#111111] border-[#111111] text-[#FAF6EE] shadow-sm'
                         : 'bg-[#FAF9F6] border-black/8 text-[#666666] hover:text-[#111111] hover:border-black/25'
                     }`}
                   >
-                    <span className={isActive ? 'text-[#c8a45d] font-bold' : 'text-[#888888]'}>
-                      0{actualIdx + 1}
-                    </span>
-                    <span className="font-sans font-medium whitespace-nowrap">
+                    <span className="whitespace-nowrap">
                       {proj.name}
-                    </span>
-                    <span className={`text-[9.5px] px-1.5 py-0.5 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-[#777777]'}`}>
-                      {proj.grade}
                     </span>
                   </button>
                 );
@@ -115,20 +109,14 @@ export const ProjectShowcaseSection: React.FC = () => {
                   <button
                     key={proj.id}
                     onClick={() => setActiveProjectIndex(actualIdx)}
-                    className={`group px-3 py-1.5 rounded-[3px] border font-mono text-[10px] sm:text-[11px] tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+                    className={`group px-3.5 py-1.5 rounded-[3px] border font-sans text-[11px] sm:text-xs font-medium tracking-wide transition-all cursor-pointer flex items-center justify-center ${
                       isActive
                         ? 'bg-[#111111] border-[#111111] text-[#FAF6EE] shadow-sm'
                         : 'bg-[#FAF9F6] border-black/8 text-[#666666] hover:text-[#111111] hover:border-black/25'
                     }`}
                   >
-                    <span className={isActive ? 'text-[#c8a45d] font-bold' : 'text-[#888888]'}>
-                      0{actualIdx + 1}
-                    </span>
-                    <span className="font-sans font-medium whitespace-nowrap">
+                    <span className="whitespace-nowrap">
                       {proj.name}
-                    </span>
-                    <span className={`text-[9.5px] px-1.5 py-0.5 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-black/5 text-[#777777]'}`}>
-                      {proj.grade}
                     </span>
                   </button>
                 );
@@ -141,17 +129,10 @@ export const ProjectShowcaseSection: React.FC = () => {
             {/* Left Narrative & Metadata */}
             <div className="flex-1 w-full min-w-0">
               <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                <span className="font-mono text-sm sm:text-base font-bold text-[#c8a45d]">
-                  0{activeProjectIndex + 1}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-black/20" />
                 <span
-                  className={`font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider px-2 py-0.5 rounded-[2px] border font-semibold ${badgeStyle}`}
+                  className={`font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider px-2.5 py-0.5 rounded-[2px] border font-semibold ${badgeStyle}`}
                 >
                   {currentProject.domain}
-                </span>
-                <span className="font-mono text-[10.5px] text-[#777777]">
-                  {currentProject.grade}
                 </span>
                 <span className="hidden sm:inline font-mono text-[9.5px] uppercase tracking-widest text-[#999999] ml-auto">
                   Student Engineering Capstone
@@ -209,7 +190,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               {/* Bottom Label Overlay */}
               <div className="absolute bottom-2.5 left-2.5 text-white">
                 <span className="font-mono text-[9px] uppercase tracking-wider block opacity-80">
-                  {currentProject.grade} Portfolio
+                  Student Portfolio
                 </span>
                 <span className="font-sans text-[11.5px] font-semibold leading-tight line-clamp-1">
                   {currentProject.name}
@@ -281,11 +262,7 @@ export const ProjectShowcaseSection: React.FC = () => {
             {/* Modal Content */}
             <div className="p-6 sm:p-8">
               <div className="flex items-center gap-2 mb-2">
-                <span className="font-mono text-xs font-bold text-[#c8a45d]">
-                  {selectedProject.grade}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-black/30" />
-                <span className="font-mono text-xs text-[#555555]">
+                <span className="font-mono text-xs font-semibold text-[#c8a45d] uppercase tracking-wider">
                   {selectedProject.domain}
                 </span>
               </div>
