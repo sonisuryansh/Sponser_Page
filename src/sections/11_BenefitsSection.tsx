@@ -218,8 +218,8 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* 5 Distinct Colorful Value Cards (Exact Image 1 Styling + 3D Flip Turn-Around on Hover/Click) */}
-        <div className="editorial-reveal flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4">
+        <div className="editorial-reveal w-full self-stretch flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4 items-stretch">
             {BENEFIT_CARDS.map((card, idx) => {
               const isFlipped = activeCardIndex === idx;
 
@@ -334,7 +334,7 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Institutional Value Banner (Directly below cards from Image 1) */}
-        <div className="editorial-reveal flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl px-5 py-3 sm:px-6 sm:py-3.5 shadow-xs mt-3 sm:mt-3.5">
+        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl px-5 py-3 sm:px-6 sm:py-3.5 shadow-xs mt-3 sm:mt-3.5">
           <div className="flex items-center gap-4 sm:gap-6">
             <div className="shrink-0 flex items-center justify-center">
               <School className="w-9 h-9 sm:w-11 sm:h-11 text-[#D97706]" />
@@ -347,7 +347,7 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Institutional Value Bottom Strip (From Image 1) */}
-        <div className="editorial-reveal flex-none mt-2.5 sm:mt-3 pt-2.5 border-t border-slate-200/80">
+        <div className="editorial-reveal w-full self-stretch flex-none mt-2.5 sm:mt-3 pt-2.5 border-t border-slate-200/80">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-3.5 shrink-0">
               <div className="flex flex-col font-mono text-[10px] sm:text-[10.5px] tracking-[0.2em] uppercase font-black text-[#0F172A] leading-tight">
