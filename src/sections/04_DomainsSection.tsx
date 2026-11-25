@@ -422,16 +422,13 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
       >
         {/* Top Header: "Our Core Technology Ecosystem" (Exact Image 1) */}
         <div className="w-full text-center shrink-0 pt-0.5 pb-0.5 relative z-10">
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-bold text-[#0F172A] tracking-tight leading-tight">
-            Our Core Technology{' '}
-            <span className="italic font-bold bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#EA580C] bg-clip-text text-transparent">
-              Ecosystem
-            </span>
+          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-tight text-center">
+            Our Core Technology Ecosystem
           </h2>
 
           {/* Dual-Tone Orange Underline Curve */}
           <div className="w-40 sm:w-56 mx-auto mt-1 mb-0.5">
-            <div className="h-[2.5px] w-full rounded-full bg-gradient-to-r from-transparent via-[#F97316] to-transparent shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
+            <div className="h-[2.5px] w-full rounded-full bg-gradient-to-r from-transparent via-[#b45309]/60 to-transparent shadow-[0_0_8px_rgba(180,83,9,0.3)]" />
           </div>
         </div>
 

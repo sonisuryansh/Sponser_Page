@@ -152,10 +152,14 @@ export const LabSetupSection: React.FC = () => {
           
           {/* Eyebrow & Statement Headline */}
           <div className="mb-3 max-w-3xl mx-auto text-center">
-            <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.24em] text-[#c8a45d] mb-1">
-              {siteConfig.labSetup.eyebrow}
+            <div className="flex items-center justify-center gap-3 mb-1.5 sm:mb-2">
+              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+              <span className="font-mono text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.24em] text-[#b45309]">
+                {siteConfig.labSetup.eyebrow}
+              </span>
+              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-normal leading-tight tracking-tight text-white mb-1.5">
+            <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-white mb-1.5 text-center">
               {siteConfig.labSetup.headline}
             </h2>
             <p className="text-xs sm:text-[13px] text-white/70 font-sans max-w-2xl mx-auto leading-relaxed">

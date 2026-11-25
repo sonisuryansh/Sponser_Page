@@ -207,7 +207,7 @@ export const BenefitsSection: React.FC = () => {
 
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-[27px] sm:text-3xl lg:text-[40px] xl:text-[44px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center"
+            className="editorial-reveal font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center"
           >
             Student and School Benefits
           </h2>

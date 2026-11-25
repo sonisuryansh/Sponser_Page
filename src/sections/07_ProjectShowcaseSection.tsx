@@ -124,15 +124,15 @@ export const ProjectShowcaseSection: React.FC = () => {
           
           {/* Top Header: Eyebrow with gold accent & Headline */}
           <div className="flex-none text-center mb-2.5 sm:mb-3">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <span className="w-6 h-px bg-[#c8a45d]/60" />
-              <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.24em] text-[#c8a45d]">
+            <div className="flex items-center justify-center gap-3 mb-1.5 sm:mb-2">
+              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+              <span className="font-mono text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.24em] text-[#b45309]">
                 {siteConfig.showcase.eyebrow}
               </span>
-              <span className="w-6 h-px bg-[#c8a45d]/60" />
+              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
             </div>
 
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold leading-tight tracking-tight text-[#0F172A]">
+            <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] text-center">
               {siteConfig.showcase.headline}
             </h2>
           </div>

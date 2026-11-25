@@ -171,17 +171,17 @@ export const LearningApproachSection: React.FC = () => {
             {/* Header Area */}
             <div>
               {/* Eyebrow with gold accent line */}
-              <div className="editorial-reveal flex items-center gap-2 mb-1">
-                <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-[#c8a45d]">
+              <div className="editorial-reveal flex items-center gap-2.5 mb-1.5">
+                <span className="font-mono text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.24em] text-[#b45309]">
                   {siteConfig.approach.eyebrow}
                 </span>
-                <span className="w-8 h-[1.5px] bg-[#c8a45d]" />
+                <span className="w-8 h-[1.5px] bg-[#b45309]/50" />
               </div>
 
               {/* Main Headline */}
               <h2
                 ref={headlineRef}
-                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] xl:text-[29px] font-bold text-[#0F172A] tracking-tight leading-[1.2] mb-1"
+                className="editorial-reveal font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-tight mb-1.5"
               >
                 {siteConfig.approach.headline}
               </h2>

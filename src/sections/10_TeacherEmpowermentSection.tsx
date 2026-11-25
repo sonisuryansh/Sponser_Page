@@ -148,18 +148,18 @@ export const TeacherEmpowermentSection: React.FC = () => {
         {/* Top Header: Eyebrow, Main Title, and Subtitle Verbatim from Image 1 */}
         <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-2">
           {/* Eyebrow with gold accent lines */}
-          <div className="editorial-reveal flex items-center justify-center gap-2 mb-1">
-            <span className="w-6 h-px bg-[#c8a45d]/60" />
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
+          <div className="editorial-reveal flex items-center justify-center gap-3 mb-1 sm:mb-1.5">
+            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+            <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#b45309] font-bold">
               {siteConfig.teacherEmpowerment.eyebrow}
             </span>
-            <span className="w-6 h-px bg-[#c8a45d]/60" />
+            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
           </div>
 
           {/* Headline */}
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center"
+            className="editorial-reveal font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center"
           >
             {siteConfig.teacherEmpowerment.headline}
           </h2>

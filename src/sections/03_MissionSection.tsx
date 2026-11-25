@@ -137,16 +137,12 @@ export const MissionSection: React.FC = () => {
               <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
             </div>
 
-            {/* Elegant Grand Headline with Purple-to-Orange Gradient */}
+            {/* Elegant Grand Headline */}
             <h2
               ref={headlineRef}
-              className="editorial-reveal font-serif text-[26px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-[1.2] mb-2 sm:mb-2.5 text-center"
+              className="editorial-reveal font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-tight mb-2 sm:mb-2.5 text-center"
             >
-              &ldquo;Connecting Concepts to{' '}
-              <span className="bg-gradient-to-r from-[#7C3AED] via-[#9333EA] to-[#EA580C] bg-clip-text text-transparent">
-                Real-World Engineering
-              </span>
-              &rdquo;
+              &ldquo;Connecting Concepts to Real-World Engineering&rdquo;
             </h2>
 
             {/* Narrative Body Copy (Centered) */}

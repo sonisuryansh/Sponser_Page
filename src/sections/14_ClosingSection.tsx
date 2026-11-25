@@ -150,7 +150,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
           </div>
 
           {/* Editorial Headline */}
-          <h2 className="font-serif text-[clamp(25px,6vw,56px)] sm:text-[clamp(32px,5vw,56px)] font-normal leading-[1.14] tracking-tight text-[#FAF9F6] mb-2.5 sm:mb-4 max-w-4xl px-2 sm:px-0">
+          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#FAF9F6] mb-2.5 sm:mb-4 max-w-4xl px-2 sm:px-0 text-center">
             {siteConfig.closing.headline}
           </h2>
 

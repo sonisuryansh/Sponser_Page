@@ -106,9 +106,9 @@ export const AboutSection: React.FC = () => {
 
             {/* Left Column: Our Aim & Core Objective (Span 3 of 12) */}
             <div className="editorial-reveal lg:col-span-3 flex flex-col justify-center">
-              <h2 className="font-serif text-[clamp(28px,3vw,42px)] font-bold text-[#111111] leading-[1.08] mb-2 tracking-tight">
+              <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] leading-tight mb-2 tracking-tight">
                 Our aim <br />
-                <span className="italic font-normal text-[#0284c7]">
+                <span className="italic font-normal text-[#0F172A]">
                   is to make tech understandable
                 </span>
               </h2>

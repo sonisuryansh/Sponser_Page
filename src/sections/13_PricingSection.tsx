@@ -155,18 +155,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
         {/* Eyebrow & Headline Matching Image 1 Reference */}
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-5 sm:mb-6 lg:mb-7">
           <div className="flex items-center justify-center gap-3 mb-1.5 sm:mb-2">
-            <span className="h-[1px] w-8 sm:w-12 bg-slate-300/80" />
-            <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#0F172A] font-bold">
+            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+            <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#b45309] font-bold">
               TRANSPARENT INVESTMENT
             </span>
-            <span className="h-[1px] w-8 sm:w-12 bg-slate-300/80" />
+            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
           </div>
 
-          <h2 className="font-sans text-[32px] sm:text-4xl lg:text-[46px] xl:text-[50px] font-extrabold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center">
-            <span>Pricing </span>
-            <span className="bg-gradient-to-r from-[#7C3AED] via-[#9333EA] to-[#EA580C] bg-clip-text text-transparent">
-              Packages
-            </span>
+          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center">
+            Pricing Packages
           </h2>
 
           <p className="font-mono text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#64748B] font-semibold text-center mb-2">

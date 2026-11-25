@@ -340,7 +340,7 @@ export const CurriculumSection: React.FC = () => {
               <div>
                 {/* 1. Large Grade Headline with Orange Accent */}
                 <div className="stage-anim">
-                  <h2 className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#0F172A] tracking-tight leading-none mb-1.5">
+                  <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-none mb-1.5">
                     {renderGradeHeadline(currentStage.gradeLabel)}
                   </h2>
 

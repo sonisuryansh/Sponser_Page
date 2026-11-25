@@ -108,7 +108,7 @@ export const RequirementsSection: React.FC = () => {
             <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
           </div>
 
-          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[42px] xl:text-[46px] font-bold leading-tight tracking-tight text-[#0F172A] text-center">
+          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] text-center">
             {siteConfig.requirements.headline}
           </h2>
         </div>
