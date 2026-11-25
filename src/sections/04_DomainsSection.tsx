@@ -1,9 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
-  Bot,
-  Cpu,
-  BarChart3,
-  Plane,
   ShieldCheck,
   X,
   Puzzle,
@@ -11,9 +7,12 @@ import {
   Triangle,
   BarChart2,
   Code2,
+  Check,
+  Plane,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { ChapterShell } from '../components/ChapterShell';
-import { LineReveal } from '../components/motion/LineReveal';
 
 interface DomainData {
   id: string;
@@ -21,21 +20,17 @@ interface DomainData {
   chapter: string;
   domainNumber: string;
   name: string;
-  fullName: string;
-  italicWord: string;
   tag: string;
-  tagline: string;
   description: string;
-  cardBg: string;
   borderColor: string;
-  glowColor: string;
   accentColor: string;
   barColor: string;
-  badgeText: string;
-  badgeBg: string;
-  badgeTextColor: string;
-  badgeIcon: React.ReactNode;
-  icon: React.ReactNode;
+  bgGradient: string;
+  waveColor: string;
+  checkBg: string;
+  checkColor: string;
+  tagColor: string;
+  tagBg: string;
   specialCallout?: {
     icon: React.ReactNode;
     text: string;
@@ -46,7 +41,6 @@ interface DomainData {
   slideNumber: string;
   items: string[];
   metrics: { value: string; label: string }[];
-  tags: string[];
   pillars: { num: string; title: string; desc: string }[];
   badgeNote?: string;
   image: string;
@@ -55,6 +49,98 @@ interface DomainData {
   imageTag: string;
 }
 
+// Custom vector line-art icons matching Image 1
+const RoboticArmVector: React.FC = () => (
+  <svg
+    viewBox="0 0 48 48"
+    fill="none"
+    stroke="#0284C7"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-12 h-12 shrink-0 drop-shadow-xs"
+  >
+    <path d="M12 40h24" />
+    <path d="M16 40v-4h16v4" />
+    <path d="M24 36v-6" />
+    <circle cx="24" cy="30" r="3" fill="#E0F2FE" />
+    <path d="M22 28l-8-12" />
+    <circle cx="14" cy="16" r="3" fill="#E0F2FE" />
+    <path d="M16 14l12-6" />
+    <circle cx="28" cy="8" r="2.5" fill="#E0F2FE" />
+    <path d="M30 6l4-2m-2 6l4 2" />
+  </svg>
+);
+
+const AIChipVector: React.FC = () => (
+  <svg
+    viewBox="0 0 48 48"
+    fill="none"
+    stroke="#9333EA"
+    strokeWidth="2.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-12 h-12 shrink-0 drop-shadow-xs"
+  >
+    <rect x="14" y="14" width="20" height="20" rx="4" fill="#F3E8FF" />
+    <text x="24" y="27" textAnchor="middle" fill="#9333EA" fontSize="11" fontWeight="bold" fontFamily="sans-serif">
+      AI
+    </text>
+    <path d="M24 6v8M24 34v8M6 24h8M34 24h8" />
+    <circle cx="24" cy="6" r="2" fill="#C084FC" />
+    <circle cx="24" cy="42" r="2" fill="#C084FC" />
+    <circle cx="6" cy="24" r="2" fill="#C084FC" />
+    <circle cx="42" cy="24" r="2" fill="#C084FC" />
+    <circle cx="12" cy="12" r="1.5" fill="#C084FC" />
+    <circle cx="36" cy="12" r="1.5" fill="#C084FC" />
+    <circle cx="12" cy="36" r="1.5" fill="#C084FC" />
+    <circle cx="36" cy="36" r="1.5" fill="#C084FC" />
+    <path d="M14 14l-2-2m22 2l2-2m-2 22l2 2m-22-2l-2 2" />
+  </svg>
+);
+
+const DataChartVector: React.FC = () => (
+  <svg
+    viewBox="0 0 48 48"
+    fill="none"
+    stroke="#EA580C"
+    strokeWidth="2.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-12 h-12 shrink-0 drop-shadow-xs"
+  >
+    <rect x="10" y="26" width="6" height="14" rx="1.5" fill="#FFEDD5" />
+    <rect x="21" y="18" width="6" height="22" rx="1.5" fill="#FED7AA" />
+    <rect x="32" y="10" width="6" height="30" rx="1.5" fill="#FDBA74" />
+    <path d="M8 20l12-8 10 6 10-10" stroke="#C2410C" strokeWidth="2.5" />
+    <circle cx="40" cy="8" r="2.5" fill="#EA580C" stroke="#EA580C" />
+  </svg>
+);
+
+const AerialDroneVector: React.FC = () => (
+  <svg
+    viewBox="0 0 48 48"
+    fill="none"
+    stroke="#16A34A"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-12 h-12 shrink-0 drop-shadow-xs"
+  >
+    <rect x="18" y="21" width="12" height="7" rx="3.5" fill="#DCFCE7" />
+    <circle cx="24" cy="24.5" r="1.5" fill="#16A34A" />
+    <path d="M19 22L12 16" />
+    <path d="M29 22L36 16" />
+    <path d="M19 27L12 33" />
+    <path d="M29 27L36 33" />
+    <ellipse cx="12" cy="16" rx="5.5" ry="1.5" fill="#86EFAC" />
+    <ellipse cx="36" cy="16" rx="5.5" ry="1.5" fill="#86EFAC" />
+    <ellipse cx="12" cy="33" rx="5.5" ry="1.5" fill="#86EFAC" />
+    <ellipse cx="36" cy="33" rx="5.5" ry="1.5" fill="#86EFAC" />
+    <path d="M21 28v4m6-4v4m-8 4h10" />
+  </svg>
+);
+
 const DOMAINS: DomainData[] = [
   {
     id: 'robotics',
@@ -62,21 +148,17 @@ const DOMAINS: DomainData[] = [
     chapter: '04',
     domainNumber: 'Engineering Domain 01',
     name: 'Robotics & Automation',
-    fullName: 'Robotics &',
-    italicWord: 'Automation',
-    tag: 'Physical Computing',
-    tagline: 'Physical Computing & Embedded Mechanics',
+    tag: 'PHYSICAL COMPUTING',
     description: 'Electronics, sensors, control, coding, and mechanical systems.',
-    cardBg: 'linear-gradient(180deg, rgba(9, 27, 44, 0.95) 0%, rgba(6, 17, 28, 0.98) 100%)',
-    borderColor: 'rgba(0, 194, 255, 0.55)',
-    glowColor: 'rgba(0, 194, 255, 0.25)',
-    accentColor: '#00C2FF',
-    barColor: '#FF8A00',
-    badgeText: 'EMBEDDED BENCH',
-    badgeBg: '#00C2FF',
-    badgeTextColor: '#061726',
-    badgeIcon: <Bot className="w-3.5 h-3.5" />,
-    icon: <Bot className="w-5 h-5 text-[#00C2FF]" />,
+    borderColor: 'border-[#38BDF8]',
+    accentColor: '#0284C7',
+    barColor: '#0284C7',
+    bgGradient: 'bg-gradient-to-b from-[#F0F9FF] to-white',
+    waveColor: 'from-[#E0F2FE]/40 via-[#F0F9FF]/20 to-transparent',
+    checkBg: 'bg-[#0284C7]',
+    checkColor: 'text-white',
+    tagColor: 'text-[#0284C7]',
+    tagBg: 'bg-sky-100 text-[#0369A1]',
     slideNumber: '01',
     items: [
       'Microcontrollers & Embedded C',
@@ -89,7 +171,6 @@ const DOMAINS: DomainData[] = [
       { value: 'BUILD', label: 'Sensors & Motors' },
       { value: 'CODE', label: 'Embedded Logic' },
     ],
-    tags: ['Sensors', 'Actuators', 'Embedded C', '3D Design'],
     pillars: [
       { num: '01', title: 'Electronics & Circuits', desc: 'Voltage regulation & breadboard circuits' },
       { num: '02', title: 'Sensors & Motors', desc: 'Servo control & PWM calibration' },
@@ -108,27 +189,23 @@ const DOMAINS: DomainData[] = [
     chapter: '05',
     domainNumber: 'Engineering Domain 02',
     name: 'AI & Machine Learning',
-    fullName: 'AI & Machine',
-    italicWord: 'Learning',
-    tag: 'Cognitive Models',
-    tagline: 'Intelligent Systems & Machine Reasoning',
+    tag: 'COGNITIVE MODELS',
     description: 'Intelligent systems, model concepts, and responsible AI use.',
-    cardBg: 'linear-gradient(180deg, rgba(23, 14, 42, 0.95) 0%, rgba(13, 8, 26, 0.98) 100%)',
-    borderColor: 'rgba(168, 85, 247, 0.55)',
-    glowColor: 'rgba(168, 85, 247, 0.25)',
-    accentColor: '#A855F7',
-    barColor: '#A855F7',
-    badgeText: 'NEURAL MODELS',
-    badgeBg: '#A855F7',
-    badgeTextColor: '#1b0933',
-    badgeIcon: <Cpu className="w-3.5 h-3.5" />,
-    icon: <Cpu className="w-5 h-5 text-[#A855F7]" />,
+    borderColor: 'border-[#C084FC]',
+    accentColor: '#9333EA',
+    barColor: '#9333EA',
+    bgGradient: 'bg-gradient-to-b from-[#FAF5FF] to-white',
+    waveColor: 'from-[#F3E8FF]/40 via-[#FAF5FF]/20 to-transparent',
+    checkBg: 'bg-[#9333EA]',
+    checkColor: 'text-white',
+    tagColor: 'text-[#9333EA]',
+    tagBg: 'bg-purple-100 text-[#7E22CE]',
     specialCallout: {
-      icon: <ShieldCheck className="w-3.5 h-3.5 text-[#c084fc] shrink-0" />,
+      icon: <ShieldCheck className="w-4 h-4 text-[#9333EA] shrink-0" />,
       text: 'Using AI safely, fairly and responsibly.',
-      bg: 'rgba(168, 85, 247, 0.12)',
-      border: 'rgba(168, 85, 247, 0.35)',
-      color: '#e9d5ff',
+      bg: '#FAF5FF',
+      border: '#E9D5FF',
+      color: '#7E22CE',
     },
     slideNumber: '02',
     items: [
@@ -142,7 +219,6 @@ const DOMAINS: DomainData[] = [
       { value: 'TRAIN', label: 'Supervised Models' },
       { value: 'ETHICS', label: 'Safety Guardrails' },
     ],
-    tags: ['Neural Networks', 'Computer Vision', 'Ethical AI', 'Edge Inference'],
     pillars: [
       { num: '01', title: 'Data & Patterns', desc: 'Feature engineering & classifiers' },
       { num: '02', title: 'Computer Vision', desc: 'Edge convolution & gesture tracking' },
@@ -161,21 +237,17 @@ const DOMAINS: DomainData[] = [
     chapter: '06',
     domainNumber: 'Engineering Domain 03',
     name: 'Data Analytics',
-    fullName: 'Data',
-    italicWord: 'Analytics',
-    tag: 'Evidence & Insights',
-    tagline: 'Evidence, Statistics & Live Telemetry',
+    tag: 'EVIDENCE & INSIGHTS',
     description: 'Working with data, finding patterns, and sharing insights.',
-    cardBg: 'linear-gradient(180deg, rgba(38, 20, 10, 0.95) 0%, rgba(20, 10, 5, 0.98) 100%)',
-    borderColor: 'rgba(255, 138, 0, 0.55)',
-    glowColor: 'rgba(255, 138, 0, 0.25)',
-    accentColor: '#FF8A00',
-    barColor: '#FF8A00',
-    badgeText: 'TELEMETRY LAB',
-    badgeBg: '#FF8A00',
-    badgeTextColor: '#331600',
-    badgeIcon: <BarChart3 className="w-3.5 h-3.5" />,
-    icon: <BarChart3 className="w-5 h-5 text-[#FF8A00]" />,
+    borderColor: 'border-[#FB923C]',
+    accentColor: '#EA580C',
+    barColor: '#EA580C',
+    bgGradient: 'bg-gradient-to-b from-[#FFF7ED] to-white',
+    waveColor: 'from-[#FFEDD5]/40 via-[#FFF7ED]/20 to-transparent',
+    checkBg: 'bg-[#EA580C]',
+    checkColor: 'text-white',
+    tagColor: 'text-[#EA580C]',
+    tagBg: 'bg-orange-100 text-[#C2410C]',
     slideNumber: '03',
     items: [
       'Data Wrangling & Cleaning',
@@ -188,7 +260,6 @@ const DOMAINS: DomainData[] = [
       { value: 'ANALYSE', label: 'Trends & Variance' },
       { value: 'INSIGHT', label: 'Visual Findings' },
     ],
-    tags: ['Data Structuring', 'Statistical Interpretation', 'Data Visualization', 'Hypothesis'],
     pillars: [
       { num: '01', title: 'Collection', desc: 'Sensor telemetry & IMU harvest' },
       { num: '02', title: 'Analysis', desc: 'Variance & anomaly filtering' },
@@ -207,27 +278,23 @@ const DOMAINS: DomainData[] = [
     chapter: '07',
     domainNumber: 'Engineering Domain 04',
     name: 'Aerial Systems',
-    fullName: 'Aerial',
-    italicWord: 'Systems',
-    tag: 'Flight Aerodynamics',
-    tagline: 'Aerodynamics, Flight Mechanics & Spatial Robotics',
+    tag: 'FLIGHT AERODYNAMICS',
     description: 'Aerial platforms, flight basics, sensing, and applications.',
-    cardBg: 'linear-gradient(180deg, rgba(9, 27, 44, 0.95) 0%, rgba(6, 17, 28, 0.98) 100%)',
-    borderColor: 'rgba(0, 194, 255, 0.55)',
-    glowColor: 'rgba(0, 194, 255, 0.25)',
-    accentColor: '#00C2FF',
-    barColor: '#00C2FF',
-    badgeText: 'AUTONOMOUS FLIGHT',
-    badgeBg: '#00C2FF',
-    badgeTextColor: '#061726',
-    badgeIcon: <Plane className="w-3.5 h-3.5" />,
-    icon: <Plane className="w-5 h-5 text-[#00C2FF]" />,
+    borderColor: 'border-[#4ADE80]',
+    accentColor: '#16A34A',
+    barColor: '#16A34A',
+    bgGradient: 'bg-gradient-to-b from-[#F0FDF4] to-white',
+    waveColor: 'from-[#DCFCE7]/40 via-[#F0FDF4]/20 to-transparent',
+    checkBg: 'bg-[#16A34A]',
+    checkColor: 'text-white',
+    tagColor: 'text-[#16A34A]',
+    tagBg: 'bg-emerald-100 text-[#15803D]',
     specialCallout: {
-      icon: <Plane className="w-3.5 h-3.5 text-[#38bdf8] shrink-0" />,
+      icon: <Plane className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />,
       text: 'Indoor control training: flying through hoops and around low & high obstacles, safety first.',
-      bg: 'rgba(0, 194, 255, 0.12)',
-      border: 'rgba(0, 194, 255, 0.35)',
-      color: '#bae6fd',
+      bg: '#F0FDF4',
+      border: '#BBF7D0',
+      color: '#15803D',
     },
     slideNumber: '04',
     items: [
@@ -241,7 +308,6 @@ const DOMAINS: DomainData[] = [
       { value: 'SENSORS', label: 'Telemetry Guidance' },
       { value: 'SAFETY', label: 'Controlled Arena' },
     ],
-    tags: ['Aerodynamics', 'Gyro & IMU', 'Navigation', 'Lab Safety'],
     pillars: [
       { num: '01', title: 'Aerodynamics & Lift', desc: 'Airfoils & quad-rotor thrust dynamics' },
       { num: '02', title: 'Stabilization', desc: 'PID balance & IMU calibration' },
@@ -256,13 +322,71 @@ const DOMAINS: DomainData[] = [
   },
 ];
 
+const DOMAIN_VECTORS = [
+  <RoboticArmVector key="robotics" />,
+  <AIChipVector key="ai" />,
+  <DataChartVector key="data" />,
+  <AerialDroneVector key="aerial" />,
+];
+
 export interface DomainsSectionProps {
   onSlideChange?: (index: number) => void;
 }
 
 export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeCardIndex, setActiveCardIndex] = useState<number>(-1);
-  const [activeDataStage, setActiveDataStage] = useState<number>(0);
+  const activeCardIndexRef = useRef<number>(-1);
+  const lastStepTimeRef = useRef<number>(0);
+
+  // Sync ref with state
+  useEffect(() => {
+    activeCardIndexRef.current = activeCardIndex;
+  }, [activeCardIndex]);
+
+  // Synchronize with SlideTransitions scroll events (Step through cards on scroll)
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const handleStep = (e: Event) => {
+      const now = Date.now();
+      if (now - lastStepTimeRef.current < 450) {
+        e.preventDefault();
+        return;
+      }
+
+      const customEvent = e as CustomEvent<{ direction: number }>;
+      const dir = customEvent.detail?.direction || 1;
+      const cur = activeCardIndexRef.current;
+
+      if (dir > 0) {
+        // Forward scroll (down): step through cards: Deck (-1) -> 0 -> 1 -> 2 -> 3
+        if (cur < DOMAINS.length - 1) {
+          e.preventDefault();
+          lastStepTimeRef.current = now;
+          const next = cur === -1 ? 0 : cur + 1;
+          setActiveCardIndex(next);
+          activeCardIndexRef.current = next;
+          onSlideChange?.(next + 3);
+        }
+        // At Card 3, e.preventDefault() is NOT called, so SlideTransitions advances to Slide 05!
+      } else {
+        // Reverse scroll (up): step back through cards: 3 -> 2 -> 1 -> 0 -> Deck (-1)
+        if (cur > -1) {
+          e.preventDefault();
+          lastStepTimeRef.current = now;
+          const prev = cur - 1;
+          setActiveCardIndex(prev);
+          activeCardIndexRef.current = prev;
+        }
+        // At Deck view (-1), e.preventDefault() is NOT called, so SlideTransitions goes back to Slide 03!
+      }
+    };
+
+    el.addEventListener('slide:step', handleStep);
+    return () => el.removeEventListener('slide:step', handleStep);
+  }, [onSlideChange]);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -281,162 +405,139 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     <ChapterShell
       id="domains"
       chapterNumber="04"
-      theme="dark"
+      theme="light"
       fullBleed={true}
-      className="relative flex flex-col justify-between overflow-hidden bg-[#070C12]"
+      className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF8F5]"
     >
-      <div
-        id="technology-suite"
-        className="relative w-full min-h-[100svh] sm:h-[100svh] sm:max-h-[100svh] flex flex-col justify-between select-none pt-[calc(var(--header-h,64px)+8px)] pb-3 px-3 sm:px-6 lg:px-8 box-border overflow-y-auto sm:overflow-hidden"
-      >
-        {/* Ambient background glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#00C2FF]/10 via-[#A855F7]/10 to-transparent blur-[120px] pointer-events-none" />
+      {/* Background ambient gentle wave glows */}
+      <div className="absolute top-0 left-0 w-80 h-80 bg-purple-100/35 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-orange-100/35 rounded-full blur-3xl pointer-events-none" />
 
-        {/* ─── Top Header: Matching Image 1 "Our Core Technology Ecosystem" ─── */}
-        <div className="w-full text-center shrink-0 pt-1 sm:pt-2 pb-1 relative z-10">
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl lg:text-[34px] xl:text-[36px] font-bold text-white tracking-tight leading-tight">
+      {/* Main Centered Container with data-steppable to hook into scroll events */}
+      <div
+        ref={containerRef}
+        data-steppable="true"
+        id="technology-suite"
+        className="relative w-full my-auto flex flex-col justify-center items-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-14 pb-8 lg:py-6 px-3 sm:px-6 lg:px-8 xl:px-12 box-border select-none z-10 max-w-[1360px] mx-auto min-h-[100svh] lg:min-h-0"
+      >
+        {/* Top Header: "Our Core Technology Ecosystem" (Exact Image 1) */}
+        <div className="w-full text-center shrink-0 pt-0.5 pb-0.5 relative z-10">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-bold text-[#0F172A] tracking-tight leading-tight">
             Our Core Technology{' '}
-            <span className="italic font-semibold bg-gradient-to-r from-[#FF8A00] via-[#FFA800] to-[#FF8A00] bg-clip-text text-transparent">
+            <span className="italic font-bold bg-gradient-to-r from-[#EA580C] via-[#F97316] to-[#EA580C] bg-clip-text text-transparent">
               Ecosystem
             </span>
           </h2>
 
-          {/* Glowing Dual-Tone Divider Curve */}
-          <div className="w-36 sm:w-52 mx-auto mt-0.5 sm:mt-1 mb-1">
-            <div className="h-[2.5px] w-full rounded-full bg-gradient-to-r from-transparent via-[#FF8A00] to-transparent shadow-[0_0_12px_rgba(255,138,0,0.7)]" />
+          {/* Dual-Tone Orange Underline Curve */}
+          <div className="w-40 sm:w-56 mx-auto mt-1 mb-0.5">
+            <div className="h-[2.5px] w-full rounded-full bg-gradient-to-r from-transparent via-[#F97316] to-transparent shadow-[0_0_8px_rgba(249,115,22,0.4)]" />
           </div>
         </div>
 
-        {/* ─── The 4 Straight Cards Grid: Exactly Like Image 1 (NO Curving) ─── */}
-        <div className="w-full max-w-6xl xl:max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 xl:gap-4 flex-1 min-h-0 items-stretch my-auto relative z-10 py-1">
-          {DOMAINS.map((domain, idx) => {
-            return (
+        {/* 4 Straight, Upright Light-Themed Cards (Exact Image 1 Styling) */}
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 xl:gap-4.5 items-stretch relative z-10">
+          {DOMAINS.map((domain, idx) => (
+            <div
+              key={domain.id}
+              onClick={() => {
+                setActiveCardIndex(idx);
+                onSlideChange?.(idx + 3);
+              }}
+              className={`group relative flex flex-col justify-between p-4 sm:p-4.5 xl:p-5 rounded-3xl border-2 ${domain.borderColor} ${domain.bgGradient} shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden min-h-[355px] sm:min-h-[375px]`}
+            >
+              {/* Corner soft pastel wave gradient accent */}
               <div
-                key={domain.id}
-                onClick={() => {
-                  setActiveCardIndex(idx);
-                  onSlideChange?.(idx + 3);
-                }}
-                style={{
-                  background: domain.cardBg,
-                  borderColor: domain.borderColor,
-                  boxShadow: `0 8px 32px -8px ${domain.glowColor}, 0 0 0 1px ${domain.borderColor}`,
-                }}
-                className="group relative flex flex-col justify-between p-3.5 sm:p-4 xl:p-4.5 rounded-2xl border transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_-6px_rgba(0,194,255,0.35)] cursor-pointer overflow-hidden"
-              >
-                {/* Top Subtle Domain Glow Accent in Corner */}
-                <div
-                  className="absolute -top-12 -right-12 w-28 h-28 rounded-full blur-2xl opacity-30 group-hover:opacity-60 transition-opacity pointer-events-none"
-                  style={{ backgroundColor: domain.accentColor }}
-                />
+                className={`absolute -bottom-8 -right-8 w-28 h-28 rounded-full bg-gradient-to-tl ${domain.waveColor} blur-xl pointer-events-none`}
+              />
+              <div
+                className={`absolute bottom-0 right-0 w-20 h-12 bg-gradient-to-tl ${domain.waveColor} rounded-tl-3xl pointer-events-none opacity-80`}
+              />
 
-                {/* Top Content Area */}
-                <div>
-                  {/* Floating Badge / Chapter Tag */}
-                  <div className="flex items-center justify-between gap-1.5 mb-2 font-mono-tech text-[10px] tracking-wider uppercase">
-                    <span className="font-bold text-white/90 bg-white/10 px-2 py-0.5 rounded border border-white/15">
-                      CH {domain.slideNumber}
-                    </span>
-                    <span
-                      style={{ color: domain.accentColor }}
-                      className="font-semibold text-[9.5px] tracking-wide truncate"
-                    >
-                      {domain.tag}
-                    </span>
-                  </div>
+              {/* Top Content Area */}
+              <div className="relative z-10">
+                {/* Header Row: CH 0X Pill & Category Tag */}
+                <div className="flex items-center justify-between gap-1.5 mb-2.5 font-mono text-[10px] tracking-wider uppercase">
+                  <span className={`font-bold px-2.5 py-0.5 rounded-full ${domain.tagBg} border border-black/5`}>
+                    CH {domain.slideNumber}
+                  </span>
+                  <span className={`font-bold text-[9.5px] tracking-wider truncate ${domain.tagColor}`}>
+                    {domain.tag}
+                  </span>
+                </div>
 
-                  {/* Domain Title */}
-                  <h3 className="font-serif-editorial text-lg sm:text-xl xl:text-[22px] font-bold text-white leading-tight tracking-tight mt-1 mb-1.5">
-                    {domain.name}
-                  </h3>
-
-                  {/* Horizontal accent line under title matching Image 1 */}
-                  <div
-                    className="w-10 h-1 rounded-full mb-2.5"
-                    style={{ backgroundColor: domain.barColor }}
-                  />
-
-                  {/* Verified Domain Description */}
-                  <p className="font-sans-modern text-[11.5px] xl:text-[12px] text-white/80 leading-relaxed font-normal mb-2.5">
-                    {domain.description}
-                  </p>
-
-                  {/* Special Callout Box if present (AI Ethics or Drone Safety, exactly as shown in Image 1) */}
-                  {domain.specialCallout && (
+                {/* Title & Vector Line-Art Icon Row */}
+                <div className="flex items-start justify-between gap-2 mb-1.5">
+                  <div>
+                    <h3 className="font-serif text-[18px] sm:text-[19px] xl:text-[21px] font-bold text-[#0F172A] leading-tight tracking-tight">
+                      {domain.name}
+                    </h3>
+                    {/* Horizontal Colored Bar */}
                     <div
-                      style={{
-                        backgroundColor: domain.specialCallout.bg,
-                        borderColor: domain.specialCallout.border,
-                        color: domain.specialCallout.color,
-                      }}
-                      className="flex items-center gap-2 p-2 rounded-xl border text-[10.5px] font-sans-modern font-medium leading-tight mb-2.5 shadow-inner"
-                    >
-                      {domain.specialCallout.icon}
-                      <span>{domain.specialCallout.text}</span>
-                    </div>
-                  )}
-
-                  {/* Bullet list with distinctive domain accent dots */}
-                  <ul className="space-y-1 font-sans-modern text-[11px] xl:text-[11.5px] text-white/85 mb-2.5">
-                    {domain.items.slice(0, 3).map((item, itemIdx) => (
-                      <li key={itemIdx} className="flex items-start gap-2 leading-tight">
-                        <span
-                          className="w-1.5 h-1.5 rounded-full mt-1 shrink-0"
-                          style={{ backgroundColor: domain.accentColor }}
-                        />
-                        <span className="leading-snug">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Bottom Visual & Action Footer Area */}
-                <div className="mt-auto pt-2">
-                  {/* Hardware Visual Preview Thumbnail (Matching Image 1 visual representation at bottom of card) */}
-                  <div className="relative w-full h-24 sm:h-28 rounded-xl overflow-hidden border border-white/10 group-hover:border-white/25 transition-all shadow-md mb-2">
-                    <img
-                      src={domain.image}
-                      alt={domain.imageCaption}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-10 h-1 rounded-full mt-2 mb-2"
+                      style={{ backgroundColor: domain.barColor }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                    <div className="absolute bottom-1.5 left-2 right-2 flex items-center justify-between text-[9.5px] font-mono-tech text-white/90">
-                      <span className="font-bold uppercase tracking-wider" style={{ color: domain.accentColor }}>
-                        {domain.imageCaption}
-                      </span>
-                      <span className="bg-white/20 backdrop-blur-xs px-1.5 py-0.5 rounded text-[8.5px] font-medium border border-white/20">
-                        {domain.imageTag}
-                      </span>
-                    </div>
                   </div>
-
-                  {/* Bottom Action Footer */}
-                  <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[10.5px] font-mono-tech">
-                    <span className="text-white/50 group-hover:text-white/80 transition-colors">Click to inspect</span>
-                    <span
-                      style={{ color: domain.accentColor }}
-                      className="font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform"
-                    >
-                      Explore →
-                    </span>
-                  </div>
+                  {DOMAIN_VECTORS[idx]}
                 </div>
+
+                {/* Description */}
+                <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed mb-2.5 font-normal">
+                  {domain.description}
+                </p>
+
+                {/* Special Callout Box (AI Ethics for CH 02 & Drone Safety for CH 04) */}
+                {domain.specialCallout && (
+                  <div
+                    style={{
+                      backgroundColor: domain.specialCallout.bg,
+                      borderColor: domain.specialCallout.border,
+                      color: domain.specialCallout.color,
+                    }}
+                    className="flex items-center gap-2 p-2 rounded-xl border text-[10.5px] font-sans font-semibold leading-snug mb-2.5 shadow-2xs"
+                  >
+                    {domain.specialCallout.icon}
+                    <span>{domain.specialCallout.text}</span>
+                  </div>
+                )}
+
+                {/* 4 Feature Bullets with Circular Checkmarks */}
+                <ul className="space-y-1.5 font-sans text-[11px] sm:text-[11.5px] text-[#334155] mb-2 font-medium">
+                  {domain.items.map((item, itemIdx) => (
+                    <li key={itemIdx} className="flex items-center gap-2 leading-tight">
+                      <span
+                        className={`w-4 h-4 rounded-full ${domain.checkBg} ${domain.checkColor} flex items-center justify-center shrink-0 text-[10px]`}
+                      >
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </span>
+                      <span className="leading-snug truncate">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            );
-          })}
+
+              {/* Bottom Action Footer */}
+              <div className="relative z-10 pt-2 border-t border-slate-200/80 mt-auto flex items-center justify-between text-[11px] font-mono">
+                <span className="text-slate-400 group-hover:text-slate-600 transition-colors">Click to inspect</span>
+                <span
+                  style={{ color: domain.accentColor }}
+                  className="font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                >
+                  Explore →
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* ─── Bottom Full-Width Container: "Computational Foundation" (Matching Image 1) ─── */}
-        <div className="w-full max-w-6xl xl:max-w-7xl mx-auto shrink-0 mt-1 sm:mt-2 relative z-10">
-          <div className="relative overflow-hidden rounded-2xl border border-[#00C2FF]/40 bg-[#091522]/95 backdrop-blur-md px-3.5 sm:px-5 py-2.5 sm:py-3 shadow-[0_0_30px_rgba(0,194,255,0.15)] flex flex-col lg:flex-row items-center justify-between gap-2.5 sm:gap-3.5">
-            {/* Ambient Cyan/Blue Reflection Glow */}
-            <div className="absolute -left-10 -bottom-10 w-44 h-24 bg-[#00C2FF]/20 blur-3xl pointer-events-none" />
-
+        {/* Bottom Full-Width "Computational Foundation" Container (Exact Image 1) */}
+        <div className="w-full shrink-0 mt-2 sm:mt-2.5 relative z-10">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white px-4 sm:px-5 py-3 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-3">
             {/* Left: Math/Science Engineering Pedestal & Symbols */}
             <div className="flex items-center gap-3 sm:gap-4 shrink-0 w-full lg:w-auto justify-between lg:justify-start">
-              <div className="flex items-center gap-2.5 sm:gap-3 text-[#00C2FF] shrink-0">
+              <div className="flex items-center gap-2.5 text-[#EA580C] shrink-0">
                 {/* 1. Sigma Symbol Σ */}
-                <span className="font-serif text-2xl sm:text-[26px] font-bold tracking-wider drop-shadow-[0_0_10px_rgba(0,194,255,0.7)] leading-none select-none">
+                <span className="font-serif text-2xl sm:text-[26px] font-bold leading-none select-none">
                   Σ
                 </span>
 
@@ -445,10 +546,10 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                   viewBox="0 0 28 20"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="1.8"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-6 h-5 sm:w-7 sm:h-5 drop-shadow-[0_0_10px_rgba(0,194,255,0.7)]"
+                  className="w-6 h-5 sm:w-7 sm:h-5"
                 >
                   <path d="M2 18h24" />
                   <path d="M2 18 A12 12 0 0 1 26 18" />
@@ -463,12 +564,12 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="1.8"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-5 h-5 sm:w-6 sm:h-6 drop-shadow-[0_0_10px_rgba(0,194,255,0.7)]"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                 >
-                  <circle cx="12" cy="4" r="2" fill="currentColor" fillOpacity="0.3" />
+                  <circle cx="12" cy="4" r="2" fill="currentColor" fillOpacity="0.2" />
                   <line x1="12" y1="2" x2="12" y2="4" />
                   <line x1="11" y1="6" x2="4" y2="22" />
                   <line x1="13" y1="6" x2="20" y2="22" />
@@ -477,125 +578,130 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 </svg>
               </div>
 
-              <div className="hidden sm:block w-px h-8 bg-white/20 shrink-0" />
+              <div className="hidden sm:block w-px h-8 bg-slate-200 shrink-0" />
 
               {/* Title & Core Description */}
               <div className="text-left flex-1 min-w-0">
-                <h4 className="font-serif-editorial text-sm sm:text-base font-bold text-white tracking-tight leading-tight">
+                <h4 className="font-serif text-sm sm:text-base font-bold text-[#0F172A] tracking-tight leading-tight">
                   Computational Foundation
                 </h4>
-                <p className="font-sans-modern text-[10.5px] sm:text-[11.5px] text-white/75 leading-tight truncate sm:whitespace-normal">
+                <p className="font-sans text-[10.5px] sm:text-[11.5px] text-[#475569] leading-tight truncate sm:whitespace-normal">
                   Logic, measurement, geometry, data reasoning, algorithms, and problem-solving that support all four.
                 </p>
               </div>
             </div>
 
-            {/* Right: 5 Interactive Glowing Badges from Image 1 */}
+            {/* Right: 5 Interactive Badges */}
             <div className="flex flex-wrap items-center justify-center lg:justify-end gap-1.5 sm:gap-2 shrink-0">
-              {/* Badge 1: Logic */}
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#00C2FF]/60 bg-[#00C2FF]/10 text-[#38bdf8] text-[10px] sm:text-[10.5px] font-mono-tech font-bold shadow-[0_0_10px_rgba(0,194,255,0.2)]">
-                <Puzzle className="w-3 h-3 text-[#00C2FF]" />
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-sky-200 bg-sky-50 text-[#0284C7] text-[10.5px] font-mono font-bold shadow-2xs">
+                <Puzzle className="w-3 h-3 text-[#0284C7]" />
                 <span>Logic</span>
               </div>
-
-              {/* Badge 2: Measurement */}
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#FF8A00]/60 bg-[#FF8A00]/10 text-[#fb923c] text-[10px] sm:text-[10.5px] font-mono-tech font-bold shadow-[0_0_10px_rgba(255,138,0,0.2)]">
-                <Ruler className="w-3 h-3 text-[#FF8A00]" />
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-orange-200 bg-orange-50 text-[#EA580C] text-[10.5px] font-mono font-bold shadow-2xs">
+                <Ruler className="w-3 h-3 text-[#EA580C]" />
                 <span>Measurement</span>
               </div>
-
-              {/* Badge 3: Geometry */}
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#A855F7]/60 bg-[#A855F7]/10 text-[#c084fc] text-[10px] sm:text-[10.5px] font-mono-tech font-bold shadow-[0_0_10px_rgba(168,85,247,0.2)]">
-                <Triangle className="w-3 h-3 text-[#A855F7]" />
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-purple-200 bg-purple-50 text-[#9333EA] text-[10.5px] font-mono font-bold shadow-2xs">
+                <Triangle className="w-3 h-3 text-[#9333EA]" />
                 <span>Geometry</span>
               </div>
-
-              {/* Badge 4: Data Reasoning */}
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#06B6D4]/60 bg-[#06B6D4]/10 text-[#22d3ee] text-[10px] sm:text-[10.5px] font-mono-tech font-bold shadow-[0_0_10px_rgba(6,182,212,0.2)]">
-                <BarChart2 className="w-3 h-3 text-[#06B6D4]" />
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-cyan-200 bg-cyan-50 text-[#0891B2] text-[10.5px] font-mono font-bold shadow-2xs">
+                <BarChart2 className="w-3 h-3 text-[#0891B2]" />
                 <span>Data Reasoning</span>
               </div>
-
-              {/* Badge 5: Algorithms */}
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#10B981]/60 bg-[#10B981]/10 text-[#34d399] text-[10px] sm:text-[10.5px] font-mono-tech font-bold shadow-[0_0_10px_rgba(16,185,129,0.2)]">
-                <Code2 className="w-3 h-3 text-[#10B981]" />
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-emerald-200 bg-emerald-50 text-[#16A34A] text-[10.5px] font-mono font-bold shadow-2xs">
+                <Code2 className="w-3 h-3 text-[#16A34A]" />
                 <span>Algorithms</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ─── Deep-Dive Modal View (Opens cleanly when a card is clicked) ─── */}
+        {/* ─── Deep-Dive Modal View (Opens on card click OR when scrolling through steps) ─── */}
         {activeCard && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn"
             onClick={() => setActiveCardIndex(-1)}
           >
             <div
-              className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl border border-white/20 p-5 sm:p-7 text-white shadow-2xl"
-              style={{
-                background: activeCard.cardBg,
-                boxShadow: `0 28px 80px -15px ${activeCard.glowColor}, 0 0 0 1px ${activeCard.borderColor}`,
-              }}
+              className={`relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-5 sm:p-7 text-[#0F172A] shadow-2xl`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/15">
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center border border-white/20 shadow-inner"
-                    style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
-                  >
-                    {activeCard.icon}
+                  <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
+                    {DOMAIN_VECTORS[activeCardIndex]}
                   </div>
                   <div>
                     <span
-                      className="font-mono-tech text-xs tracking-wider uppercase font-bold"
+                      className="font-mono text-xs tracking-wider uppercase font-bold"
                       style={{ color: activeCard.accentColor }}
                     >
                       {activeCard.domainNumber}
                     </span>
-                    <h3 className="font-serif-editorial text-xl sm:text-2xl font-bold text-white leading-tight">
-                      {activeCard.fullName}{' '}
-                      <span className="italic font-normal" style={{ color: activeCard.accentColor }}>
-                        {activeCard.italicWord}
-                      </span>
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0F172A] leading-tight">
+                      {activeCard.name}
                     </h3>
                   </div>
                 </div>
 
-                {/* Close Button */}
-                <button
-                  type="button"
-                  onClick={() => setActiveCardIndex(-1)}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 text-white font-mono-tech text-xs transition-all cursor-pointer shadow-md active:scale-95"
-                >
-                  <X className="w-4 h-4" />
-                  <span>Close</span>
-                </button>
+                {/* Right controls: Prev, Next & Close Button */}
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const prev = activeCardIndex > 0 ? activeCardIndex - 1 : DOMAINS.length - 1;
+                      setActiveCardIndex(prev);
+                      onSlideChange?.(prev + 3);
+                    }}
+                    className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+                    aria-label="Previous Domain"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const next = activeCardIndex < DOMAINS.length - 1 ? activeCardIndex + 1 : 0;
+                      setActiveCardIndex(next);
+                      onSlideChange?.(next + 3);
+                    }}
+                    className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+                    aria-label="Next Domain"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCardIndex(-1)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-xs font-semibold transition-all cursor-pointer ml-1"
+                  >
+                    <X className="w-4 h-4" />
+                    <span>Close</span>
+                  </button>
+                </div>
               </div>
-
-              <LineReveal color={activeCard.accentColor} height={1.5} className="mb-4" />
 
               {/* Modal Body */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
                 {/* Left Column: Description, Metrics & Pillars */}
                 <div className="lg:col-span-7 space-y-3">
-                  <p className="font-sans-modern text-xs sm:text-sm text-white/80 leading-relaxed font-normal">
+                  <p className="font-sans text-xs sm:text-sm text-[#475569] leading-relaxed font-normal">
                     {activeCard.description}
                   </p>
 
                   {/* Metrics Strip */}
-                  <div className="grid grid-cols-3 gap-2 py-2 px-3 border border-white/10 bg-white/5 rounded-xl">
+                  <div className="grid grid-cols-3 gap-2 py-2.5 px-3 border border-slate-200 bg-slate-50/70 rounded-2xl">
                     {activeCard.metrics.map((m, mIdx) => (
                       <div key={mIdx} className="text-left">
                         <div
-                          className="font-mono-tech text-xs sm:text-sm font-bold tracking-wider"
-                          style={{ color: mIdx === 0 ? activeCard.accentColor : '#ffffff' }}
+                          className="font-mono text-xs sm:text-sm font-bold tracking-wider"
+                          style={{ color: activeCard.accentColor }}
                         >
                           {m.value}
                         </div>
-                        <div className="font-mono-tech text-[9.5px] text-white/60 uppercase leading-tight truncate">
+                        <div className="font-mono text-[9.5px] text-slate-500 uppercase leading-tight truncate">
                           {m.label}
                         </div>
                       </div>
@@ -603,52 +709,41 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                   </div>
 
                   {/* 2 Core Pillars */}
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    {activeCard.pillars.slice(0, 2).map((item, pIdx) => {
-                      const isStageSelected = activeDataStage === pIdx;
-                      return (
+                  <div className="grid grid-cols-2 gap-2.5 pt-1">
+                    {activeCard.pillars.slice(0, 2).map((item) => (
+                      <div
+                        key={item.num}
+                        className="p-3 rounded-2xl border border-slate-200/80 bg-white shadow-2xs text-left"
+                      >
                         <div
-                          key={item.num}
-                          onClick={() => {
-                            if (activeCard.id === 'data-analytics') {
-                              setActiveDataStage(pIdx);
-                            }
-                          }}
-                          className={`p-2.5 rounded-xl border text-left transition-all ${
-                            activeCard.id === 'data-analytics'
-                              ? isStageSelected
-                                ? 'bg-white/20 border-white ring-1 ring-white/40 shadow-xs cursor-pointer'
-                                : 'bg-black/25 border-white/10 hover:bg-white/10 hover:border-white/20 cursor-pointer'
-                              : 'bg-black/25 border-white/10 hover:bg-white/10 hover:border-white/20 shadow-xs'
-                          }`}
+                          className="font-mono text-[9.5px] font-bold"
+                          style={{ color: activeCard.accentColor }}
                         >
-                          <div
-                            className="font-mono-tech text-[9.5px] font-bold"
-                            style={{ color: activeCard.accentColor }}
-                          >
-                            {activeCard.id === 'data-analytics' ? `STAGE ${item.num}` : `CORE PILLAR ${item.num}`}
-                          </div>
-                          <div className="font-sans-modern text-xs font-semibold text-white leading-tight mt-0.5 truncate">
-                            {item.title}
-                          </div>
-                          <div className="font-sans-modern text-[10.5px] text-white/70 mt-0.5 leading-snug line-clamp-2">
-                            {item.desc}
-                          </div>
+                          PILLAR {item.num}
                         </div>
-                      );
-                    })}
+                        <div className="font-sans text-xs font-bold text-[#0F172A] leading-tight mt-0.5 truncate">
+                          {item.title}
+                        </div>
+                        <div className="font-sans text-[11px] text-[#475569] mt-0.5 leading-snug line-clamp-2">
+                          {item.desc}
+                        </div>
+                      </div>
+                    ))}
                   </div>
 
                   {/* Badge Note */}
-                  <div className="flex items-center gap-2 text-[11px] font-mono-tech text-white/70 pt-2 border-t border-white/10">
-                    <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: activeCard.accentColor }} />
+                  <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-100">
+                    <span
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: activeCard.accentColor }}
+                    />
                     <span className="truncate">{activeCard.badgeNote}</span>
                   </div>
                 </div>
 
                 {/* Right Column: Hardware Photo */}
                 <div className="lg:col-span-5 flex justify-center items-center">
-                  <div className="relative overflow-hidden rounded-2xl bg-black border border-white/20 shadow-xl w-full h-[220px] sm:h-[240px] group">
+                  <div className="relative overflow-hidden rounded-2xl bg-black border border-slate-200 shadow-xl w-full h-[220px] sm:h-[240px] group">
                     <img
                       src={activeCard.image}
                       alt={activeCard.imageCaption}
@@ -659,16 +754,16 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                     <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">
                       <div>
                         <span
-                          className="font-mono-tech text-[9.5px] tracking-wider uppercase font-bold block leading-tight mb-0.5"
+                          className="font-mono text-[9.5px] tracking-wider uppercase font-bold block leading-tight mb-0.5"
                           style={{ color: activeCard.accentColor }}
                         >
                           {activeCard.imageCaption}
                         </span>
-                        <p className="font-serif-editorial text-[11px] italic text-white/95 font-light leading-tight">
+                        <p className="font-serif text-[11px] italic text-white/95 font-light leading-tight">
                           {activeCard.imageSubcaption}
                         </p>
                       </div>
-                      <span className="font-mono-tech text-[9px] text-white/80 bg-white/15 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
+                      <span className="font-mono text-[9px] text-white/90 bg-white/20 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
                         {activeCard.imageTag}
                       </span>
                     </div>
