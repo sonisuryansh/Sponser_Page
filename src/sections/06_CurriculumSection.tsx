@@ -337,10 +337,10 @@ export const CurriculumSection: React.FC = () => {
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
       >
-        {/* Main Unified Inset Card - Matches Reference Image 1 */}
-        <div className="relative w-full my-0 sm:my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[16px] flex flex-col sm:flex-row items-stretch overflow-hidden box-border">
+        {/* Main Unified Inset Card - Matches Reference Image 1 (Compact) */}
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border max-h-[calc(100svh-var(--header-h,64px)-12px)]">
           
           {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
           <div className="w-full sm:w-44 lg:w-48 xl:w-52 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-2.5 sm:py-4 px-2 sm:px-3 select-none shrink-0">
@@ -393,7 +393,7 @@ export const CurriculumSection: React.FC = () => {
           </div>
 
           {/* ─── Main Content & Right Photo Layout (Matching Image 1) ─── */}
-          <div className="flex-1 flex flex-col lg:flex-row items-stretch p-4 sm:p-5 lg:p-6 xl:p-7 gap-4 sm:gap-5 lg:gap-6 overflow-hidden">
+          <div className="flex-1 flex flex-col lg:flex-row items-stretch p-3.5 sm:p-4 lg:p-5 gap-3 sm:gap-4 lg:gap-5 overflow-hidden">
             
             {/* Left Content Column */}
             <div
@@ -403,21 +403,21 @@ export const CurriculumSection: React.FC = () => {
               <div>
                 {/* 1. Large Grade Headline with Orange Accent */}
                 <div className="stage-anim">
-                  <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-none mb-1.5">
+                  <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold text-[#0F172A] tracking-tight leading-none mb-1">
                     {renderGradeHeadline(currentStage.gradeLabel)}
                   </h2>
 
                   {/* Orange Accent Bar Under Headline (Matching Image 1) */}
-                  <div className="w-12 sm:w-14 h-1 bg-[#EA580C] rounded-full mb-3" />
+                  <div className="w-10 sm:w-12 h-1 bg-[#EA580C] rounded-full mb-2" />
                 </div>
 
                 {/* 2. Stage Title */}
-                <h3 className="stage-anim font-serif text-lg sm:text-xl lg:text-[22px] xl:text-[24px] font-bold text-[#0F172A] leading-tight tracking-tight mb-1.5">
+                <h3 className="stage-anim font-serif text-base sm:text-lg lg:text-[19px] font-bold text-[#0F172A] leading-tight tracking-tight mb-1">
                   {currentStage.title}
                 </h3>
 
                 {/* 3. Focus / Subtitle */}
-                <p className="stage-anim font-sans text-xs sm:text-[12.5px] text-[#64748B] leading-relaxed mb-3 font-normal max-w-lg">
+                <p className="stage-anim font-sans text-[11px] sm:text-xs text-[#64748B] leading-snug mb-2 font-normal max-w-lg">
                   {currentStage.focus}
                 </p>
 
@@ -425,47 +425,47 @@ export const CurriculumSection: React.FC = () => {
                 {(() => {
                   const stageChips = STAGE_CHIP_DETAILS[currentStage.id] || STAGE_CHIP_DETAILS['grade-10'];
                   return (
-                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 mb-3">
+                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2 mb-2">
                       {/* Chip 1: Blue Theme */}
-                      <div className="flex items-start gap-2.5 p-2.5 sm:p-2.5 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
-                        <div className="w-6 h-6 rounded-lg bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-2 p-2 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
+                        <div className="w-5 h-5 rounded-md bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[0]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[0].title}
                           </span>
-                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#0284C7] leading-snug block mt-0.5 font-medium line-clamp-2">
+                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#0284C7] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[0].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 2: Purple Theme */}
-                      <div className="flex items-start gap-2.5 p-2.5 sm:p-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
-                        <div className="w-6 h-6 rounded-lg bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-2 p-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
+                        <div className="w-5 h-5 rounded-md bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[1]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[1].title}
                           </span>
-                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#9333EA] leading-snug block mt-0.5 font-medium line-clamp-2">
+                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#9333EA] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[1].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 3: Green Theme */}
-                      <div className="flex items-start gap-2.5 p-2.5 sm:p-2.5 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
-                        <div className="w-6 h-6 rounded-lg bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-2 p-2 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
+                        <div className="w-5 h-5 rounded-md bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[2]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[2].title}
                           </span>
-                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#16A34A] leading-snug block mt-0.5 font-medium line-clamp-2">
+                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#16A34A] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[2].subtitle}
                           </span>
                         </div>
@@ -476,15 +476,15 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5. "Students can..." Callout Box (Matching Image 1) */}
                 {currentStage.outcome && (
-                  <div className="stage-anim p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2.5 sm:gap-3 shadow-xs mb-3">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
-                      <Target className="w-4 h-4" />
+                  <div className="stage-anim p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2 shadow-xs mb-2">
+                    <div className="w-6 h-6 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
+                      <Target className="w-3.5 h-3.5" />
                     </div>
                     <div>
-                      <span className="font-serif font-bold text-xs sm:text-[13px] text-[#C2410C] block leading-tight mb-0.5">
+                      <span className="font-serif font-bold text-[11px] sm:text-xs text-[#C2410C] block leading-tight mb-0.5">
                         Students can...
                       </span>
-                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed font-normal">
+                      <p className="font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug font-normal line-clamp-2">
                         {currentStage.outcome}
                       </p>
                     </div>
@@ -493,7 +493,7 @@ export const CurriculumSection: React.FC = () => {
               </div>
 
               {/* 6. Bottom Navigation Bar: Previous + 7 Dots + Next (Matching Image 1) */}
-              <div className="stage-anim pt-3 border-t border-black/8 flex items-center justify-between text-xs font-mono-tech mt-auto gap-2">
+              <div className="stage-anim pt-2 border-t border-black/8 flex items-center justify-between text-xs font-mono-tech mt-auto gap-2">
                 {/* Previous Button */}
                 <button
                   type="button"

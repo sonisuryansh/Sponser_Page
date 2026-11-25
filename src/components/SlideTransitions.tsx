@@ -340,9 +340,9 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
         '.slide-scroll-pane'
       );
-      if (pane && pane.scrollHeight > pane.clientHeight + 8) {
+      if (pane && pane.scrollHeight > pane.clientHeight + 16) {
         const atTop = pane.scrollTop <= 6;
-        const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 8;
+        const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
         if ((direction > 0 && !atBottom) || (direction < 0 && !atTop)) return;
       }
 
@@ -370,10 +370,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
         '.slide-scroll-pane'
       );
-      if (!pane || pane.scrollHeight <= pane.clientHeight + 8) return true;
+      if (!pane || pane.scrollHeight <= pane.clientHeight + 16) return true;
 
       const atTop = pane.scrollTop <= 6;
-      const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 8;
+      const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
       return direction > 0 ? atBottom : atTop;
     };
 

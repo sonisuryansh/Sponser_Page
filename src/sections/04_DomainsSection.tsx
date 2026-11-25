@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import {
   ShieldCheck,
@@ -406,6 +407,11 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     if (!el) return;
 
     const handleStep = (e: Event) => {
+      // On mobile / touch devices (< 768px), don't hijack scroll to open modals! Let mobile users tap cards to inspect
+      if (window.innerWidth < 768) {
+        return;
+      }
+
       const now = Date.now();
       if (now - lastStepTimeRef.current < 480) {
         e.preventDefault();
@@ -506,22 +512,22 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         ref={containerRef}
         data-steppable="true"
         id="technology-suite"
-        className="relative w-full my-0 sm:my-auto flex flex-col justify-start sm:justify-center items-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-8 lg:py-6 px-3 sm:px-6 lg:px-8 xl:px-12 box-border select-none z-10 max-w-[1360px] mx-auto min-h-[100svh] lg:min-h-0"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center gap-1.5 sm:gap-2.5 pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1300px] mx-auto overflow-hidden"
       >
         {/* Top Header: "Our Core Technology Ecosystem" (Exact Image 1) */}
-        <div className="w-full text-center shrink-0 pt-0.5 pb-0.5 relative z-10">
-          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-tight text-center">
+        <div className="w-full text-center shrink-0 relative z-10">
+          <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-tight text-center">
             Our Core Technology Ecosystem
           </h2>
 
           {/* Dual-Tone Orange Underline Curve */}
-          <div className="w-40 sm:w-56 mx-auto mt-1 mb-0.5">
-            <div className="h-[2.5px] w-full rounded-full bg-gradient-to-r from-transparent via-[#b45309]/60 to-transparent shadow-[0_0_8px_rgba(180,83,9,0.3)]" />
+          <div className="w-36 sm:w-48 mx-auto mt-0.5 mb-0.5">
+            <div className="h-[2px] w-full rounded-full bg-gradient-to-r from-transparent via-[#b45309]/60 to-transparent shadow-[0_0_8px_rgba(180,83,9,0.3)]" />
           </div>
         </div>
 
-        {/* 4 Straight, Upright Light-Themed Cards (Exact Image 1 Styling) */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 xl:gap-4.5 items-stretch relative z-10">
+        {/* 4 Straight, Upright Light-Themed Cards (Compact & Beautiful) */}
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 xl:gap-3.5 items-stretch relative z-10">
           {DOMAINS.map((domain, idx) => (
             <div
               key={domain.id}
@@ -529,45 +535,47 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 setActiveCardIndex(idx);
                 onSlideChange?.(idx + 3);
               }}
-              className={`group relative flex flex-col justify-between p-4 sm:p-4.5 xl:p-5 rounded-3xl border-2 ${domain.borderColor} ${domain.bgGradient} shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden min-h-[355px] sm:min-h-[375px]`}
+              className={`group relative flex flex-col justify-between p-2.5 sm:p-3 rounded-2xl border-2 ${domain.borderColor} ${domain.bgGradient} shadow-xs hover:shadow-md transition-all duration-300 hover:-translate-y-1 cursor-pointer overflow-hidden min-h-[235px] sm:min-h-[250px]`}
             >
               {/* Corner soft pastel wave gradient accent */}
               <div
-                className={`absolute -bottom-8 -right-8 w-28 h-28 rounded-full bg-gradient-to-tl ${domain.waveColor} blur-xl pointer-events-none`}
+                className={`absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-gradient-to-tl ${domain.waveColor} blur-xl pointer-events-none`}
               />
               <div
-                className={`absolute bottom-0 right-0 w-20 h-12 bg-gradient-to-tl ${domain.waveColor} rounded-tl-3xl pointer-events-none opacity-80`}
+                className={`absolute bottom-0 right-0 w-16 h-10 bg-gradient-to-tl ${domain.waveColor} rounded-tl-2xl pointer-events-none opacity-80`}
               />
 
               {/* Top Content Area */}
               <div className="relative z-10">
                 {/* Header Row: CH 0X Pill & Category Tag */}
-                <div className="flex items-center justify-between gap-1.5 mb-2.5 font-mono text-[10px] tracking-wider uppercase">
-                  <span className={`font-bold px-2.5 py-0.5 rounded-full ${domain.tagBg} border border-black/5`}>
+                <div className="flex items-center justify-between gap-1.5 mb-1.5 font-mono text-[9px] tracking-wider uppercase">
+                  <span className={`font-bold px-2 py-0.5 rounded-full ${domain.tagBg} border border-black/5`}>
                     CH {domain.slideNumber}
                   </span>
-                  <span className={`font-bold text-[9.5px] tracking-wider truncate ${domain.tagColor}`}>
+                  <span className={`font-bold text-[9px] tracking-wider truncate ${domain.tagColor}`}>
                     {domain.tag}
                   </span>
                 </div>
 
                 {/* Title & Vector Line-Art Icon Row */}
-                <div className="flex items-start justify-between gap-2 mb-1.5">
+                <div className="flex items-start justify-between gap-2 mb-1">
                   <div>
-                    <h3 className="font-serif text-[18px] sm:text-[19px] xl:text-[21px] font-bold text-[#0F172A] leading-tight tracking-tight">
+                    <h3 className="font-serif text-[16px] sm:text-[17px] font-bold text-[#0F172A] leading-tight tracking-tight">
                       {domain.name}
                     </h3>
                     {/* Horizontal Colored Bar */}
                     <div
-                      className="w-10 h-1 rounded-full mt-2 mb-2"
+                      className="w-8 h-1 rounded-full mt-1 mb-1.5"
                       style={{ backgroundColor: domain.barColor }}
                     />
                   </div>
-                  {DOMAIN_VECTORS[idx]}
+                  <div className="scale-90 origin-top-right">
+                    {DOMAIN_VECTORS[idx]}
+                  </div>
                 </div>
 
                 {/* Description */}
-                <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed mb-2.5 font-normal">
+                <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1.5 font-normal line-clamp-2">
                   {domain.description}
                 </p>
 
@@ -579,21 +587,21 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                       borderColor: domain.specialCallout.border,
                       color: domain.specialCallout.color,
                     }}
-                    className="flex items-center gap-2 p-2 rounded-xl border text-[10.5px] font-sans font-semibold leading-snug mb-2.5 shadow-2xs"
+                    className="flex items-center gap-1.5 p-1.5 rounded-lg border text-[9.5px] sm:text-[10px] font-sans font-semibold leading-tight mb-1.5 shadow-2xs"
                   >
                     {domain.specialCallout.icon}
-                    <span>{domain.specialCallout.text}</span>
+                    <span className="truncate">{domain.specialCallout.text}</span>
                   </div>
                 )}
 
                 {/* 4 Feature Bullets with Circular Checkmarks */}
-                <ul className="space-y-1.5 font-sans text-[11px] sm:text-[11.5px] text-[#334155] mb-2 font-medium">
+                <ul className="space-y-1 font-sans text-[10px] sm:text-[10.5px] text-[#334155] mb-1 font-medium">
                   {domain.items.map((item, itemIdx) => (
-                    <li key={itemIdx} className="flex items-center gap-2 leading-tight">
+                    <li key={itemIdx} className="flex items-center gap-1.5 leading-tight">
                       <span
-                        className={`w-4 h-4 rounded-full ${domain.checkBg} ${domain.checkColor} flex items-center justify-center shrink-0 text-[10px]`}
+                        className={`w-3.5 h-3.5 rounded-full ${domain.checkBg} ${domain.checkColor} flex items-center justify-center shrink-0 text-[8px]`}
                       >
-                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                        <Check className="w-2 h-2 stroke-[3]" />
                       </span>
                       <span className="leading-snug truncate">{item}</span>
                     </li>
@@ -602,7 +610,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
               </div>
 
               {/* Bottom Action Footer */}
-              <div className="relative z-10 pt-2 border-t border-slate-200/80 mt-auto flex items-center justify-between text-[11px] font-mono">
+              <div className="relative z-10 pt-1.5 border-t border-slate-200/80 mt-auto flex items-center justify-between text-[10px] font-mono">
                 <span className="text-slate-400 group-hover:text-slate-600 transition-colors">Click to inspect</span>
                 <span
                   style={{ color: domain.accentColor }}
@@ -615,14 +623,14 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           ))}
         </div>
 
-        {/* Bottom Full-Width "Computational Foundation" Container (Exact Image 1) */}
-        <div className="w-full shrink-0 mt-2 sm:mt-2.5 relative z-10">
-          <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white px-4 sm:px-5 py-3 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-3">
+        {/* Bottom Full-Width "Computational Foundation" Container (Exact Image 1 - Compact) */}
+        <div className="w-full shrink-0 relative z-10">
+          <div className="relative overflow-hidden rounded-xl border border-slate-200/90 bg-white px-3 sm:px-4 py-2 shadow-2xs flex flex-col lg:flex-row items-center justify-between gap-2">
             {/* Left: Math/Science Engineering Pedestal & Symbols */}
-            <div className="flex items-center gap-3 sm:gap-4 shrink-0 w-full lg:w-auto justify-between lg:justify-start">
-              <div className="flex items-center gap-2.5 text-[#EA580C] shrink-0">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 w-full lg:w-auto justify-between lg:justify-start">
+              <div className="flex items-center gap-2 text-[#EA580C] shrink-0">
                 {/* 1. Sigma Symbol Σ */}
-                <span className="font-serif text-2xl sm:text-[26px] font-bold leading-none select-none">
+                <span className="font-serif text-xl sm:text-[22px] font-bold leading-none select-none">
                   Σ
                 </span>
 
@@ -634,7 +642,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-6 h-5 sm:w-7 sm:h-5"
+                  className="w-5 h-4 sm:w-6 sm:h-4"
                 >
                   <path d="M2 18h24" />
                   <path d="M2 18 A12 12 0 0 1 26 18" />
@@ -652,7 +660,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="w-5 h-5 sm:w-6 sm:h-6"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                 >
                   <circle cx="12" cy="4" r="2" fill="currentColor" fillOpacity="0.2" />
                   <line x1="12" y1="2" x2="12" y2="4" />
@@ -663,39 +671,39 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 </svg>
               </div>
 
-              <div className="hidden sm:block w-px h-8 bg-slate-200 shrink-0" />
+              <div className="hidden sm:block w-px h-6 bg-slate-200 shrink-0" />
 
               {/* Title & Core Description */}
               <div className="text-left flex-1 min-w-0">
-                <h4 className="font-serif text-sm sm:text-base font-bold text-[#0F172A] tracking-tight leading-tight">
+                <h4 className="font-serif text-xs sm:text-[13px] font-bold text-[#0F172A] tracking-tight leading-tight">
                   Computational Foundation
                 </h4>
-                <p className="font-sans text-[10.5px] sm:text-[11.5px] text-[#475569] leading-tight truncate sm:whitespace-normal">
+                <p className="font-sans text-[9.5px] sm:text-[10px] text-[#475569] leading-tight truncate sm:whitespace-normal">
                   Logic, measurement, geometry, data reasoning, algorithms, and problem-solving that support all four.
                 </p>
               </div>
             </div>
 
             {/* Right: 5 Interactive Badges */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-1.5 sm:gap-2 shrink-0">
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-sky-200 bg-sky-50 text-[#0284C7] text-[10.5px] font-mono font-bold shadow-2xs">
-                <Puzzle className="w-3 h-3 text-[#0284C7]" />
+            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-1 sm:gap-1.5 shrink-0">
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-sky-200 bg-sky-50 text-[#0284C7] text-[9.5px] font-mono font-bold shadow-2xs">
+                <Puzzle className="w-2.5 h-2.5 text-[#0284C7]" />
                 <span>Logic</span>
               </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-orange-200 bg-orange-50 text-[#EA580C] text-[10.5px] font-mono font-bold shadow-2xs">
-                <Ruler className="w-3 h-3 text-[#EA580C]" />
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-orange-200 bg-orange-50 text-[#EA580C] text-[9.5px] font-mono font-bold shadow-2xs">
+                <Ruler className="w-2.5 h-2.5 text-[#EA580C]" />
                 <span>Measurement</span>
               </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-purple-200 bg-purple-50 text-[#9333EA] text-[10.5px] font-mono font-bold shadow-2xs">
-                <Triangle className="w-3 h-3 text-[#9333EA]" />
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-purple-200 bg-purple-50 text-[#9333EA] text-[9.5px] font-mono font-bold shadow-2xs">
+                <Triangle className="w-2.5 h-2.5 text-[#9333EA]" />
                 <span>Geometry</span>
               </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-cyan-200 bg-cyan-50 text-[#0891B2] text-[10.5px] font-mono font-bold shadow-2xs">
-                <BarChart2 className="w-3 h-3 text-[#0891B2]" />
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-cyan-200 bg-cyan-50 text-[#0891B2] text-[9.5px] font-mono font-bold shadow-2xs">
+                <BarChart2 className="w-2.5 h-2.5 text-[#0891B2]" />
                 <span>Data Reasoning</span>
               </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-emerald-200 bg-emerald-50 text-[#16A34A] text-[10.5px] font-mono font-bold shadow-2xs">
-                <Code2 className="w-3 h-3 text-[#16A34A]" />
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-emerald-200 bg-emerald-50 text-[#16A34A] text-[9.5px] font-mono font-bold shadow-2xs">
+                <Code2 className="w-2.5 h-2.5 text-[#16A34A]" />
                 <span>Algorithms</span>
               </div>
             </div>
@@ -703,15 +711,15 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         </div>
 
         {/* ─── Deep-Dive Modal View (Opens on card click OR when scrolling through steps) ─── */}
-        {activeCard && (
+        {activeCard && typeof document !== 'undefined' && createPortal(
           <div
-            className="fixed inset-0 z-50 flex items-start sm:items-center justify-center pt-[calc(var(--header-h,64px)+12px)] sm:pt-6 pb-6 px-3 sm:px-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn overflow-y-auto"
+            className="fixed inset-0 z-[9999] flex items-start sm:items-center justify-center pt-[calc(var(--header-h,64px)+8px)] sm:pt-6 pb-6 px-3 sm:px-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn overflow-y-auto"
             onClick={() => setActiveCardIndex(-1)}
           >
             <div
               ref={modalBoxRef}
               onWheel={handleModalWheel}
-              className={`relative w-full max-w-4xl max-h-[calc(100svh-var(--header-h,64px)-24px)] sm:max-h-[90vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-4 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out my-auto`}
+              className={`relative w-full max-w-4xl max-h-[calc(100svh-var(--header-h,64px)-20px)] sm:max-h-[90vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-4 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out my-2 sm:my-auto`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Animated Transition Container for Domain Swaps */}
@@ -889,7 +897,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 </div>
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </ChapterShell>

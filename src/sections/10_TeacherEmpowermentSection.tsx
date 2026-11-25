@@ -143,36 +143,36 @@ export const TeacherEmpowermentSection: React.FC = () => {
       {/* Main Viewport Container (Centered in 100svh window, Standardized 1240px) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title, and Subtitle Verbatim from Image 1 */}
-        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-2">
+        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-1 sm:mb-1.5">
           {/* Eyebrow with gold accent lines */}
-          <div className="editorial-reveal flex items-center justify-center gap-3 mb-1 sm:mb-1.5">
-            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
-            <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#b45309] font-bold">
+          <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5 sm:mb-1">
+            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               {siteConfig.teacherEmpowerment.eyebrow}
             </span>
-            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
           </div>
 
           {/* Headline */}
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center"
+            className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] mb-0.5 text-center"
           >
             {siteConfig.teacherEmpowerment.headline}
           </h2>
 
           {/* Subtitle Matching Image 1 Exactly */}
-          <p className="editorial-reveal font-serif text-xs sm:text-[13.5px] lg:text-[14.5px] text-[#334155] leading-relaxed max-w-2xl text-center mb-0.5">
+          <p className="editorial-reveal font-serif text-xs sm:text-[13px] text-[#334155] leading-snug max-w-2xl text-center mb-0.5">
             <strong className="text-[#0F172A] font-bold">Our Instructors</strong> run the student programme.{' '}
             <strong className="text-[#EA580C] font-bold">Teachers</strong> get a few workshops to get ahead with AI.
           </p>
         </div>
 
         {/* 3 Core Pillars: Preserving 3D Flip Cards & Sphere Orbs from 2nd Image with Image 1 Content */}
-        <div className="editorial-reveal w-full flex-none my-2 sm:my-3 flex flex-col justify-center min-h-0">
+        <div className="editorial-reveal w-full flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3.5 lg:gap-5">
             {COLUMNS_CONTENT.map((col, idx) => {
               const colorClasses = ['pillar-blue', 'pillar-orange', 'pillar-yellow'];
@@ -298,16 +298,16 @@ export const TeacherEmpowermentSection: React.FC = () => {
           </div>
 
           {/* 4 Step Nodes Ribbon (Enlarged) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mb-2">
             {siteConfig.teacherEmpowerment.flow.map((step, idx) => (
               <div
                 key={step}
-                className="flex items-center gap-3 p-3 sm:p-3.5 bg-[#FAF9F6] border border-slate-200/80 rounded-xl sm:rounded-2xl shadow-2xs hover:border-slate-300 transition-colors"
+                className="flex items-center gap-2 p-2 sm:p-2.5 bg-[#FAF9F6] border border-slate-200/80 rounded-xl shadow-2xs hover:border-slate-300 transition-colors"
               >
-                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-xs font-mono font-bold shrink-0 shadow-xs">
+                <span className="w-5 h-5 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-[11px] font-mono font-bold shrink-0 shadow-xs">
                   {idx + 1}
                 </span>
-                <span className="font-sans text-xs sm:text-[12.5px] font-semibold text-[#0F172A] leading-tight">
+                <span className="font-sans text-[11px] sm:text-[11.5px] font-semibold text-[#0F172A] leading-tight">
                   {step}
                 </span>
               </div>
@@ -315,15 +315,15 @@ export const TeacherEmpowermentSection: React.FC = () => {
           </div>
 
           {/* Ethical Guardrails Footer (Enlarged) */}
-          <div className="pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5 text-xs">
-            <div className="flex items-center gap-2 text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-[#b45309] font-mono font-bold">
-              <ShieldCheck className="w-4 h-4 text-[#EA580C]" />
+          <div className="pt-1.5 sm:pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px]">
+            <div className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] uppercase tracking-[0.2em] text-[#b45309] font-mono font-bold">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#EA580C]" />
               <span>Ethical Guardrails:</span>
             </div>
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
               {siteConfig.teacherEmpowerment.guardrails.map((gd) => (
-                <div key={gd} className="flex items-center gap-2 text-xs sm:text-[12.5px] text-[#334155] font-sans font-medium">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
+                <div key={gd} className="flex items-center gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] font-sans font-medium">
+                  <Check className="w-3 h-3 text-emerald-600 shrink-0 stroke-[2.5]" />
                   <span>{gd}</span>
                 </div>
               ))}
