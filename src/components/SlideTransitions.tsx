@@ -87,16 +87,15 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
       onSlideChange(targetIndex);
 
-      gsap.set([fromWrapper, toWrapper], { visibility: 'visible' });
-      gsap.set(fromWrapper, { zIndex: 10, opacity: 1 });
-      gsap.set(toWrapper, { zIndex: 20, opacity: 0 });
+      gsap.set(fromWrapper, { display: 'block', visibility: 'visible', zIndex: 10, opacity: 1, pointerEvents: 'none' });
+      gsap.set(toWrapper, { display: 'block', visibility: 'visible', zIndex: 20, opacity: 0, pointerEvents: 'none' });
 
       let watchdogTimer: ReturnType<typeof setTimeout> | null = null;
 
       const finish = () => {
         if (watchdogTimer) clearTimeout(watchdogTimer);
-        gsap.set(fromWrapper, { visibility: 'hidden', zIndex: 0, opacity: 0 });
-        gsap.set(toWrapper, { visibility: 'visible', zIndex: 10, opacity: 1 });
+        gsap.set(fromWrapper, { display: 'none', visibility: 'hidden', zIndex: 0, opacity: 0, pointerEvents: 'none' });
+        gsap.set(toWrapper, { display: 'block', visibility: 'visible', zIndex: 10, opacity: 1, pointerEvents: 'auto' });
         if (fromScrollPane) fromScrollPane.style.overflowY = '';
         if (scrollPane) {
           scrollPane.style.overflowY = '';
@@ -211,8 +210,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
       // 5. SWAP SLIDES while screen is fully covered by shutters at t = 0.44s
       timeline.add(() => {
-        gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden' });
-        gsap.set(toWrapper, { opacity: 1, visibility: 'visible' });
+        gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden', display: 'none', pointerEvents: 'none' });
+        gsap.set(toWrapper, { opacity: 1, visibility: 'visible', display: 'block', pointerEvents: 'auto' });
 
         const steppable = toWrapper.querySelector<HTMLElement>('[data-steppable="true"]');
         if (steppable) {
@@ -562,8 +561,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
               className="slide-item absolute inset-0 h-full w-full overflow-hidden will-change-transform"
               style={{
                 zIndex: isActive ? 10 : 0,
+                display: isActive ? 'block' : 'none',
                 visibility: isActive ? 'visible' : 'hidden',
                 opacity: isActive ? 1 : 0,
+                pointerEvents: isActive ? 'auto' : 'none',
               }}
             >
               <div className="slide-frame h-full w-full origin-center overflow-hidden will-change-transform">

@@ -18,6 +18,12 @@ export const Header: React.FC<HeaderProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [prevSectionId, setPrevSectionId] = useState(currentSectionId);
+
+  if (prevSectionId !== currentSectionId) {
+    setPrevSectionId(currentSectionId);
+    setIsScrolled(false);
+  }
 
   // Sync fullscreen state with document
   useEffect(() => {
@@ -55,10 +61,6 @@ export const Header: React.FC<HeaderProps> = ({
     };
   }, []);
 
-  // Reset isScrolled whenever the section changes
-  useEffect(() => {
-    setIsScrolled(false);
-  }, [currentSectionId]);
 
   const toggleFullscreen = async () => {
     try {

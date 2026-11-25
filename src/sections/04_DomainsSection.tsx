@@ -820,6 +820,9 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         {/* ─── Deep-Dive Modal View (Opens on card click) ─── */}
         {activeCard && typeof document !== 'undefined' && createPortal(
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${activeCard.name} domain deep-dive`}
             className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn overflow-y-auto"
             onClick={() => {
               setActiveCardIndex(-1);

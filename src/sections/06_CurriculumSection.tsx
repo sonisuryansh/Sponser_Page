@@ -360,6 +360,8 @@ export const CurriculumSection: React.FC = () => {
               {/* Grade Buttons List with Colorful Icons & Touch Scroll */}
               <div
                 ref={tabsContainerRef}
+                role="tablist"
+                aria-label="Grade level curriculum tabs"
                 className="flex sm:flex-col gap-1 sm:gap-1.5 overflow-x-auto sm:overflow-y-auto sm:max-h-[calc(100svh-var(--header-h,64px)-90px)] pb-1.5 sm:pb-0 touch-pan-x overscroll-x-contain scroll-smooth no-scrollbar w-full"
                 style={{ WebkitOverflowScrolling: 'touch' }}
               >
@@ -370,6 +372,8 @@ export const CurriculumSection: React.FC = () => {
                   return (
                     <button
                       key={stage.id}
+                      role="tab"
+                      aria-selected={isActive}
                       ref={(el) => {
                         tabButtonRefs.current[idx] = el;
                       }}
