@@ -585,8 +585,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         typeof customEvent.detail === 'number'
           ? customEvent.detail
           : typeof customEvent.detail?.index === 'number'
-          ? customEvent.detail.index
-          : null;
+            ? customEvent.detail.index
+            : null;
       // If navigating to any slide other than index 3 (Domains Section), always close modal!
       if (typeof targetIdx === 'number' && targetIdx !== 3) {
         setActiveCardIndex(-1);
@@ -648,7 +648,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
             >
               {/* Corner soft pastel wave gradient accent */}
               <div
-                className={`absolute -bottom-8 -right-8 w-28 h-28 rounded-full bg-gradient-to-tl ${domain.waveColor} blur-xl pointer-events-none`}
+                className={`absolute bottom-0 right-0 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tl ${domain.waveColor} blur-xl pointer-events-none`}
               />
               <div
                 className={`absolute bottom-0 right-0 w-20 h-12 bg-gradient-to-tl ${domain.waveColor} rounded-tl-3xl pointer-events-none opacity-80`}
@@ -871,9 +871,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                               setActiveCardIndex(dIdx);
                               onSlideChange?.(dIdx + 3);
                             }}
-                            className={`h-2 rounded-full transition-all duration-400 cursor-pointer ${
-                              isCurrent ? 'w-6' : 'w-2 bg-slate-200 hover:bg-slate-300'
-                            }`}
+                            className={`h-2 rounded-full transition-all duration-400 cursor-pointer ${isCurrent ? 'w-6' : 'w-2 bg-slate-200 hover:bg-slate-300'
+                              }`}
                             style={{
                               backgroundColor: isCurrent ? activeCard.accentColor : undefined,
                             }}

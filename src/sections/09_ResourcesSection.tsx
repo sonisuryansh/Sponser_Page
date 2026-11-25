@@ -171,29 +171,29 @@ export const ResourcesSection: React.FC = () => {
       {/* 100svh Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
       >
         {/* Main Inset White/Creamish Panel - Standardized 1240px */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-[4px] flex flex-col justify-between p-6 sm:p-7 lg:p-8 box-border z-10">
-          
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
+
           {/* Eyebrow & Headline Header (Centered) */}
-          <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-4 pb-3 border-b border-black/8">
-            <div className="flex items-center justify-center gap-3 mb-1.5 sm:mb-2">
-              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
-              <span className="font-mono text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.24em] text-[#b45309]">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-2 pb-1.5 border-b border-black/8">
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+              <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
                 {siteConfig.resources.eyebrow}
               </span>
-              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
-            <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1.5 text-center">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] mb-0.5 text-center">
               {siteConfig.resources.headline}
             </h2>
-            <p className="text-xs sm:text-[13px] text-[#555555] font-sans max-w-2xl mx-auto leading-relaxed mb-2.5">
+            <p className="text-[11px] sm:text-xs text-[#555555] font-sans max-w-2xl mx-auto leading-snug mb-1.5 line-clamp-2">
               {siteConfig.resources.paragraph}
             </p>
 
             {!siteConfig.confirm.lmsReady && (
-              <div className="px-3 py-0.5 bg-[#FAF9F6] border border-black/10 text-[#666666] text-[10.5px] font-mono uppercase tracking-wider rounded-[2px]">
+              <div className="px-2.5 py-0.5 bg-[#FAF9F6] border border-black/10 text-[#666666] text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider rounded-[2px]">
                 {siteConfig.resources.statusNotice}
               </div>
             )}

@@ -158,36 +158,36 @@ export const LearningApproachSection: React.FC = () => {
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
     >
       {/* Main Viewport Container - Standardized 1240px & Centered */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden">
         
         {/* Main Inset White Panel - Big White Card framing Content & Instructor Photo */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[12px] flex flex-col lg:flex-row items-stretch overflow-hidden box-border">
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col lg:flex-row items-stretch overflow-hidden box-border max-h-[calc(100svh-var(--header-h,64px)-12px)]">
           
           {/* Left Content Area (Styled Exactly as Image 1) */}
           <div
             ref={contentRef}
-            className="flex-1 flex flex-col justify-between p-4 sm:p-5 lg:p-6 xl:p-7 gap-2.5 sm:gap-3"
+            className="flex-1 flex flex-col justify-between p-3 sm:p-4 lg:p-5 gap-1.5 sm:gap-2"
           >
             {/* Header Area */}
             <div>
               {/* Eyebrow with gold accent line */}
-              <div className="editorial-reveal flex items-center gap-2.5 mb-1.5">
-                <span className="font-mono text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.24em] text-[#b45309]">
+              <div className="editorial-reveal flex items-center gap-2 mb-1">
+                <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
                   {siteConfig.approach.eyebrow}
                 </span>
-                <span className="w-8 h-[1.5px] bg-[#b45309]/50" />
+                <span className="w-6 h-[1.5px] bg-[#b45309]/50" />
               </div>
 
               {/* Main Headline */}
               <h2
                 ref={headlineRef}
-                className="editorial-reveal font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-tight mb-1.5"
+                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-tight mb-0.5"
               >
                 {siteConfig.approach.headline}
               </h2>
 
               {/* Glowing Warm Gold Underline Curve (Matching Image 1) */}
-              <div className="editorial-reveal w-48 sm:w-64 -mt-0.5 mb-2 sm:mb-2.5">
+              <div className="editorial-reveal w-36 sm:w-48 -mt-0.5 mb-1.5">
                 <svg viewBox="0 0 240 12" fill="none" className="w-full text-[#F59E0B]">
                   <path
                     d="M2 9C70 2 170 2 238 8"
@@ -200,7 +200,7 @@ export const LearningApproachSection: React.FC = () => {
             </div>
 
             {/* ─── 3 Colorful Pedagogical Cards (Exact replica of Image 1) ─── */}
-            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 my-0.5">
+            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 my-0.5">
               {APPROACH_CARDS.map((card) => (
                 <div
                   key={card.title}
@@ -209,41 +209,41 @@ export const LearningApproachSection: React.FC = () => {
                     borderColor: card.cardBorder,
                     boxShadow: `0 6px 20px -4px ${card.glowColor}`,
                   }}
-                  className="flex flex-col justify-between p-3 sm:p-3.5 xl:p-4 rounded-2xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="flex flex-col justify-between p-2.5 sm:p-3 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div>
                     {/* Top Row: Icon in Rounded Box + Card Title */}
-                    <div className="flex items-center gap-2.5 mb-2">
+                    <div className="flex items-center gap-2 mb-1.5">
                       <div
                         style={{
                           backgroundColor: card.iconBg,
                           borderColor: card.iconBorder,
                         }}
-                        className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 shadow-xs"
+                        className="w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-xs"
                       >
                         {card.icon}
                       </div>
-                      <h3 className="font-serif text-[14px] sm:text-[15px] xl:text-[16px] font-bold text-[#0F172A] leading-tight">
+                      <h3 className="font-serif text-[13px] sm:text-[14px] font-bold text-[#0F172A] leading-tight">
                         {card.title}
                       </h3>
                     </div>
 
                     {/* Distinct Colored Pill Badge (Matching Image 1) */}
-                    <div className="my-1.5">
+                    <div className="my-1">
                       <span
                         style={{
                           backgroundColor: card.badgeBg,
                           color: card.badgeText,
                           borderColor: card.badgeBorder,
                         }}
-                        className="inline-block px-2.5 py-0.5 rounded-full border text-[10.5px] sm:text-[11px] font-sans font-semibold leading-tight shadow-xs"
+                        className="inline-block px-2 py-0.5 rounded-full border text-[9.5px] sm:text-[10px] font-sans font-semibold leading-tight shadow-xs"
                       >
                         {card.badge}
                       </span>
                     </div>
 
                     {/* Description */}
-                    <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed mt-1 font-normal">
+                    <p className="font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug mt-0.5 font-normal line-clamp-2">
                       {card.description}
                     </p>
                   </div>
@@ -252,30 +252,30 @@ export const LearningApproachSection: React.FC = () => {
             </div>
 
             {/* ─── Bottom Section: "OUR APPROACH" & 6 Core Principles (Matching Image 1) ─── */}
-            <div className="editorial-reveal pt-2 border-t border-black/8 mt-0.5">
+            <div className="editorial-reveal pt-1.5 border-t border-black/8 mt-0.5">
               {/* Eyebrow with gold accent dashes */}
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="w-6 h-px bg-[#c8a45d]/60" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] font-bold text-[#B45309]">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <span className="w-5 h-px bg-[#c8a45d]/60" />
+                <span className="font-mono text-[9px] uppercase tracking-[0.25em] font-bold text-[#B45309]">
                   Our Approach
                 </span>
-                <span className="w-6 h-px bg-[#c8a45d]/60" />
+                <span className="w-5 h-px bg-[#c8a45d]/60" />
               </div>
 
               {/* 6 Core Learning Principles in Horizontal Clean Layout */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5">
                 {PRINCIPLES.map((pr) => (
                   <div
                     key={pr.title}
-                    className="flex flex-col items-center text-center p-1.5 group hover:-translate-y-0.5 transition-transform"
+                    className="flex flex-col items-center text-center p-1 group hover:-translate-y-0.5 transition-transform"
                   >
                     <div
                       style={{ backgroundColor: pr.bg, borderColor: pr.border }}
-                      className="w-8 h-8 rounded-xl border flex items-center justify-center mb-1 shadow-xs group-hover:scale-105 transition-transform shrink-0"
+                      className="w-7 h-7 rounded-lg border flex items-center justify-center mb-0.5 shadow-xs group-hover:scale-105 transition-transform shrink-0"
                     >
                       {pr.icon}
                     </div>
-                    <span className="font-sans text-[10px] sm:text-[10.5px] font-medium text-[#1E293B] leading-snug line-clamp-2">
+                    <span className="font-sans text-[9px] sm:text-[9.5px] font-medium text-[#1E293B] leading-snug line-clamp-2">
                       {pr.title}
                     </span>
                   </div>
@@ -286,8 +286,8 @@ export const LearningApproachSection: React.FC = () => {
           </div>
 
           {/* ─── Right Image Frame (Arched top-left corner matching Image 1) ─── */}
-          <div className="hidden lg:flex w-[350px] xl:w-[390px] shrink-0 relative bg-black/5 items-center justify-center p-3 xl:p-4 overflow-hidden">
-            <div className="relative w-full h-full rounded-tl-[80px] rounded-bl-[16px] rounded-r-[16px] overflow-hidden border-t-4 border-l-4 border-[#F59E0B] shadow-lg group">
+          <div className="hidden lg:flex w-[280px] xl:w-[320px] shrink-0 relative bg-black/5 items-center justify-center p-2.5 xl:p-3 overflow-hidden">
+            <div className="relative w-full h-full rounded-tl-[60px] rounded-bl-[14px] rounded-r-[14px] overflow-hidden border-t-4 border-l-4 border-[#F59E0B] shadow-lg group">
               <img
                 src="/assets/instructor_guided_learning.webp"
                 alt="Instructor guiding students through practical engineering and technology learning"
@@ -296,11 +296,11 @@ export const LearningApproachSection: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
               {/* Bottom Photo Overlay */}
-              <div className="absolute bottom-3 left-3 right-3 text-white">
-                <span className="font-mono text-[9px] uppercase tracking-wider block opacity-90 text-[#F59E0B] font-bold">
+              <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
+                <span className="font-mono text-[8.5px] uppercase tracking-wider block opacity-90 text-[#F59E0B] font-bold">
                   Instructor-Guided Session
                 </span>
-                <span className="font-serif text-[12.5px] font-medium leading-tight text-white/95 block">
+                <span className="font-serif text-[11.5px] font-medium leading-tight text-white/95 block">
                   Practical Learning &amp; Faculty Mentorship
                 </span>
               </div>

@@ -119,87 +119,87 @@ export const MissionSection: React.FC = () => {
       <div className="absolute top-0 right-0 w-80 h-80 bg-orange-100/35 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100/25 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Main Centered Container */}
-      <div className="relative w-full my-0 sm:my-auto flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-8 lg:py-8 px-3 sm:px-6 lg:px-8 xl:px-12 box-border select-none z-10 max-w-[1340px] mx-auto">
+      {/* Main Centered Container - Compact to Guarantee 100vh Fit */}
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1300px] mx-auto overflow-hidden">
         {/* Main Inset Grand White Card Container */}
         <div
           ref={contentRef}
-          className="relative w-full bg-white shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 rounded-3xl sm:rounded-[32px] p-6 sm:p-8 lg:p-9 xl:p-10 flex flex-col justify-between"
+          className="relative w-full my-auto bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)] border border-slate-200/80 rounded-2xl sm:rounded-3xl p-3.5 sm:p-4.5 lg:p-5 xl:p-6 flex flex-col justify-between gap-2 sm:gap-2.5 max-h-[calc(100svh-var(--header-h,64px)-12px)]"
         >
           {/* Top Area: Eyebrow, Statement Headline & Narrative Copy */}
-          <div className="flex-none text-center max-w-4xl mx-auto mb-4 sm:mb-5">
+          <div className="flex-none text-center max-w-3xl mx-auto mb-1 sm:mb-2">
             {/* Eyebrow */}
-            <div className="editorial-reveal flex items-center justify-center gap-3 mb-1.5 sm:mb-2">
-              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
-              <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#b45309] font-bold">
+            <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
+              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+              <span className="font-mono text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.22em] text-[#b45309] font-bold">
                 {siteConfig.mission.eyebrow}
               </span>
-              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
 
             {/* Elegant Grand Headline */}
             <h2
               ref={headlineRef}
-              className="editorial-reveal font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-tight mb-2 sm:mb-2.5 text-center"
+              className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-tight mb-1 text-center"
             >
               &ldquo;Connecting Concepts to Real-World Engineering&rdquo;
             </h2>
 
             {/* Narrative Body Copy (Centered) */}
-            <p className="editorial-reveal font-sans text-xs sm:text-[13px] text-[#475569] leading-relaxed max-w-3xl mx-auto font-normal text-center">
+            <p className="editorial-reveal font-sans text-[11px] sm:text-xs text-[#475569] leading-normal max-w-2xl mx-auto font-normal text-center">
               At MedhaArc Labs, we believe technology education moves beyond passive consumption into tangible engineering. From foundational logic to physical prototypes, our curriculum connects core mathematical reasoning with hands-on robotics, AI, drone, and autonomous flight.
             </p>
           </div>
 
           {/* Subheader Row Above 5 Cards */}
-          <div className="editorial-reveal my-1 flex items-center justify-between pb-2 border-b border-slate-100">
-            <span className="font-mono text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0F172A] font-bold">
+          <div className="editorial-reveal my-0.5 flex items-center justify-between pb-1 border-b border-slate-100">
+            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0F172A] font-bold">
               CORE EDUCATIONAL VALUES
             </span>
-            <div className="flex items-center gap-1.5 font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider text-[#7C3AED] font-semibold">
+            <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#7C3AED] font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
               <span>5 PILLARS OF EDUCATION</span>
             </div>
           </div>
 
-          {/* Middle Area: 5 Colorful Educational Value Cards */}
-          <div className="editorial-reveal my-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 xl:gap-4">
+          {/* Middle Area: 5 Colorful Educational Value Cards (Compact) */}
+          <div className="editorial-reveal my-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3">
               {MISSION_CARDS.map((val) => (
                 <div
                   key={val.name}
-                  className={`group relative flex flex-col justify-between p-4 sm:p-5 bg-white border ${val.borderColor} rounded-2xl shadow-xs hover:shadow-md transition-all duration-300 min-h-[165px] sm:min-h-[180px] overflow-hidden`}
+                  className={`group relative flex flex-col justify-between p-2.5 sm:p-3 bg-white border ${val.borderColor} rounded-xl sm:rounded-2xl shadow-2xs hover:shadow-xs transition-all duration-300 min-h-[110px] sm:min-h-[120px] overflow-hidden`}
                 >
                   {/* Subtle Pastel Bottom-Right Corner Wave Gradient */}
                   <div
-                    className={`absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-gradient-to-tl ${val.waveColor} blur-xl pointer-events-none`}
+                    className={`absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-gradient-to-tl ${val.waveColor} blur-xl pointer-events-none`}
                   />
                   <div
-                    className={`absolute bottom-0 right-0 w-16 h-10 bg-gradient-to-tl ${val.waveColor} rounded-tl-3xl pointer-events-none opacity-70`}
+                    className={`absolute bottom-0 right-0 w-12 h-8 bg-gradient-to-tl ${val.waveColor} rounded-tl-2xl pointer-events-none opacity-70`}
                   />
 
                   {/* Card Content */}
                   <div className="relative z-10">
                     {/* Header Row: Icon and Number */}
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between mb-1.5">
                       <div
-                        className={`w-10 h-10 rounded-xl ${val.iconBg} border shadow-2xs flex items-center justify-center shrink-0`}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${val.iconBg} border shadow-2xs flex items-center justify-center shrink-0`}
                       >
                         {val.icon}
                       </div>
-                      <span className={`font-mono text-xs sm:text-[13px] font-bold ${val.numColor}`}>
+                      <span className={`font-mono text-[11px] sm:text-xs font-bold ${val.numColor}`}>
                         {val.num}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-serif text-[16px] sm:text-[17px] font-bold text-[#0F172A] leading-snug tracking-tight mb-2 group-hover:text-[#b45309] transition-colors">
+                    <h3 className="font-serif text-[13px] sm:text-[14px] font-bold text-[#0F172A] leading-snug tracking-tight mb-1 group-hover:text-[#b45309] transition-colors">
                       {val.name}
                     </h3>
                   </div>
 
                   {/* Description */}
-                  <p className="relative z-10 font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-relaxed mt-auto">
+                  <p className="relative z-10 font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug mt-auto line-clamp-2">
                     {val.description}
                   </p>
                 </div>
@@ -208,21 +208,21 @@ export const MissionSection: React.FC = () => {
           </div>
 
           {/* Bottom Area: Trailing Link CTA */}
-          <div className="editorial-reveal flex-none pt-3 sm:pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="editorial-reveal flex-none pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 overflow-hidden max-w-full">
             <button
               type="button"
               onClick={handleExplore}
-              className="group flex items-center text-left focus:outline-none cursor-pointer"
+              className="group flex items-center text-left focus:outline-none cursor-pointer max-w-full"
             >
-              <span className="font-mono font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#0F172A] group-hover:text-[#b45309] transition-colors shrink-0">
+              <span className="font-mono font-bold text-[8.5px] sm:text-[10px] uppercase tracking-[0.1em] sm:tracking-[0.2em] text-[#0F172A] group-hover:text-[#b45309] transition-colors truncate">
                 DISCOVER MORE ABOUT OUR CURRICULUM &amp; SPECIALISATIONS
               </span>
-              <span className="w-7 h-7 rounded-full bg-orange-100/80 text-[#EA580C] flex items-center justify-center font-bold text-xs ml-3 transition-transform group-hover:translate-x-1 shadow-2xs shrink-0">
-                <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span className="w-5 h-5 rounded-full bg-orange-100/80 text-[#EA580C] flex items-center justify-center font-bold text-[10px] ml-2 transition-transform group-hover:translate-x-1 shadow-2xs shrink-0">
+                <ArrowRight className="w-3 h-3 stroke-[2.5]" />
               </span>
             </button>
 
-            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#64748B] font-semibold">
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#64748B] font-semibold">
               ACADEMIC ENGINEERING EXPERIENCE
             </span>
           </div>

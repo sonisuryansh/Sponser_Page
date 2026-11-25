@@ -164,32 +164,32 @@ export const LabSetupSection: React.FC = () => {
       <div
         ref={containerRef}
         data-steppable="true"
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-6 px-3 sm:px-6 lg:px-8 box-border select-none z-10 overflow-y-auto lg:overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 overflow-hidden"
       >
         {/* Main Inset Card Container - Light Grey Slate Whole Card with Light Grey Border */}
-        <div className="relative w-full my-0 sm:my-auto max-w-[1240px] bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-[16px] sm:rounded-2xl flex flex-col justify-between p-4 sm:p-6 lg:p-7 box-border z-10">
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
           
           {/* Eyebrow & Statement Headline */}
-          <div className="mb-3 max-w-3xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-3 mb-1.5 sm:mb-2">
-              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
-              <span className="font-mono text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.24em] text-[#b45309]">
+          <div className="mb-2 max-w-3xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+              <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
                 {siteConfig.labSetup.eyebrow}
               </span>
-              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
-            <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-white mb-1.5 text-center">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-white mb-0.5 text-center">
               {siteConfig.labSetup.headline}
             </h2>
-            <p className="text-xs sm:text-[13px] text-white/70 font-sans max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[11px] sm:text-xs text-white/70 font-sans max-w-2xl mx-auto leading-snug line-clamp-2">
               {siteConfig.labSetup.paragraph}
             </p>
           </div>
 
           {/* Top-Down Lab Layout & Interactive Hotspot Zones */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch my-auto border-t border-white/10 pt-3.5 mb-2.5">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-stretch my-auto border-t border-white/10 pt-2 mb-1.5">
             {/* Lab Visualization Photo with Zone Pins */}
-            <div className="lg:col-span-7 relative aspect-[16/10] max-h-[260px] sm:max-h-[290px] rounded-[3px] overflow-hidden border border-white/20 bg-black/40 shadow-xl">
+            <div className="lg:col-span-7 relative aspect-[16/10] max-h-[200px] sm:max-h-[220px] rounded-lg overflow-hidden border border-white/20 bg-black/40 shadow-xl">
               <img
                 src={siteConfig.labSetup.labImage}
                 alt="MedhaArc Labs School STEM Laboratory Plan"
@@ -198,15 +198,15 @@ export const LabSetupSection: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none" />
 
               {/* Zone Markers on Image */}
-              <div className="absolute inset-0 p-3 sm:p-3.5 flex flex-col justify-between pointer-events-none">
-                <div className="flex items-center justify-between text-[9.5px] font-mono uppercase tracking-widest text-white/70">
-                  <span className="px-2 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Dedicated Space Layout</span>
-                  <span className="px-2 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Safety & Flow Standard</span>
+              <div className="absolute inset-0 p-2 sm:p-2.5 flex flex-col justify-between pointer-events-none">
+                <div className="flex items-center justify-between text-[8.5px] font-mono uppercase tracking-widest text-white/70">
+                  <span className="px-1.5 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Dedicated Space Layout</span>
+                  <span className="px-1.5 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Safety & Flow Standard</span>
                 </div>
 
                 {/* Pin Buttons on Image */}
                 <div
-                  className="grid grid-cols-2 gap-2 pointer-events-auto"
+                  className="grid grid-cols-2 gap-1.5 pointer-events-auto"
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                 >
@@ -218,21 +218,21 @@ export const LabSetupSection: React.FC = () => {
                       <button
                         key={zone.id}
                         onClick={() => setActiveZoneIndex(idx)}
-                        className={`text-left p-2 rounded-[3px] backdrop-blur-md transition-all text-[10.5px] font-mono tracking-wider cursor-pointer border ${
+                        className={`text-left p-1.5 rounded-[3px] backdrop-blur-md transition-all text-[9.5px] font-mono tracking-wider cursor-pointer border ${
                           isActive
                             ? cInfo.activeBtn
                             : 'bg-black/60 border-white/20 text-white/75 hover:bg-black/80 hover:text-white'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-0.5">
-                          <span className="font-semibold text-[10px]">ZONE 0{idx + 1}</span>
+                          <span className="font-semibold text-[9px]">ZONE 0{idx + 1}</span>
                           <span
                             className={`w-1.5 h-1.5 rounded-full transition-all ${
                               isActive ? cInfo.dot : 'bg-white/40'
                             }`}
                           />
                         </div>
-                        <div className="font-sans font-medium text-[11px] truncate">
+                        <div className="font-sans font-medium text-[10.5px] truncate">
                           {zone.name}
                         </div>
                       </button>
@@ -247,7 +247,7 @@ export const LabSetupSection: React.FC = () => {
               ref={sidePanelRef}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="lg:col-span-5 p-4 sm:p-5 lg:p-6 rounded-[3px] bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/15 backdrop-blur-md flex flex-col justify-between h-full min-h-[250px] shadow-lg"
+              className="lg:col-span-5 p-3 sm:p-3.5 rounded-xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/15 backdrop-blur-md flex flex-col justify-between h-full min-h-[200px] shadow-lg"
             >
               <div>
                 <div className="flex items-center justify-between mb-2.5 border-b border-white/10 pb-2">

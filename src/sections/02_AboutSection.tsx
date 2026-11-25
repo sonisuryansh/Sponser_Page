@@ -150,10 +150,10 @@ export const AboutSection: React.FC = () => {
 
           {/* Middle Row: Balanced 2-Column Split (Left: Aim/Vision + Photo; Right: 4-Stage Learning Cycle) */}
           <div className="editorial-reveal grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
-            
+
             {/* Left Column (Span 6 of 12): Aim, Vision & Full-Height Lab Photo */}
             <div className="lg:col-span-6 flex flex-col justify-between gap-3">
-              
+
               {/* Dual Cards: Our Aim & Our Vision Side-by-Side */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                 {/* Card 1: Our Aim */}
@@ -241,7 +241,7 @@ export const AboutSection: React.FC = () => {
 
             {/* Right Column (Span 6 of 12): The 4-Stage Learning Cycle Taking Full Space */}
             <div className="lg:col-span-6 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-amber-200/80 bg-[#FFFDF9] p-3.5 sm:p-4 shadow-2xs">
-              
+
               {/* Stepper Header */}
               <div className="flex items-center justify-between pb-2 border-b border-amber-100 mb-2">
                 <div>
@@ -267,19 +267,17 @@ export const AboutSection: React.FC = () => {
                       key={step.name}
                       type="button"
                       onClick={() => setActiveStepIndex(idx)}
-                      className={`group relative p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer flex items-center gap-3 ${
-                        isActive
-                          ? `${step.borderActive} ${step.bgActive} shadow-xs -translate-x-0.5`
-                          : 'border-slate-200/80 bg-white hover:bg-slate-50/80 hover:border-slate-300'
-                      }`}
+                      className={`group relative p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer flex items-center gap-3 ${isActive
+                        ? `${step.borderActive} ${step.bgActive} shadow-xs -translate-x-0.5`
+                        : 'border-slate-200/80 bg-white hover:bg-slate-50/80 hover:border-slate-300'
+                        }`}
                     >
                       {/* Step Number Badge */}
                       <span
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-2xs transition-colors ${
-                          isActive
-                            ? `${step.numBg} text-white`
-                            : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
-                        }`}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-2xs transition-colors ${isActive
+                          ? `${step.numBg} text-white`
+                          : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
+                          }`}
                       >
                         {step.num}
                       </span>
@@ -291,9 +289,8 @@ export const AboutSection: React.FC = () => {
                             {step.name}
                           </h4>
                           <span
-                            className={`font-mono text-[9px] sm:text-[9.5px] font-semibold px-1.5 py-0.2 rounded transition-colors ${
-                              isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
-                            }`}
+                            className={`font-mono text-[9px] sm:text-[9.5px] font-semibold px-1.5 py-0.2 rounded transition-colors ${isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
+                              }`}
                           >
                             {step.subtitle}
                           </span>

@@ -110,7 +110,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         <img
           src="/assets/medhaarc_hero_drone.webp"
           alt="MedhaArc Labs Autonomous Drone Prototype"
-          className="w-full h-full object-cover object-center filter blur-[2px] saturate-[0.8] contrast-[1.1] brightness-[0.72] scale-105"
+          className="w-full h-full object-cover object-center filter blur-[2px] saturate-[0.8] contrast-[1.1] brightness-[0.72] scale-100"
           loading="eager"
         />
         {/* Refined Vignette: Clear Center Visibility with Cinematic Dark Edges */}
@@ -139,76 +139,76 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         {/* Central Executive Focus Area (Perfect Vertical Center) */}
         <div
           ref={contentRef}
-          className="w-full max-w-3xl mx-auto flex flex-col items-center text-center my-auto py-2 sm:py-4"
+          className="w-full max-w-3xl mx-auto flex flex-col items-center text-center my-auto py-1 sm:py-2"
         >
           {/* Eyebrow Badge (Subtle Minimal Aerospace Tag) */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 mb-3.5 sm:mb-4.5 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/[0.04] border border-white/10 mb-2 sm:mb-2.5 backdrop-blur-md shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] animate-pulse" />
-            <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-semibold">
+            <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-semibold">
               {siteConfig.closing.eyebrow} &bull; Academic Partnership
             </span>
           </div>
 
           {/* Editorial Headline */}
-          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#FAF9F6] mb-2.5 sm:mb-4 max-w-4xl px-2 sm:px-0 text-center">
+          <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#FAF9F6] mb-1.5 sm:mb-2 max-w-3xl px-2 sm:px-0 text-center">
             {siteConfig.closing.headline}
           </h2>
 
           {/* Subtitle Message */}
-          <p className="font-serif italic text-[14.5px] sm:text-base md:text-lg lg:text-[20px] text-white/75 leading-relaxed max-w-2xl mb-6 sm:mb-9 font-normal px-2 sm:px-0">
+          <p className="font-serif italic text-xs sm:text-sm md:text-base text-white/75 leading-snug max-w-xl mb-3 sm:mb-4 font-normal px-2 sm:px-0">
             &ldquo;{siteConfig.closing.line}&rdquo;
           </p>
 
           {/* Primary Action Button (Sophisticated Muted Champagne Gold) */}
           <button
             onClick={onOpenContact}
-            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 sm:px-11 py-3.5 sm:py-4 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-xs sm:text-[12.5px] uppercase tracking-[0.16em] sm:tracking-[0.18em] font-bold rounded-[3px] shadow-[0_4px_24px_rgba(200,164,93,0.28)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.45)] hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 cursor-pointer"
+            className="group relative inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-[11px] sm:text-xs uppercase tracking-[0.16em] font-bold rounded-[3px] shadow-[0_4px_24px_rgba(200,164,93,0.28)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.45)] hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 cursor-pointer"
           >
-            <Calendar className="w-4 h-4 text-[#080A0D]" />
+            <Calendar className="w-3.5 h-3.5 text-[#080A0D]" />
             <span>{siteConfig.closing.ctaText}</span>
-            <ArrowUpRight className="w-4 h-4 text-[#080A0D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#080A0D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </button>
 
           {/* Contact & Social Links (Responsive Stack on Mobile, Single Row on Desktop) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs sm:text-[12.5px] font-mono text-white/70 mt-5 sm:mt-8 w-full max-w-sm sm:max-w-none mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-white/70 mt-3 sm:mt-4 w-full max-w-sm sm:max-w-none mx-auto">
             {/* Official Email */}
             <button
               onClick={handleCopyEmail}
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 sm:py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3 py-1 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
               title="Click to copy official email"
             >
               {copiedEmail ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <Check className="w-3 h-3 text-emerald-400" />
                   <span className="text-emerald-300 font-medium">team@medhaarc.com copied!</span>
                 </>
               ) : (
                 <>
-                  <Mail className="w-3.5 h-3.5 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
+                  <Mail className="w-3 h-3 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
                   <span>team@medhaarc.com</span>
-                  <Copy className="w-3 h-3 text-white/30 group-hover:text-[#c8a45d] transition-colors" />
+                  <Copy className="w-2.5 h-2.5 text-white/30 group-hover:text-[#c8a45d] transition-colors" />
                 </>
               )}
             </button>
 
-            <span className="hidden sm:inline-block w-px h-3.5 bg-white/15 select-none" />
+            <span className="hidden sm:inline-block w-px h-3 bg-white/15 select-none" />
 
             {/* Official Website */}
             <a
               href={siteConfig.closing.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 sm:py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3 py-1 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
             >
-              <Globe className="w-3.5 h-3.5 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
+              <Globe className="w-3 h-3 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
               <span>medhaarc.com</span>
-              <ArrowUpRight className="w-3 h-3 text-white/30 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-2.5 h-2.5 text-white/30 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
-            <span className="hidden sm:inline-block w-px h-3.5 bg-white/15 select-none" />
+            <span className="hidden sm:inline-block w-px h-3 bg-white/15 select-none" />
 
             {/* Clean Social Links */}
-            <div className="flex items-center justify-center gap-2.5 sm:gap-2 mt-1 sm:mt-0">
+            <div className="flex items-center justify-center gap-2 mt-0.5 sm:mt-0">
               {socialChannels.map((soc) => (
                 <a
                   key={soc.name}
@@ -217,7 +217,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
                   rel="noopener noreferrer"
                   aria-label={soc.name}
                   title={soc.name}
-                  className="w-8 h-8 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/40 text-white/50 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer hover:scale-105"
+                  className="w-7 h-7 flex items-center justify-center rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/40 text-white/50 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer hover:scale-105"
                 >
                   {soc.icon}
                 </a>
@@ -227,7 +227,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         </div>
 
         {/* Minimal Centered Publication Footer (Naturally Positioned at Bottom) */}
-        <footer className="w-full flex-none border-t border-white/10 pt-3 pb-2 sm:pb-3 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-white/45 tracking-wider gap-2 text-center sm:text-left">
+        <footer className="w-full flex-none border-t border-white/10 pt-2 pb-1.5 sm:pb-2 flex flex-col sm:flex-row items-center justify-between text-[10px] sm:text-[11px] text-white/45 tracking-wider gap-1.5 text-center sm:text-left">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2">
             <span className="text-white/60 font-sans">{siteConfig.closing.footerText}</span>
             <span className="text-white/20 select-none hidden sm:inline">&bull;</span>
