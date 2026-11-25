@@ -664,7 +664,6 @@ export const siteConfig = {
           'Hands-on Robotics kits & assemblies',
           'Structured session plans & curriculum',
           'MedhaArc Labs instructor support',
-          'Core foundational design activities',
         ],
       },
       {
@@ -677,7 +676,6 @@ export const siteConfig = {
           'Everything included in Foundation',
           'Mathematics & computational foundations',
           'Algorithmic problem-solving modules',
-          'Teacher guidance & curriculum roadmaps',
         ],
       },
       {
@@ -690,7 +688,6 @@ export const siteConfig = {
           'Everything included in Professional',
           'Selected advanced activities & capstones',
           'Indoor drone control training modules',
-          'Annual project showcase preparation',
         ],
       },
     ] as PricingTier[],
