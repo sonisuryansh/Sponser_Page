@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import {
   ShieldCheck,
   X,
@@ -337,11 +338,66 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeCardIndex, setActiveCardIndex] = useState<number>(-1);
   const activeCardIndexRef = useRef<number>(-1);
+  const prevIndexRef = useRef<number>(-1);
   const lastStepTimeRef = useRef<number>(0);
+  const stepDirectionRef = useRef<number>(1);
+  const modalBoxRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   // Sync ref with state
   useEffect(() => {
     activeCardIndexRef.current = activeCardIndex;
+  }, [activeCardIndex]);
+
+  // Smooth directional transition whenever activeCardIndex changes in modal
+  useEffect(() => {
+    if (activeCardIndex < 0) {
+      prevIndexRef.current = -1;
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      prevIndexRef.current = activeCardIndex;
+      return;
+    }
+
+    const wasClosed = prevIndexRef.current === -1;
+    prevIndexRef.current = activeCardIndex;
+
+    if (wasClosed) {
+      // First open: scale & fade in the entire modal box
+      if (modalBoxRef.current) {
+        gsap.fromTo(
+          modalBoxRef.current,
+          { scale: 0.94, opacity: 0, y: 16 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.38, ease: 'power3.out' }
+        );
+      }
+    } else {
+      // Step transition between domains (e.g. Domain 01 -> Domain 02)
+      if (modalContentRef.current) {
+        const dir = stepDirectionRef.current || 1;
+        const xOffset = dir > 0 ? 50 : -50;
+
+        gsap.fromTo(
+          modalContentRef.current,
+          {
+            x: xOffset,
+            opacity: 0,
+            filter: 'blur(3px)',
+          },
+          {
+            x: 0,
+            opacity: 1,
+            filter: 'blur(0px)',
+            duration: 0.42,
+            ease: 'power2.out',
+            clearProps: 'transform,filter',
+          }
+        );
+      }
+    }
   }, [activeCardIndex]);
 
   // Synchronize with SlideTransitions scroll events (Step through cards on scroll)
@@ -351,7 +407,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
 
     const handleStep = (e: Event) => {
       const now = Date.now();
-      if (now - lastStepTimeRef.current < 450) {
+      if (now - lastStepTimeRef.current < 480) {
         e.preventDefault();
         return;
       }
@@ -365,6 +421,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         if (cur < DOMAINS.length - 1) {
           e.preventDefault();
           lastStepTimeRef.current = now;
+          stepDirectionRef.current = 1;
           const next = cur === -1 ? 0 : cur + 1;
           setActiveCardIndex(next);
           activeCardIndexRef.current = next;
@@ -376,6 +433,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         if (cur > -1) {
           e.preventDefault();
           lastStepTimeRef.current = now;
+          stepDirectionRef.current = -1;
           const prev = cur - 1;
           setActiveCardIndex(prev);
           activeCardIndexRef.current = prev;
@@ -387,6 +445,36 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     el.addEventListener('slide:step', handleStep);
     return () => el.removeEventListener('slide:step', handleStep);
   }, [onSlideChange]);
+
+  // Mouse wheel directly inside open modal dialog
+  const handleModalWheel = (e: React.WheelEvent) => {
+    if (Math.abs(e.deltaY) < 16) return;
+    const now = Date.now();
+    if (now - lastStepTimeRef.current < 480) return;
+
+    if (e.deltaY > 0) {
+      if (activeCardIndex < DOMAINS.length - 1) {
+        lastStepTimeRef.current = now;
+        stepDirectionRef.current = 1;
+        const next = activeCardIndex + 1;
+        setActiveCardIndex(next);
+        activeCardIndexRef.current = next;
+        onSlideChange?.(next + 3);
+      }
+    } else {
+      if (activeCardIndex > 0) {
+        lastStepTimeRef.current = now;
+        stepDirectionRef.current = -1;
+        const prev = activeCardIndex - 1;
+        setActiveCardIndex(prev);
+        activeCardIndexRef.current = prev;
+      } else if (activeCardIndex === 0) {
+        lastStepTimeRef.current = now;
+        setActiveCardIndex(-1);
+        activeCardIndexRef.current = -1;
+      }
+    }
+  };
 
   // Close modal on Escape key
   useEffect(() => {
@@ -621,148 +709,181 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
             onClick={() => setActiveCardIndex(-1)}
           >
             <div
-              className={`relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-5 sm:p-7 text-[#0F172A] shadow-2xl`}
+              ref={modalBoxRef}
+              onWheel={handleModalWheel}
+              className={`relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-5 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
-                    {DOMAIN_VECTORS[activeCardIndex]}
-                  </div>
-                  <div>
-                    <span
-                      className="font-mono text-xs tracking-wider uppercase font-bold"
-                      style={{ color: activeCard.accentColor }}
-                    >
-                      {activeCard.domainNumber}
-                    </span>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0F172A] leading-tight">
-                      {activeCard.name}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Right controls: Prev, Next & Close Button */}
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const prev = activeCardIndex > 0 ? activeCardIndex - 1 : DOMAINS.length - 1;
-                      setActiveCardIndex(prev);
-                      onSlideChange?.(prev + 3);
-                    }}
-                    className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
-                    aria-label="Previous Domain"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const next = activeCardIndex < DOMAINS.length - 1 ? activeCardIndex + 1 : 0;
-                      setActiveCardIndex(next);
-                      onSlideChange?.(next + 3);
-                    }}
-                    className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
-                    aria-label="Next Domain"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveCardIndex(-1)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-xs font-semibold transition-all cursor-pointer ml-1"
-                  >
-                    <X className="w-4 h-4" />
-                    <span>Close</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Modal Body */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
-                {/* Left Column: Description, Metrics & Pillars */}
-                <div className="lg:col-span-7 space-y-3">
-                  <p className="font-sans text-xs sm:text-sm text-[#475569] leading-relaxed font-normal">
-                    {activeCard.description}
-                  </p>
-
-                  {/* Metrics Strip */}
-                  <div className="grid grid-cols-3 gap-2 py-2.5 px-3 border border-slate-200 bg-slate-50/70 rounded-2xl">
-                    {activeCard.metrics.map((m, mIdx) => (
-                      <div key={mIdx} className="text-left">
-                        <div
-                          className="font-mono text-xs sm:text-sm font-bold tracking-wider"
-                          style={{ color: activeCard.accentColor }}
-                        >
-                          {m.value}
-                        </div>
-                        <div className="font-mono text-[9.5px] text-slate-500 uppercase leading-tight truncate">
-                          {m.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* 2 Core Pillars */}
-                  <div className="grid grid-cols-2 gap-2.5 pt-1">
-                    {activeCard.pillars.slice(0, 2).map((item) => (
-                      <div
-                        key={item.num}
-                        className="p-3 rounded-2xl border border-slate-200/80 bg-white shadow-2xs text-left"
+              {/* Animated Transition Container for Domain Swaps */}
+              <div ref={modalContentRef} key={activeCard.id} className="w-full">
+                {/* Modal Header */}
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs transition-colors duration-500">
+                      {DOMAIN_VECTORS[activeCardIndex]}
+                    </div>
+                    <div>
+                      <span
+                        className="font-mono text-xs tracking-wider uppercase font-bold transition-colors duration-500"
+                        style={{ color: activeCard.accentColor }}
                       >
-                        <div
-                          className="font-mono text-[9.5px] font-bold"
-                          style={{ color: activeCard.accentColor }}
-                        >
-                          PILLAR {item.num}
-                        </div>
-                        <div className="font-sans text-xs font-bold text-[#0F172A] leading-tight mt-0.5 truncate">
-                          {item.title}
-                        </div>
-                        <div className="font-sans text-[11px] text-[#475569] mt-0.5 leading-snug line-clamp-2">
-                          {item.desc}
-                        </div>
-                      </div>
-                    ))}
+                        {activeCard.domainNumber}
+                      </span>
+                      <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0F172A] leading-tight">
+                        {activeCard.name}
+                      </h3>
+                    </div>
                   </div>
 
-                  {/* Badge Note */}
-                  <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-100">
-                    <span
-                      className="w-2 h-2 rounded-full shrink-0"
-                      style={{ backgroundColor: activeCard.accentColor }}
-                    />
-                    <span className="truncate">{activeCard.badgeNote}</span>
+                  {/* Right controls: 4-Domain Step Indicator + Prev, Next & Close Button */}
+                  <div className="flex items-center gap-2">
+                    {/* Domain Step Pills (01, 02, 03, 04) */}
+                    <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-full">
+                      {DOMAINS.map((d, dIdx) => {
+                        const isCurrent = activeCardIndex === dIdx;
+                        return (
+                          <button
+                            key={d.id}
+                            type="button"
+                            onClick={() => {
+                              stepDirectionRef.current = dIdx > activeCardIndex ? 1 : -1;
+                              setActiveCardIndex(dIdx);
+                              onSlideChange?.(dIdx + 3);
+                            }}
+                            className={`h-2 rounded-full transition-all duration-400 cursor-pointer ${
+                              isCurrent ? 'w-6' : 'w-2 bg-slate-200 hover:bg-slate-300'
+                            }`}
+                            style={{
+                              backgroundColor: isCurrent ? activeCard.accentColor : undefined,
+                            }}
+                            aria-label={`Jump to ${d.name}`}
+                          />
+                        );
+                      })}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const prev = activeCardIndex > 0 ? activeCardIndex - 1 : DOMAINS.length - 1;
+                        stepDirectionRef.current = -1;
+                        setActiveCardIndex(prev);
+                        onSlideChange?.(prev + 3);
+                      }}
+                      className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+                      aria-label="Previous Domain"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const next = activeCardIndex < DOMAINS.length - 1 ? activeCardIndex + 1 : 0;
+                        stepDirectionRef.current = 1;
+                        setActiveCardIndex(next);
+                        onSlideChange?.(next + 3);
+                      }}
+                      className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+                      aria-label="Next Domain"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveCardIndex(-1)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-xs font-semibold transition-all cursor-pointer ml-1"
+                    >
+                      <X className="w-4 h-4" />
+                      <span>Close</span>
+                    </button>
                   </div>
                 </div>
 
-                {/* Right Column: Hardware Photo */}
-                <div className="lg:col-span-5 flex justify-center items-center">
-                  <div className="relative overflow-hidden rounded-2xl bg-black border border-slate-200 shadow-xl w-full h-[220px] sm:h-[240px] group">
-                    <img
-                      src={activeCard.image}
-                      alt={activeCard.imageCaption}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+                {/* Modal Body */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+                  {/* Left Column: Description, Metrics & Pillars */}
+                  <div className="lg:col-span-7 space-y-3">
+                    <p className="font-sans text-xs sm:text-sm text-[#475569] leading-relaxed font-normal">
+                      {activeCard.description}
+                    </p>
 
-                    <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">
-                      <div>
-                        <span
-                          className="font-mono text-[9.5px] tracking-wider uppercase font-bold block leading-tight mb-0.5"
-                          style={{ color: activeCard.accentColor }}
+                    {/* Metrics Strip */}
+                    <div className="grid grid-cols-3 gap-2 py-2.5 px-3 border border-slate-200 bg-slate-50/70 rounded-2xl transition-colors duration-500">
+                      {activeCard.metrics.map((m, mIdx) => (
+                        <div key={mIdx} className="text-left">
+                          <div
+                            className="font-mono text-xs sm:text-sm font-bold tracking-wider transition-colors duration-500"
+                            style={{ color: activeCard.accentColor }}
+                          >
+                            {m.value}
+                          </div>
+                          <div className="font-mono text-[9.5px] text-slate-500 uppercase leading-tight truncate">
+                            {m.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* 2 Core Pillars */}
+                    <div className="grid grid-cols-2 gap-2.5 pt-1">
+                      {activeCard.pillars.slice(0, 2).map((item) => (
+                        <div
+                          key={item.num}
+                          className="p-3 rounded-2xl border border-slate-200/80 bg-white shadow-2xs text-left"
                         >
-                          {activeCard.imageCaption}
+                          <div
+                            className="font-mono text-[9.5px] font-bold transition-colors duration-500"
+                            style={{ color: activeCard.accentColor }}
+                          >
+                            PILLAR {item.num}
+                          </div>
+                          <div className="font-sans text-xs font-bold text-[#0F172A] leading-tight mt-0.5 truncate">
+                            {item.title}
+                          </div>
+                          <div className="font-sans text-[11px] text-[#475569] mt-0.5 leading-snug line-clamp-2">
+                            {item.desc}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Badge Note */}
+                    <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-100">
+                      <span
+                        className="w-2 h-2 rounded-full shrink-0 transition-colors duration-500"
+                        style={{ backgroundColor: activeCard.accentColor }}
+                      />
+                      <span className="truncate">{activeCard.badgeNote}</span>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Hardware Photo */}
+                  <div className="lg:col-span-5 flex justify-center items-center">
+                    <div className="relative overflow-hidden rounded-2xl bg-black border border-slate-200 shadow-xl w-full h-[220px] sm:h-[240px] group">
+                      <img
+                        key={activeCard.image}
+                        src={activeCard.image}
+                        alt={activeCard.imageCaption}
+                        className="w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+
+                      <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">
+                        <div>
+                          <span
+                            className="font-mono text-[9.5px] tracking-wider uppercase font-bold block leading-tight mb-0.5 transition-colors duration-500"
+                            style={{ color: activeCard.accentColor }}
+                          >
+                            {activeCard.imageCaption}
+                          </span>
+                          <p className="font-serif text-[11px] italic text-white/95 font-light leading-tight">
+                            {activeCard.imageSubcaption}
+                          </p>
+                        </div>
+                        <span className="font-mono text-[9px] text-white/90 bg-white/20 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
+                          {activeCard.imageTag}
                         </span>
-                        <p className="font-serif text-[11px] italic text-white/95 font-light leading-tight">
-                          {activeCard.imageSubcaption}
-                        </p>
                       </div>
-                      <span className="font-mono text-[9px] text-white/90 bg-white/20 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
-                        {activeCard.imageTag}
-                      </span>
                     </div>
                   </div>
                 </div>
