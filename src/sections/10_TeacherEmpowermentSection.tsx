@@ -197,11 +197,11 @@ export const TeacherEmpowermentSection: React.FC = () => {
                     aria-label={`Toggle details for ${col.title}`}
                   >
                     {/* FRONT FACE — Brand Gradient (Blue / Orange / Yellow) with Glowing Orb */}
-                    <div className={`pillar-flip-face pillar-flip-front ${colorClasses[idx]} p-4 sm:p-5 flex flex-col justify-between`}>
+                    <div className={`pillar-flip-face pillar-flip-front ${colorClasses[idx]} flex flex-col justify-between`}>
                       <div>
                         {/* Top Role / Number & Icon */}
                         <div className="flex items-center justify-between mb-1">
-                          <span className={`font-mono text-[10px] uppercase tracking-[0.22em] font-bold ${tagColors[idx]}`}>
+                          <span className={`font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] font-bold ${tagColors[idx]}`}>
                             {col.tag}
                           </span>
                           <span className="p-1 rounded-full bg-white/15 backdrop-blur-xs shadow-xs">
@@ -210,34 +210,34 @@ export const TeacherEmpowermentSection: React.FC = () => {
                         </div>
 
                         {/* Main Title */}
-                        <h3 className="font-serif font-bold text-xl sm:text-[23px] lg:text-[25px] tracking-tight leading-tight text-white mb-2">
+                        <h3 className="font-serif font-bold text-lg sm:text-[20px] lg:text-[22px] tracking-tight leading-tight text-white mb-1.5">
                           {col.title}
                         </h3>
 
                         {/* Short Description */}
-                        <p className="font-sans text-[11px] sm:text-xs text-white/90 leading-snug mb-2 font-normal">
+                        <p className="font-sans text-[11px] sm:text-[11.5px] text-white/90 leading-snug mb-1.5 font-normal">
                           {col.description}
                         </p>
 
                         {/* Image 1 Callout Pill */}
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/20 backdrop-blur-xs border border-white/20 text-white font-sans text-[10px] font-semibold">
+                        <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/20 backdrop-blur-xs border border-white/20 text-white font-sans text-[9.5px] font-semibold">
                           <CheckCircle2 className="w-3 h-3 text-white/90" />
                           <span>{col.pill}</span>
                         </div>
                       </div>
 
                       {/* Bottom Flip Affordance Hint */}
-                      <div className="flex items-center justify-between text-[9px] sm:text-[9.5px] font-mono uppercase tracking-wider text-white/80 pt-2 border-t border-white/20 mt-2">
+                      <div className="flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono uppercase tracking-wider text-white/80 pt-1.5 border-t border-white/20 mt-1">
                         <span>Click to flip for deliverables</span>
                         <span className="text-xs">↻</span>
                       </div>
                     </div>
 
                     {/* BACK FACE — Dark Obsidian Luxury Panel with Deliverables from Image 1 */}
-                    <div className="pillar-flip-face pillar-flip-back p-4 sm:p-5 flex flex-col justify-between">
+                    <div className="pillar-flip-face pillar-flip-back flex flex-col justify-between">
                       <div>
                         {/* Top Header */}
-                        <div className="flex items-center justify-between pb-1.5 border-b border-white/10 mb-2">
+                        <div className="flex items-center justify-between pb-1 border-b border-white/10 mb-1.5">
                           <span className={`font-mono text-[9px] uppercase tracking-widest font-bold ${backAccents[idx]}`}>
                             {col.tag} &bull; Deliverables
                           </span>
@@ -247,19 +247,19 @@ export const TeacherEmpowermentSection: React.FC = () => {
                         </div>
 
                         {/* Sub-Headline */}
-                        <h4 className="font-serif font-bold text-sm sm:text-[15px] text-white leading-snug mb-1">
+                        <h4 className="font-serif font-bold text-xs sm:text-[13.5px] text-white leading-tight mb-0.5">
                           {pillarPopups[idx].title}
                         </h4>
 
                         {/* Purpose Summary */}
-                        <p className="font-sans text-[10px] sm:text-[10.5px] text-[#b3afa6] leading-relaxed mb-2 line-clamp-2">
+                        <p className="font-sans text-[9.5px] sm:text-[10px] text-[#b3afa6] leading-snug mb-1.5 line-clamp-2">
                           {pillarPopups[idx].purpose}
                         </p>
 
                         {/* Concrete Deliverables Checklist from Image 1 Workshop Journey */}
                         <ul className="space-y-1">
                           {pillarDetails[idx].map((point) => (
-                            <li key={point} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#ece9e2] font-sans">
+                            <li key={point} className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] text-[#ece9e2] font-sans leading-tight">
                               <span className={`w-1.5 h-1.5 rounded-full ${bulletColors[idx]} shrink-0`} />
                               <span className="truncate">{point}</span>
                             </li>
@@ -268,7 +268,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
                       </div>
 
                       {/* Bottom Return Affordance */}
-                      <div className="flex items-center justify-between pt-1.5 border-t border-white/10 mt-2 text-[9px] font-mono text-white/60">
+                      <div className="flex items-center justify-between pt-1 border-t border-white/10 mt-1 text-[8.5px] sm:text-[9px] font-mono text-white/60">
                         <span className={`${backAccents[idx]} font-semibold`}>
                           Skills That Stay
                         </span>
@@ -282,47 +282,47 @@ export const TeacherEmpowermentSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Human-in-the-Loop AI Workflow & Ethical Guardrails Banner - Enlarged as requested */}
-        <div className="editorial-reveal flex-none bg-white border border-slate-200/90 p-4 sm:p-5 lg:p-6 rounded-2xl sm:rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] mb-2 w-full">
+        {/* Human-in-the-Loop AI Workflow & Ethical Guardrails Banner */}
+        <div className="editorial-reveal flex-none bg-white border border-slate-200/90 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] mb-1 sm:mb-1.5 w-full self-stretch">
           {/* Workflow Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-3 pb-2 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2 pb-1.5 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0F172A] font-bold">
+              <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] text-[#0F172A] font-bold">
                 Human-in-the-Loop AI Workflow
               </span>
             </div>
-            <span className="font-mono text-[10.5px] sm:text-xs text-[#b45309] font-bold flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#EA580C]" />
+            <span className="font-mono text-[10px] sm:text-[11px] text-[#b45309] font-bold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
               Teacher Oversight at Every Stage
             </span>
           </div>
 
-          {/* 4 Step Nodes Ribbon (Enlarged) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mb-2">
+          {/* 4 Step Nodes Ribbon */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2 mb-1.5">
             {siteConfig.teacherEmpowerment.flow.map((step, idx) => (
               <div
                 key={step}
-                className="flex items-center gap-2 p-2 sm:p-2.5 bg-[#FAF9F6] border border-slate-200/80 rounded-xl shadow-2xs hover:border-slate-300 transition-colors"
+                className="flex items-center gap-2 p-1.5 sm:p-2 bg-[#FAF9F6] border border-slate-200/80 rounded-lg shadow-2xs hover:border-slate-300 transition-colors"
               >
-                <span className="w-5 h-5 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-[11px] font-mono font-bold shrink-0 shadow-xs">
+                <span className="w-4.5 h-4.5 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-[10px] font-mono font-bold shrink-0 shadow-xs">
                   {idx + 1}
                 </span>
-                <span className="font-sans text-[11px] sm:text-[11.5px] font-semibold text-[#0F172A] leading-tight">
+                <span className="font-sans text-[10.5px] sm:text-[11px] font-semibold text-[#0F172A] leading-tight">
                   {step}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* Ethical Guardrails Footer (Enlarged) */}
-          <div className="pt-1.5 sm:pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px]">
-            <div className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] uppercase tracking-[0.2em] text-[#b45309] font-mono font-bold">
+          {/* Ethical Guardrails Footer */}
+          <div className="pt-1.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[10.5px]">
+            <div className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#b45309] font-mono font-bold">
               <ShieldCheck className="w-3.5 h-3.5 text-[#EA580C]" />
               <span>Ethical Guardrails:</span>
             </div>
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
               {siteConfig.teacherEmpowerment.guardrails.map((gd) => (
-                <div key={gd} className="flex items-center gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] font-sans font-medium">
+                <div key={gd} className="flex items-center gap-1 text-[10px] sm:text-[10.5px] text-[#334155] font-sans font-medium">
                   <Check className="w-3 h-3 text-emerald-600 shrink-0 stroke-[2.5]" />
                   <span>{gd}</span>
                 </div>
@@ -332,13 +332,13 @@ export const TeacherEmpowermentSection: React.FC = () => {
         </div>
 
         {/* Bottom Tagline: "Skills that stay with your teachers." (From Image 1) */}
-        <div className="editorial-reveal flex-none pt-1 border-t border-black/10 flex flex-col items-center justify-center text-center">
-          <div className="flex items-center justify-center gap-3 mb-1">
-            <span className="w-8 sm:w-16 h-px bg-[#c8a45d]/60" />
-            <h4 className="font-serif text-sm sm:text-base font-bold text-[#0F172A] tracking-tight">
+        <div className="editorial-reveal flex-none pt-0.5 border-t border-black/10 flex flex-col items-center justify-center text-center">
+          <div className="flex items-center justify-center gap-2.5 mb-0.5">
+            <span className="w-6 sm:w-12 h-px bg-[#c8a45d]/60" />
+            <h4 className="font-serif text-xs sm:text-[13px] font-bold text-[#0F172A] tracking-tight">
               Skills that stay with your teachers.
             </h4>
-            <span className="w-8 sm:w-16 h-px bg-[#c8a45d]/60" />
+            <span className="w-6 sm:w-12 h-px bg-[#c8a45d]/60" />
           </div>
 
           <button
