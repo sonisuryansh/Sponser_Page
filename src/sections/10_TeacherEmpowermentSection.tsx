@@ -146,26 +146,26 @@ export const TeacherEmpowermentSection: React.FC = () => {
         className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-stretch pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title, and Subtitle Verbatim from Image 1 */}
-        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-1 sm:mb-1.5">
+        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-1.5 sm:mb-2">
           {/* Eyebrow with gold accent lines */}
-          <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5 sm:mb-1">
-            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+          <div className="editorial-reveal flex items-center justify-center gap-2 mb-1">
+            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+            <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#b45309] font-bold">
               {siteConfig.teacherEmpowerment.eyebrow}
             </span>
-            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
           </div>
 
           {/* Headline */}
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] mb-0.5 text-center"
+            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center"
           >
             {siteConfig.teacherEmpowerment.headline}
           </h2>
 
           {/* Subtitle Matching Image 1 Exactly */}
-          <p className="editorial-reveal font-serif text-xs sm:text-[13px] text-[#334155] leading-snug max-w-2xl text-center mb-0.5">
+          <p className="editorial-reveal font-serif text-xs sm:text-sm text-[#334155] leading-relaxed max-w-2xl text-center mb-1">
             <strong className="text-[#0F172A] font-bold">Our Instructors</strong> run the student programme.{' '}
             <strong className="text-[#EA580C] font-bold">Teachers</strong> get a few workshops to get ahead with AI.
           </p>
@@ -252,16 +252,16 @@ export const TeacherEmpowermentSection: React.FC = () => {
                         </h4>
 
                         {/* Purpose Summary */}
-                        <p className="font-sans text-[9.5px] sm:text-[10px] text-[#b3afa6] leading-snug mb-1.5 line-clamp-2">
+                        <p className="font-sans text-[10px] sm:text-[10.5px] text-[#b3afa6] leading-snug mb-1.5">
                           {pillarPopups[idx].purpose}
                         </p>
 
                         {/* Concrete Deliverables Checklist from Image 1 Workshop Journey */}
                         <ul className="space-y-1">
                           {pillarDetails[idx].map((point) => (
-                            <li key={point} className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] text-[#ece9e2] font-sans leading-tight">
+                            <li key={point} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#ece9e2] font-sans leading-tight">
                               <span className={`w-1.5 h-1.5 rounded-full ${bulletColors[idx]} shrink-0`} />
-                              <span className="truncate">{point}</span>
+                              <span>{point}</span>
                             </li>
                           ))}
                         </ul>

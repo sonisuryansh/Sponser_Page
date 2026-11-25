@@ -231,7 +231,7 @@ export const AboutSection: React.FC = () => {
                   <span className="font-mono text-[8.5px] uppercase tracking-[0.2em] text-[#FDBA74] font-bold block mb-0.5">
                     PHYSICAL COMPUTING IN PRACTICE
                   </span>
-                  <p className="font-serif text-xs text-white/95 leading-snug truncate">
+                  <p className="font-serif text-xs text-white/95 leading-snug">
                     Active circuit, sensor calibration &amp; microcontroller exploration.
                   </p>
                 </div>
@@ -298,7 +298,7 @@ export const AboutSection: React.FC = () => {
                             {step.subtitle}
                           </span>
                         </div>
-                        <p className="font-sans text-[10.5px] text-slate-600 leading-snug line-clamp-1">
+                        <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-600 leading-snug">
                           {step.desc}
                         </p>
                       </div>

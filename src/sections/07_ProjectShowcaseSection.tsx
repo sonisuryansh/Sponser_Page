@@ -114,30 +114,30 @@ export const ProjectShowcaseSection: React.FC = () => {
       {/* 100svh Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
       >
         {/* Main Inset White Panel */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
+        <div className="relative w-full my-0 sm:my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[16px] flex flex-col justify-between p-4 sm:p-5 lg:p-6 xl:p-7 box-border z-10">
           
           {/* Top Header: Eyebrow with gold accent & Headline */}
-          <div className="flex-none text-center mb-1.5 sm:mb-2">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-              <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
+          <div className="flex-none text-center mb-2.5 sm:mb-3">
+            <div className="flex items-center justify-center gap-3 mb-1.5 sm:mb-2">
+              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+              <span className="font-mono text-[10.5px] sm:text-xs font-bold uppercase tracking-[0.24em] text-[#b45309]">
                 {siteConfig.showcase.eyebrow}
               </span>
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+              <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
             </div>
 
-            <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] text-center">
+            <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold leading-tight tracking-tight text-[#0F172A] text-center">
               {siteConfig.showcase.headline}
             </h2>
           </div>
 
           {/* ─── Dynamic Project Switcher Tabs (Tasteful colors & icons) ─── */}
-          <div className="flex flex-col items-center justify-center gap-1 sm:gap-1.5 mb-2 pb-1.5 border-b border-black/8">
+          <div className="flex flex-col items-center justify-center gap-1.5 sm:gap-2 mb-3 pb-2.5 border-b border-black/8">
             {/* Top Row: 3 Projects */}
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+            <div className="flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
               {projects.slice(0, 3).map((proj, idx) => {
                 const actualIdx = idx;
                 const isActive = activeProjectIndex === actualIdx;
@@ -150,10 +150,10 @@ export const ProjectShowcaseSection: React.FC = () => {
                     style={{
                       borderColor: isActive ? meta.color : undefined,
                     }}
-                    className={`group relative px-2.5 sm:px-3 py-1 rounded-lg border text-[10.5px] sm:text-[11px] font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`group relative px-3 sm:px-3.5 py-1.5 rounded-xl border text-[11px] sm:text-xs font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-2 ${
                       isActive
-                        ? 'bg-[#0F172A] text-white shadow-xs'
-                        : 'bg-[#F8FAFC] border-slate-200/90 text-[#475569] hover:text-[#0F172A] hover:bg-white hover:border-slate-300 hover:shadow-2xs'
+                        ? 'bg-[#0F172A] text-white shadow-md'
+                        : 'bg-[#F8FAFC] border-slate-200/90 text-[#475569] hover:text-[#0F172A] hover:bg-white hover:border-slate-300 hover:shadow-xs'
                     }`}
                   >
                     {/* Project Domain Icon */}
@@ -173,7 +173,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                     {isActive && (
                       <span
                         style={{ backgroundColor: meta.color }}
-                        className="absolute -bottom-[1px] left-2.5 right-2.5 h-[2px] rounded-full shadow-xs"
+                        className="absolute -bottom-[1px] left-3 right-3 h-[2px] rounded-full shadow-xs"
                       />
                     )}
                   </button>
@@ -182,7 +182,7 @@ export const ProjectShowcaseSection: React.FC = () => {
             </div>
 
             {/* Bottom Row: 2 Projects */}
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+            <div className="flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
               {projects.slice(3, 5).map((proj, idx) => {
                 const actualIdx = idx + 3;
                 const isActive = activeProjectIndex === actualIdx;
@@ -195,10 +195,10 @@ export const ProjectShowcaseSection: React.FC = () => {
                     style={{
                       borderColor: isActive ? meta.color : undefined,
                     }}
-                    className={`group relative px-2.5 sm:px-3 py-1 rounded-lg border text-[10.5px] sm:text-[11px] font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`group relative px-3 sm:px-3.5 py-1.5 rounded-xl border text-[11px] sm:text-xs font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-2 ${
                       isActive
-                        ? 'bg-[#0F172A] text-white shadow-xs'
-                        : 'bg-[#F8FAFC] border-slate-200/90 text-[#475569] hover:text-[#0F172A] hover:bg-white hover:border-slate-300 hover:shadow-2xs'
+                        ? 'bg-[#0F172A] text-white shadow-md'
+                        : 'bg-[#F8FAFC] border-slate-200/90 text-[#475569] hover:text-[#0F172A] hover:bg-white hover:border-slate-300 hover:shadow-xs'
                     }`}
                   >
                     {/* Project Domain Icon */}
@@ -218,7 +218,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                     {isActive && (
                       <span
                         style={{ backgroundColor: meta.color }}
-                        className="absolute -bottom-[1px] left-2.5 right-2.5 h-[2px] rounded-full shadow-xs"
+                        className="absolute -bottom-[1px] left-3 right-3 h-[2px] rounded-full shadow-xs"
                       />
                     )}
                   </button>
@@ -233,7 +233,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               borderColor: currentMeta.borderLight,
               background: `linear-gradient(135deg, #FFFFFF 0%, ${currentMeta.bgLight} 100%)`,
             }}
-            className="relative flex flex-col md:flex-row items-center gap-3 sm:gap-4 lg:gap-5 border-2 rounded-xl p-3 sm:p-3.5 lg:p-4 mb-2 shadow-2xs transition-all duration-500 overflow-hidden"
+            className="relative flex flex-col md:flex-row items-center gap-4 sm:gap-5 lg:gap-7 border-2 rounded-2xl p-4 sm:p-5 lg:p-6 mb-3 shadow-sm transition-all duration-500 overflow-hidden"
           >
             {/* Ambient Background Corner Glow */}
             <div
@@ -244,40 +244,40 @@ export const ProjectShowcaseSection: React.FC = () => {
             {/* Left Narrative & Metadata */}
             <div className="flex-1 w-full min-w-0 z-10">
               {/* Domain Badge Row (Grades Removed) */}
-              <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
                 <span
                   style={{
                     backgroundColor: currentMeta.bgLight,
                     borderColor: currentMeta.borderLight,
                     color: currentMeta.textColor,
                   }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[9.5px] sm:text-[10px] font-mono-tech font-bold uppercase tracking-wider shadow-2xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[10.5px] font-mono-tech font-bold uppercase tracking-wider shadow-2xs"
                 >
                   {currentMeta.icon}
                   <span>{currentProject.domain}</span>
                 </span>
 
-                <span className="hidden sm:inline font-mono text-[8.5px] uppercase tracking-widest text-[#94A3B8] font-bold ml-auto">
+                <span className="hidden sm:inline font-mono text-[9px] uppercase tracking-widest text-[#94A3B8] font-bold ml-auto">
                   Student Engineering Capstone
                 </span>
               </div>
 
               {/* Project Title */}
-              <h3 className="font-serif text-lg sm:text-xl lg:text-[21px] font-bold text-[#0F172A] leading-tight mb-1">
+              <h3 className="font-serif text-xl sm:text-2xl lg:text-[26px] font-bold text-[#0F172A] leading-tight mb-2">
                 {currentProject.name}
               </h3>
 
               {/* Summary Description */}
-              <p className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug font-normal mb-2 max-w-xl line-clamp-2">
+              <p className="font-sans text-xs sm:text-[13px] text-[#475569] leading-relaxed font-normal mb-3 max-w-xl">
                 {currentProject.summary}
               </p>
 
               {/* Hardware / Spec Chips */}
-              <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 pt-1.5 border-t border-black/8">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3.5 pt-2 border-t border-black/8">
                 {activeChips.map((chip, chipIdx) => (
                   <span
                     key={chip}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200/90 font-sans text-[10px] sm:text-[10.5px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200/90 font-sans text-[11px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
                   >
                     <span
                       style={{ backgroundColor: chipIdx === 0 ? currentMeta.color : '#F59E0B' }}
@@ -292,10 +292,10 @@ export const ProjectShowcaseSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedProject(currentProject)}
-                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[10px] sm:text-[10.5px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
+                className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[11px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
               >
                 <span>Inspect Project Build</span>
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
               </button>
             </div>
 
@@ -305,7 +305,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               style={{
                 borderColor: currentMeta.borderLight,
               }}
-              className="relative w-full md:w-[260px] lg:w-[300px] h-[135px] sm:h-[150px] lg:h-[160px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer shrink-0 transition-all hover:shadow-xl"
+              className="relative w-full md:w-[320px] lg:w-[380px] h-[175px] sm:h-[195px] lg:h-[210px] rounded-2xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer shrink-0 transition-all hover:shadow-xl"
             >
               <img
                 src={currentProject.image}
