@@ -684,22 +684,20 @@ html.lenis body {
 
 /* 3. 3D 180-deg Flip Card Component (Section 11 Student & School Benefits) */
 .benefits-section-bg {
-  background: radial-gradient(rgba(148, 163, 184, 0.28) 1px, transparent 1px),
-              radial-gradient(ellipse at 50% 18%, #F8FAFC 0%, #E2E8F0 55%, #CBD5E1 100%);
-  background-size: 24px 24px, 100% 100%;
+  background: #FAF8F5;
 }
 
 .benefit-flip-wrapper {
   position: relative;
   width: 100%;
-  height: 318px;
+  height: 275px;
   -webkit-perspective: 1400px;
   perspective: 1400px;
 }
 
 @media (min-width: 1280px) {
   .benefit-flip-wrapper {
-    height: 330px;
+    height: 290px;
   }
 }
 
@@ -707,7 +705,7 @@ html.lenis body {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  border-radius: 1.25rem;
   cursor: pointer;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -730,7 +728,7 @@ html.lenis body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  border-radius: 6px;
+  border-radius: 1.25rem;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
@@ -740,24 +738,19 @@ html.lenis body {
 }
 
 .benefit-flip-front {
-  background-color: #FFFFFF;
-  border: 1.5px solid rgba(148, 163, 184, 0.5);
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.11), 0 3px 8px rgba(15, 23, 42, 0.05);
-  padding: 1.15rem 1.2rem;
+  padding: 1.25rem 1.15rem;
   -webkit-transform: rotateY(0deg) translateZ(1px);
   transform: rotateY(0deg) translateZ(1px);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .benefit-flip-wrapper:hover .benefit-flip-front {
-  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12), 0 4px 10px rgba(15, 23, 42, 0.05);
 }
 
 .benefit-flip-back {
   background-color: #FFFFFF;
-  border: 2px solid #c8a45d;
-  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(15, 23, 42, 0.08);
-  padding: 1.15rem 1.2rem;
+  padding: 1.15rem 1.15rem;
   -webkit-transform: rotateY(180deg) translateZ(1px);
   transform: rotateY(180deg) translateZ(1px);
   color: #111111;
