@@ -143,7 +143,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
       {/* Main Viewport Container (Centered in 100svh window, Standardized 1240px) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-stretch pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title, and Subtitle Verbatim from Image 1 */}
         <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-1 sm:mb-1.5">
@@ -172,7 +172,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
         </div>
 
         {/* 3 Core Pillars: Preserving 3D Flip Cards & Sphere Orbs from 2nd Image with Image 1 Content */}
-        <div className="editorial-reveal w-full flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
+        <div className="editorial-reveal w-full self-stretch flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3.5 lg:gap-5">
             {COLUMNS_CONTENT.map((col, idx) => {
               const colorClasses = ['pillar-blue', 'pillar-orange', 'pillar-yellow'];

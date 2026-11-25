@@ -627,6 +627,7 @@ html.lenis body {
 .pillar-flip-wrapper {
   position: relative;
   width: 100%;
+  min-width: 0;
   height: 190px;
   -webkit-perspective: 1400px;
   perspective: 1400px;
