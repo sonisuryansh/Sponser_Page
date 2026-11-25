@@ -19,7 +19,7 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '01',
     name: 'Hands-on Learning',
-    description: 'Learn by doing.',
+    description: 'Direct engagement with physical hardware, components, and circuitry to bridge theory with practical execution.',
     icon: <Puzzle className="w-5 h-5 text-[#EA580C]" />,
     iconBg: 'bg-orange-50 border-orange-200/80',
     numColor: 'text-[#EA580C]',
@@ -29,7 +29,7 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '02',
     name: 'Problem-Solving',
-    description: 'Understand a challenge and create practical solutions.',
+    description: 'Deconstruct complex mechanical and computational challenges into structured, iterative problem-solving steps.',
     icon: <Target className="w-5 h-5 text-[#0284C7]" />,
     iconBg: 'bg-sky-50 border-sky-200/80',
     numColor: 'text-[#0284C7]',
@@ -39,7 +39,7 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '03',
     name: 'Creativity & Innovation',
-    description: 'Turn ideas into designs and prototypes.',
+    description: 'Transform creative intuition into functional CAD diagrams, physical chassis, and verified code implementations.',
     icon: <Lightbulb className="w-5 h-5 text-[#9333EA]" />,
     iconBg: 'bg-purple-50 border-purple-200/80',
     numColor: 'text-[#9333EA]',
@@ -49,7 +49,7 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '04',
     name: 'Responsible Technology',
-    description: 'Consider safety, ethics, and real-world impact.',
+    description: 'Instill strong safety protocols, data privacy principles, and an ethical mindset for technological advancement.',
     icon: <Leaf className="w-5 h-5 text-[#16A34A]" />,
     iconBg: 'bg-emerald-50 border-emerald-200/80',
     numColor: 'text-[#16A34A]',
@@ -59,7 +59,7 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '05',
     name: 'Continuous Learning',
-    description: 'Experiment, reflect, and improve.',
+    description: 'Foster a growth mindset where debugging, telemetry analysis, and iterative improvement are celebrated.',
     icon: <RefreshCw className="w-5 h-5 text-[#E11D48]" />,
     iconBg: 'bg-rose-50 border-rose-200/80',
     numColor: 'text-[#E11D48]',
@@ -119,56 +119,77 @@ export const MissionSection: React.FC = () => {
       <div className="absolute top-0 right-0 w-80 h-80 bg-orange-100/35 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100/25 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Main Centered Container - Compact to Guarantee 100vh Fit */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1300px] mx-auto overflow-hidden">
+      {/* Main Centered Container - Balanced Executive Proportions */}
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1520px] mx-auto overflow-hidden">
         {/* Main Inset Grand White Card Container */}
         <div
           ref={contentRef}
-          className="relative w-full my-auto bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)] border border-slate-200/80 rounded-2xl sm:rounded-3xl p-3.5 sm:p-4.5 lg:p-5 xl:p-6 flex flex-col justify-between gap-2 sm:gap-2.5 max-h-[calc(100svh-var(--header-h,64px)-12px)]"
+          className="relative w-full my-auto bg-white shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col justify-between gap-3.5 sm:gap-4.5 flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]"
         >
           {/* Top Area: Eyebrow, Statement Headline & Narrative Copy */}
-          <div className="flex-none text-center max-w-3xl mx-auto mb-1 sm:mb-2">
+          <div className="flex-none text-center max-w-4xl mx-auto mb-1.5 sm:mb-2">
             {/* Eyebrow */}
             <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-              <span className="font-mono text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.22em] text-[#b45309] font-bold">
+              <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
                 {siteConfig.mission.eyebrow}
               </span>
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+              <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
             </div>
 
             {/* Elegant Grand Headline */}
             <h2
               ref={headlineRef}
-              className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-tight mb-1 text-center"
+              className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-bold text-[#0F172A] tracking-tight leading-tight mb-1 text-center"
             >
               &ldquo;Connecting Concepts to Real-World Engineering&rdquo;
             </h2>
 
             {/* Narrative Body Copy (Centered) */}
-            <p className="editorial-reveal font-sans text-[11px] sm:text-xs text-[#475569] leading-normal max-w-2xl mx-auto font-normal text-center">
+            <p className="editorial-reveal font-sans text-xs sm:text-sm text-[#475569] leading-relaxed max-w-3xl mx-auto font-normal text-center">
               At MedhaArc Labs, we believe technology education moves beyond passive consumption into tangible engineering. From foundational logic to physical prototypes, our curriculum connects core mathematical reasoning with hands-on robotics, AI, drone, and autonomous flight.
             </p>
           </div>
 
+          {/* Executive Engineering Philosophy Strip */}
+          <div className="editorial-reveal my-1.5 sm:my-2 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-50/60 via-[#FAF9F6] to-sky-50/60 border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-left">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-xl bg-white border border-slate-200/80 flex items-center justify-center text-amber-600 font-bold text-sm shadow-2xs">
+                ⚡
+              </span>
+              <div>
+                <span className="font-sans font-bold text-xs sm:text-sm text-[#0F172A] block leading-tight">
+                  Tangible Engineering Over Passive Screen Time
+                </span>
+                <span className="font-sans text-[11px] sm:text-xs text-[#64748B] leading-tight">
+                  Every concept is validated on real microcontrollers, sensors, circuits, and autonomous robotic platforms.
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#0284C7] font-semibold bg-sky-50 px-3 py-1 rounded-full border border-sky-200 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
+              <span>Grade 3 to 12 Progressive Pathway</span>
+            </div>
+          </div>
+
           {/* Subheader Row Above 5 Cards */}
-          <div className="editorial-reveal my-0.5 flex items-center justify-between pb-1 border-b border-slate-100">
-            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0F172A] font-bold">
+          <div className="editorial-reveal my-0.5 flex items-center justify-between pb-1.5 border-b border-slate-100">
+            <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[0.2em] text-[#0F172A] font-bold">
               CORE EDUCATIONAL VALUES
             </span>
-            <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#7C3AED] font-semibold">
+            <div className="flex items-center gap-1.5 font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#7C3AED] font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
               <span>5 PILLARS OF EDUCATION</span>
             </div>
           </div>
 
-          {/* Middle Area: 5 Colorful Educational Value Cards (Compact) */}
-          <div className="editorial-reveal my-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3">
+          {/* Middle Area: 5 Colorful Educational Value Cards (Spacious) */}
+          <div className="editorial-reveal my-1 flex-1 flex flex-col justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4 items-stretch">
               {MISSION_CARDS.map((val) => (
                 <div
                   key={val.name}
-                  className={`group relative flex flex-col justify-between p-2.5 sm:p-3 bg-white border ${val.borderColor} rounded-xl sm:rounded-2xl shadow-2xs hover:shadow-xs transition-all duration-300 min-h-[110px] sm:min-h-[120px] overflow-hidden`}
+                  className={`group relative flex flex-col justify-between p-3.5 sm:p-4.5 bg-white border ${val.borderColor} rounded-xl sm:rounded-2xl shadow-2xs hover:shadow-xs transition-all duration-300 min-h-[170px] sm:min-h-[185px] lg:min-h-[200px] overflow-hidden`}
                 >
                   {/* Subtle Pastel Bottom-Right Corner Wave Gradient */}
                   <div
@@ -181,25 +202,25 @@ export const MissionSection: React.FC = () => {
                   {/* Card Content */}
                   <div className="relative z-10">
                     {/* Header Row: Icon and Number */}
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-2">
                       <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${val.iconBg} border shadow-2xs flex items-center justify-center shrink-0`}
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${val.iconBg} border shadow-2xs flex items-center justify-center shrink-0`}
                       >
                         {val.icon}
                       </div>
-                      <span className={`font-mono text-[11px] sm:text-xs font-bold ${val.numColor}`}>
+                      <span className={`font-mono text-xs sm:text-[13px] font-bold ${val.numColor}`}>
                         {val.num}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-serif text-[13px] sm:text-[14px] font-bold text-[#0F172A] leading-snug tracking-tight mb-1 group-hover:text-[#b45309] transition-colors">
+                    <h3 className="font-serif text-[14px] sm:text-[15.5px] font-bold text-[#0F172A] leading-snug tracking-tight mb-1 group-hover:text-[#b45309] transition-colors">
                       {val.name}
                     </h3>
                   </div>
 
                   {/* Description */}
-                  <p className="relative z-10 font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug mt-auto line-clamp-2">
+                  <p className="relative z-10 font-sans text-xs sm:text-[12.5px] text-[#475569] leading-snug mt-auto">
                     {val.description}
                   </p>
                 </div>

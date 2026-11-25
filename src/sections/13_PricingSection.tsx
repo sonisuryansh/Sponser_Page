@@ -150,85 +150,85 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
       {/* Main Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1320px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1480px] mx-auto overflow-hidden"
       >
         {/* Eyebrow & Headline Matching Image 1 Reference */}
-        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-1.5 sm:mb-2">
-          <div className="flex items-center justify-center gap-2 mb-0.5 sm:mb-1">
-            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-3">
+          <div className="flex items-center justify-center gap-2.5 mb-1 sm:mb-1.5">
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
+            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               TRANSPARENT INVESTMENT
             </span>
-            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
           </div>
 
-          <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] mb-0.5 text-center">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-[36px] xl:text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center">
             Pricing Packages
           </h2>
 
-          <p className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] text-[#64748B] font-semibold text-center mb-1">
+          <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#64748B] font-semibold text-center mb-1.5">
             PROPOSED PRICING, PER STUDENT PER MONTH
           </p>
 
           {/* Decorative colored bar and dots */}
           <div className="flex items-center justify-center gap-1.5">
-            <span className="w-4 h-[2px] rounded-full bg-[#7C3AED]" />
+            <span className="w-5 h-[2px] rounded-full bg-[#7C3AED]" />
             <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
             <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
-            <span className="w-4 h-[2px] rounded-full bg-[#EA580C]" />
+            <span className="w-5 h-[2px] rounded-full bg-[#EA580C]" />
           </div>
         </div>
 
         {/* 3 Package Columns Matching Image 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 items-stretch w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4.5 lg:gap-6 items-stretch w-full my-auto py-1 sm:py-2">
           {/* Card 1: Package 01 — Foundation */}
-          <div className="pricing-col relative rounded-2xl border-2 border-[#38BDF8] bg-gradient-to-b from-[#F0F9FF] via-white to-white p-3.5 sm:p-4 lg:p-4.5 shadow-2xs flex flex-col justify-between transition-all hover:shadow-md hover:-translate-y-0.5">
+          <div className="pricing-col relative rounded-2xl border-2 border-[#38BDF8] bg-gradient-to-b from-[#F0F9FF] via-white to-white p-4 sm:p-5 lg:p-6 shadow-2xs flex flex-col justify-between transition-all hover:shadow-md hover:-translate-y-0.5">
             <div>
               {/* Top Row: Package Pill & Annual Structure */}
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#BAE6FD]/80 text-[#0369A1]">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-mono text-[9.5px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#BAE6FD]/80 text-[#0369A1]">
                   PACKAGE 01
                 </span>
-                <div className="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
-                  <Calendar className="w-3 h-3 text-slate-400" />
+                <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
+                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
                   <span>Annual Structure</span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="font-sans text-lg sm:text-xl font-bold text-[#0F172A] tracking-tight mb-1">
+              <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight mb-1.5">
                 {tiers[0].name}
               </h3>
 
               {/* Price & Robotic Arm Icon */}
-              <div className="flex items-center justify-between gap-2 mb-1.5">
+              <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="font-sans text-3xl sm:text-[34px] font-extrabold text-[#0284C7] leading-none">
+                  <span className="font-sans text-3xl sm:text-[38px] lg:text-[42px] font-extrabold text-[#0284C7] leading-none">
                     ₹500
                   </span>
-                  <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-slate-500 font-semibold">
+                  <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold">
                     PER STUDENT / MO
                   </span>
                 </div>
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#E0F2FE] border border-[#BAE6FD] flex items-center justify-center shrink-0 text-[#0284C7] shadow-2xs">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#E0F2FE] border border-[#BAE6FD] flex items-center justify-center shrink-0 text-[#0284C7] shadow-2xs">
                   <RoboticArmIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
               </div>
 
               {/* Summary */}
-              <p className="text-[11px] sm:text-[11.5px] font-medium text-slate-700 pb-1.5 border-b border-slate-100 mb-2 leading-snug line-clamp-2">
+              <p className="text-xs sm:text-[13px] font-medium text-slate-700 pb-2 border-b border-slate-100 mb-2.5 leading-snug">
                 {tiers[0].summary}
               </p>
 
               {/* Feature Checkmarks */}
-              <ul className="space-y-1 sm:space-y-1.5 mb-3">
+              <ul className="space-y-1.5 sm:space-y-2 mb-3">
                 {tiers[0].features.map((feat, fIdx) => (
                   <li
                     key={fIdx}
-                    className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-slate-600 font-medium leading-snug"
+                    className="flex items-start gap-2 text-xs sm:text-[12.5px] text-slate-600 font-medium leading-snug"
                   >
-                    <Check className="w-3.5 h-3.5 text-[#0284C7] shrink-0 mt-0.5 stroke-[2.5]" />
-                    <span className="truncate">{feat}</span>
+                    <Check className="w-4 h-4 text-[#0284C7] shrink-0 mt-0.5 stroke-[2.5]" />
+                    <span>{feat}</span>
                   </li>
                 ))}
               </ul>
@@ -238,7 +238,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <button
               type="button"
               onClick={onOpenContact}
-              className="w-full py-2 px-3 rounded-lg border-2 border-[#38BDF8] bg-white text-[#0284C7] hover:bg-[#F0F9FF] font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              className="w-full py-2.5 px-3 rounded-xl border-2 border-[#38BDF8] bg-white text-[#0284C7] hover:bg-[#F0F9FF] font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs mt-2"
             >
               <span>INQUIRE ABOUT FOUNDATION</span>
               <span>→</span>
@@ -246,7 +246,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
           </div>
 
           {/* Card 2: Package 02 — Professional (MOST POPULAR) */}
-          <div className="pricing-col relative rounded-2xl border-2 border-[#F97316] bg-gradient-to-b from-[#FFF7ED] via-white to-white p-3.5 sm:p-4 lg:p-4.5 shadow-xs flex flex-col justify-between transition-all hover:shadow-md hover:-translate-y-0.5">
+          <div className="pricing-col relative rounded-2xl border-2 border-[#F97316] bg-gradient-to-b from-[#FFF7ED] via-white to-white p-4 sm:p-5 lg:p-6 shadow-xs flex flex-col justify-between transition-all hover:shadow-md hover:-translate-y-0.5">
             {/* Floating "MOST POPULAR" Ribbon Pill */}
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
               <div className="flex items-center gap-1 px-3 py-0.5 rounded-full bg-gradient-to-r from-[#EA580C] to-[#C2410C] text-white text-[9px] sm:text-[9.5px] font-bold uppercase tracking-wider shadow-xs">
@@ -257,50 +257,50 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
 
             <div>
               {/* Top Row: Package Pill & Annual Structure */}
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#FED7AA]/80 text-[#C2410C]">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-mono text-[9.5px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#FED7AA]/80 text-[#C2410C]">
                   PACKAGE 02
                 </span>
-                <div className="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
-                  <Calendar className="w-3 h-3 text-[#EA580C]" />
+                <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
+                  <Calendar className="w-3.5 h-3.5 text-[#EA580C]" />
                   <span>Annual Structure</span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="font-sans text-lg sm:text-xl font-bold text-[#0F172A] tracking-tight mb-1">
+              <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight mb-1.5">
                 {tiers[1].name}
               </h3>
 
               {/* Price & Layers Icon */}
-              <div className="flex items-center justify-between gap-2 mb-1.5">
+              <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="font-sans text-3xl sm:text-[34px] font-extrabold text-[#EA580C] leading-none">
+                  <span className="font-sans text-3xl sm:text-[38px] lg:text-[42px] font-extrabold text-[#EA580C] leading-none">
                     ₹600
                   </span>
-                  <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-slate-500 font-semibold">
+                  <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold">
                     PER STUDENT / MO
                   </span>
                 </div>
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFEDD5] border border-[#FED7AA] flex items-center justify-center shrink-0 text-[#EA580C] shadow-2xs">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FFEDD5] border border-[#FED7AA] flex items-center justify-center shrink-0 text-[#EA580C] shadow-2xs">
                   <StackLayersIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
               </div>
 
               {/* Summary */}
-              <p className="text-[11px] sm:text-[11.5px] font-medium text-slate-700 pb-1.5 border-b border-orange-100 mb-2 leading-snug line-clamp-2">
+              <p className="text-xs sm:text-[13px] font-medium text-slate-700 pb-2 border-b border-orange-100 mb-2.5 leading-snug">
                 {tiers[1].summary}
               </p>
 
               {/* Feature Checkmarks */}
-              <ul className="space-y-1 sm:space-y-1.5 mb-3">
+              <ul className="space-y-1.5 sm:space-y-2 mb-3">
                 {tiers[1].features.map((feat, fIdx) => (
                   <li
                     key={fIdx}
-                    className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-slate-600 font-medium leading-snug"
+                    className="flex items-start gap-2 text-xs sm:text-[12.5px] text-slate-600 font-medium leading-snug"
                   >
-                    <Check className="w-3.5 h-3.5 text-[#EA580C] shrink-0 mt-0.5 stroke-[2.5]" />
-                    <span className="truncate">{feat}</span>
+                    <Check className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5 stroke-[2.5]" />
+                    <span>{feat}</span>
                   </li>
                 ))}
               </ul>
@@ -310,7 +310,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <button
               type="button"
               onClick={onOpenContact}
-              className="w-full py-2 px-3 rounded-lg bg-gradient-to-r from-[#EA580C] to-[#C2410C] hover:from-[#C2410C] hover:to-[#9A3412] text-white font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs hover:shadow-md"
+              className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#EA580C] to-[#C2410C] hover:from-[#C2410C] hover:to-[#9A3412] text-white font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs hover:shadow-md mt-2"
             >
               <span>INQUIRE ABOUT PROFESSIONAL</span>
               <span>→</span>
@@ -318,53 +318,53 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
           </div>
 
           {/* Card 3: Package 03 — Premium */}
-          <div className="pricing-col relative rounded-2xl border-2 border-[#C084FC] bg-gradient-to-b from-[#FAF5FF] via-white to-white p-3.5 sm:p-4 lg:p-4.5 shadow-2xs flex flex-col justify-between transition-all hover:shadow-md hover:-translate-y-0.5">
+          <div className="pricing-col relative rounded-2xl border-2 border-[#C084FC] bg-gradient-to-b from-[#FAF5FF] via-white to-white p-4 sm:p-5 lg:p-6 shadow-2xs flex flex-col justify-between transition-all hover:shadow-md hover:-translate-y-0.5">
             <div>
               {/* Top Row: Package Pill & Annual Structure */}
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#E9D5FF]/80 text-[#7E22CE]">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-mono text-[9.5px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#E9D5FF]/80 text-[#7E22CE]">
                   PACKAGE 03
                 </span>
-                <div className="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
-                  <Calendar className="w-3 h-3 text-slate-400" />
+                <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
+                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
                   <span>Annual Structure</span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="font-sans text-lg sm:text-xl font-bold text-[#0F172A] tracking-tight mb-1">
+              <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight mb-1.5">
                 {tiers[2].name}
               </h3>
 
               {/* Price & Drone Icon */}
-              <div className="flex items-center justify-between gap-2 mb-1.5">
+              <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="font-sans text-3xl sm:text-[34px] font-extrabold text-[#7C3AED] leading-none">
+                  <span className="font-sans text-3xl sm:text-[38px] lg:text-[42px] font-extrabold text-[#7C3AED] leading-none">
                     ₹700
                   </span>
-                  <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-slate-500 font-semibold">
+                  <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold">
                     PER STUDENT / MO
                   </span>
                 </div>
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#F3E8FF] border border-[#E9D5FF] flex items-center justify-center shrink-0 text-[#9333EA] shadow-2xs">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#F3E8FF] border border-[#E9D5FF] flex items-center justify-center shrink-0 text-[#9333EA] shadow-2xs">
                   <DroneIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
               </div>
 
               {/* Summary */}
-              <p className="text-[11px] sm:text-[11.5px] font-medium text-slate-700 pb-1.5 border-b border-slate-100 mb-2 leading-snug line-clamp-2">
+              <p className="text-xs sm:text-[13px] font-medium text-slate-700 pb-2 border-b border-slate-100 mb-2.5 leading-snug">
                 {tiers[2].summary}
               </p>
 
               {/* Feature Checkmarks */}
-              <ul className="space-y-1 sm:space-y-1.5 mb-3">
+              <ul className="space-y-1.5 sm:space-y-2 mb-3">
                 {tiers[2].features.map((feat, fIdx) => (
                   <li
                     key={fIdx}
-                    className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-slate-600 font-medium leading-snug"
+                    className="flex items-start gap-2 text-xs sm:text-[12.5px] text-slate-600 font-medium leading-snug"
                   >
-                    <Check className="w-3.5 h-3.5 text-[#7C3AED] shrink-0 mt-0.5 stroke-[2.5]" />
-                    <span className="truncate">{feat}</span>
+                    <Check className="w-4 h-4 text-[#7C3AED] shrink-0 mt-0.5 stroke-[2.5]" />
+                    <span>{feat}</span>
                   </li>
                 ))}
               </ul>
@@ -374,7 +374,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <button
               type="button"
               onClick={onOpenContact}
-              className="w-full py-2 px-3 rounded-lg border-2 border-[#C084FC] bg-white text-[#7C3AED] hover:bg-[#FAF5FF] font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+              className="w-full py-2.5 px-3 rounded-xl border-2 border-[#C084FC] bg-white text-[#7C3AED] hover:bg-[#FAF5FF] font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs mt-2"
             >
               <span>INQUIRE ABOUT PREMIUM</span>
               <span>→</span>
@@ -382,8 +382,29 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
           </div>
         </div>
 
+        {/* Comprehensive Inclusions Strip */}
+        <div className="w-full flex-none mt-2 sm:mt-2.5 p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3 text-left">
+            <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-[#7C3AED] shrink-0 font-bold text-sm shadow-2xs">
+              ✓
+            </div>
+            <div>
+              <span className="font-sans font-bold text-xs sm:text-sm text-[#0F172A] block leading-tight">
+                All-Inclusive Turnkey Delivery Across Every Tier
+              </span>
+              <span className="font-sans text-[11px] sm:text-xs text-[#64748B] leading-tight">
+                Dedicated MedhaArc Mentors conduct all sessions &bull; Hardware kits &amp; replacements included &bull; 4–5 Teacher AI workshops &bull; Zero faculty prep.
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 font-mono text-[10.5px] text-[#7C3AED] font-semibold bg-purple-50 px-3 py-1.5 rounded-full border border-purple-200 shrink-0">
+            <span>Annual Institutional Model</span>
+          </div>
+        </div>
+
         {/* Bottom Footnote Pill Matching Image 1 */}
-        <div className="flex-none mt-2 sm:mt-2.5 max-w-4xl mx-auto w-full">
+        <div className="flex-none mt-1.5 sm:mt-2 max-w-4xl mx-auto w-full">
           <div className="bg-white/95 border border-slate-200/90 rounded-full px-4 py-1.5 shadow-2xs flex items-center justify-center gap-2 text-center">
             <Info className="w-3.5 h-3.5 text-slate-500 shrink-0" />
             <p className="font-sans text-[10px] sm:text-[11px] text-slate-600 leading-tight font-normal">

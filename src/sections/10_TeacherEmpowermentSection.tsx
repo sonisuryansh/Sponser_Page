@@ -140,26 +140,26 @@ export const TeacherEmpowermentSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
-      {/* Main Viewport Container (Centered in 100svh window, Standardized 1240px) */}
+      {/* Main Viewport Container (Centered in 100svh window, Standardized 1480px) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-stretch pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-stretch pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-8 lg:px-12 xl:px-16 box-border select-none z-10 max-w-[1480px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title, and Subtitle Verbatim from Image 1 */}
-        <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-1.5 sm:mb-2">
+        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-3">
           {/* Eyebrow with gold accent lines */}
-          <div className="editorial-reveal flex items-center justify-center gap-2 mb-1">
-            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+          <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
             <span className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.24em] text-[#b45309] font-bold">
               {siteConfig.teacherEmpowerment.eyebrow}
             </span>
-            <span className="h-[1px] w-6 sm:w-10 bg-[#b45309]/50" />
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
           </div>
 
           {/* Headline */}
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center"
+            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[36px] xl:text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center"
           >
             {siteConfig.teacherEmpowerment.headline}
           </h2>
@@ -172,8 +172,8 @@ export const TeacherEmpowermentSection: React.FC = () => {
         </div>
 
         {/* 3 Core Pillars: Preserving 3D Flip Cards & Sphere Orbs from 2nd Image with Image 1 Content */}
-        <div className="editorial-reveal w-full self-stretch flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
-          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3.5 lg:gap-5">
+        <div className="editorial-reveal w-full self-stretch flex-none my-1 sm:my-2 flex flex-col justify-center min-h-0">
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
             {COLUMNS_CONTENT.map((col, idx) => {
               const colorClasses = ['pillar-blue', 'pillar-orange', 'pillar-yellow'];
               const tagColors = ['text-[#bae6fd]', 'text-[#ffedd5]', 'text-[#fef9c3]'];
@@ -282,32 +282,32 @@ export const TeacherEmpowermentSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Human-in-the-Loop AI Workflow & Ethical Guardrails Banner */}
-        <div className="editorial-reveal flex-none bg-white border border-slate-200/90 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] mb-1 sm:mb-1.5 w-full self-stretch">
+        {/* Human-in-the-Loop AI Workflow & Ethical Guardrails Banner (Enlarged) */}
+        <div className="editorial-reveal flex-none bg-white border border-slate-200/90 p-4 sm:p-5 rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.04)] mb-2 w-full self-stretch">
           {/* Workflow Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2 pb-1.5 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5 pb-2 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] text-[#0F172A] font-bold">
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#0F172A] font-bold">
                 Human-in-the-Loop AI Workflow
               </span>
             </div>
-            <span className="font-mono text-[10px] sm:text-[11px] text-[#b45309] font-bold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
+            <span className="font-mono text-[10.5px] sm:text-xs text-[#b45309] font-bold flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#EA580C] animate-pulse" />
               Teacher Oversight at Every Stage
             </span>
           </div>
 
-          {/* 4 Step Nodes Ribbon */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2 mb-1.5">
+          {/* 4 Step Nodes Ribbon (Spacious) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 mb-2.5">
             {siteConfig.teacherEmpowerment.flow.map((step, idx) => (
               <div
                 key={step}
-                className="flex items-center gap-2 p-1.5 sm:p-2 bg-[#FAF9F6] border border-slate-200/80 rounded-lg shadow-2xs hover:border-slate-300 transition-colors"
+                className="flex items-center gap-2.5 p-2 sm:p-2.5 bg-[#FAF9F6] border border-slate-200/90 rounded-xl shadow-2xs hover:border-slate-300 transition-colors"
               >
-                <span className="w-4.5 h-4.5 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-[10px] font-mono font-bold shrink-0 shadow-xs">
+                <span className="w-5 h-5 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-[11px] font-mono font-bold shrink-0 shadow-xs">
                   {idx + 1}
                 </span>
-                <span className="font-sans text-[10.5px] sm:text-[11px] font-semibold text-[#0F172A] leading-tight">
+                <span className="font-sans text-[11px] sm:text-[12px] font-semibold text-[#0F172A] leading-tight">
                   {step}
                 </span>
               </div>
@@ -315,15 +315,15 @@ export const TeacherEmpowermentSection: React.FC = () => {
           </div>
 
           {/* Ethical Guardrails Footer */}
-          <div className="pt-1.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[10.5px]">
-            <div className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#b45309] font-mono font-bold">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#EA580C]" />
+          <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#b45309] font-mono font-bold">
+              <ShieldCheck className="w-4 h-4 text-[#EA580C]" />
               <span>Ethical Guardrails:</span>
             </div>
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               {siteConfig.teacherEmpowerment.guardrails.map((gd) => (
-                <div key={gd} className="flex items-center gap-1 text-[10px] sm:text-[10.5px] text-[#334155] font-sans font-medium">
-                  <Check className="w-3 h-3 text-emerald-600 shrink-0 stroke-[2.5]" />
+                <div key={gd} className="flex items-center gap-1.5 text-xs sm:text-[12.5px] text-[#334155] font-sans font-medium">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
                   <span>{gd}</span>
                 </div>
               ))}

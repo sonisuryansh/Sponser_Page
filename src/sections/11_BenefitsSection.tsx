@@ -193,26 +193,26 @@ export const BenefitsSection: React.FC = () => {
       {/* Main Viewport Container (Centered in 100svh window on desktop, scrollable on mobile) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1360px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1500px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow with gold accent lines, Serif Title, & Subtitle */}
-        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-1.5 sm:mb-2">
-          <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5 sm:mb-1">
-            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-2.5">
+          <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
+            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               INSTITUTIONAL VALUE
             </span>
-            <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
           </div>
 
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] mb-0.5 text-center"
+            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[36px] xl:text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center"
           >
             Student and School Benefits
           </h2>
 
-          <p className="editorial-reveal font-sans text-[11px] sm:text-xs text-[#475569] leading-snug max-w-3xl text-center font-normal line-clamp-2">
+          <p className="editorial-reveal font-sans text-xs sm:text-sm text-[#475569] leading-relaxed max-w-3xl text-center font-normal">
             Technology education provides meaningful value for students and schools through hands-on learning, real projects and visible outcomes.
           </p>
         </div>

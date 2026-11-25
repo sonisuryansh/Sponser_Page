@@ -156,6 +156,7 @@ export const CurriculumSection: React.FC = () => {
   const contentAreaRef = useRef<HTMLDivElement>(null);
   const imageAreaRef = useRef<HTMLDivElement>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
 
   const allStages = [
     ...siteConfig.curriculum.stages,
@@ -165,11 +166,12 @@ export const CurriculumSection: React.FC = () => {
   useEffect(() => {
     activeStageIndexRef.current = activeStageIndex;
     const activeBtn = tabButtonRefs.current[activeStageIndex];
-    if (activeBtn) {
-      activeBtn.scrollIntoView({
+    const container = tabsContainerRef.current;
+    if (activeBtn && container) {
+      const scrollTarget = activeBtn.offsetLeft - container.clientWidth / 2 + activeBtn.clientWidth / 2;
+      container.scrollTo({
+        left: Math.max(0, scrollTarget),
         behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
       });
     }
   }, [activeStageIndex]);
@@ -337,27 +339,28 @@ export const CurriculumSection: React.FC = () => {
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1480px] mx-auto overflow-hidden"
       >
-        {/* Main Unified Inset Card - Matches Reference Image 1 (Compact) */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border max-h-[calc(100svh-var(--header-h,64px)-12px)]">
+        {/* Main Unified Inset Card - Matches Reference Image 1 (Spacious) */}
+        <div className="relative w-full my-auto bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]">
 
           {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
-          <div className="w-full sm:w-44 lg:w-48 xl:w-52 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-2.5 sm:py-4 px-2 sm:px-3 select-none shrink-0">
+          <div className="w-full sm:w-48 lg:w-52 xl:w-56 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-2.5 sm:py-4 px-2 sm:px-3 select-none shrink-0">
             <div>
               {/* Header Label with mobile swipe hint */}
               <div className="flex items-center justify-between px-2 pt-1 mb-1.5 sm:mb-3">
-                <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.22em] text-[#94A3B8] font-bold block">
+                <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] text-[#94A3B8] font-bold block">
                   Learning Journey
                 </span>
-                <span className="sm:hidden font-mono text-[8.5px] text-[#EA580C] font-semibold">
+                <span className="sm:hidden font-mono text-[9px] text-[#EA580C] font-semibold">
                   {activeStageIndex + 1}/{allStages.length}
                 </span>
               </div>
 
               {/* Grade Buttons List with Colorful Icons & Touch Scroll */}
               <div
-                className="flex sm:flex-col gap-1 sm:gap-1.5 overflow-x-auto sm:overflow-y-auto sm:max-h-[calc(100svh-var(--header-h,64px)-90px)] pb-1 sm:pb-0 touch-pan-x overscroll-x-contain scroll-smooth no-scrollbar w-full"
+                ref={tabsContainerRef}
+                className="flex sm:flex-col gap-1 sm:gap-1.5 overflow-x-auto sm:overflow-y-auto sm:max-h-[calc(100svh-var(--header-h,64px)-90px)] pb-1.5 sm:pb-0 touch-pan-x overscroll-x-contain scroll-smooth no-scrollbar w-full"
                 style={{ WebkitOverflowScrolling: 'touch' }}
               >
                 {allStages.map((stage, idx) => {

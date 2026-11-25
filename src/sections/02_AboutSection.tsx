@@ -124,83 +124,83 @@ export const AboutSection: React.FC = () => {
       {/* Main Viewport Container - Centered and Proportional */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1300px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1520px] mx-auto overflow-hidden"
       >
         {/* Main Inset Grand White Card Container - Matches Page 3 Shape & Elegance */}
-        <div className="relative w-full my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-4 sm:p-5 lg:p-6 flex flex-col justify-between box-border gap-3 sm:gap-4 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
+        <div className="relative w-full my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col justify-between box-border gap-3.5 sm:gap-4.5 xl:gap-5 flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]">
 
           {/* Top Section Header: Symmetrical Eyebrow + Clean Headline */}
-          <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center">
-            <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5">
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-              <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] text-[#b45309] font-bold">
+          <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center">
+            <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
+              <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
                 AIM &amp; STRATEGIC VISION
               </span>
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
+              <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
             </div>
 
-            <h2 className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[26px] font-bold text-[#0F172A] tracking-tight leading-tight mb-0.5 text-center">
+            <h2 className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-bold text-[#0F172A] tracking-tight leading-tight mb-1 text-center">
               Making Technology Understandable &amp; Practical
             </h2>
 
-            <p className="editorial-reveal font-sans text-xs sm:text-[12.5px] text-slate-500 leading-snug max-w-2xl text-center font-normal">
+            <p className="editorial-reveal font-sans text-xs sm:text-sm text-slate-500 leading-snug max-w-2xl text-center font-normal">
               Transforming passive consumers of technology into active creators, thinkers, and real-world innovators.
             </p>
           </div>
 
           {/* Middle Row: Balanced 2-Column Split (Left: Aim/Vision + Photo; Right: 4-Stage Learning Cycle) */}
-          <div className="editorial-reveal grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
+          <div className="editorial-reveal grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch flex-1 min-h-0">
 
             {/* Left Column (Span 6 of 12): Aim, Vision & Full-Height Lab Photo */}
-            <div className="lg:col-span-6 flex flex-col justify-between gap-3">
+            <div className="lg:col-span-6 flex flex-col justify-between gap-3 sm:gap-3.5 min-h-0">
 
               {/* Dual Cards: Our Aim & Our Vision Side-by-Side */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
                 {/* Card 1: Our Aim */}
-                <div className="p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-sky-50/70 via-white to-white border border-sky-100/90 shadow-2xs flex flex-col justify-between">
+                <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-sky-50/70 via-white to-white border border-sky-100/90 shadow-2xs flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-md bg-sky-100 text-[#0284C7] flex items-center justify-center shrink-0">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284C7] flex items-center justify-center shrink-0 shadow-2xs">
                           <Compass className="w-3.5 h-3.5" />
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
+                        <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
                           OUR AIM
                         </span>
                       </div>
-                      <span className="font-mono text-[8px] uppercase px-1.5 py-0.5 rounded-full bg-sky-100/70 text-[#0369A1] font-semibold">
+                      <span className="font-mono text-[8.5px] uppercase px-2 py-0.5 rounded-full bg-sky-100/70 text-[#0369A1] font-semibold">
                         Core
                       </span>
                     </div>
-                    <h3 className="font-serif text-[13.5px] font-bold text-[#0F172A] tracking-tight mb-1">
+                    <h3 className="font-serif text-[14.5px] sm:text-base font-bold text-[#0F172A] tracking-tight mb-1">
                       Understandable Technology
                     </h3>
-                    <p className="font-sans text-[11px] text-slate-600 leading-relaxed font-normal">
+                    <p className="font-sans text-xs sm:text-[12.5px] text-slate-600 leading-relaxed font-normal">
                       Making technology understandable through practical hardware &amp; age-appropriate learning.
                     </p>
                   </div>
                 </div>
 
                 {/* Card 2: Our Vision */}
-                <div className="p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-50/70 via-white to-white border border-purple-100/90 shadow-2xs flex flex-col justify-between">
+                <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-50/70 via-white to-white border border-purple-100/90 shadow-2xs flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-md bg-purple-100 text-[#9333EA] flex items-center justify-center shrink-0">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-purple-100 text-[#9333EA] flex items-center justify-center shrink-0 shadow-2xs">
                           <Sparkles className="w-3.5 h-3.5" />
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#9333EA] font-bold">
+                        <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-[#9333EA] font-bold">
                           OUR VISION
                         </span>
                       </div>
-                      <span className="font-mono text-[8px] uppercase px-1.5 py-0.5 rounded-full bg-purple-100/70 text-[#7E22CE] font-semibold">
+                      <span className="font-mono text-[8.5px] uppercase px-2 py-0.5 rounded-full bg-purple-100/70 text-[#7E22CE] font-semibold">
                         Impact
                       </span>
                     </div>
-                    <h3 className="font-serif text-[13.5px] font-bold text-[#0F172A] tracking-tight mb-1">
+                    <h3 className="font-serif text-[14.5px] sm:text-base font-bold text-[#0F172A] tracking-tight mb-1">
                       Confident Builders &amp; Solvers
                     </h3>
-                    <p className="font-sans text-[11px] text-slate-600 leading-relaxed font-normal">
+                    <p className="font-sans text-xs sm:text-[12.5px] text-slate-600 leading-relaxed font-normal">
                       Helping students become confident problem-solvers, creators, and responsible users.
                     </p>
                   </div>
@@ -208,7 +208,7 @@ export const AboutSection: React.FC = () => {
               </div>
 
               {/* Lab Photo Showcase (Natural Aspect Ratio with Faces Fully Visible) */}
-              <div className="relative w-full h-[215px] sm:h-[225px] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs group bg-slate-900">
+              <div className="relative w-full flex-1 min-h-[190px] sm:min-h-[220px] lg:min-h-[240px] max-h-[270px] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs group bg-slate-900">
                 <img
                   src="/assets/aim_vision_lab_session.webp"
                   alt="School Laboratory Session"
@@ -240,15 +240,15 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Right Column (Span 6 of 12): The 4-Stage Learning Cycle Taking Full Space */}
-            <div className="lg:col-span-6 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-amber-200/80 bg-[#FFFDF9] p-3.5 sm:p-4 shadow-2xs">
+            <div className="lg:col-span-6 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-amber-200/80 bg-[#FFFDF9] p-4 sm:p-5 shadow-2xs min-h-0">
 
               {/* Stepper Header */}
-              <div className="flex items-center justify-between pb-2 border-b border-amber-100 mb-2">
+              <div className="flex items-center justify-between pb-2 sm:pb-2.5 border-b border-amber-100 mb-2">
                 <div>
                   <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-[#b45309] font-bold block">
                     OUR PEDAGOGICAL APPROACH
                   </span>
-                  <h3 className="font-serif font-bold text-sm sm:text-[15px] text-[#0F172A] tracking-tight">
+                  <h3 className="font-serif font-bold text-sm sm:text-base text-[#0F172A] tracking-tight">
                     The 4-Stage Engineering Learning Cycle
                   </h3>
                 </div>
@@ -258,7 +258,7 @@ export const AboutSection: React.FC = () => {
               </div>
 
               {/* 4 Grand Stepper Cards Taking Full Height with Generous Typography */}
-              <div className="flex flex-col gap-2 flex-1 justify-between">
+              <div className="flex flex-col gap-2 sm:gap-2.5 flex-1 justify-between min-h-0">
                 {STEPS.map((step, idx) => {
                   const isActive = activeStepIndex === idx;
 
@@ -267,7 +267,7 @@ export const AboutSection: React.FC = () => {
                       key={step.name}
                       type="button"
                       onClick={() => setActiveStepIndex(idx)}
-                      className={`group relative p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer flex items-center gap-3 ${isActive
+                      className={`group relative p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-300 cursor-pointer flex items-center gap-3 ${isActive
                         ? `${step.borderActive} ${step.bgActive} shadow-xs -translate-x-0.5`
                         : 'border-slate-200/80 bg-white hover:bg-slate-50/80 hover:border-slate-300'
                         }`}
@@ -285,17 +285,17 @@ export const AboutSection: React.FC = () => {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-0.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#0F172A] leading-tight">
+                          <h4 className="font-serif font-bold text-xs sm:text-[14px] text-[#0F172A] leading-tight">
                             {step.name}
                           </h4>
                           <span
-                            className={`font-mono text-[9px] sm:text-[9.5px] font-semibold px-1.5 py-0.2 rounded transition-colors ${isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
+                            className={`font-mono text-[9px] sm:text-[10px] font-semibold px-1.5 py-0.5 rounded transition-colors ${isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
                               }`}
                           >
                             {step.subtitle}
                           </span>
                         </div>
-                        <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-600 leading-snug">
+                        <p className="font-sans text-[11px] sm:text-[12px] text-slate-600 leading-snug">
                           {step.desc}
                         </p>
                       </div>

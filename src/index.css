@@ -113,6 +113,7 @@
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .shutter-strip {
@@ -121,6 +122,7 @@
   right: 0;
   height: 33.4%;
   will-change: transform;
+  transform: translate3d(120%, 0, 0);
 }
 
 .shutter-strip-light {

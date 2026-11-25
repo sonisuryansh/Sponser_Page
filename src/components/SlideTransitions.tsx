@@ -43,6 +43,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
   useLayoutEffect(() => {
     if (shuttersRef.current) {
+      gsap.set(shuttersRef.current, { visibility: 'hidden' });
       gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
         xPercent: 110,
         yPercent: -12,
@@ -112,6 +113,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         );
         gsap.set(backdropRef.current, { opacity: 0 });
         if (shuttersRef.current) {
+          gsap.set(shuttersRef.current, { visibility: 'hidden' });
           gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
             xPercent: 110,
             yPercent: -12,
@@ -145,6 +147,9 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const exitY = isForward ? 12 : -12;
       const exitSkew = isForward ? 4 : -4;
 
+      if (shuttersRef.current) {
+        gsap.set(shuttersRef.current, { visibility: 'visible' });
+      }
       if (strips?.length) {
         gsap.set(strips, {
           xPercent: enterX,
