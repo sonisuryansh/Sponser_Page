@@ -407,51 +407,137 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     if (!el) return;
 
     const handleStep = (e: Event) => {
+      const cur = activeCardIndexRef.current;
+      // When modal is NOT open, do not intercept scroll! Let SlideTransitions smoothly advance slides.
+      if (cur === -1) {
+        return;
+      }
+
       const now = Date.now();
-      if (now - lastStepTimeRef.current < 480) {
+      if (now - lastStepTimeRef.current < 450) {
         e.preventDefault();
         return;
       }
 
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
-      const cur = activeCardIndexRef.current;
 
       if (dir > 0) {
-        // Forward scroll (down): step through cards: Deck (-1) -> 0 -> 1 -> 2 -> 3
+        // Modal is open, scrolling down:
         if (cur < DOMAINS.length - 1) {
           e.preventDefault();
           lastStepTimeRef.current = now;
           stepDirectionRef.current = 1;
-          const next = cur === -1 ? 0 : cur + 1;
+          const next = cur + 1;
           setActiveCardIndex(next);
           activeCardIndexRef.current = next;
           onSlideChange?.(next + 3);
+        } else {
+          // Last domain reached (Domain 04: Aerial Systems):
+          // DISMISS MODAL and let SlideTransitions advance to Slide 05 (Learning Approach)!
+          lastStepTimeRef.current = now;
+          setActiveCardIndex(-1);
+          activeCardIndexRef.current = -1;
+          // Do NOT call e.preventDefault(), so SlideTransitions proceeds to next slide!
         }
-        // At Card 3, e.preventDefault() is NOT called, so SlideTransitions advances to Slide 05!
       } else {
-        // Reverse scroll (up): step back through cards: 3 -> 2 -> 1 -> 0 -> Deck (-1)
-        if (cur > -1) {
+        // Modal is open, scrolling up:
+        if (cur > 0) {
           e.preventDefault();
           lastStepTimeRef.current = now;
           stepDirectionRef.current = -1;
           const prev = cur - 1;
           setActiveCardIndex(prev);
           activeCardIndexRef.current = prev;
+        } else {
+          // First domain (Domain 01: Robotics) reversed:
+          // DISMISS MODAL and return to the 4-card deck!
+          e.preventDefault();
+          lastStepTimeRef.current = now;
+          setActiveCardIndex(-1);
+          activeCardIndexRef.current = -1;
         }
-        // At Deck view (-1), e.preventDefault() is NOT called, so SlideTransitions goes back to Slide 03!
       }
     };
 
+    const handleSlideEnter = () => {
+      setActiveCardIndex(-1);
+      activeCardIndexRef.current = -1;
+    };
+
     el.addEventListener('slide:step', handleStep);
-    return () => el.removeEventListener('slide:step', handleStep);
+    el.addEventListener('slide:enter', handleSlideEnter);
+    return () => {
+      el.removeEventListener('slide:step', handleStep);
+      el.removeEventListener('slide:enter', handleSlideEnter);
+    };
   }, [onSlideChange]);
 
-  // Mouse wheel directly inside open modal dialog
+  // Touch swipe support for modal on mobile
+  const touchStartYRef = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartYRef.current = e.touches[0]?.clientY ?? null;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartYRef.current === null) return;
+    const endY = e.changedTouches[0]?.clientY;
+    if (endY === undefined) return;
+    const deltaY = endY - touchStartYRef.current;
+    touchStartYRef.current = null;
+
+    if (Math.abs(deltaY) < 36) return;
+
+    const now = Date.now();
+    if (now - lastStepTimeRef.current < 450) return;
+
+    if (deltaY < 0) {
+      // Swiped UP (scroll down)
+      if (activeCardIndexRef.current < DOMAINS.length - 1) {
+        lastStepTimeRef.current = now;
+        stepDirectionRef.current = 1;
+        const next = activeCardIndexRef.current + 1;
+        setActiveCardIndex(next);
+        activeCardIndexRef.current = next;
+        onSlideChange?.(next + 3);
+      } else {
+        // Last card: dismiss modal and navigate to next slide
+        lastStepTimeRef.current = now;
+        setActiveCardIndex(-1);
+        activeCardIndexRef.current = -1;
+        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
+      }
+    } else {
+      // Swiped DOWN (scroll up)
+      if (activeCardIndexRef.current > 0) {
+        lastStepTimeRef.current = now;
+        stepDirectionRef.current = -1;
+        const prev = activeCardIndexRef.current - 1;
+        setActiveCardIndex(prev);
+        activeCardIndexRef.current = prev;
+      } else {
+        // First card: dismiss modal and return to deck
+        lastStepTimeRef.current = now;
+        setActiveCardIndex(-1);
+        activeCardIndexRef.current = -1;
+      }
+    }
+  };
+
+  // Mouse wheel directly inside open modal dialog or on modal backdrop
   const handleModalWheel = (e: React.WheelEvent) => {
     if (Math.abs(e.deltaY) < 16) return;
+
+    const box = modalBoxRef.current;
+    if (box && box.scrollHeight > box.clientHeight + 12) {
+      const atTop = box.scrollTop <= 5;
+      const atBottom = Math.ceil(box.scrollTop + box.clientHeight) >= box.scrollHeight - 6;
+      if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) {
+        return; // Allow natural scrolling inside modal
+      }
+    }
+
     const now = Date.now();
-    if (now - lastStepTimeRef.current < 480) return;
+    if (now - lastStepTimeRef.current < 450) return;
 
     if (e.deltaY > 0) {
       if (activeCardIndex < DOMAINS.length - 1) {
@@ -461,6 +547,12 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         setActiveCardIndex(next);
         activeCardIndexRef.current = next;
         onSlideChange?.(next + 3);
+      } else {
+        // Last card (Domain 04: Aerial Systems): DISMISS MODAL and advance to next slide!
+        lastStepTimeRef.current = now;
+        setActiveCardIndex(-1);
+        activeCardIndexRef.current = -1;
+        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
       }
     } else {
       if (activeCardIndex > 0) {
@@ -469,7 +561,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         const prev = activeCardIndex - 1;
         setActiveCardIndex(prev);
         activeCardIndexRef.current = prev;
-      } else if (activeCardIndex === 0) {
+      } else {
+        // First card (Domain 01: Robotics): DISMISS MODAL and return to deck!
         lastStepTimeRef.current = now;
         setActiveCardIndex(-1);
         activeCardIndexRef.current = -1;
@@ -477,16 +570,37 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     }
   };
 
-  // Close modal on Escape key
+  // Close modal on Escape key or when navigating to another slide
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && activeCardIndex !== -1) {
+      if (e.key === 'Escape' && activeCardIndexRef.current !== -1) {
         setActiveCardIndex(-1);
+        activeCardIndexRef.current = -1;
       }
     };
+
+    const handleGoTo = (e: Event) => {
+      const customEvent = e as CustomEvent<any>;
+      const targetIdx =
+        typeof customEvent.detail === 'number'
+          ? customEvent.detail
+          : typeof customEvent.detail?.index === 'number'
+          ? customEvent.detail.index
+          : null;
+      // If navigating to any slide other than index 3 (Domains Section), always close modal!
+      if (typeof targetIdx === 'number' && targetIdx !== 3) {
+        setActiveCardIndex(-1);
+        activeCardIndexRef.current = -1;
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeCardIndex]);
+    window.addEventListener('go-to-slide', handleGoTo);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('go-to-slide', handleGoTo);
+    };
+  }, []);
 
   const activeCard = activeCardIndex >= 0 ? DOMAINS[activeCardIndex] : null;
 
@@ -703,16 +817,22 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           </div>
         </div>
 
-        {/* ─── Deep-Dive Modal View (Opens on card click OR when scrolling through steps) ─── */}
+        {/* ─── Deep-Dive Modal View (Opens on card click) ─── */}
         {activeCard && typeof document !== 'undefined' && createPortal(
           <div
-            className="fixed inset-0 z-[9999] flex items-start sm:items-center justify-center pt-[calc(var(--header-h,64px)+8px)] sm:pt-6 pb-6 px-3 sm:px-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn overflow-y-auto"
-            onClick={() => setActiveCardIndex(-1)}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn overflow-y-auto"
+            onClick={() => {
+              setActiveCardIndex(-1);
+              activeCardIndexRef.current = -1;
+            }}
+            onWheel={handleModalWheel}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             <div
               ref={modalBoxRef}
               onWheel={handleModalWheel}
-              className={`relative w-full max-w-4xl max-h-[calc(100svh-var(--header-h,64px)-20px)] sm:max-h-[90vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-4 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out my-2 sm:my-auto`}
+              className={`relative w-full max-w-4xl max-h-[calc(100svh-var(--header-h,64px)-20px)] sm:max-h-[90vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-4 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out my-auto`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Animated Transition Container for Domain Swaps */}
@@ -791,7 +911,10 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                     </button>
                     <button
                       type="button"
-                      onClick={() => setActiveCardIndex(-1)}
+                      onClick={() => {
+                        setActiveCardIndex(-1);
+                        activeCardIndexRef.current = -1;
+                      }}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-xs font-semibold transition-all cursor-pointer ml-1"
                     >
                       <X className="w-4 h-4" />
