@@ -164,10 +164,10 @@ export const LabSetupSection: React.FC = () => {
       <div
         ref={containerRef}
         data-steppable="true"
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset Card Container - Light Grey Slate Whole Card with Light Grey Border */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
+        <div className="relative w-full my-auto bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
           
           {/* Eyebrow & Statement Headline */}
           <div className="mb-2 max-w-3xl mx-auto text-center">

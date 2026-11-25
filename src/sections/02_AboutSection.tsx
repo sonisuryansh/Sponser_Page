@@ -124,7 +124,7 @@ export const AboutSection: React.FC = () => {
       {/* Main Viewport Container - Centered and Proportional */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1520px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset Grand White Card Container - Matches Page 3 Shape & Elegance */}
         <div className="relative w-full my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col justify-between box-border gap-3.5 sm:gap-4.5 xl:gap-5 flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]">

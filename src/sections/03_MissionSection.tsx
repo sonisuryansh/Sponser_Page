@@ -120,7 +120,7 @@ export const MissionSection: React.FC = () => {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100/25 rounded-full blur-3xl pointer-events-none" />
 
       {/* Main Centered Container - Balanced Executive Proportions */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1520px] mx-auto overflow-hidden">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden">
         {/* Main Inset Grand White Card Container */}
         <div
           ref={contentRef}

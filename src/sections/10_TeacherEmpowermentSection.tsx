@@ -140,10 +140,10 @@ export const TeacherEmpowermentSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
     >
-      {/* Main Viewport Container (Centered in 100svh window, Standardized 1480px) */}
+      {/* Main Viewport Container (Centered in 100svh window, Standardized 1440px) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-stretch pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-8 lg:px-12 xl:px-16 box-border select-none z-10 max-w-[1480px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-stretch pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title, and Subtitle Verbatim from Image 1 */}
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-3">

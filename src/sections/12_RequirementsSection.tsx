@@ -139,7 +139,7 @@ export const RequirementsSection: React.FC = () => {
       {/* Centered Main Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-8 lg:px-12 xl:px-16 box-border select-none z-10 max-w-[1520px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Eyebrow & Grand Headline */}
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-3 sm:mb-4">

@@ -131,7 +131,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
       {/* Main Viewport Container (Guaranteed 100svh Full Height Composition) */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full min-h-[100svh] flex-1 flex flex-col justify-between pt-20 sm:pt-24 pb-4 sm:pb-6 px-5 sm:px-8 lg:px-12 box-border select-none max-w-[1280px] mx-auto"
+        className="relative z-10 w-full min-h-[100svh] flex-1 flex flex-col justify-between pt-20 sm:pt-24 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none max-w-[1440px] mx-auto"
       >
         {/* Subtle Top Anchor clearance for fixed navigation header */}
         <div className="flex-none h-2 sm:h-4" />

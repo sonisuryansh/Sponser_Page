@@ -114,10 +114,10 @@ export const ProjectShowcaseSection: React.FC = () => {
       {/* 100svh Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset White Panel */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
+        <div className="relative w-full my-auto bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 max-h-[calc(100svh-var(--header-h,64px)-12px)]">
 
           {/* Top Header: Eyebrow with gold accent & Headline */}
           <div className="flex-none text-center mb-1.5 sm:mb-2">

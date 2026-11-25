@@ -339,7 +339,7 @@ export const CurriculumSection: React.FC = () => {
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1480px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Unified Inset Card - Matches Reference Image 1 (Spacious) */}
         <div className="relative w-full my-auto bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]">

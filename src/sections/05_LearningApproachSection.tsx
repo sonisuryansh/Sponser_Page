@@ -158,10 +158,10 @@ export const LearningApproachSection: React.FC = () => {
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
     >
       {/* Main Viewport Container - Standardized 1240px & Centered */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-hidden">
+      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden">
         
         {/* Main Inset White Panel - Big White Card framing Content & Instructor Photo */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col lg:flex-row items-stretch overflow-hidden box-border max-h-[calc(100svh-var(--header-h,64px)-12px)]">
+        <div className="relative w-full my-auto bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col lg:flex-row items-stretch overflow-hidden box-border flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]">
           
           {/* Left Content Area (Styled Exactly as Image 1) */}
           <div

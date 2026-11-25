@@ -193,7 +193,7 @@ export const BenefitsSection: React.FC = () => {
       {/* Main Viewport Container (Centered in 100svh window on desktop, scrollable on mobile) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-3 sm:px-6 lg:px-10 xl:px-14 box-border select-none z-10 max-w-[1500px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow with gold accent lines, Serif Title, & Subtitle */}
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-2.5">

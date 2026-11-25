@@ -621,7 +621,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         ref={containerRef}
         data-steppable="true"
         id="technology-suite"
-        className="relative w-full my-0 sm:my-auto flex flex-col justify-start sm:justify-center items-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-8 lg:py-6 px-3 sm:px-6 lg:px-8 xl:px-12 box-border select-none z-10 max-w-[1360px] mx-auto min-h-[100svh] lg:min-h-0"
+        className="relative w-full my-0 sm:my-auto flex flex-col justify-start sm:justify-center items-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-8 lg:py-6 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto min-h-[100svh] lg:min-h-0"
       >
         {/* Top Header: "Our Core Technology Ecosystem" (Exact Image 1) */}
         <div className="w-full text-center shrink-0 pt-0.5 pb-0.5 relative z-10">
