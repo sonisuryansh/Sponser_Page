@@ -629,18 +629,19 @@ export const siteConfig = {
       {
         title: 'School provides',
         items: [
-          'Dedicated lab space',
-          'Computers / workstations',
+          'Lab space (minimum 600 sq ft, bright)',
+          'Computers',
           'Tables and power points',
-          'Student scheduling',
+          'Student scheduling (about 40 students per class, 40 minutes to 1 hour)',
         ],
       },
       {
         title: 'MedhaArc Labs delivers',
         items: [
-          'Curriculum and session plans',
+          'Curriculum and session plans, reviewed every year',
           'Kits and learning materials',
-          'MedhaArc Labs Instructors',
+          'MedhaArc Labs Instructors/Mentors for every student session',
+          'AI upskilling workshops for teachers (4–5) and learning resources as they are released',
         ],
       },
     ],
