@@ -173,22 +173,22 @@ export const siteConfig = {
       {
         name: 'Hands-on Learning',
         description: 'Learn by doing.',
-        icon: 'Hammer',
+        icon: 'Puzzle',
       },
       {
         name: 'Problem-Solving',
-        description: 'Understand a challenge and test possible solutions.',
-        icon: 'Compass',
+        description: 'Understand a challenge and create practical solutions.',
+        icon: 'Target',
       },
       {
         name: 'Creativity & Innovation',
         description: 'Turn ideas into designs and prototypes.',
-        icon: 'Sparkles',
+        icon: 'Lightbulb',
       },
       {
         name: 'Responsible Technology',
-        description: 'Consider safety, ethics, and appropriate use.',
-        icon: 'ShieldCheck',
+        description: 'Consider safety, ethics, and real-world impact.',
+        icon: 'Leaf',
       },
       {
         name: 'Continuous Learning',
