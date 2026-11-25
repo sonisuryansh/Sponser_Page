@@ -271,7 +271,7 @@ export const siteConfig = {
   // Act 2: 05 Learning Approach
   approach: {
     eyebrow: 'Pedagogy',
-    headline: 'Technology is more meaningful when students understand how it works.',
+    headline: 'Understanding How Technology Works.',
     blocks: [
       {
         title: 'Build real projects',
