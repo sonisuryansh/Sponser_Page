@@ -1,17 +1,108 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Code2,
+  Cpu,
+  Binary,
+  Plane,
+  BarChart3,
+  Network,
+  Cloud,
+  Target,
+  ArrowLeft,
+  ArrowRight,
+  Wrench,
+  Sliders,
+  Wind,
+} from 'lucide-react';
 import gsap from 'gsap';
 
-const stageImages = [
-  '/assets/stage_grade_01.webp',
-  '/assets/stage_grade_02.webp',
-  '/assets/stage_grade_03.webp',
-  '/assets/stage_grade_04.webp',
-  '/assets/stage_grade_05.webp',
-  '/assets/stage_grade_06.webp',
-  '/assets/stage_grade_06.webp',
+interface GradeMeta {
+  icon: React.ReactNode;
+  iconColor: string;
+  image: string;
+  chipIcons: [React.ReactNode, React.ReactNode, React.ReactNode];
+}
+
+const GRADE_META: GradeMeta[] = [
+  {
+    // Grades 3–4
+    icon: <Code2 className="w-4 h-4" />,
+    iconColor: '#0284C7',
+    image: '/assets/stage_grade_01.webp',
+    chipIcons: [
+      <Code2 key="1" className="w-4 h-4 text-[#0284C7]" />,
+      <Sliders key="2" className="w-4 h-4 text-[#9333EA]" />,
+      <Wind key="3" className="w-4 h-4 text-[#16A34A]" />,
+    ],
+  },
+  {
+    // Grades 5–6
+    icon: <Cpu className="w-4 h-4" />,
+    iconColor: '#0284C7',
+    image: '/assets/stage_grade_02.webp',
+    chipIcons: [
+      <Wrench key="1" className="w-4 h-4 text-[#0284C7]" />,
+      <Cpu key="2" className="w-4 h-4 text-[#9333EA]" />,
+      <Wind key="3" className="w-4 h-4 text-[#16A34A]" />,
+    ],
+  },
+  {
+    // Grades 7–8
+    icon: <Binary className="w-4 h-4" />,
+    iconColor: '#D97706',
+    image: '/assets/stage_grade_03.webp',
+    chipIcons: [
+      <Code2 key="1" className="w-4 h-4 text-[#0284C7]" />,
+      <Sliders key="2" className="w-4 h-4 text-[#9333EA]" />,
+      <Cpu key="3" className="w-4 h-4 text-[#16A34A]" />,
+    ],
+  },
+  {
+    // Grade 9
+    icon: <Plane className="w-4 h-4" />,
+    iconColor: '#EA580C',
+    image: '/assets/stage_grade_04.webp',
+    chipIcons: [
+      <Plane key="1" className="w-4 h-4 text-[#0284C7]" />,
+      <Sliders key="2" className="w-4 h-4 text-[#9333EA]" />,
+      <Wind key="3" className="w-4 h-4 text-[#16A34A]" />,
+    ],
+  },
+  {
+    // Grade 10
+    icon: <BarChart3 className="w-4 h-4" />,
+    iconColor: '#0D9488',
+    image: '/assets/stage_grade_05.webp',
+    chipIcons: [
+      <BarChart3 key="1" className="w-4 h-4 text-[#0284C7]" />,
+      <Sliders key="2" className="w-4 h-4 text-[#9333EA]" />,
+      <Target key="3" className="w-4 h-4 text-[#16A34A]" />,
+    ],
+  },
+  {
+    // Grade 11
+    icon: <Network className="w-4 h-4" />,
+    iconColor: '#9333EA',
+    image: '/assets/stage_grade_06.webp',
+    chipIcons: [
+      <Network key="1" className="w-4 h-4 text-[#0284C7]" />,
+      <Sliders key="2" className="w-4 h-4 text-[#9333EA]" />,
+      <Target key="3" className="w-4 h-4 text-[#16A34A]" />,
+    ],
+  },
+  {
+    // Grade 12
+    icon: <Cloud className="w-4 h-4" />,
+    iconColor: '#2563EB',
+    image: '/assets/stage_grade_06.webp',
+    chipIcons: [
+      <Cloud key="1" className="w-4 h-4 text-[#0284C7]" />,
+      <Cpu key="2" className="w-4 h-4 text-[#9333EA]" />,
+      <Target key="3" className="w-4 h-4 text-[#16A34A]" />,
+    ],
+  },
 ];
 
 export const CurriculumSection: React.FC = () => {
@@ -39,7 +130,8 @@ export const CurriculumSection: React.FC = () => {
     const checkActive = () => {
       const slideWrapper = el.closest<HTMLElement>('.slide-item');
       if (slideWrapper) {
-        const visible = slideWrapper.style.visibility === 'visible' && slideWrapper.style.opacity !== '0';
+        const visible =
+          slideWrapper.style.visibility === 'visible' && slideWrapper.style.opacity !== '0';
         setIsSectionActive(visible);
         return visible;
       }
@@ -77,21 +169,15 @@ export const CurriculumSection: React.FC = () => {
       const cur = activeStageIndexRef.current;
 
       if (dir > 0) {
-        // Forward scroll (down): step forward through grades (0 -> 1 -> 2 -> 3 -> 4 -> 5)
         if (cur < allStages.length - 1) {
           e.preventDefault();
           setActiveStageIndex(cur + 1);
         }
-        // At the last grade (Grade 10), e.preventDefault() is NOT called,
-        // so SlideTransitions naturally proceeds to Slide 07!
       } else if (dir < 0) {
-        // Reverse scroll (up): step backward through grades (5 -> 4 -> 3 -> 2 -> 1 -> 0)
         if (cur > 0) {
           e.preventDefault();
           setActiveStageIndex(cur - 1);
         }
-        // At the first grade (Grade 4), e.preventDefault() is NOT called,
-        // so SlideTransitions naturally returns to Slide 05!
       }
     };
 
@@ -99,10 +185,8 @@ export const CurriculumSection: React.FC = () => {
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
       if (dir > 0) {
-        // Entering going forward (from slide 05) -> start at first grade (Grade 4)
         setActiveStageIndex(0);
       } else {
-        // Entering going backward (from slide 07) -> start at last grade (Grade 10)
         setActiveStageIndex(allStages.length - 1);
       }
     };
@@ -151,21 +235,21 @@ export const CurriculumSection: React.FC = () => {
     if (contentAreaRef.current) {
       gsap.fromTo(
         contentAreaRef.current.querySelectorAll('.stage-anim'),
-        { opacity: 0.2, y: 14 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' }
+        { opacity: 0.25, y: 12 },
+        { opacity: 1, y: 0, duration: 0.35, stagger: 0.04, ease: 'power2.out' }
       );
     }
     if (imageAreaRef.current) {
       gsap.fromTo(
         imageAreaRef.current,
-        { opacity: 0.4, scale: 1.02 },
-        { opacity: 1, scale: 1, duration: 0.45, ease: 'power2.out' }
+        { opacity: 0.35, scale: 1.02 },
+        { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }
       );
     }
   }, [activeStageIndex]);
 
   const currentStage = allStages[activeStageIndex];
-  const activeImage = stageImages[activeStageIndex] || stageImages[0];
+  const meta = GRADE_META[activeStageIndex] || GRADE_META[0];
 
   const handlePrev = () => {
     setActiveStageIndex((prev) => Math.max(0, prev - 1));
@@ -175,222 +259,249 @@ export const CurriculumSection: React.FC = () => {
     setActiveStageIndex((prev) => Math.min(allStages.length - 1, prev + 1));
   };
 
+  // Format grade label into "Grade" + colored number (e.g. "Grade" & "9" or "Grades" & "3–4")
+  const renderGradeHeadline = (label: string) => {
+    const parts = label.split(' ');
+    if (parts.length >= 2) {
+      return (
+        <>
+          <span>{parts[0]}</span>{' '}
+          <span className="text-[#EA580C] font-extrabold">{parts.slice(1).join(' ')}</span>
+        </>
+      );
+    }
+    return <span>{label}</span>;
+  };
+
   return (
     <ChapterShell
       id="curriculum"
       chapterNumber="06"
       theme="light"
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"
+      className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
     >
       {/* Main Viewport Container */}
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
       >
-
-        {/* Main Split Container - Standardized 1240px & Scaled to Match Other Section Cards */}
-        <div className="relative w-full my-auto h-[460px] sm:h-[490px] lg:h-[515px] xl:h-[525px] max-h-[calc(100svh-115px)] max-w-[1240px] bg-white border border-black/10 shadow-[0_18px_50px_rgba(0,0,0,0.05)] flex items-stretch overflow-hidden rounded-[4px]">
-
-          {/* Left Vertical Numbering Rail */}
-          <div className="w-24 sm:w-28 lg:w-[124px] border-r border-black/10 bg-[#FAF9F6] flex flex-col justify-between py-5 lg:py-6 select-none shrink-0">
-            {/* Top Indicator */}
-            <div className="px-2.5 sm:px-3">
-              <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] font-semibold block mb-3.5 sm:mb-4 px-1">
-                GRADES
+        {/* Main Unified Inset Card - Matches Reference Image 1 */}
+        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[16px] flex flex-col sm:flex-row items-stretch overflow-hidden box-border">
+          
+          {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
+          <div className="w-full sm:w-44 lg:w-48 xl:w-52 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-3 sm:py-4 px-2 sm:px-3 select-none shrink-0">
+            <div>
+              {/* Header Label */}
+              <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.22em] text-[#94A3B8] font-bold block mb-2 sm:mb-3 px-2 pt-1">
+                Learning Journey
               </span>
 
-              {/* Grade Buttons List */}
-              <div className="flex flex-col gap-2 sm:gap-2.5 lg:gap-3">
+              {/* Grade Buttons List with Colorful Icons */}
+              <div className="flex sm:flex-col gap-1 sm:gap-1.5 overflow-x-auto sm:overflow-visible pb-1 sm:pb-0">
                 {allStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
-                  const displayGrade = stage.gradeLabel;
+                  const itemMeta = GRADE_META[idx] || GRADE_META[0];
 
                   return (
                     <button
                       key={stage.id}
                       onClick={() => setActiveStageIndex(idx)}
-                      className={`group relative flex items-center justify-between text-left cursor-pointer transition-colors focus:outline-none px-2 sm:px-2.5 py-1 rounded-[2px] ${
+                      className={`group relative flex items-center gap-2.5 px-3 py-2 text-left cursor-pointer transition-all rounded-xl text-[11.5px] sm:text-xs font-semibold shrink-0 sm:shrink ${
                         isActive
-                          ? 'text-[#c8a45d] bg-[#c8a45d]/10 font-bold'
-                          : 'text-[#666666] hover:text-[#111111] hover:bg-black/[0.03]'
+                          ? 'bg-[#FFF7ED] text-[#0F172A] border-r-0 sm:border-r-[3.5px] sm:border-[#EA580C] shadow-xs font-bold'
+                          : 'text-[#64748B] hover:bg-black/[0.03] hover:text-[#0F172A]'
                       }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
-                      <span className="font-mono text-[11px] sm:text-[11.5px] lg:text-[12.5px] tracking-wide whitespace-nowrap">
-                        {displayGrade}
+                      <span
+                        className="shrink-0 transition-transform group-hover:scale-110"
+                        style={{ color: isActive ? '#EA580C' : itemMeta.iconColor }}
+                      >
+                        {itemMeta.icon}
                       </span>
-                      {isActive && (
-                        <span
-                          className="w-[3px] h-full bg-[#c8a45d] rounded-l absolute right-0 top-0"
-                          aria-hidden="true"
-                        />
-                      )}
+                      <span className="whitespace-nowrap tracking-tight">{stage.gradeLabel}</span>
                     </button>
                   );
                 })}
               </div>
             </div>
-
-            {/* Bottom Rail Label */}
-            <div className="px-3.5 pt-3.5 border-t border-black/5">
-              <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-widest text-[#888888] font-bold block">
-                ROADMAP
-              </span>
-            </div>
           </div>
 
-          {/* Middle Content Area (Stage Details) */}
-          <div
-            ref={contentAreaRef}
-            className="flex-1 flex flex-col justify-between p-6 sm:p-7 lg:p-8 overflow-hidden bg-white"
-          >
-            {/* Top Section Eyebrow, Grade Badge & Stage Title */}
-            <div>
-              <div className="stage-anim flex items-center justify-between gap-3 mb-2">
-                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#c8a45d] font-bold">
-                  {siteConfig.curriculum.eyebrow}
-                </span>
-                <span className="px-2.5 py-0.5 rounded-[2px] bg-[#c8a45d]/10 border border-[#c8a45d]/40 text-[#8c6b24] font-mono text-[10.5px] sm:text-[11px] font-semibold tracking-wider">
-                  {currentStage.gradeLabel}
-                </span>
-              </div>
+          {/* ─── Main Content & Right Photo Layout (Matching Image 1) ─── */}
+          <div className="flex-1 flex flex-col lg:flex-row items-stretch p-4 sm:p-5 lg:p-6 xl:p-7 gap-4 sm:gap-5 lg:gap-6 overflow-hidden">
+            
+            {/* Left Content Column */}
+            <div
+              ref={contentAreaRef}
+              className="flex-1 flex flex-col justify-between overflow-hidden"
+            >
+              <div>
+                {/* 1. Large Grade Headline with Orange Accent */}
+                <div className="stage-anim">
+                  <h2 className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#0F172A] tracking-tight leading-none mb-1.5">
+                    {renderGradeHeadline(currentStage.gradeLabel)}
+                  </h2>
 
-              {/* Stage Title */}
-              <h2 className="stage-anim font-serif text-2xl sm:text-[28px] lg:text-[32px] xl:text-[34px] font-medium text-[#111111] leading-[1.15] tracking-tight mb-2.5">
-                {currentStage.title}
-              </h2>
-
-              {/* Focus Description */}
-              <p className="stage-anim font-sans text-xs sm:text-[13px] text-[#555555] leading-relaxed max-w-xl mb-3 sm:mb-3.5 font-normal">
-                {currentStage.focus}
-              </p>
-
-              {/* Chips / Topics */}
-              <div className="stage-anim flex flex-wrap gap-2 sm:gap-2.5 pt-2 border-t border-black/10">
-                {currentStage.chips.map((chip) => (
-                  <div
-                    key={chip}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[2px] bg-[#FAF9F6] border border-black/10 font-sans text-[11px] sm:text-[11.5px] text-[#222222]"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
-                    <span>{chip}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Learning Outcome / 1-2 Line Description */}
-              {currentStage.outcome && (
-                <div className="stage-anim mt-3 pt-2.5 border-t border-black/8">
-                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
-                    LEARNING OUTCOME
-                  </span>
-                  <p className="font-sans text-xs sm:text-[12.5px] text-[#555555] leading-relaxed max-w-xl font-normal">
-                    {currentStage.outcome}
-                  </p>
+                  {/* Orange Accent Bar Under Headline (Matching Image 1) */}
+                  <div className="w-12 sm:w-14 h-1 bg-[#EA580C] rounded-full mb-3" />
                 </div>
-              )}
 
-              {/* Hands-on Capstone / Term Project & Lab Hardware */}
-              {currentStage.termProject && (
-                <div className="stage-anim mt-3 pt-2.5 border-t border-black/8 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <div className="p-2.5 rounded-[2px] bg-[#FAF9F6] border border-black/8">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
-                      <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#888888] font-bold">
-                        Hands-on Term Project
-                      </span>
+                {/* 2. Stage Title */}
+                <h3 className="stage-anim font-serif text-lg sm:text-xl lg:text-[22px] xl:text-[24px] font-bold text-[#0F172A] leading-tight tracking-tight mb-1.5">
+                  {currentStage.title}
+                </h3>
+
+                {/* 3. Focus / Subtitle */}
+                <p className="stage-anim font-sans text-xs sm:text-[12.5px] text-[#64748B] leading-relaxed mb-3 font-normal max-w-lg">
+                  {currentStage.focus}
+                </p>
+
+                {/* 4. 3 Feature Chips (Matching Image 1 Color Themes) */}
+                <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 mb-3">
+                  {/* Chip 1: Blue Theme */}
+                  <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
+                    <div className="w-6 h-6 rounded-lg bg-[#E0F2FE] flex items-center justify-center shrink-0">
+                      {meta.chipIcons[0]}
                     </div>
-                    <span className="font-sans text-[11.5px] sm:text-xs font-semibold text-[#111111] leading-snug block mb-0.5">
-                      {currentStage.termProject}
+                    <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight truncate">
+                      {currentStage.chips[0] || 'Hardware Build'}
                     </span>
-                    <p className="font-sans text-[10.5px] sm:text-[11px] text-[#666666] leading-snug">
-                      {currentStage.termProjectDesc}
-                    </p>
                   </div>
 
-                  <div className="p-2.5 rounded-[2px] bg-[#FAF9F6] border border-black/8">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
-                      <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#888888] font-bold">
-                        Lab Platform &amp; Tools
-                      </span>
+                  {/* Chip 2: Purple Theme */}
+                  <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
+                    <div className="w-6 h-6 rounded-lg bg-[#F3E8FF] flex items-center justify-center shrink-0">
+                      {meta.chipIcons[1]}
                     </div>
-                    <span className="font-sans text-[11.5px] sm:text-xs font-semibold text-[#111111] leading-snug block mb-0.5">
-                      {currentStage.hardwarePlatform}
+                    <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight truncate">
+                      {currentStage.chips[1] || 'Electronic Calibration'}
                     </span>
-                    <p className="font-sans text-[10.5px] sm:text-[11px] text-[#666666] leading-snug">
-                      {currentStage.hardwarePlatformDesc}
-                    </p>
+                  </div>
+
+                  {/* Chip 3: Green Theme */}
+                  <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
+                    <div className="w-6 h-6 rounded-lg bg-[#DCFCE7] flex items-center justify-center shrink-0">
+                      {meta.chipIcons[2]}
+                    </div>
+                    <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight truncate">
+                      {currentStage.chips[2] || 'Applied Dynamics'}
+                    </span>
                   </div>
                 </div>
-              )}
+
+                {/* 5. "Students can..." Callout Box (Matching Image 1) */}
+                {currentStage.outcome && (
+                  <div className="stage-anim p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2.5 sm:gap-3 shadow-xs mb-3">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
+                      <Target className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="font-serif font-bold text-xs sm:text-[13px] text-[#C2410C] block leading-tight mb-0.5">
+                        Students can...
+                      </span>
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed font-normal">
+                        {currentStage.outcome}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 6. Bottom Navigation Bar: Previous + 7 Dots + Next (Matching Image 1) */}
+              <div className="stage-anim pt-3 border-t border-black/8 flex items-center justify-between text-xs font-mono-tech mt-auto gap-2">
+                {/* Previous Button */}
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  disabled={activeStageIndex === 0}
+                  className={`flex items-center gap-1 transition-colors cursor-pointer shrink-0 ${
+                    activeStageIndex === 0
+                      ? 'opacity-30 cursor-not-allowed text-[#94A3B8]'
+                      : 'text-[#475569] hover:text-[#EA580C] font-semibold'
+                  }`}
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Previous </span>
+                  <span className="font-bold text-[#0F172A] truncate max-w-[85px] sm:max-w-none">
+                    {activeStageIndex > 0 ? allStages[activeStageIndex - 1].gradeLabel : ''}
+                  </span>
+                </button>
+
+                {/* 7 Dot Indicators */}
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  {allStages.map((_, dotIdx) => (
+                    <button
+                      type="button"
+                      key={dotIdx}
+                      onClick={() => setActiveStageIndex(dotIdx)}
+                      className={`transition-all rounded-full cursor-pointer ${
+                        activeStageIndex === dotIdx
+                          ? 'w-3.5 sm:w-5 h-2 bg-[#EA580C]'
+                          : 'w-1.5 sm:w-2 h-1.5 sm:h-2 bg-[#CBD5E1] hover:bg-[#94A3B8]'
+                      }`}
+                      aria-label={`Jump to grade ${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  disabled={activeStageIndex === allStages.length - 1}
+                  className={`flex items-center gap-1 transition-colors cursor-pointer shrink-0 text-right ${
+                    activeStageIndex === allStages.length - 1
+                      ? 'opacity-30 cursor-not-allowed text-[#94A3B8]'
+                      : 'text-[#475569] hover:text-[#EA580C] font-semibold'
+                  }`}
+                >
+                  <span className="hidden sm:inline">Next </span>
+                  <span className="font-bold text-[#0F172A] truncate max-w-[85px] sm:max-w-none">
+                    {activeStageIndex < allStages.length - 1
+                      ? allStages[activeStageIndex + 1].gradeLabel
+                      : ''}
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
             </div>
 
-            {/* Bottom Metadata Strip */}
-            <div className="stage-anim pt-3.5 mt-auto border-t border-black/10">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div>
-                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] block mb-1">
-                    STAGE
-                  </span>
-                  <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#111111]">
-                    Stage 0{activeStageIndex + 1} ({currentStage.gradeLabel})
+            {/* Right Photo Column (Matching Image 1) */}
+            <div
+              ref={imageAreaRef}
+              className="hidden lg:flex w-[320px] xl:w-[360px] shrink-0 items-center justify-center"
+            >
+              <div className="relative w-full h-[320px] sm:h-[350px] lg:h-[370px] rounded-2xl overflow-hidden border border-black/10 shadow-lg group bg-black/5">
+                <img
+                  src={meta.image}
+                  alt={`${currentStage.gradeLabel} hardware and curriculum session`}
+                  className="w-full h-full object-cover object-center filter saturate-[0.92] contrast-[1.04] group-hover:scale-104 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                {/* Corner Branding Tag */}
+                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full border border-black/10 shadow-xs flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#EA580C]" />
+                  <span className="font-mono text-[9px] font-bold text-[#0F172A] uppercase tracking-wider">
+                    {currentStage.gradeLabel}
                   </span>
                 </div>
-                <div>
-                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] block mb-1">
-                    FOUNDATION
+
+                {/* Bottom Overlay Title */}
+                <div className="absolute bottom-3 left-3 right-3 text-white">
+                  <span className="font-mono text-[9px] uppercase tracking-wider block opacity-90 text-[#FDBA74] font-bold">
+                    Hands-On Student Platform
                   </span>
-                  <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#111111]">
-                    {currentStage.chips[0] || 'Core Engineering'}
-                  </span>
-                </div>
-                <div>
-                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest text-[#888888] block mb-1">
-                    MILESTONE
-                  </span>
-                  <span className="font-sans text-[12.5px] sm:text-[13px] font-semibold text-[#111111]">
-                    {currentStage.chips[currentStage.chips.length - 1] || 'Hands-on Build'}
+                  <span className="font-serif text-[12.5px] font-medium leading-tight text-white/95 block">
+                    {currentStage.termProject || currentStage.title}
                   </span>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Visual Showcase Panel with < | > Top-Right Controls (Exact Image 2 Style) */}
-          <div className="hidden md:block w-[42%] lg:w-[46%] xl:w-[48%] relative overflow-hidden bg-[#FAF9F6] shrink-0 self-stretch">
-            {/* Stage Showcase Photograph */}
-            <div ref={imageAreaRef} className="absolute inset-0 w-full h-full">
-              <img
-                src={activeImage}
-                alt={currentStage.title}
-                className="w-full h-full object-cover object-center filter saturate-[0.85] contrast-[1.04]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10 pointer-events-none" />
-            </div>
-
-            {/* Top-Right Arrow Navigation Controls (< | >) */}
-            <div className="absolute top-0 right-0 bg-black/85 text-white flex items-center px-4 py-2.5 gap-4 z-20 shadow-md">
-              <button
-                onClick={handlePrev}
-                disabled={activeStageIndex === 0}
-                className="text-white/70 hover:text-white disabled:opacity-30 cursor-pointer transition-colors focus:outline-none"
-                aria-label="Previous grade"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <span className="w-px h-3.5 bg-white/20" />
-              <button
-                onClick={handleNext}
-                disabled={activeStageIndex === allStages.length - 1}
-                className="text-white/70 hover:text-white disabled:opacity-30 cursor-pointer transition-colors focus:outline-none"
-                aria-label="Next grade"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
           </div>
 
         </div>
