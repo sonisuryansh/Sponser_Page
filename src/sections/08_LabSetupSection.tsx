@@ -78,46 +78,64 @@ export const LabSetupSection: React.FC = () => {
     };
   }, []);
 
-  // Automatic random zone cycling when user is on this section
+  // Chronological zone cycling when user is on this section
+  const activeZoneIndexRef = useRef(activeZoneIndex);
+  useEffect(() => {
+    activeZoneIndexRef.current = activeZoneIndex;
+  }, [activeZoneIndex]);
+
   useEffect(() => {
     if (!isSectionActive || isHovered || zones.length <= 1) return;
 
     const timer = setInterval(() => {
-      setActiveZoneIndex((prev) => {
-        // Randomly pick one of the other zones so it always changes dynamically
-        const candidates = zones.map((_, i) => i).filter((i) => i !== prev);
-        const next = candidates[Math.floor(Math.random() * candidates.length)];
-        return next;
-      });
-    }, 2800);
+      setActiveZoneIndex((prev) => (prev + 1) % zones.length);
+    }, 4500);
 
     return () => clearInterval(timer);
-  }, [isSectionActive, isHovered, zones]);
+  }, [isSectionActive, isHovered, zones.length]);
 
-  // Listen to step navigation events (wheel scroll & arrow keys)
+  // Listen to step navigation events (wheel scroll & arrow keys hooked to slide:step)
   useEffect(() => {
-    const handleStep = (e: Event) => {
-      const el = containerRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const isVisible = rect.top >= -window.innerHeight * 0.5 && rect.bottom <= window.innerHeight * 1.5;
-      if (!isVisible) return;
+    const el = containerRef.current;
+    if (!el) return;
 
+    const handleStep = (e: Event) => {
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
+      const cur = activeZoneIndexRef.current;
 
-      if (dir > 0 && activeZoneIndex < zones.length - 1) {
-        e.preventDefault();
-        setActiveZoneIndex((s) => s + 1);
-      } else if (dir < 0 && activeZoneIndex > 0) {
-        e.preventDefault();
-        setActiveZoneIndex((s) => s - 1);
+      if (dir > 0) {
+        // Step forward chronologically: Zone 01 -> 02 -> 03 -> 04
+        if (cur < zones.length - 1) {
+          e.preventDefault();
+          setActiveZoneIndex(cur + 1);
+        }
+      } else if (dir < 0) {
+        // Step backward: Zone 04 -> 03 -> 02 -> 01
+        if (cur > 0) {
+          e.preventDefault();
+          setActiveZoneIndex(cur - 1);
+        }
       }
     };
 
-    window.addEventListener('medhaarc:step', handleStep);
-    return () => window.removeEventListener('medhaarc:step', handleStep);
-  }, [activeZoneIndex, zones.length]);
+    const handleEnter = (e: Event) => {
+      const customEvent = e as CustomEvent<{ direction: number }>;
+      const dir = customEvent.detail?.direction || 1;
+      if (dir > 0) {
+        setActiveZoneIndex(0);
+      } else {
+        setActiveZoneIndex(zones.length - 1);
+      }
+    };
+
+    el.addEventListener('slide:step', handleStep);
+    el.addEventListener('slide:enter', handleEnter);
+    return () => {
+      el.removeEventListener('slide:step', handleStep);
+      el.removeEventListener('slide:enter', handleEnter);
+    };
+  }, [zones.length]);
 
   // Gentle side panel transition when active zone changes
   useEffect(() => {
@@ -142,13 +160,14 @@ export const LabSetupSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#0A0E14] select-none"
     >
-      {/* 100svh Viewport Container */}
+      {/* 100svh Viewport Container with data-steppable */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-6 px-4 sm:px-6 lg:px-8 box-border select-none z-10"
+        data-steppable="true"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-6 px-3 sm:px-6 lg:px-8 box-border select-none z-10 overflow-y-auto lg:overflow-hidden"
       >
         {/* Main Inset Card Container - Light Grey Slate Whole Card with Light Grey Border */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-[4px] flex flex-col justify-between p-5 sm:p-6 lg:p-7 box-border z-10">
+        <div className="relative w-full my-0 sm:my-auto max-w-[1240px] bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-[16px] sm:rounded-2xl flex flex-col justify-between p-4 sm:p-6 lg:p-7 box-border z-10">
           
           {/* Eyebrow & Statement Headline */}
           <div className="mb-3 max-w-3xl mx-auto text-center">

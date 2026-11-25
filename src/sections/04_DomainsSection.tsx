@@ -506,7 +506,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         ref={containerRef}
         data-steppable="true"
         id="technology-suite"
-        className="relative w-full my-auto flex flex-col justify-center items-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-14 pb-8 lg:py-6 px-3 sm:px-6 lg:px-8 xl:px-12 box-border select-none z-10 max-w-[1360px] mx-auto min-h-[100svh] lg:min-h-0"
+        className="relative w-full my-0 sm:my-auto flex flex-col justify-start sm:justify-center items-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-8 lg:py-6 px-3 sm:px-6 lg:px-8 xl:px-12 box-border select-none z-10 max-w-[1360px] mx-auto min-h-[100svh] lg:min-h-0"
       >
         {/* Top Header: "Our Core Technology Ecosystem" (Exact Image 1) */}
         <div className="w-full text-center shrink-0 pt-0.5 pb-0.5 relative z-10">
@@ -705,13 +705,13 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         {/* ─── Deep-Dive Modal View (Opens on card click OR when scrolling through steps) ─── */}
         {activeCard && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn"
+            className="fixed inset-0 z-50 flex items-start sm:items-center justify-center pt-[calc(var(--header-h,64px)+12px)] sm:pt-6 pb-6 px-3 sm:px-6 bg-slate-900/60 backdrop-blur-md animate-fadeIn overflow-y-auto"
             onClick={() => setActiveCardIndex(-1)}
           >
             <div
               ref={modalBoxRef}
               onWheel={handleModalWheel}
-              className={`relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-5 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out`}
+              className={`relative w-full max-w-4xl max-h-[calc(100svh-var(--header-h,64px)-24px)] sm:max-h-[90vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-4 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out my-auto`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Animated Transition Container for Domain Swaps */}

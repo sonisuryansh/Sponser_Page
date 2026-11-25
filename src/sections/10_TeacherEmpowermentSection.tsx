@@ -143,7 +143,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
       {/* Main Viewport Container (Centered in 100svh window, Standardized 1240px) */}
       <div
         ref={containerRef}
-        className="relative w-full my-auto flex flex-col justify-center pt-[calc(var(--header-h,64px)+16px)] sm:pt-3 pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-3 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
       >
         {/* Top Header: Eyebrow, Main Title, and Subtitle Verbatim from Image 1 */}
         <div className="flex-none max-w-3xl mx-auto text-center flex flex-col items-center mb-2">
@@ -172,8 +172,8 @@ export const TeacherEmpowermentSection: React.FC = () => {
         </div>
 
         {/* 3 Core Pillars: Preserving 3D Flip Cards & Sphere Orbs from 2nd Image with Image 1 Content */}
-        <div className="editorial-reveal flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4.5">
+        <div className="editorial-reveal w-full flex-none my-2 sm:my-3 flex flex-col justify-center min-h-0">
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3.5 lg:gap-5">
             {COLUMNS_CONTENT.map((col, idx) => {
               const colorClasses = ['pillar-blue', 'pillar-orange', 'pillar-yellow'];
               const tagColors = ['text-[#bae6fd]', 'text-[#ffedd5]', 'text-[#fef9c3]'];
@@ -282,47 +282,52 @@ export const TeacherEmpowermentSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Human-in-the-Loop AI Workflow & Ethical Guardrails Banner */}
-        <div className="editorial-reveal flex-none bg-white/95 border border-black/10 p-2.5 sm:p-3 rounded-2xl shadow-[0_2px_15px_rgba(0,0,0,0.02)] mb-1.5">
+        {/* Human-in-the-Loop AI Workflow & Ethical Guardrails Banner - Enlarged as requested */}
+        <div className="editorial-reveal flex-none bg-white border border-slate-200/90 p-4 sm:p-5 lg:p-6 rounded-2xl sm:rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] mb-2 w-full">
           {/* Workflow Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5 pb-1 border-b border-black/5">
-            <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.2em] text-[#888888] font-bold">
-              Human-in-the-Loop AI Workflow
-            </span>
-            <span className="font-mono text-[10px] text-[#c8a45d] font-bold">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-3 pb-2 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#0F172A] font-bold">
+                Human-in-the-Loop AI Workflow
+              </span>
+            </div>
+            <span className="font-mono text-[10.5px] sm:text-xs text-[#b45309] font-bold flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#EA580C]" />
               Teacher Oversight at Every Stage
             </span>
           </div>
 
-          {/* 4 Step Nodes Ribbon */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-2">
+          {/* 4 Step Nodes Ribbon (Enlarged) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 mb-3">
             {siteConfig.teacherEmpowerment.flow.map((step, idx) => (
               <div
                 key={step}
-                className="flex items-center gap-2 px-2.5 py-1.5 bg-[#FAF9F6] border border-black/10 rounded-xl"
+                className="flex items-center gap-3 p-3 sm:p-3.5 bg-[#FAF9F6] border border-slate-200/80 rounded-xl sm:rounded-2xl shadow-2xs hover:border-slate-300 transition-colors"
               >
-                <span className="w-4 h-4 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-[9px] font-mono font-bold shrink-0">
+                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-[#0F172A] text-white text-xs font-mono font-bold shrink-0 shadow-xs">
                   {idx + 1}
                 </span>
-                <span className="font-sans text-[10.5px] sm:text-[11px] font-semibold text-[#111111] leading-tight truncate">
+                <span className="font-sans text-xs sm:text-[12.5px] font-semibold text-[#0F172A] leading-tight">
                   {step}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* Ethical Guardrails Footer */}
-          <div className="pt-1.5 border-t border-black/10 flex flex-wrap items-center justify-between gap-2 text-xs">
-            <div className="flex items-center gap-1.5 text-[9.5px] uppercase tracking-[0.18em] text-[#c8a45d] font-mono font-bold">
-              <ShieldCheck className="w-3.5 h-3.5" />
+          {/* Ethical Guardrails Footer (Enlarged) */}
+          <div className="pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+            <div className="flex items-center gap-2 text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-[#b45309] font-mono font-bold">
+              <ShieldCheck className="w-4 h-4 text-[#EA580C]" />
               <span>Ethical Guardrails:</span>
             </div>
-            {siteConfig.teacherEmpowerment.guardrails.map((gd) => (
-              <div key={gd} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#333333] font-sans">
-                <Check className="w-3 h-3 text-emerald-600 shrink-0 stroke-[2.5]" />
-                <span>{gd}</span>
-              </div>
-            ))}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              {siteConfig.teacherEmpowerment.guardrails.map((gd) => (
+                <div key={gd} className="flex items-center gap-2 text-xs sm:text-[12.5px] text-[#334155] font-sans font-medium">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
+                  <span>{gd}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -81,7 +81,6 @@ const projectChips: Record<string, string[]> = {
 export const ProjectShowcaseSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const projects = siteConfig.showcase.projects;
@@ -91,14 +90,14 @@ export const ProjectShowcaseSection: React.FC = () => {
 
   const currentMeta = PROJECT_META[currentProject.id] || PROJECT_META['proj-1'];
 
-  // Handle auto-advance when section is idle and not hovered
+  // Handle auto-advance tabs every 6.5 seconds (in requested 5-8s range)
   useEffect(() => {
-    if (isHovered || selectedProject !== null || projects.length <= 1) return;
+    if (selectedProject !== null || projects.length <= 1) return;
     const timer = setInterval(() => {
       setActiveProjectIndex((prev) => (prev + 1) % projects.length);
-    }, 6000);
+    }, 6500);
     return () => clearInterval(timer);
-  }, [isHovered, selectedProject, projects.length]);
+  }, [selectedProject, projects.length]);
 
   const handleScrollToNext = () => {
     window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 7 }));
@@ -115,12 +114,10 @@ export const ProjectShowcaseSection: React.FC = () => {
       {/* 100svh Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
       >
         {/* Main Inset White Panel */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[16px] flex flex-col justify-between p-4 sm:p-5 lg:p-6 xl:p-7 box-border z-10">
+        <div className="relative w-full my-0 sm:my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[16px] flex flex-col justify-between p-4 sm:p-5 lg:p-6 xl:p-7 box-border z-10">
           
           {/* Top Header: Eyebrow with gold accent & Headline */}
           <div className="flex-none text-center mb-2.5 sm:mb-3">
@@ -172,17 +169,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                     {/* Project Name */}
                     <span className="whitespace-nowrap">{proj.name}</span>
 
-                    {/* Grade Pill */}
-                    <span
-                      className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full transition-colors ${
-                        isActive
-                          ? 'bg-white/15 text-white/90 border border-white/20'
-                          : 'bg-black/5 text-[#64748B]'
-                      }`}
-                    >
-                      {proj.grade}
-                    </span>
-
                     {/* Active Accent Underline Indicator */}
                     {isActive && (
                       <span
@@ -228,17 +214,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                     {/* Project Name */}
                     <span className="whitespace-nowrap">{proj.name}</span>
 
-                    {/* Grade Pill */}
-                    <span
-                      className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full transition-colors ${
-                        isActive
-                          ? 'bg-white/15 text-white/90 border border-white/20'
-                          : 'bg-black/5 text-[#64748B]'
-                      }`}
-                    >
-                      {proj.grade}
-                    </span>
-
                     {/* Active Accent Underline Indicator */}
                     {isActive && (
                       <span
@@ -268,7 +243,7 @@ export const ProjectShowcaseSection: React.FC = () => {
 
             {/* Left Narrative & Metadata */}
             <div className="flex-1 w-full min-w-0 z-10">
-              {/* Domain Badge & Grade Row */}
+              {/* Domain Badge Row (Grades Removed) */}
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 <span
                   style={{
@@ -280,10 +255,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                 >
                   {currentMeta.icon}
                   <span>{currentProject.domain}</span>
-                </span>
-
-                <span className="px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-mono text-[10px] font-semibold">
-                  {currentProject.grade}
                 </span>
 
                 <span className="hidden sm:inline font-mono text-[9px] uppercase tracking-widest text-[#94A3B8] font-bold ml-auto">
@@ -354,7 +325,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                   style={{ color: currentMeta.pillBorder }}
                   className="font-mono text-[9px] uppercase tracking-wider block font-bold leading-tight mb-0.5"
                 >
-                  Student Portfolio • {currentProject.grade}
+                  Student Portfolio Showcase
                 </span>
                 <span className="font-serif text-[12.5px] font-medium leading-tight line-clamp-1 text-white/95">
                   {currentProject.name}
@@ -429,7 +400,7 @@ export const ProjectShowcaseSection: React.FC = () => {
 
               <div className="absolute bottom-3.5 left-4 right-4 text-white">
                 <span className="font-mono text-xs uppercase tracking-wider block font-bold text-[#FDBA74] mb-0.5">
-                  {selectedProject.domain} • {selectedProject.grade}
+                  {selectedProject.domain}
                 </span>
                 <h3 className="font-serif text-xl sm:text-2xl font-bold leading-tight">
                   {selectedProject.name}

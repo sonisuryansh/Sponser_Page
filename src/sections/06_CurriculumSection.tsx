@@ -25,6 +25,49 @@ interface GradeMeta {
   chipIcons: [React.ReactNode, React.ReactNode, React.ReactNode];
 }
 
+interface ChipDetail {
+  title: string;
+  subtitle: string;
+}
+
+const STAGE_CHIP_DETAILS: Record<string, [ChipDetail, ChipDetail, ChipDetail]> = {
+  'grade-3-4': [
+    { title: 'Block-Based Coding', subtitle: 'Sequential loops, logic & visual sprites' },
+    { title: 'Foundational Design', subtitle: 'Interactive canvas & spatial coordinates' },
+    { title: 'Algorithmic Thinking', subtitle: 'Problem decomposition & step logic' },
+  ],
+  'grade-5-6': [
+    { title: 'Physical Computing', subtitle: 'Breadboard circuits & DC motor control' },
+    { title: 'Sensory Feedback', subtitle: 'Light & tactile sensors with live triggers' },
+    { title: 'Visual Programming', subtitle: 'Bridging digital code with mechanical builds' },
+  ],
+  'grade-7-8': [
+    { title: 'Python Programming', subtitle: 'Text-based syntax, functions & structures' },
+    { title: 'Microcontroller Logic', subtitle: 'Real-time GPIO sensor input & PWM motors' },
+    { title: 'Data Structures', subtitle: 'Telemetry arrays, sensor logs & debugging' },
+  ],
+  'grade-9': [
+    { title: 'Connected Sensors', subtitle: 'Multi-node IoT telemetry & data logging' },
+    { title: 'Systems Thinking', subtitle: 'Closed-loop feedback & flight aerodynamics' },
+    { title: 'Showcase Prototype', subtitle: 'Annual engineering exhibition readiness' },
+  ],
+  'grade-10': [
+    { title: 'Data Analytics', subtitle: 'Data wrangling, cleaning & statistical trends' },
+    { title: 'Hypothesis Testing', subtitle: 'Variance analysis, outliers & sensor verification' },
+    { title: 'Capstone Portfolio', subtitle: 'End-to-end prototype build & peer defense' },
+  ],
+  'grade-11': [
+    { title: 'Model Architecture', subtitle: 'Supervised weights, loss curves & inference' },
+    { title: 'Statistical Inference', subtitle: 'Predictive metrics, feature modeling & data' },
+    { title: 'Applied Exploration', subtitle: 'Edge intelligence & ethical guardrails' },
+  ],
+  'grade-12': [
+    { title: 'Vision Models', subtitle: 'Neural camera classification & object detection' },
+    { title: 'Integrated Robotics', subtitle: '3-DOF inverse kinematics & feedback control' },
+    { title: 'Senior Portfolio', subtitle: 'Comprehensive accredited capstone defense' },
+  ],
+};
+
 const GRADE_META: GradeMeta[] = [
   {
     // Grades 3–4
@@ -112,6 +155,7 @@ export const CurriculumSection: React.FC = () => {
   const activeStageIndexRef = useRef(activeStageIndex);
   const contentAreaRef = useRef<HTMLDivElement>(null);
   const imageAreaRef = useRef<HTMLDivElement>(null);
+  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const allStages = [
     ...siteConfig.curriculum.stages,
@@ -120,6 +164,14 @@ export const CurriculumSection: React.FC = () => {
 
   useEffect(() => {
     activeStageIndexRef.current = activeStageIndex;
+    const activeBtn = tabButtonRefs.current[activeStageIndex];
+    if (activeBtn) {
+      activeBtn.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    }
   }, [activeStageIndex]);
 
   // Detect whether Section 06 is currently visible and active in viewport
@@ -285,21 +337,29 @@ export const CurriculumSection: React.FC = () => {
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+8px)] pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-start sm:justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-4 px-3 sm:px-6 lg:px-8 box-border select-none z-10 max-w-[1240px] mx-auto overflow-y-auto lg:overflow-hidden"
       >
         {/* Main Unified Inset Card - Matches Reference Image 1 */}
-        <div className="relative w-full my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[16px] flex flex-col sm:flex-row items-stretch overflow-hidden box-border">
+        <div className="relative w-full my-0 sm:my-auto max-w-[1240px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.06)] border border-black/8 rounded-[16px] flex flex-col sm:flex-row items-stretch overflow-hidden box-border">
           
           {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
-          <div className="w-full sm:w-44 lg:w-48 xl:w-52 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-3 sm:py-4 px-2 sm:px-3 select-none shrink-0">
+          <div className="w-full sm:w-44 lg:w-48 xl:w-52 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-2.5 sm:py-4 px-2 sm:px-3 select-none shrink-0">
             <div>
-              {/* Header Label */}
-              <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.22em] text-[#94A3B8] font-bold block mb-2 sm:mb-3 px-2 pt-1">
-                Learning Journey
-              </span>
+              {/* Header Label with mobile swipe hint */}
+              <div className="flex items-center justify-between px-2 pt-1 mb-1.5 sm:mb-3">
+                <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.22em] text-[#94A3B8] font-bold block">
+                  Learning Journey
+                </span>
+                <span className="sm:hidden font-mono text-[8.5px] text-[#EA580C] font-semibold">
+                  {activeStageIndex + 1}/{allStages.length}
+                </span>
+              </div>
 
-              {/* Grade Buttons List with Colorful Icons */}
-              <div className="flex sm:flex-col gap-1 sm:gap-1.5 overflow-x-auto sm:overflow-visible pb-1 sm:pb-0">
+              {/* Grade Buttons List with Colorful Icons & Touch Scroll */}
+              <div
+                className="flex sm:flex-col gap-1 sm:gap-1.5 overflow-x-auto sm:overflow-visible pb-1 sm:pb-0 touch-pan-x overscroll-x-contain scroll-smooth no-scrollbar w-full"
+                style={{ WebkitOverflowScrolling: 'touch' }}
+              >
                 {allStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
                   const itemMeta = GRADE_META[idx] || GRADE_META[0];
@@ -307,11 +367,14 @@ export const CurriculumSection: React.FC = () => {
                   return (
                     <button
                       key={stage.id}
+                      ref={(el) => {
+                        tabButtonRefs.current[idx] = el;
+                      }}
                       onClick={() => setActiveStageIndex(idx)}
-                      className={`group relative flex items-center gap-2.5 px-3 py-2 text-left cursor-pointer transition-all rounded-xl text-[11.5px] sm:text-xs font-semibold shrink-0 sm:shrink ${
+                      className={`group relative flex items-center gap-2 px-3 py-2 text-left cursor-pointer transition-all rounded-xl text-[11.5px] sm:text-xs font-semibold shrink-0 sm:shrink whitespace-nowrap ${
                         isActive
-                          ? 'bg-[#FFF7ED] text-[#0F172A] border-r-0 sm:border-r-[3.5px] sm:border-[#EA580C] shadow-xs font-bold'
-                          : 'text-[#64748B] hover:bg-black/[0.03] hover:text-[#0F172A]'
+                          ? 'bg-[#FFF7ED] text-[#0F172A] border sm:border-0 border-[#EA580C]/40 sm:border-r-[3.5px] sm:border-[#EA580C] shadow-xs font-bold'
+                          : 'text-[#64748B] hover:bg-black/[0.03] hover:text-[#0F172A] border border-transparent'
                       }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
@@ -358,38 +421,58 @@ export const CurriculumSection: React.FC = () => {
                   {currentStage.focus}
                 </p>
 
-                {/* 4. 3 Feature Chips (Matching Image 1 Color Themes) */}
-                <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 mb-3">
-                  {/* Chip 1: Blue Theme */}
-                  <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
-                    <div className="w-6 h-6 rounded-lg bg-[#E0F2FE] flex items-center justify-center shrink-0">
-                      {meta.chipIcons[0]}
-                    </div>
-                    <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight truncate">
-                      {currentStage.chips[0] || 'Hardware Build'}
-                    </span>
-                  </div>
+                {/* 4. 3 Enriched Feature Chips (Detailed Subtitles & Professional Architecture) */}
+                {(() => {
+                  const stageChips = STAGE_CHIP_DETAILS[currentStage.id] || STAGE_CHIP_DETAILS['grade-10'];
+                  return (
+                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 mb-3">
+                      {/* Chip 1: Blue Theme */}
+                      <div className="flex items-start gap-2.5 p-2.5 sm:p-2.5 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
+                        <div className="w-6 h-6 rounded-lg bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
+                          {meta.chipIcons[0]}
+                        </div>
+                        <div className="min-w-0">
+                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                            {stageChips[0].title}
+                          </span>
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#0284C7] leading-snug block mt-0.5 font-medium line-clamp-2">
+                            {stageChips[0].subtitle}
+                          </span>
+                        </div>
+                      </div>
 
-                  {/* Chip 2: Purple Theme */}
-                  <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
-                    <div className="w-6 h-6 rounded-lg bg-[#F3E8FF] flex items-center justify-center shrink-0">
-                      {meta.chipIcons[1]}
-                    </div>
-                    <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight truncate">
-                      {currentStage.chips[1] || 'Electronic Calibration'}
-                    </span>
-                  </div>
+                      {/* Chip 2: Purple Theme */}
+                      <div className="flex items-start gap-2.5 p-2.5 sm:p-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
+                        <div className="w-6 h-6 rounded-lg bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
+                          {meta.chipIcons[1]}
+                        </div>
+                        <div className="min-w-0">
+                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                            {stageChips[1].title}
+                          </span>
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#9333EA] leading-snug block mt-0.5 font-medium line-clamp-2">
+                            {stageChips[1].subtitle}
+                          </span>
+                        </div>
+                      </div>
 
-                  {/* Chip 3: Green Theme */}
-                  <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
-                    <div className="w-6 h-6 rounded-lg bg-[#DCFCE7] flex items-center justify-center shrink-0">
-                      {meta.chipIcons[2]}
+                      {/* Chip 3: Green Theme */}
+                      <div className="flex items-start gap-2.5 p-2.5 sm:p-2.5 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
+                        <div className="w-6 h-6 rounded-lg bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
+                          {meta.chipIcons[2]}
+                        </div>
+                        <div className="min-w-0">
+                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                            {stageChips[2].title}
+                          </span>
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#16A34A] leading-snug block mt-0.5 font-medium line-clamp-2">
+                            {stageChips[2].subtitle}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight truncate">
-                      {currentStage.chips[2] || 'Applied Dynamics'}
-                    </span>
-                  </div>
-                </div>
+                  );
+                })()}
 
                 {/* 5. "Students can..." Callout Box (Matching Image 1) */}
                 {currentStage.outcome && (
