@@ -319,15 +319,15 @@ export const ResourcesSection: React.FC = () => {
                         </h3>
 
                         {/* Tile Description */}
-                        <p className="resource-tile-desc text-[11px] sm:text-[11.5px] leading-snug line-clamp-2 mb-2">
+                        <p className="resource-tile-desc text-[12px] sm:text-[12.5px] leading-snug line-clamp-2 mb-2">
                           {tile.description}
                         </p>
 
                         {/* Highlights list on front face */}
-                        <div className="pt-2 border-t border-black/5 flex flex-col gap-1.5 text-[10px] sm:text-[10.5px] text-[#475569]">
+                        <div className="pt-2 border-t border-black/5 flex flex-col gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155]">
                           {detail.frontHighlights.map((feat, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-1.5 leading-snug">
-                              <span className="w-1.5 h-1.5 rounded-full mt-1 shrink-0 bg-[#c8a45d]" />
+                              <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 bg-[#c8a45d]" />
                               <span className="line-clamp-2">{feat}</span>
                             </div>
                           ))}
@@ -335,7 +335,7 @@ export const ResourcesSection: React.FC = () => {
                       </div>
 
                       {/* Bottom Open Affordance */}
-                      <div className="resource-bottom-bar flex items-center justify-between text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider font-bold pt-2 border-t mt-auto transition-colors">
+                      <div className="resource-bottom-bar flex items-center justify-between text-[10.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold pt-2 border-t mt-auto transition-colors">
                         <span>Click for specs</span>
                         <span className="text-xs">↻</span>
                       </div>
@@ -346,27 +346,27 @@ export const ResourcesSection: React.FC = () => {
                       <div className="flex-1 flex flex-col justify-between min-h-0">
                         {/* Back Top Tag & Badge */}
                         <div className="flex items-center justify-between mb-1 pb-1 border-b border-black/5 flex-none">
-                          <span className="resource-back-tag font-mono text-[9px] uppercase tracking-wider font-bold">
+                          <span className="resource-back-tag font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider font-bold">
                             Inside {tile.title}
                           </span>
-                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold text-[#b45309] bg-amber-50 border border-amber-200/80 px-1.5 py-0.2 rounded-[2px]">
+                          <span className="text-[9px] sm:text-[9.5px] font-mono font-bold text-[#b45309] bg-amber-50 border border-amber-200/80 px-2 py-0.5 rounded-[2px]">
                             {detail.backTag}
                           </span>
                         </div>
 
                         {/* Back Heading */}
-                        <h4 className="font-serif text-[12.5px] sm:text-[13.5px] font-bold text-[#111111] leading-tight mb-1 flex-none">
+                        <h4 className="font-serif text-[14px] sm:text-[15px] font-bold text-[#111111] leading-tight mb-1 flex-none">
                           {detail.backHeading}
                         </h4>
 
                         {/* 4 Specifications Rows (Key-Value Table) */}
-                        <div className="space-y-1 my-1 py-1 border-y border-black/5 flex-1 flex flex-col justify-around">
+                        <div className="space-y-1.5 my-1 py-1 border-y border-black/5 flex-1 flex flex-col justify-around">
                           {detail.backSpecs.map((spec, sIdx) => (
-                            <div key={sIdx} className="flex items-center justify-between text-[8.5px] sm:text-[9.5px] leading-tight gap-1">
-                              <span className="font-mono text-slate-400 font-semibold uppercase tracking-wider shrink-0 text-[8px] sm:text-[8.5px]">
+                            <div key={sIdx} className="flex items-center justify-between text-[10px] sm:text-[11px] leading-tight gap-1">
+                              <span className="font-mono text-slate-500 font-bold uppercase tracking-wider shrink-0 text-[9px] sm:text-[9.5px]">
                                 {spec.label}:
                               </span>
-                              <span className="font-sans font-semibold text-slate-800 text-right truncate">
+                              <span className="font-sans font-semibold text-slate-900 text-right truncate">
                                 {spec.value}
                               </span>
                             </div>
@@ -374,10 +374,10 @@ export const ResourcesSection: React.FC = () => {
                         </div>
 
                         {/* Institutional Capabilities */}
-                        <div className="space-y-0.5 flex-none pt-0.5">
+                        <div className="space-y-1 flex-none pt-0.5">
                           {detail.backCapabilities.map((cap, cIdx) => (
-                            <div key={cIdx} className="flex items-center gap-1.5 text-[8.5px] sm:text-[9.5px] text-slate-600 font-sans leading-tight">
-                              <span className="resource-back-dot w-1 h-1 rounded-full shrink-0" />
+                            <div key={cIdx} className="flex items-center gap-1.5 text-[9.5px] sm:text-[10.5px] text-slate-700 font-sans leading-tight">
+                              <span className="resource-back-dot w-1.5 h-1.5 rounded-full shrink-0" />
                               <span className="truncate">{cap}</span>
                             </div>
                           ))}
@@ -392,7 +392,7 @@ export const ResourcesSection: React.FC = () => {
                             e.stopPropagation();
                             setFlippedTile(null);
                           }}
-                          className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
+                          className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-slate-600 hover:text-slate-900 font-semibold transition-colors cursor-pointer"
                         >
                           ↻ Flip back
                         </button>
@@ -402,7 +402,7 @@ export const ResourcesSection: React.FC = () => {
                             e.stopPropagation();
                             setSelectedTile(tile.title);
                           }}
-                          className="flex items-center gap-1 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold text-[#b45309] hover:underline cursor-pointer"
+                          className="flex items-center gap-1 font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider font-bold text-[#b45309] hover:underline cursor-pointer"
                         >
                           <span>Full Specs</span>
                           <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />

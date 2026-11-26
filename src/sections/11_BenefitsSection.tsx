@@ -227,7 +227,7 @@ export const BenefitsSection: React.FC = () => {
                         </h3>
 
                         {/* Description */}
-                        <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#475569] leading-relaxed">
+                        <p className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-[#475569] leading-relaxed">
                           {card.description}
                         </p>
 
@@ -255,7 +255,7 @@ export const BenefitsSection: React.FC = () => {
                       <div>
                         {/* Top Header */}
                         <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-slate-100">
-                          <span className={`font-mono text-[9.5px] uppercase tracking-wider font-bold ${card.backAccentColor}`}>
+                          <span className={`font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider font-bold ${card.backAccentColor}`}>
                             0{idx + 1} &bull; {card.title}
                           </span>
                           <div className={`w-6 h-6 flex items-center justify-center rounded-lg ${card.iconBg} border`}>
@@ -266,19 +266,19 @@ export const BenefitsSection: React.FC = () => {
                         </div>
 
                         {/* Back Heading */}
-                        <h4 className="font-serif text-[14.5px] sm:text-base font-bold text-[#0F172A] mb-1 leading-snug">
+                        <h4 className="font-serif text-[15px] sm:text-[16.5px] font-bold text-[#0F172A] mb-1 leading-snug">
                           {card.popupTitle}
                         </h4>
 
                         {/* Purpose Narrative */}
-                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-relaxed mb-2">
+                        <p className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-relaxed mb-2">
                           {card.popupPurpose}
                         </p>
 
                         {/* Concrete Deliverable Badge */}
-                        <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/70 flex items-start gap-1.5">
-                          <Check className={`w-3.5 h-3.5 ${card.backAccentColor} shrink-0 mt-0.5 stroke-[2.5]`} />
-                          <span className="font-sans text-[10px] sm:text-[10.5px] text-[#334155] leading-snug font-medium">
+                        <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-start gap-2">
+                          <Check className={`w-4 h-4 ${card.backAccentColor} shrink-0 mt-0.5 stroke-[2.5]`} />
+                          <span className="font-sans text-[11px] sm:text-[11.5px] text-[#334155] leading-snug font-medium">
                             {card.deliverable}
                           </span>
                         </div>
@@ -286,10 +286,10 @@ export const BenefitsSection: React.FC = () => {
 
                       {/* Back Bottom Bar */}
                       <div className="pt-2 border-t border-slate-100 mt-auto flex items-center justify-between">
-                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold truncate mr-1">
+                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-slate-500 font-semibold truncate mr-1">
                           {card.popupBadge}
                         </span>
-                        <span className={`font-mono text-[9.5px] ${card.backAccentColor} font-bold flex items-center gap-1`}>
+                        <span className={`font-mono text-[10.5px] sm:text-[11px] ${card.backAccentColor} font-bold flex items-center gap-1`}>
                           <span>Turn back</span>
                           <span className="text-xs">↻</span>
                         </span>
