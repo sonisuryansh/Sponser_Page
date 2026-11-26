@@ -258,7 +258,7 @@ export const AboutSection: React.FC = () => {
               </div>
 
               {/* 4 Grand Stepper Cards Taking Full Height with Generous Typography */}
-              <div className="flex flex-col gap-1 sm:gap-1.5 flex-1 justify-between min-h-0 overflow-hidden">
+              <div className="flex flex-col gap-1.5 sm:gap-2 flex-1 justify-between min-h-0">
                 {STEPS.map((step, idx) => {
                   const isActive = activeStepIndex === idx;
 
@@ -267,7 +267,7 @@ export const AboutSection: React.FC = () => {
                       key={step.name}
                       type="button"
                       onClick={() => setActiveStepIndex(idx)}
-                      className={`group relative p-1.5 sm:p-2 lg:p-2.5 rounded-lg border text-left transition-all duration-300 cursor-pointer flex items-center gap-2 sm:gap-2.5 min-h-0 ${isActive
+                      className={`group relative p-2 sm:p-2.5 rounded-lg border text-left transition-all duration-300 cursor-pointer flex-1 flex items-center gap-2 sm:gap-2.5 min-h-0 ${isActive
                         ? `${step.borderActive} ${step.bgActive} shadow-xs -translate-x-0.5`
                         : 'border-slate-200/80 bg-white hover:bg-slate-50/80 hover:border-slate-300'
                         }`}

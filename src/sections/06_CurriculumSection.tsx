@@ -404,9 +404,9 @@ export const CurriculumSection: React.FC = () => {
             {/* Left Content Column */}
             <div
               ref={contentAreaRef}
-              className="flex-1 flex flex-col justify-between overflow-hidden"
+              className="flex-1 flex flex-col justify-between overflow-hidden h-full"
             >
-              <div>
+              <div className="flex-1 flex flex-col justify-between min-h-0">
                 {/* 1. Large Grade Headline with Orange Accent */}
                 <div className="stage-anim">
                   <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold text-[#0F172A] tracking-tight leading-none mb-1">
@@ -499,9 +499,9 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5b. Hands-on Term Capstone & Hardware Lab Platform Cards */}
                 {currentStage.termProject && (
-                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 my-2 sm:my-3">
+                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-1 min-h-0 my-1 sm:my-2 items-stretch">
                     {/* Term Project Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between">
+                    <div className="p-2.5 sm:p-3 lg:p-3.5 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between min-h-0">
                       <div>
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
@@ -512,14 +512,14 @@ export const CurriculumSection: React.FC = () => {
                         <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#0F172A] leading-snug mb-1">
                           {currentStage.termProject}
                         </h4>
-                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed">
+                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed line-clamp-3">
                           {currentStage.termProjectDesc}
                         </p>
                       </div>
                     </div>
 
                     {/* Lab Hardware & Tools Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between">
+                    <div className="p-2.5 sm:p-3 lg:p-3.5 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between min-h-0">
                       <div>
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
@@ -530,7 +530,7 @@ export const CurriculumSection: React.FC = () => {
                         <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#0F172A] leading-snug mb-1">
                           {currentStage.hardwarePlatform}
                         </h4>
-                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed">
+                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed line-clamp-3">
                           {currentStage.hardwarePlatformDesc}
                         </p>
                       </div>

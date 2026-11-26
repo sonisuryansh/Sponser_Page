@@ -143,12 +143,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         lastGestureTimeRef.current = Date.now();
       };
 
-      // Failsafe watchdog timer (850ms) to ensure transition state never deadlocks
+      // Failsafe watchdog timer (800ms) to ensure transition state never deadlocks
       watchdogTimer = setTimeout(() => {
         if (transitioningRef.current) {
           finish();
         }
-      }, 850);
+      }, 800);
 
       // Trajectories for layered full-screen curtain
       const enterX = isForward ? 105 : -105;
@@ -173,57 +173,61 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
       // 1. Outgoing slide frame subtly recedes
       if (fromFrame) {
-        timeline.to(fromFrame, { scale: 0.97, opacity: 0.35, duration: 0.30, ease: 'power2.out' }, 0);
+        timeline.to(fromFrame, { scale: 0.97, opacity: 0.35, duration: 0.26, ease: 'power2.out' }, 0);
       }
 
-      // 2. Shutters sweep IN to cover the screen (duration: 0.30s, stagger: 0.04s)
+      // 2. Shutters sweep IN to cover the screen (duration: 0.28s, stagger: 0.035s)
       if (strips?.length) {
         timeline.to(
           strips,
           {
             xPercent: 0,
             yPercent: 0,
-            duration: 0.30,
-            stagger: 0.04,
+            duration: 0.28,
+            stagger: 0.035,
             ease: 'power3.inOut',
           },
           0
         );
       }
 
-      // 3. SWAP SLIDES while screen is fully covered by shutters at t = 0.38s
+      // 3. SWAP SLIDES while screen is fully covered by shutters at t = 0.35s
       timeline.add(() => {
-        activeIndexRef.current = targetIndex;
-        setActiveIndex(targetIndex);
-        onSlideChange(targetIndex);
+        try {
+          activeIndexRef.current = targetIndex;
+          setActiveIndex(targetIndex);
+          onSlideChange(targetIndex);
 
-        gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden', display: 'none', pointerEvents: 'none' });
-        gsap.set(toWrapper, { opacity: 1, visibility: 'visible', display: 'block', pointerEvents: 'auto' });
+          gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden', display: 'none', pointerEvents: 'none' });
+          gsap.set(toWrapper, { opacity: 1, visibility: 'visible', display: 'block', pointerEvents: 'auto' });
 
-        const steppable = toWrapper.querySelector<HTMLElement>('[data-steppable="true"]');
-        if (steppable) {
-          const isStepBackFromAdjacent = fromIndex === targetIndex + 1;
-          steppable.dispatchEvent(
-            new CustomEvent('slide:enter', {
-              bubbles: true,
-              detail: { direction: isStepBackFromAdjacent ? -1 : 1 },
-            })
-          );
+          const steppable = toWrapper.querySelector<HTMLElement>('[data-steppable="true"]');
+          if (steppable) {
+            const isStepBackFromAdjacent = fromIndex === targetIndex + 1;
+            steppable.dispatchEvent(
+              new CustomEvent('slide:enter', {
+                bubbles: true,
+                detail: { direction: isStepBackFromAdjacent ? -1 : 1 },
+              })
+            );
+          }
+        } catch (err) {
+          console.warn('Error during slide swap:', err);
         }
-      }, 0.38);
+      }, 0.35);
 
-      // 4. Shutters sweep OUT to reveal new slide (0.40s to 0.70s)
+      // 4. Shutters sweep OUT to reveal new slide (0.37s to 0.65s)
       if (strips?.length) {
         timeline.to(
           strips,
           {
             xPercent: exitX,
             yPercent: 0,
-            duration: 0.30,
-            stagger: 0.04,
+            duration: 0.28,
+            stagger: 0.035,
             ease: 'power3.inOut',
           },
-          0.40
+          0.37
         );
       }
 
@@ -232,8 +236,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         timeline.fromTo(
           toFrame,
           { scale: 0.985, opacity: 0.6 },
-          { scale: 1, opacity: 1, duration: 0.32, ease: 'power2.out' },
-          0.42
+          { scale: 1, opacity: 1, duration: 0.28, ease: 'power2.out' },
+          0.38
         );
       }
     },

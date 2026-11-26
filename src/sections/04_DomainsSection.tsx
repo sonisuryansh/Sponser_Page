@@ -623,15 +623,23 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         id="technology-suite"
         className="relative w-full my-0 sm:my-auto flex flex-col justify-start sm:justify-center items-center gap-2.5 sm:gap-3 lg:gap-3.5 pt-[calc(var(--header-h,64px)+10px)] pb-20 sm:pb-8 lg:py-6 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto min-h-[100svh] lg:min-h-0"
       >
-        {/* Top Header: "Our Core Technology Ecosystem" (Exact Image 1) */}
-        <div className="w-full text-center shrink-0 pt-0.5 pb-0.5 relative z-10">
-          <h2 className="font-serif text-[28px] sm:text-3xl lg:text-[38px] xl:text-[42px] font-bold text-[#0F172A] tracking-tight leading-tight text-center">
+        {/* Top Header: "Our Core Technology Ecosystem" */}
+        <div className="w-full text-center shrink-0 pt-0.5 pb-0.5 relative z-10 flex flex-col items-center">
+          <div className="flex items-center justify-center gap-2 mb-0.5">
+            <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b45309]" />
+            <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+              FOUR SPECIALIZED CURRICULUM TRACKS
+            </span>
+            <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b45309]" />
+          </div>
+
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-bold text-[#0F172A] tracking-tight leading-tight text-center">
             Our Core Technology Ecosystem
           </h2>
 
           {/* Dual-Tone Orange Underline Curve */}
-          <div className="w-40 sm:w-56 mx-auto mt-1 mb-0.5">
-            <div className="h-[2.5px] w-full rounded-full bg-gradient-to-r from-transparent via-[#b45309]/60 to-transparent shadow-[0_0_8px_rgba(180,83,9,0.3)]" />
+          <div className="w-40 sm:w-56 mx-auto mt-0.5 mb-0.5">
+            <div className="h-[2px] w-full rounded-full bg-gradient-to-r from-transparent via-[#b45309]/60 to-transparent shadow-[0_0_8px_rgba(180,83,9,0.3)]" />
           </div>
         </div>
 
@@ -644,7 +652,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 setActiveCardIndex(idx);
                 onSlideChange?.(idx + 3);
               }}
-              className={`group relative flex flex-col justify-between p-4 sm:p-4.5 xl:p-5 rounded-3xl border-2 ${domain.borderColor} ${domain.bgGradient} shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden min-h-[355px] sm:min-h-[375px]`}
+              className={`group relative flex flex-col justify-between p-3.5 sm:p-4 xl:p-4.5 rounded-2xl border-2 ${domain.borderColor} ${domain.bgGradient} shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden min-h-[320px] sm:min-h-[340px]`}
             >
               {/* Corner soft pastel wave gradient accent */}
               <div

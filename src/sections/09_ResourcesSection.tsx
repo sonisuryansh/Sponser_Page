@@ -230,39 +230,39 @@ export const ResourcesSection: React.FC = () => {
                     <div className="resource-flip-face resource-flip-front select-none">
                       <div>
                         {/* Icon & Category Tag */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="resource-icon-box w-8 h-8 flex items-center justify-center border rounded-[3px] shadow-2xs transition-colors">
+                        <div className="flex items-center justify-between mb-2 sm:mb-2.5">
+                          <div className="resource-icon-box w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center border rounded-[3px] shadow-2xs transition-colors">
                             {tileIcons[tile.title] || <BookOpen className="w-4 h-4" />}
                           </div>
-                          <span className="resource-tag-badge text-[9px] font-mono uppercase tracking-widest font-semibold px-2 py-0.5 rounded-[2px]">
+                          <span className="resource-tag-badge text-[8.5px] sm:text-[9px] font-mono uppercase tracking-widest font-semibold px-2 py-0.5 rounded-[2px]">
                             {tile.tag}
                           </span>
                         </div>
 
                         {/* Tile Title */}
-                        <h3 className="resource-tile-title font-serif text-xl sm:text-[22px] font-medium tracking-tight mb-1.5 transition-colors">
+                        <h3 className="resource-tile-title font-serif text-lg sm:text-[20px] font-bold tracking-tight mb-1 transition-colors">
                           {tile.title}
                         </h3>
 
                         {/* Tile Description */}
-                        <p className="resource-tile-desc text-xs leading-relaxed">
+                        <p className="resource-tile-desc text-[11px] sm:text-[11.5px] leading-snug line-clamp-2 mb-2">
                           {tile.description}
                         </p>
 
                         {/* Highlights list on front face */}
-                        <div className="mt-2 pt-2 border-t border-black/5 flex flex-col gap-1 text-[10.5px] text-[#475569]">
-                          {detail.features.slice(0, 2).map((feat, fIdx) => (
+                        <div className="pt-2 border-t border-black/5 flex flex-col gap-1.5 text-[10px] sm:text-[10.5px] text-[#475569]">
+                          {detail.features.slice(0, 3).map((feat, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-1.5 leading-snug">
                               <span className="w-1.5 h-1.5 rounded-full mt-1 shrink-0 bg-[#c8a45d]" />
-                              <span className="line-clamp-1">{feat}</span>
+                              <span className="line-clamp-2">{feat}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       {/* Bottom Open Affordance */}
-                      <div className="resource-bottom-bar flex items-center justify-between text-[10px] font-mono uppercase tracking-wider font-bold pt-2.5 border-t mt-auto transition-colors">
-                        <span>Hover to view specs</span>
+                      <div className="resource-bottom-bar flex items-center justify-between text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider font-bold pt-2 border-t mt-auto transition-colors">
+                        <span>Hover for specs</span>
                         <span className="text-xs">↻</span>
                       </div>
                     </div>

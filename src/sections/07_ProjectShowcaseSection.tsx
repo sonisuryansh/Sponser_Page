@@ -229,7 +229,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               borderColor: currentMeta.borderLight,
               background: `linear-gradient(135deg, #FFFFFF 0%, ${currentMeta.bgLight} 100%)`,
             }}
-            className="relative flex flex-col md:flex-row items-center gap-3 sm:gap-4 lg:gap-5 border-2 rounded-xl p-3 sm:p-3.5 lg:p-4 mb-2 shadow-2xs transition-all duration-500 overflow-hidden"
+            className="relative flex-1 min-h-0 flex flex-col md:flex-row items-center gap-3 sm:gap-4 lg:gap-6 border-2 rounded-2xl p-3 sm:p-4 lg:p-4.5 mb-2 shadow-xs transition-all duration-500 overflow-hidden"
           >
             {/* Ambient Background Corner Glow */}
             <div
@@ -238,61 +238,65 @@ export const ProjectShowcaseSection: React.FC = () => {
             />
 
             {/* Left Narrative & Metadata */}
-            <div className="flex-1 w-full min-w-0 z-10">
-              {/* Domain Badge Row (Grades Removed) */}
-              <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span
-                  style={{
-                    backgroundColor: currentMeta.bgLight,
-                    borderColor: currentMeta.borderLight,
-                    color: currentMeta.textColor,
-                  }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[9.5px] sm:text-[10px] font-mono-tech font-bold uppercase tracking-wider shadow-2xs"
-                >
-                  {currentMeta.icon}
-                  <span>{currentProject.domain}</span>
-                </span>
-
-                <span className="hidden sm:inline font-mono text-[8.5px] uppercase tracking-widest text-[#94A3B8] font-bold ml-auto">
-                  Student Engineering Capstone
-                </span>
-              </div>
-
-              {/* Project Title */}
-              <h3 className="font-serif text-lg sm:text-xl lg:text-[21px] font-bold text-[#0F172A] leading-tight mb-1">
-                {currentProject.name}
-              </h3>
-
-              {/* Summary Description */}
-              <p className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug font-normal mb-2 max-w-xl line-clamp-2">
-                {currentProject.summary}
-              </p>
-
-              {/* Hardware / Spec Chips */}
-              <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 pt-1.5 border-t border-black/8">
-                {activeChips.map((chip, chipIdx) => (
+            <div className="flex-1 w-full min-w-0 z-10 flex flex-col justify-between h-full">
+              <div>
+                {/* Domain Badge Row (Grades Removed) */}
+                <div className="flex items-center gap-2 mb-1 sm:mb-1.5 flex-wrap">
                   <span
-                    key={chip}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200/90 font-sans text-[10px] sm:text-[10.5px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
+                    style={{
+                      backgroundColor: currentMeta.bgLight,
+                      borderColor: currentMeta.borderLight,
+                      color: currentMeta.textColor,
+                    }}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[9.5px] sm:text-[10px] font-mono-tech font-bold uppercase tracking-wider shadow-2xs"
                   >
-                    <span
-                      style={{ backgroundColor: chipIdx === 0 ? currentMeta.color : '#F59E0B' }}
-                      className="w-1.5 h-1.5 rounded-full shrink-0"
-                    />
-                    <span>{chip}</span>
+                    {currentMeta.icon}
+                    <span>{currentProject.domain}</span>
                   </span>
-                ))}
+
+                  <span className="hidden sm:inline font-mono text-[8.5px] uppercase tracking-widest text-[#94A3B8] font-bold ml-auto">
+                    Student Engineering Capstone
+                  </span>
+                </div>
+
+                {/* Project Title */}
+                <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] font-bold text-[#0F172A] leading-tight mb-1">
+                  {currentProject.name}
+                </h3>
+
+                {/* Summary Description */}
+                <p className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug font-normal mb-2 max-w-xl line-clamp-3">
+                  {currentProject.summary}
+                </p>
+
+                {/* Hardware / Spec Chips */}
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 pt-1.5 border-t border-black/8">
+                  {activeChips.map((chip, chipIdx) => (
+                    <span
+                      key={chip}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200/90 font-sans text-[10px] sm:text-[10.5px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
+                    >
+                      <span
+                        style={{ backgroundColor: chipIdx === 0 ? currentMeta.color : '#F59E0B' }}
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                      />
+                      <span>{chip}</span>
+                    </span>
+                  ))}
+                </div>
               </div>
 
               {/* Inspect Action Button */}
-              <button
-                type="button"
-                onClick={() => setSelectedProject(currentProject)}
-                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[10px] sm:text-[10.5px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
-              >
-                <span>Inspect Project Build</span>
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
-              </button>
+              <div className="pt-1 flex-none">
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(currentProject)}
+                  className="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[10px] sm:text-[10.5px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
+                >
+                  <span>Inspect Project Build</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
+                </button>
+              </div>
             </div>
 
             {/* Right Photo Frame */}
@@ -301,7 +305,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               style={{
                 borderColor: currentMeta.borderLight,
               }}
-              className="relative w-full md:w-[260px] lg:w-[300px] h-[135px] sm:h-[150px] lg:h-[160px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer shrink-0 transition-all hover:shadow-xl"
+              className="relative w-full md:w-[280px] lg:w-[320px] xl:w-[360px] h-[140px] sm:h-[160px] md:h-full max-h-[220px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer shrink-0 transition-all hover:shadow-xl"
             >
               <img
                 src={currentProject.image}

@@ -281,26 +281,20 @@
 .resource-flip-wrapper {
   position: relative;
   width: 100%;
-  height: 310px;
+  height: clamp(270px, 44vh, 360px);
   -webkit-perspective: 1400px;
   perspective: 1400px;
 }
 
 @media (min-width: 1024px) {
   .resource-flip-wrapper {
-    height: 340px;
+    height: clamp(290px, 48vh, 390px);
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1536px) and (min-height: 800px) {
   .resource-flip-wrapper {
-    height: 375px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .resource-flip-wrapper {
-    height: 410px;
+    height: clamp(340px, 50vh, 420px);
   }
 }
 
