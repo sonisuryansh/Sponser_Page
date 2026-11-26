@@ -138,25 +138,25 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         onSlideChange(targetIndex);
         transitioningRef.current = false;
         setIsTransitioning(false);
-        lastGestureTimeRef.current = Date.now();
+        lastGestureTimeRef.current = Date.now() - 300;
       };
 
-      // Failsafe watchdog timer (700ms) to ensure transition state never deadlocks
+      // Failsafe watchdog timer (850ms) to ensure transition state never deadlocks
       watchdogTimer = setTimeout(() => {
         if (transitioningRef.current) {
           finish();
         }
-      }, 700);
+      }, 850);
 
       // Directional shutter trajectories (Older Version):
-      // Forward (down): enter from +110% (right) -> 0% -> exit to -110% (left)
-      // Reverse (up): enter from -110% (left) -> 0% -> exit to +110% (right)
-      const enterX = isForward ? 110 : -110;
-      const enterY = isForward ? -12 : 12;
+      // Forward (down): enter from +115% (right) -> 0% -> exit to -115% (left)
+      // Reverse (up): enter from -115% (left) -> 0% -> exit to +115% (right)
+      const enterX = isForward ? 115 : -115;
+      const enterY = isForward ? -8 : 8;
       const enterSkew = isForward ? -4 : 4;
 
-      const exitX = isForward ? -110 : 110;
-      const exitY = isForward ? 12 : -12;
+      const exitX = isForward ? -115 : 115;
+      const exitY = isForward ? 8 : -8;
       const exitSkew = isForward ? 4 : -4;
 
       if (shuttersRef.current) {
@@ -178,10 +178,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
       // 1. Outgoing slide frame subtly recedes
       if (fromFrame) {
-        timeline.to(fromFrame, { scale: 0.96, opacity: 0.45, duration: 0.24, ease: 'power2.out' }, 0);
+        timeline.to(fromFrame, { scale: 0.96, opacity: 0.35, duration: 0.28, ease: 'power2.out' }, 0);
       }
 
-      // 2. Shutters sweep IN to cover the screen (duration: 0.25s, stagger: 0.025s)
+      // 2. Shutters sweep IN to cover the screen (duration: 0.28s, stagger: 0.035s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -189,15 +189,15 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: 0,
             yPercent: 0,
             skewX: 0,
-            duration: 0.25,
-            stagger: 0.025,
+            duration: 0.28,
+            stagger: 0.035,
             ease: 'power3.inOut',
           },
-          0.01
+          0.02
         );
       }
 
-      // 3. SWAP SLIDES while screen is fully covered by shutters at t = 0.27s
+      // 3. SWAP SLIDES while screen is 100% solidly covered by shutters at t = 0.38s
       timeline.add(() => {
         try {
           activeIndexRef.current = targetIndex;
@@ -206,23 +206,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
           gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden', display: 'none', pointerEvents: 'none' });
           gsap.set(toWrapper, { opacity: 1, visibility: 'visible', display: 'block', pointerEvents: 'auto' });
-
-          const steppable = toWrapper.querySelector<HTMLElement>('[data-steppable="true"]');
-          if (steppable) {
-            const isStepBackFromAdjacent = fromIndex === targetIndex + 1;
-            steppable.dispatchEvent(
-              new CustomEvent('slide:enter', {
-                bubbles: true,
-                detail: { direction: isStepBackFromAdjacent ? -1 : 1 },
-              })
-            );
-          }
         } catch (err) {
           console.warn('Error during slide swap:', err);
         }
-      }, 0.27);
+      }, 0.38);
 
-      // 4. Shutters sweep OUT to reveal new slide (0.29s to 0.56s)
+      // 4. Shutters sweep OUT to reveal new slide (0.40s to 0.75s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -230,11 +219,11 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: exitX,
             yPercent: exitY,
             skewX: exitSkew,
-            duration: 0.24,
-            stagger: 0.025,
+            duration: 0.28,
+            stagger: 0.035,
             ease: 'power3.inOut',
           },
-          0.29
+          0.40
         );
       }
 
@@ -243,8 +232,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         timeline.fromTo(
           toFrame,
           { scale: 0.97, opacity: 0.5 },
-          { scale: 1, opacity: 1, duration: 0.26, ease: 'power2.out' },
-          0.30
+          { scale: 1, opacity: 1, duration: 0.28, ease: 'power2.out' },
+          0.40
         );
       }
     },
@@ -262,27 +251,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const now = Date.now();
       if (
         transitioningRef.current ||
-        now - lastGestureTimeRef.current < 450 ||
+        now - lastGestureTimeRef.current < 250 ||
         document.querySelector('[aria-modal="true"]')
       ) {
         return;
-      }
-
-      // Check if current active slide handles internal multi-step animations (e.g. Domains 5-card morph sequence)
-      const activeWrapper = wrappersRef.current[activeIndexRef.current];
-      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
-      if (customSteppable) {
-        const stepEvent = new CustomEvent('slide:step', {
-          bubbles: true,
-          cancelable: true,
-          detail: { direction },
-        });
-        const notPrevented = customSteppable.dispatchEvent(stepEvent);
-        if (!notPrevented) {
-          // Slide handled the step internally! Don't transition slides.
-          lastGestureTimeRef.current = now;
-          return;
-        }
       }
 
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
@@ -306,68 +278,95 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
   useEffect(() => {
     let touchStartY: number | null = null;
+    let touchStartX: number | null = null;
 
-    const shouldCaptureGesture = (direction: number) => {
-      if (transitioningRef.current) return true;
-      if (document.querySelector('[aria-modal="true"]')) return false;
-
-      const activeWrapper = wrappersRef.current[activeIndexRef.current];
-      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
-      if (customSteppable) return true;
+    const handleWheel = (event: WheelEvent) => {
+      if (event.ctrlKey) return;
+      if (document.querySelector('[aria-modal="true"]')) return;
 
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
         '.slide-scroll-pane'
       );
-      if (!pane || pane.scrollHeight <= pane.clientHeight + 16) return true;
+      if (pane && pane.scrollHeight > pane.clientHeight + 16) {
+        const atTop = pane.scrollTop <= 6;
+        const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
+        const dir = event.deltaY > 0 ? 1 : -1;
+        if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) {
+          return;
+        }
+      }
 
-      const atTop = pane.scrollTop <= 6;
-      const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
-      return direction > 0 ? atBottom : atTop;
+      if (event.cancelable) event.preventDefault();
+      if (Math.abs(event.deltaY) < 18) return;
+
+      const direction = event.deltaY > 0 ? 1 : -1;
+      handleGesture(direction);
     };
 
-    const handleWheel = (event: WheelEvent) => {
-      if (event.ctrlKey || !event.cancelable) return;
-      const direction = Math.sign(event.deltaY);
-      if (direction && shouldCaptureGesture(direction)) event.preventDefault();
-    };
     const handleTouchStart = (event: TouchEvent) => {
       touchStartY = event.touches[0]?.clientY ?? null;
+      touchStartX = event.touches[0]?.clientX ?? null;
     };
+
     const handleTouchMove = (event: TouchEvent) => {
       if (touchStartY === null || !event.cancelable) return;
-      const currentY = event.touches[0]?.clientY;
-      if (currentY === undefined) return;
-      const deltaY = currentY - touchStartY;
-      const direction = deltaY < 0 ? 1 : -1;
-      if (deltaY !== 0 && shouldCaptureGesture(direction)) event.preventDefault();
+      if (document.querySelector('[aria-modal="true"]')) return;
+
+      const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
+        '.slide-scroll-pane'
+      );
+      if (pane && pane.scrollHeight > pane.clientHeight + 16) {
+        const currentY = event.touches[0]?.clientY;
+        if (currentY !== undefined) {
+          const deltaY = currentY - touchStartY;
+          const atTop = pane.scrollTop <= 6;
+          const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
+          const dir = deltaY < 0 ? 1 : -1;
+          if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return;
+        }
+      }
+
+      event.preventDefault();
     };
+
     const handleTouchEnd = (event: TouchEvent) => {
+      if (touchStartY === null || document.querySelector('[aria-modal="true"]')) {
+        touchStartY = null;
+        touchStartX = null;
+        return;
+      }
+
       const endY = event.changedTouches[0]?.clientY;
-      if (touchStartY !== null && endY !== undefined) {
+      const endX = event.changedTouches[0]?.clientX;
+      if (endY !== undefined && touchStartX !== null && endX !== undefined) {
         const deltaY = endY - touchStartY;
-        const direction = deltaY < 0 ? 1 : -1;
-        if (Math.abs(deltaY) >= 30 && shouldCaptureGesture(direction)) {
+        const deltaX = endX - touchStartX;
+        if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) >= 32) {
+          const direction = deltaY < 0 ? 1 : -1;
           handleGesture(direction);
         }
       }
       touchStartY = null;
+      touchStartX = null;
     };
-    const clearTouchStart = () => {
+
+    const clearTouch = () => {
       touchStartY = null;
+      touchStartX = null;
     };
 
     window.addEventListener('wheel', handleWheel, { capture: true, passive: false });
     window.addEventListener('touchstart', handleTouchStart, { capture: true, passive: true });
     window.addEventListener('touchmove', handleTouchMove, { capture: true, passive: false });
     window.addEventListener('touchend', handleTouchEnd, { capture: true, passive: false });
-    window.addEventListener('touchcancel', clearTouchStart, true);
+    window.addEventListener('touchcancel', clearTouch, true);
 
     return () => {
       window.removeEventListener('wheel', handleWheel, true);
       window.removeEventListener('touchstart', handleTouchStart, true);
       window.removeEventListener('touchmove', handleTouchMove, true);
       window.removeEventListener('touchend', handleTouchEnd, true);
-      window.removeEventListener('touchcancel', clearTouchStart, true);
+      window.removeEventListener('touchcancel', clearTouch, true);
     };
   }, [handleGesture]);
 
@@ -387,30 +386,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
     window.addEventListener('go-to-slide', handleGoTo);
     return () => window.removeEventListener('go-to-slide', handleGoTo);
   }, [goToSlide]);
-
-  useEffect(() => {
-    const wheelObserver = Observer.create({
-      target: window,
-      type: 'wheel',
-      tolerance: 30,
-      preventDefault: false,
-      onDown: () => handleGesture(1),
-      onUp: () => handleGesture(-1),
-    });
-    const touchObserver = Observer.create({
-      target: window,
-      type: 'touch',
-      tolerance: 30,
-      preventDefault: false,
-      onUp: () => handleGesture(1),
-      onDown: () => handleGesture(-1),
-    });
-
-    return () => {
-      wheelObserver.kill();
-      touchObserver.kill();
-    };
-  }, [handleGesture]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

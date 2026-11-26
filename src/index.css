@@ -126,9 +126,9 @@
 
 .shutter-strip {
   position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
+  left: -15%;
+  right: -15%;
+  width: 130%;
   height: 33.4%;
   will-change: transform;
   pointer-events: none;
