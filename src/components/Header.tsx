@@ -128,10 +128,10 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-50 h-[64px] sm:h-[72px] flex items-center justify-between px-3.5 sm:px-6 md:px-12 pointer-events-auto select-none transition-all duration-300 ${isScrolled
+        className={`fixed top-0 left-0 right-0 z-50 h-[64px] sm:h-[72px] flex items-center justify-between px-3.5 sm:px-6 md:px-12 pointer-events-auto select-none transition-all duration-300 border-b-0 border-none ${isScrolled
           ? isDark
-            ? 'bg-[#0A1016]/92 backdrop-blur-md border-b border-white/10 shadow-md text-white'
-            : 'bg-[#FAF6EE]/94 backdrop-blur-md border-b border-black/8 shadow-xs text-[#111111]'
+            ? 'bg-[#0A1016]/92 backdrop-blur-md text-white'
+            : 'bg-[#FAF6EE]/94 backdrop-blur-md text-[#111111]'
           : isDark
             ? 'bg-transparent text-white'
             : 'bg-transparent text-[#111111]'
