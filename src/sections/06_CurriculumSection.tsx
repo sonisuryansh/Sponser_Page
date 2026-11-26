@@ -15,6 +15,7 @@ import {
   Wrench,
   Sliders,
   Wind,
+  CheckCircle2,
 } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -501,39 +502,125 @@ export const CurriculumSection: React.FC = () => {
                 {currentStage.termProject && (
                   <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-1 min-h-0 my-1 sm:my-2 items-stretch">
                     {/* Term Project Card */}
-                    <div className="p-2.5 sm:p-3 lg:p-3.5 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between min-h-0">
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
+                    <div className="p-3 sm:p-3.5 lg:p-4 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between min-h-0">
+                      <div className="min-h-0 flex flex-col">
+                        <div className="flex items-center justify-between mb-1.5">
                           <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
                             Hands-on Term Project
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#0F172A] leading-snug mb-1">
+                        <h4 className="font-serif font-bold text-[13.5px] sm:text-[14.5px] text-[#0F172A] leading-snug mb-1">
                           {currentStage.termProject}
                         </h4>
-                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed line-clamp-3">
+                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-relaxed mb-2.5">
                           {currentStage.termProjectDesc}
                         </p>
+
+                        {/* Term Project Key Highlights */}
+                        {currentStage.termProjectHighlights && currentStage.termProjectHighlights.length > 0 && (
+                          <div className="pt-2 border-t border-black/6">
+                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-1.5">
+                              Key Build Deliverables
+                            </span>
+                            <ul className="space-y-1.5">
+                              {currentStage.termProjectHighlights.map((hl, i) => (
+                                <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-snug">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-1 shadow-2xs" />
+                                  <span>{hl}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Practical Competency Tags */}
+                        {currentStage.termProjectSkills && (
+                          <div className="flex flex-wrap gap-1 mt-2.5 pt-2 border-t border-black/5">
+                            {currentStage.termProjectSkills.map((skill, i) => (
+                              <span key={i} className="px-1.5 py-0.5 rounded-[4px] bg-[#FFF7ED] border border-[#FED7AA] text-[#C2410C] font-mono text-[8px] sm:text-[8.5px] font-semibold">
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
+
+                      {/* Milestone Footer Badge */}
+                      {currentStage.termProjectDeliverable && (
+                        <div className="mt-auto pt-2.5">
+                          <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#FFF7ED] to-[#FFEDD5]/40 border border-[#FED7AA] flex flex-col gap-0.5 shadow-2xs">
+                            <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#C2410C] font-bold">
+                              Term Milestone Deliverable
+                            </span>
+                            <span className="font-mono text-[9.5px] sm:text-[10px] font-bold text-[#9A3412] flex items-center gap-1.5 leading-tight">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
+                              <span>{currentStage.termProjectDeliverable.replace(/^Milestone:\s*/, '')}</span>
+                            </span>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Lab Hardware & Tools Card */}
-                    <div className="p-2.5 sm:p-3 lg:p-3.5 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between min-h-0">
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
+                    <div className="p-3 sm:p-3.5 lg:p-4 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between min-h-0">
+                      <div className="min-h-0 flex flex-col">
+                        <div className="flex items-center justify-between mb-1.5">
                           <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
                             Lab Platform &amp; Hardware
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#0F172A] leading-snug mb-1">
+                        <h4 className="font-serif font-bold text-[13.5px] sm:text-[14.5px] text-[#0F172A] leading-snug mb-1">
                           {currentStage.hardwarePlatform}
                         </h4>
-                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed line-clamp-3">
+                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-relaxed mb-2.5">
                           {currentStage.hardwarePlatformDesc}
                         </p>
+
+                        {/* Hardware & Tools Specification Highlights */}
+                        {currentStage.hardwarePlatformTools && currentStage.hardwarePlatformTools.length > 0 && (
+                          <div className="pt-2 border-t border-black/6">
+                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-1.5">
+                              Hardware &amp; Toolchain Setup
+                            </span>
+                            <ul className="space-y-1.5">
+                              {currentStage.hardwarePlatformTools.map((tool, i) => (
+                                <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-snug">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-1 shadow-2xs" />
+                                  <span>{tool}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Lab Architecture Tags */}
+                        {currentStage.hardwareTags && (
+                          <div className="flex flex-wrap gap-1 mt-2.5 pt-2 border-t border-black/5">
+                            {currentStage.hardwareTags.map((tag, i) => (
+                              <span key={i} className="px-1.5 py-0.5 rounded-[4px] bg-[#F0F9FF] border border-[#BAE6FD] text-[#0284C7] font-mono text-[8px] sm:text-[8.5px] font-semibold">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
+
+                      {/* Lab Standard Environment Footer Badge */}
+                      {currentStage.hardwareEnvironment && (
+                        <div className="mt-auto pt-2.5">
+                          <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#F0F9FF] to-[#E0F2FE]/40 border border-[#BAE6FD] flex flex-col gap-0.5 shadow-2xs">
+                            <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#0284C7] font-bold">
+                              Lab Benchmark &amp; Standard
+                            </span>
+                            <span className="font-mono text-[9.5px] sm:text-[10px] font-bold text-[#0369A1] flex items-center gap-1.5 leading-tight">
+                              <Cpu className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
+                              <span>{currentStage.hardwareEnvironment.replace(/^Standard:\s*/, '')}</span>
+                            </span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

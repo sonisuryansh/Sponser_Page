@@ -43,8 +43,15 @@ export interface CurriculumStage {
   outcome?: string;
   termProject?: string;
   termProjectDesc?: string;
+  termProjectHighlights?: string[];
+  termProjectSkills?: string[];
+  termProjectDeliverable?: string;
   hardwarePlatform?: string;
   hardwarePlatformDesc?: string;
+  hardwarePlatformTools?: string[];
+  hardwareTags?: string[];
+  hardwareSafety?: string;
+  hardwareEnvironment?: string;
 }
 
 export interface PricingTier {
@@ -311,8 +318,25 @@ export const siteConfig = {
         outcome: 'Students transition from consumers to builders, designing interactive animations and sequential algorithms using intuitive visual blocks.',
         termProject: 'Interactive Maze Game & Visual Sequence Builder',
         termProjectDesc: 'Students program sequential logic, sprite movement, and collision triggers on a digital canvas.',
+        termProjectHighlights: [
+          'Multi-directional arrow navigation with boundary collision detection',
+          'Event-driven scoring triggers and conditional win/loss animation loops',
+          'Custom sprite animation frames, sound triggers & dialogue popups',
+          'Sequential code flowchart documentation recorded in student lab book',
+        ],
+        termProjectSkills: ['Sequential Logic', 'Collision Triggers', 'State Variables', 'Algorithm Flow'],
+        termProjectDeliverable: 'Milestone: Playable Logic Game & Algorithm Map',
         hardwarePlatform: 'Block-Based Development Platform',
         hardwarePlatformDesc: 'Intuitive drag-and-drop algorithmic blocks, visual animation loops, and introductory spatial coordinates.',
+        hardwarePlatformTools: [
+          'Scratch / Blockly visual runtime engine cached 100% offline in browser',
+          'Coordinate canvas with real-time X/Y Cartesian coordinate indicators',
+          'Interactive algorithmic playground with instant step-by-step debug playback',
+          'Zero-setup compatibility across school Chromebooks, iPads & PCs',
+        ],
+        hardwareTags: ['Scratch / Blockly', 'Cartesian Canvas', 'Step Debugger', 'Zero-Setup Web'],
+        hardwareSafety: 'Zero-hazard browser sandbox with local session persistence',
+        hardwareEnvironment: 'Standard: Browser-Based Local School Lab Setup',
       },
       {
         id: 'grade-5-6',
@@ -323,8 +347,25 @@ export const siteConfig = {
         outcome: 'Learners wire practical circuits, interface tactile sensors with motor actuators, and bridge digital code with mechanical movement.',
         termProject: 'Smart Light-Sensing Circuit & Motorized Fan System',
         termProjectDesc: 'Learners construct a breadboard circuit connecting a photocell sensor to an automated motor driver.',
+        termProjectHighlights: [
+          'Breadboard wiring linking LDR photoresistors to NPN transistor switches',
+          'Automated dual-speed DC motor activation calibrated to ambient room light',
+          'Manual override push-button circuit with safety diode reverse-voltage protection',
+          'Electrical schematic drafting and circuit continuity testing with LEDs',
+        ],
+        termProjectSkills: ['Circuit Schematics', "Ohm's Law Basics", 'Sensory Actuation', 'Breadboard Prototyping'],
+        termProjectDeliverable: 'Milestone: Working Photocell Fan Prototype',
         hardwarePlatform: 'Physical Computing Starter Kit',
         hardwarePlatformDesc: 'Solderless breadboards, DC motors, LED indicators, and tactile switches introducing real electricity fundamentals.',
+        hardwarePlatformTools: [
+          '830-tie-point solderless breadboards with color-coded jumper harnesses',
+          'Miniature DC hobby motors, fan impellers & low-voltage transistor drivers',
+          'Cadmium-sulfide photoresistors, precision potentiometers & ceramic capacitors',
+          'Safe 5V DC regulated bench power units & multi-color diagnostic LEDs',
+        ],
+        hardwareTags: ['830-Tie Breadboard', 'DC Hobby Motor', 'Photoresistor LDR', '5V Regulated Bench'],
+        hardwareSafety: 'Low-voltage (5V DC) current-limited workbench protection',
+        hardwareEnvironment: 'Standard: ESD-Safe Electronics Workbench Protocol',
       },
       {
         id: 'grade-7-8',
@@ -335,8 +376,25 @@ export const siteConfig = {
         outcome: 'Students advance from visual blocks to text-based Python syntax, combining code with microcontrollers to harvest live sensor data and build automated response systems.',
         termProject: 'Automated Obstacle Rover with Distance Sensing',
         termProjectDesc: 'Students write Python logic on microcontrollers to measure distance in real time and navigate around obstacles.',
+        termProjectHighlights: [
+          'MicroPython avoidance routine with 20ms polling loop & safe thresholding',
+          'Ultrasonic sonar echo calculation converting speed of sound to distance in cm',
+          'PWM pulse-width modulation speed ramping for smooth acceleration & braking',
+          'Differential steering calibration for smooth 90° pivot turns around barriers',
+        ],
+        termProjectSkills: ['MicroPython Syntax', 'Echo Timing Math', 'PWM Speed Control', 'GPIO Interfacing'],
+        termProjectDeliverable: 'Milestone: Autonomous Obstacle-Navigating Rover',
         hardwarePlatform: 'Microcontroller & Sensor Shield',
         hardwarePlatformDesc: 'MicroPython embedded syntax, ultrasonic rangefinders, dual H-bridge motor drivers, and serial telemetry.',
+        hardwarePlatformTools: [
+          'ESP32 / Raspberry Pi Pico embedded microcontrollers with USB flashing',
+          'HC-SR04 ultrasonic rangefinders & dual L298N motor driver breakout boards',
+          'Opto-isolated dual wheel encoder disks for real-time tachometer feedback',
+          'Integrated 2WD robotic chassis with optical speed encoders & battery mounts',
+        ],
+        hardwareTags: ['ESP32 / Pico', 'HC-SR04 Sonar', 'Dual L298N Driver', 'Encoder Disks'],
+        hardwareSafety: 'Tethered desktop test rig with emergency kill-switch circuit',
+        hardwareEnvironment: 'Standard: Dedicated Rover Track & Tethered IDE',
       },
       {
         id: 'grade-9',
@@ -347,8 +405,25 @@ export const siteConfig = {
         outcome: 'Focuses on connected IoT telemetry, network protocols, and systems thinking, preparing students for annual engineering showcases.',
         termProject: 'Connected IoT Weather Station & Tabletop Flight Rig',
         termProjectDesc: 'Learners deploy sensor nodes logging temperature, humidity, and pressure for school showcase presentation.',
+        termProjectHighlights: [
+          'Atmospheric telemetry station logging temperature, relative humidity & pressure',
+          'Local network MQTT data broadcasting to classroom live telemetry visualizer',
+          'Calibrated altitude estimation based on barometric pressure differential equations',
+          'Flight stabilizer test rig demonstrating single-rotor lift & pitch balance',
+        ],
+        termProjectSkills: ['IoT Protocols (MQTT)', 'Telemetry Parsing', 'Atmospheric Math', 'Flight Aerodynamics'],
+        termProjectDeliverable: 'Milestone: Exhibition-Ready IoT Station & Flight Rig',
         hardwarePlatform: 'IoT Sensor Platform & Flight Controls',
         hardwarePlatformDesc: 'Multi-sensor telemetry modules, 3-axis gyro calibration, wired telemetry protocols, and project exhibition readiness.',
+        hardwarePlatformTools: [
+          'BME280 barometric/humidity breakout sensors & 6-DOF MPU6050 IMU gyroscopes',
+          'Microcontroller WiFi telemetry shield sending JSON data packets over LAN',
+          'Brushless motor ESC (electronic speed controller) with safety throttle locks',
+          'Tethered bench flight test frame with tachometer optical speed monitoring',
+        ],
+        hardwareTags: ['BME280 & MPU6050', 'WiFi Telemetry', 'Brushless ESC', 'Safety Mesh Cage'],
+        hardwareSafety: 'Protective enclosure & safety mesh flight cage during spin tests',
+        hardwareEnvironment: 'Standard: Calibrated Airflow & Mesh Safety Cage',
       },
       {
         id: 'grade-10',
@@ -359,8 +434,25 @@ export const siteConfig = {
         outcome: 'Students execute end-to-end engineering capstones, analyzing multi-sensor datasets and presenting working prototypes to teachers and peers.',
         termProject: 'Recyclable Classifier & Term Capstone Portfolio',
         termProjectDesc: 'Students build an end-to-end multi-sensor system, analyze operational data, and present a verified prototype.',
+        termProjectHighlights: [
+          'Tri-sensor conveyor rig separating metallic cans, clear bottles & cardboard',
+          'Statistical variance filtering distinguishing material density from sensor noise',
+          'Real-time telemetry logging of throughput, rejection rates & sensor latency',
+          'Formal engineering design presentation and accredited capstone portfolio defense',
+        ],
+        termProjectSkills: ['Data Analytics', 'Variance Filtering', 'Automated Sorting', 'Engineering Portfolio'],
+        termProjectDeliverable: 'Milestone: Verified Sorting Capstone & Portfolio Defense',
         hardwarePlatform: 'Data Analytics & Engineering Rig',
         hardwarePlatformDesc: 'Statistical data processing tools, variance filtering, hardware telemetry charts, and formal capstone documentation.',
+        hardwarePlatformTools: [
+          'Inductive proximity, optical reflection & capacitive dielectric sensors',
+          'Python NumPy / Pandas data exploration pipeline logging sensor distributions',
+          'Multi-channel 12-bit ADC data acquisition module streaming at 100Hz',
+          'Automated servo diversion gates & digital inspection telemetry dash',
+        ],
+        hardwareTags: ['Inductive Sensors', 'Python NumPy / Pandas', '12-bit ADC @ 100Hz', 'Conveyor Interlock'],
+        hardwareSafety: 'Enclosed conveyor belt mechanism with optical interlock gates',
+        hardwareEnvironment: 'Standard: Multidisciplinary Capstone Build Station',
       },
       {
         id: 'grade-11',
@@ -371,8 +463,25 @@ export const siteConfig = {
         outcome: 'Hands-on exploration of statistical inference, data pipelines, and machine learning models applied to real-world datasets.',
         termProject: 'Statistical Sensor Model & Supervised Classifier',
         termProjectDesc: 'Students collect multi-sensor readings, engineer predictive features, and train supervised machine learning models.',
+        termProjectHighlights: [
+          'High-dimensional telemetry feature engineering from raw analog sensor feeds',
+          'Supervised linear & logistic regression model training with decision boundaries',
+          'Real-time anomaly detection flagging irregular sensor drifts & sensor faults',
+          'Confusion matrix evaluation, precision/recall analysis & privacy safeguards',
+        ],
+        termProjectSkills: ['Supervised Learning', 'Feature Engineering', 'Loss Functions', 'Model Validation'],
+        termProjectDeliverable: 'Milestone: Trained Classifier Model & Validation Report',
         hardwarePlatform: 'Machine Learning Edge Model Kit',
         hardwarePlatformDesc: 'Data preprocessing pipelines, linear and logistic classification, model evaluation rubrics, and privacy guardrails.',
+        hardwarePlatformTools: [
+          'Interactive Jupyter notebook environment pre-configured with Scikit-Learn',
+          'Multi-channel analog-to-digital converter shields with high sample rates',
+          'High-throughput edge sensor testbeds generating continuous streaming signals',
+          'Edge AI neural inference accelerator modules with hardware performance metrics',
+        ],
+        hardwareTags: ['Jupyter Notebooks', 'Scikit-Learn ML', 'High-Speed ADC', 'Neural Accelerator'],
+        hardwareSafety: 'Sandboxed Python virtual environments with verified datasets',
+        hardwareEnvironment: 'Standard: Networked High-Performance Modeling PCs',
       },
       {
         id: 'grade-12',
@@ -383,8 +492,25 @@ export const siteConfig = {
         outcome: 'Advanced synthesis of deep learning models and autonomous robotics systems with real-time feedback loops.',
         termProject: 'Autonomous Guidance Vehicle & Articulated Arm',
         termProjectDesc: 'Senior capstone synthesizing computer vision, 3-DOF robotic kinematics, and real-time closed-loop control.',
+        termProjectHighlights: [
+          'Real-time OpenCV edge color segmentation & coordinate centroid tracking',
+          '3-DOF robotic arm inverse kinematics calculating servo joint angles in real time',
+          'Trajectory smoothing & acceleration s-curve profiling for stable payload grip',
+          'Closed-loop visual servoing enabling automated pick-and-place precision cycles',
+        ],
+        termProjectSkills: ['Computer Vision', 'Inverse Kinematics', 'Closed-Loop Control', 'Senior Capstone'],
+        termProjectDeliverable: 'Milestone: Full-Stack Robotic Vision & Arm Capstone',
         hardwarePlatform: 'Integrated Robotics & AI Suite',
         hardwarePlatformDesc: 'Edge neural camera models, multi-servo inverse kinematics, serial telemetry feedback, and accredited portfolio defense.',
+        hardwarePlatformTools: [
+          'High-resolution USB machine vision camera with adjustable focal length',
+          'All-metal 3-axis articulated robot arm mechanism with metal gear servos',
+          'High-torque PWM digital servo bus with dual-bearing aluminum brackets',
+          'High-speed serial control bus connecting vision processor to motor actuators',
+        ],
+        hardwareTags: ['USB Vision Camera', '3-DOF Metal Arm', 'High-Torque Servos', 'Safety E-Stop Base'],
+        hardwareSafety: 'Physical emergency-stop button & clamped aluminum base station',
+        hardwareEnvironment: 'Standard: Industrial Robotics & Vision Test Rig',
       },
     ] as CurriculumStage[],
     beyondGrade10: [] as CurriculumStage[],
