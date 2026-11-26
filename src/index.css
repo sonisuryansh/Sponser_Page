@@ -126,27 +126,27 @@
 
 .shutter-strip {
   position: absolute;
-  left: -15%;
-  right: -15%;
-  width: 130%;
-  height: 33.4%;
+  left: -20%;
+  right: -20%;
+  width: 140%;
+  height: 38%;
   will-change: transform;
   pointer-events: none;
-  transform: translate3d(120%, 0, 0);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .shutter-strip-light {
-  top: 0;
+  top: -2%;
   background: #FAF6EE;
 }
 
 .shutter-strip-gold {
-  top: 33.3%;
+  top: 31%;
   background: #c8a45d;
 }
 
 .shutter-strip-dark {
-  top: 66.6%;
+  top: 64%;
   background: #0A0E17;
 }
 

@@ -42,6 +42,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       shuttersRef.current.classList.remove('is-active');
       gsap.set(shuttersRef.current, { display: 'none', visibility: 'hidden' });
       gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
+        x: 0,
+        y: 0,
         xPercent: 120,
         yPercent: -12,
         skewX: -4,
@@ -90,7 +92,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         shuttersRef.current.classList.remove('is-active');
         gsap.set(shuttersRef.current, { display: 'none', visibility: 'hidden' });
         if (strips?.length) {
-          gsap.set(strips, { xPercent: 120, yPercent: -12, skewX: -4 });
+          gsap.set(strips, { x: 0, y: 0, xPercent: 120, yPercent: -12, skewX: -4 });
         }
       }
 
@@ -127,6 +129,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
           shuttersRef.current.classList.remove('is-active');
           gsap.set(shuttersRef.current, { display: 'none', visibility: 'hidden' });
           gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
+            x: 0,
+            y: 0,
             xPercent: 120,
             yPercent: -12,
             skewX: -4,
@@ -138,26 +142,26 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         onSlideChange(targetIndex);
         transitioningRef.current = false;
         setIsTransitioning(false);
-        lastGestureTimeRef.current = Date.now() - 100;
+        lastGestureTimeRef.current = Date.now();
       };
 
-      // Failsafe watchdog timer (480ms) to ensure transition state never deadlocks
+      // Failsafe watchdog timer (950ms) to ensure transition state never deadlocks
       watchdogTimer = setTimeout(() => {
         if (transitioningRef.current) {
           finish();
         }
-      }, 480);
+      }, 950);
 
       // Directional shutter trajectories (Older Version):
       // Forward (down): enter from +115% (right) -> 0% -> exit to -115% (left)
       // Reverse (up): enter from -115% (left) -> 0% -> exit to +115% (right)
       const enterX = isForward ? 115 : -115;
-      const enterY = isForward ? -8 : 8;
-      const enterSkew = isForward ? -4 : 4;
+      const enterY = isForward ? -4 : 4;
+      const enterSkew = isForward ? -2 : 2;
 
       const exitX = isForward ? -115 : 115;
-      const exitY = isForward ? 8 : -8;
-      const exitSkew = isForward ? 4 : -4;
+      const exitY = isForward ? 4 : -4;
+      const exitSkew = isForward ? 2 : -2;
 
       if (shuttersRef.current) {
         shuttersRef.current.classList.add('is-active');
@@ -165,6 +169,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       }
       if (strips?.length) {
         gsap.set(strips, {
+          x: 0,
+          y: 0,
           xPercent: enterX,
           yPercent: enterY,
           skewX: enterSkew,
@@ -176,12 +182,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       });
       activeTimelineRef.current = timeline;
 
-      // 1. Outgoing slide frame subtly recedes
+      // 1. Outgoing slide frame subtly recedes and softens
       if (fromFrame) {
-        timeline.to(fromFrame, { scale: 0.96, opacity: 0.35, duration: 0.16, ease: 'power2.out' }, 0);
+        timeline.to(fromFrame, { scale: 0.95, opacity: 0.4, duration: 0.32, ease: 'power2.out' }, 0);
       }
 
-      // 2. Shutters sweep IN to cover the screen (duration: 0.16s, stagger: 0.015s)
+      // 2. Shutters sweep IN to 100% solidly cover the screen (duration: 0.35s, stagger: 0.025s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -189,15 +195,16 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: 0,
             yPercent: 0,
             skewX: 0,
-            duration: 0.16,
-            stagger: 0.015,
+            duration: 0.35,
+            stagger: 0.025,
             ease: 'power3.inOut',
           },
-          0.01
+          0.02
         );
       }
 
-      // 3. SWAP SLIDES while screen is 100% solidly covered by shutters at t = 0.20s
+      // 3. SWAP SLIDES while screen is 100% solidly covered by shutters at t = 0.43s
+      // All 3 strips reach xPercent: 0 by t = 0.42s. Screen is 100% covered!
       timeline.add(() => {
         try {
           activeIndexRef.current = targetIndex;
@@ -206,12 +213,13 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
           gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden', display: 'none', pointerEvents: 'none' });
           gsap.set(toWrapper, { opacity: 1, visibility: 'visible', display: 'block', pointerEvents: 'auto' });
+          if (scrollPane) scrollPane.scrollTop = 0;
         } catch (err) {
           console.warn('Error during slide swap:', err);
         }
-      }, 0.20);
+      }, 0.43);
 
-      // 4. Shutters sweep OUT to reveal new slide (0.21s to 0.38s)
+      // 4. Shutters sweep OUT to reveal new slide (from 0.48s to 0.86s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -219,21 +227,21 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: exitX,
             yPercent: exitY,
             skewX: exitSkew,
-            duration: 0.16,
-            stagger: 0.015,
+            duration: 0.35,
+            stagger: 0.025,
             ease: 'power3.inOut',
           },
-          0.21
+          0.48
         );
       }
 
-      // 5. Incoming slide frame gently emerges into crisp focus
+      // 5. Incoming slide frame gently emerges into crisp focus as shutters open
       if (toFrame) {
         timeline.fromTo(
           toFrame,
-          { scale: 0.97, opacity: 0.5 },
-          { scale: 1, opacity: 1, duration: 0.18, ease: 'power2.out' },
-          0.21
+          { scale: 0.97, opacity: 0.7 },
+          { scale: 1, opacity: 1, duration: 0.34, ease: 'power2.out' },
+          0.48
         );
       }
     },
@@ -251,7 +259,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const now = Date.now();
       if (
         transitioningRef.current ||
-        now - lastGestureTimeRef.current < 250 ||
+        now - lastGestureTimeRef.current < 450 ||
         document.querySelector('[aria-modal="true"]')
       ) {
         return;
