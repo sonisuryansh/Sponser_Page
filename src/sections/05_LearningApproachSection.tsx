@@ -161,9 +161,10 @@ export const LearningApproachSection: React.FC = () => {
             className="flex-1 flex flex-col justify-between p-3 sm:p-4 lg:p-5 gap-1.5 sm:gap-2"
           >
             {/* Header Area */}
-            <div>
-              {/* Eyebrow with gold accent line */}
-              <div className="editorial-reveal flex items-center gap-2 mb-1">
+            <div className="flex flex-col items-center text-center">
+              {/* Eyebrow with gold accent lines */}
+              <div className="editorial-reveal flex items-center justify-center gap-2 mb-1">
+                <span className="w-6 h-[1.5px] bg-[#b45309]/50" />
                 <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
                   {siteConfig.approach.eyebrow}
                 </span>
@@ -173,13 +174,13 @@ export const LearningApproachSection: React.FC = () => {
               {/* Main Headline */}
               <h2
                 ref={headlineRef}
-                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-tight mb-0.5"
+                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-tight mb-0.5 text-center"
               >
                 {siteConfig.approach.headline}
               </h2>
 
               {/* Glowing Warm Gold Underline Curve (Matching Image 1) */}
-              <div className="editorial-reveal w-36 sm:w-48 -mt-0.5 mb-1.5">
+              <div className="editorial-reveal w-36 sm:w-48 mx-auto -mt-0.5 mb-1.5">
                 <svg viewBox="0 0 240 12" fill="none" className="w-full text-[#F59E0B]">
                   <path
                     d="M2 9C70 2 170 2 238 8"
@@ -191,7 +192,7 @@ export const LearningApproachSection: React.FC = () => {
               </div>
 
               {/* Narrative Subtitle */}
-              <p className="editorial-reveal font-sans text-xs sm:text-[12.5px] text-[#475569] leading-relaxed max-w-2xl mb-1 font-normal">
+              <p className="editorial-reveal font-sans text-xs sm:text-[12.5px] text-[#475569] leading-relaxed max-w-2xl mx-auto mb-1 font-normal text-center">
                 At MedhaArc Labs, our pedagogical approach bridges abstract principles with physical systems. Rather than passive screen consumption, students construct real functional hardware, wire sensor circuits, and deploy code that directly interacts with the physical world.
               </p>
             </div>
