@@ -137,6 +137,7 @@ export const BenefitsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
 
   // Close card flip on Escape key
   useEffect(() => {
@@ -190,10 +191,15 @@ export const BenefitsSection: React.FC = () => {
         <div className="editorial-reveal w-full self-stretch flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4 items-stretch">
             {BENEFIT_CARDS.map((card, idx) => {
-              const isFlipped = activeCardIndex === idx;
+              const isFlipped = activeCardIndex === idx || hoveredCardIndex === idx;
 
               return (
-                <div key={card.title} className="benefit-flip-wrapper">
+                <div
+                  key={card.title}
+                  onMouseEnter={() => setHoveredCardIndex(idx)}
+                  onMouseLeave={() => setHoveredCardIndex(null)}
+                  className="benefit-flip-wrapper"
+                >
                   <div
                     onClick={() => setActiveCardIndex(isFlipped ? null : idx)}
                     className={`benefit-flip-card group ${isFlipped ? 'is-flipped' : ''}`}

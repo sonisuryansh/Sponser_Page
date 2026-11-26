@@ -215,6 +215,7 @@ export const ResourcesSection: React.FC = () => {
   const tilesRef = useRef<HTMLDivElement>(null);
   const [selectedTile, setSelectedTile] = useState<string | null>(null);
   const [flippedTile, setFlippedTile] = useState<string | null>(null);
+  const [hoveredTile, setHoveredTile] = useState<string | null>(null);
 
   // Close modal or flip on Escape key
   useEffect(() => {
@@ -280,11 +281,13 @@ export const ResourcesSection: React.FC = () => {
             {siteConfig.resources.tiles.map((tile) => {
               const detail = RESOURCE_CARD_DATA[tile.title] || RESOURCE_CARD_DATA['E-Books'];
               const theme = tileThemeMap[tile.title] || tileThemeMap['E-Books'];
-              const isFlipped = flippedTile === tile.title;
+              const isFlipped = flippedTile === tile.title || hoveredTile === tile.title;
 
               return (
                 <div
                   key={tile.title}
+                  onMouseEnter={() => setHoveredTile(tile.title)}
+                  onMouseLeave={() => setHoveredTile(null)}
                   className={`resource-flip-wrapper resource-tile ${theme.themeClass}`}
                 >
                   <div

@@ -87,6 +87,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const [activePillarIndex, setActivePillarIndex] = useState<number | null>(null);
+  const [hoveredPillarIndex, setHoveredPillarIndex] = useState<number | null>(null);
 
   // Close popup on Escape key
   useEffect(() => {
@@ -153,10 +154,15 @@ export const TeacherEmpowermentSection: React.FC = () => {
                 'For Teachers • 4–5 Workshops',
                 'Skills That Stay Permanently',
               ];
-              const isFlipped = activePillarIndex === idx;
+              const isFlipped = activePillarIndex === idx || hoveredPillarIndex === idx;
 
               return (
-                <div key={col.title} className="pillar-flip-wrapper">
+                <div
+                  key={col.title}
+                  onMouseEnter={() => setHoveredPillarIndex(idx)}
+                  onMouseLeave={() => setHoveredPillarIndex(null)}
+                  className="pillar-flip-wrapper"
+                >
                   <div
                     onClick={() => setActivePillarIndex(isFlipped ? null : idx)}
                     className={`pillar-flip-card ${isFlipped ? 'is-flipped' : ''}`}
