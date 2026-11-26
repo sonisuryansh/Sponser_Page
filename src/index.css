@@ -260,17 +260,21 @@
   will-change: transform;
 }
 
-.resource-flip-wrapper:hover .resource-flip-card:not(.is-flipped) {
-  transform: translateY(-4px);
-}
-
-.resource-flip-wrapper:hover .resource-flip-card.is-flipped {
-  transform: rotateY(180deg) translateY(-4px);
+@media (hover: hover) and (pointer: fine) {
+  .resource-flip-wrapper:hover .resource-flip-card {
+    -webkit-transform: rotateY(180deg) translateY(-4px);
+    transform: rotateY(180deg) translateY(-4px);
+  }
 }
 
 .resource-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
+}
+
+.resource-flip-wrapper:hover .resource-flip-card.is-flipped {
+  -webkit-transform: rotateY(180deg) translateY(-4px);
+  transform: rotateY(180deg) translateY(-4px);
 }
 
 .resource-flip-face {
@@ -594,17 +598,21 @@
   transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pillar-flip-wrapper:hover .pillar-flip-card:not(.is-flipped) {
-  transform: translateY(-4px);
-}
-
-.pillar-flip-wrapper:hover .pillar-flip-card.is-flipped {
-  transform: rotateY(180deg) translateY(-4px);
+@media (hover: hover) and (pointer: fine) {
+  .pillar-flip-wrapper:hover .pillar-flip-card {
+    -webkit-transform: rotateY(180deg) translateY(-4px);
+    transform: rotateY(180deg) translateY(-4px);
+  }
 }
 
 .pillar-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
+}
+
+.pillar-flip-wrapper:hover .pillar-flip-card.is-flipped {
+  -webkit-transform: rotateY(180deg) translateY(-4px);
+  transform: rotateY(180deg) translateY(-4px);
 }
 
 .pillar-flip-face {
@@ -723,17 +731,21 @@
   transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.benefit-flip-wrapper:hover .benefit-flip-card:not(.is-flipped) {
-  transform: translateY(-4px);
-}
-
-.benefit-flip-wrapper:hover .benefit-flip-card.is-flipped {
-  transform: rotateY(180deg) translateY(-4px);
+@media (hover: hover) and (pointer: fine) {
+  .benefit-flip-wrapper:hover .benefit-flip-card {
+    -webkit-transform: rotateY(180deg) translateY(-4px);
+    transform: rotateY(180deg) translateY(-4px);
+  }
 }
 
 .benefit-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
+}
+
+.benefit-flip-wrapper:hover .benefit-flip-card.is-flipped {
+  -webkit-transform: rotateY(180deg) translateY(-4px);
+  transform: rotateY(180deg) translateY(-4px);
 }
 
 .benefit-flip-face {

@@ -202,7 +202,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
 
                       {/* Bottom Flip Affordance Hint */}
                       <div className="flex items-center justify-between text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider text-white/80 pt-1.5 border-t border-white/20 mt-1">
-                        <span>Click to flip for deliverables</span>
+                        <span>Hover for deliverables</span>
                         <span className="text-xs">↻</span>
                       </div>
                     </div>

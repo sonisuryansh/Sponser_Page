@@ -336,7 +336,7 @@ export const ResourcesSection: React.FC = () => {
 
                       {/* Bottom Open Affordance */}
                       <div className="resource-bottom-bar flex items-center justify-between text-[10.5px] sm:text-[11px] font-mono uppercase tracking-wider font-bold pt-2 border-t mt-auto transition-colors">
-                        <span>Click for specs</span>
+                        <span>Hover for specs</span>
                         <span className="text-xs">↻</span>
                       </div>
                     </div>
