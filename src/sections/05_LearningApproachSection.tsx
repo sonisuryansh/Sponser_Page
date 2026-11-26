@@ -21,6 +21,7 @@ interface ApproachCardData {
   badgeText: string;
   badgeBorder: string;
   description: string;
+  bullets: string[];
   icon: React.ReactNode;
   iconBg: string;
   iconBorder: string;
@@ -37,6 +38,11 @@ const APPROACH_CARDS: ApproachCardData[] = [
     badgeText: '#0284C7',
     badgeBorder: '#BAE6FD',
     description: 'Every term ends with something they made, on real hardware.',
+    bullets: [
+      'Tangible circuits, sensors & motor actuators',
+      'Tested and improved iteratively each session',
+      'Working functional build at term completion',
+    ],
     icon: <Wrench className="w-5 h-5 text-[#0284C7]" />,
     iconBg: '#F0F9FF',
     iconBorder: '#BAE6FD',
@@ -52,6 +58,11 @@ const APPROACH_CARDS: ApproachCardData[] = [
     badgeBorder: '#FDE68A',
     description:
       'The curriculum builds year on year and is reviewed and updated as technology changes.',
+    bullets: [
+      'Structured Grade 3 to 12 academic progression',
+      'Annual review aligning with modern tech & AI',
+      'Zero extra preparation load for school teachers',
+    ],
     icon: <BookOpen className="w-5 h-5 text-[#D97706]" />,
     iconBg: '#FFFBEB',
     iconBorder: '#FDE68A',
@@ -67,6 +78,11 @@ const APPROACH_CARDS: ApproachCardData[] = [
     badgeBorder: '#A7F3D0',
     description:
       'From Grade 9, students present their projects to teachers, parents and peers.',
+    bullets: [
+      'Annual science exhibition & project showcase',
+      'Live demonstration of engineering prototypes',
+      'Builds presentation confidence & technical rigor',
+    ],
     icon: <Presentation className="w-5 h-5 text-[#059669]" />,
     iconBg: '#ECFDF5',
     iconBorder: '#A7F3D0',
@@ -197,10 +213,15 @@ export const LearningApproachSection: React.FC = () => {
                   />
                 </svg>
               </div>
+
+              {/* Narrative Subtitle */}
+              <p className="editorial-reveal font-sans text-xs sm:text-[12.5px] text-[#475569] leading-relaxed max-w-2xl mb-1 font-normal">
+                At MedhaArc Labs, our pedagogical approach bridges abstract principles with physical systems. Rather than passive screen consumption, students construct real functional hardware, wire sensor circuits, and deploy code that directly interacts with the physical world.
+              </p>
             </div>
 
-            {/* ─── 3 Colorful Pedagogical Cards (Exact replica of Image 1) ─── */}
-            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 my-0.5">
+            {/* ─── 3 Colorful Pedagogical Cards (Exact replica of Image 1 with full rich details) ─── */}
+            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 my-1">
               {APPROACH_CARDS.map((card) => (
                 <div
                   key={card.title}
@@ -209,7 +230,7 @@ export const LearningApproachSection: React.FC = () => {
                     borderColor: card.cardBorder,
                     boxShadow: `0 6px 20px -4px ${card.glowColor}`,
                   }}
-                  className="flex flex-col justify-between p-2.5 sm:p-3 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="flex flex-col justify-between p-3 sm:p-3.5 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div>
                     {/* Top Row: Icon in Rounded Box + Card Title */}
@@ -223,7 +244,7 @@ export const LearningApproachSection: React.FC = () => {
                       >
                         {card.icon}
                       </div>
-                      <h3 className="font-serif text-[13px] sm:text-[14px] font-bold text-[#0F172A] leading-tight">
+                      <h3 className="font-serif text-[13.5px] sm:text-[15px] font-bold text-[#0F172A] leading-tight">
                         {card.title}
                       </h3>
                     </div>
@@ -243,18 +264,28 @@ export const LearningApproachSection: React.FC = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug mt-0.5 font-normal line-clamp-2">
+                    <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mt-1 font-normal">
                       {card.description}
                     </p>
+
+                    {/* Concrete Deliverable Points */}
+                    <ul className="space-y-1 mt-2 pt-2 border-t border-slate-100">
+                      {card.bullets.map((b) => (
+                        <li key={b} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] font-sans leading-tight">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] shrink-0" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* ─── Bottom Section: "OUR APPROACH" & 6 Core Principles (Matching Image 1) ─── */}
-            <div className="editorial-reveal pt-1.5 border-t border-black/8 mt-0.5">
+            <div className="editorial-reveal pt-2 border-t border-black/8 mt-0.5">
               {/* Eyebrow with gold accent dashes */}
-              <div className="flex items-center justify-center gap-2 mb-1">
+              <div className="flex items-center justify-center gap-2 mb-1.5">
                 <span className="w-5 h-px bg-[#c8a45d]/60" />
                 <span className="font-mono text-[9px] uppercase tracking-[0.25em] font-bold text-[#B45309]">
                   Our Approach
@@ -263,19 +294,19 @@ export const LearningApproachSection: React.FC = () => {
               </div>
 
               {/* 6 Core Learning Principles in Horizontal Clean Layout */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                 {PRINCIPLES.map((pr) => (
                   <div
                     key={pr.title}
-                    className="flex flex-col items-center text-center p-1 group hover:-translate-y-0.5 transition-transform"
+                    className="flex flex-col items-center text-center p-1.5 bg-white/70 rounded-lg border border-black/5 hover:-translate-y-0.5 transition-transform"
                   >
                     <div
                       style={{ backgroundColor: pr.bg, borderColor: pr.border }}
-                      className="w-7 h-7 rounded-lg border flex items-center justify-center mb-0.5 shadow-xs group-hover:scale-105 transition-transform shrink-0"
+                      className="w-7 h-7 rounded-lg border flex items-center justify-center mb-1 shadow-xs group-hover:scale-105 transition-transform shrink-0"
                     >
                       {pr.icon}
                     </div>
-                    <span className="font-sans text-[9px] sm:text-[9.5px] font-medium text-[#1E293B] leading-snug line-clamp-2">
+                    <span className="font-sans text-[9px] sm:text-[10px] font-semibold text-[#1E293B] leading-snug line-clamp-2">
                       {pr.title}
                     </span>
                   </div>

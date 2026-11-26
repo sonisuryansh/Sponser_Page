@@ -496,6 +496,47 @@ export const CurriculumSection: React.FC = () => {
                     </div>
                   </div>
                 )}
+
+                {/* 5b. Hands-on Term Capstone & Hardware Lab Platform Cards */}
+                {currentStage.termProject && (
+                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 my-2 sm:my-3">
+                    {/* Term Project Card */}
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
+                            Hands-on Term Project
+                          </span>
+                        </div>
+                        <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#0F172A] leading-snug mb-1">
+                          {currentStage.termProject}
+                        </h4>
+                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed">
+                          {currentStage.termProjectDesc}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Lab Hardware & Tools Card */}
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
+                            Lab Platform &amp; Hardware
+                          </span>
+                        </div>
+                        <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#0F172A] leading-snug mb-1">
+                          {currentStage.hardwarePlatform}
+                        </h4>
+                        <p className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-relaxed">
+                          {currentStage.hardwarePlatformDesc}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* 6. Bottom Navigation Bar: Previous + 7 Dots + Next (Matching Image 1) */}
