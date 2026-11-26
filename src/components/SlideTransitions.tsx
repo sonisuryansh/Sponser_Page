@@ -138,15 +138,15 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         onSlideChange(targetIndex);
         transitioningRef.current = false;
         setIsTransitioning(false);
-        lastGestureTimeRef.current = Date.now() - 300;
+        lastGestureTimeRef.current = Date.now() - 100;
       };
 
-      // Failsafe watchdog timer (850ms) to ensure transition state never deadlocks
+      // Failsafe watchdog timer (480ms) to ensure transition state never deadlocks
       watchdogTimer = setTimeout(() => {
         if (transitioningRef.current) {
           finish();
         }
-      }, 850);
+      }, 480);
 
       // Directional shutter trajectories (Older Version):
       // Forward (down): enter from +115% (right) -> 0% -> exit to -115% (left)
@@ -178,10 +178,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
       // 1. Outgoing slide frame subtly recedes
       if (fromFrame) {
-        timeline.to(fromFrame, { scale: 0.96, opacity: 0.35, duration: 0.28, ease: 'power2.out' }, 0);
+        timeline.to(fromFrame, { scale: 0.96, opacity: 0.35, duration: 0.16, ease: 'power2.out' }, 0);
       }
 
-      // 2. Shutters sweep IN to cover the screen (duration: 0.28s, stagger: 0.035s)
+      // 2. Shutters sweep IN to cover the screen (duration: 0.16s, stagger: 0.015s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -189,15 +189,15 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: 0,
             yPercent: 0,
             skewX: 0,
-            duration: 0.28,
-            stagger: 0.035,
+            duration: 0.16,
+            stagger: 0.015,
             ease: 'power3.inOut',
           },
-          0.02
+          0.01
         );
       }
 
-      // 3. SWAP SLIDES while screen is 100% solidly covered by shutters at t = 0.38s
+      // 3. SWAP SLIDES while screen is 100% solidly covered by shutters at t = 0.20s
       timeline.add(() => {
         try {
           activeIndexRef.current = targetIndex;
@@ -209,9 +209,9 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         } catch (err) {
           console.warn('Error during slide swap:', err);
         }
-      }, 0.38);
+      }, 0.20);
 
-      // 4. Shutters sweep OUT to reveal new slide (0.40s to 0.75s)
+      // 4. Shutters sweep OUT to reveal new slide (0.21s to 0.38s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -219,11 +219,11 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: exitX,
             yPercent: exitY,
             skewX: exitSkew,
-            duration: 0.28,
-            stagger: 0.035,
+            duration: 0.16,
+            stagger: 0.015,
             ease: 'power3.inOut',
           },
-          0.40
+          0.21
         );
       }
 
@@ -232,8 +232,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         timeline.fromTo(
           toFrame,
           { scale: 0.97, opacity: 0.5 },
-          { scale: 1, opacity: 1, duration: 0.28, ease: 'power2.out' },
-          0.40
+          { scale: 1, opacity: 1, duration: 0.18, ease: 'power2.out' },
+          0.21
         );
       }
     },

@@ -258,7 +258,7 @@ export const AboutSection: React.FC = () => {
               </div>
 
               {/* 4 Grand Stepper Cards Taking Full Height with Generous Typography */}
-              <div className="flex flex-col gap-1.5 sm:gap-2 flex-1 justify-between min-h-0">
+              <div className="flex flex-col gap-1 sm:gap-1.5 flex-1 justify-between min-h-0">
                 {STEPS.map((step, idx) => {
                   const isActive = activeStepIndex === idx;
 
@@ -267,14 +267,14 @@ export const AboutSection: React.FC = () => {
                       key={step.name}
                       type="button"
                       onClick={() => setActiveStepIndex(idx)}
-                      className={`group relative p-2 sm:p-2.5 rounded-lg border text-left transition-all duration-300 cursor-pointer flex-1 flex items-center gap-2 sm:gap-2.5 min-h-0 ${isActive
+                      className={`group relative p-1.5 sm:p-2 lg:p-2.5 rounded-lg border text-left transition-all duration-300 cursor-pointer flex-1 flex items-center gap-2 sm:gap-2.5 min-h-0 ${isActive
                         ? `${step.borderActive} ${step.bgActive} shadow-xs -translate-x-0.5`
                         : 'border-slate-200/80 bg-white hover:bg-slate-50/80 hover:border-slate-300'
                         }`}
                     >
                       {/* Step Number Badge */}
                       <span
-                        className={`w-6 h-6 sm:w-7 sm:h-7 rounded-md flex items-center justify-center font-mono font-bold text-[10.5px] sm:text-[11px] shrink-0 shadow-2xs transition-colors ${isActive
+                        className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 rounded-md flex items-center justify-center font-mono font-bold text-[10px] sm:text-[10.5px] lg:text-[11px] shrink-0 shadow-2xs transition-colors ${isActive
                           ? `${step.numBg} text-white`
                           : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
                           }`}
@@ -285,17 +285,17 @@ export const AboutSection: React.FC = () => {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-0.5">
-                          <h4 className="font-serif font-bold text-[11.5px] sm:text-[12px] lg:text-[12.5px] text-[#0F172A] leading-tight">
+                          <h4 className="font-serif font-bold text-[11px] sm:text-[11.5px] lg:text-[12.5px] text-[#0F172A] leading-tight">
                             {step.name}
                           </h4>
                           <span
-                            className={`font-mono text-[8px] sm:text-[8.5px] lg:text-[9px] font-semibold px-1.5 py-0.2 rounded transition-colors ${isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
+                            className={`font-mono text-[7.5px] sm:text-[8px] lg:text-[8.5px] font-semibold px-1.5 py-0.2 rounded transition-colors ${isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
                               }`}
                           >
                             {step.subtitle}
                           </span>
                         </div>
-                        <p className="font-sans text-[9.5px] sm:text-[10px] lg:text-[10.5px] text-slate-600 leading-tight line-clamp-2">
+                        <p className="font-sans text-[9px] sm:text-[9.5px] lg:text-[10px] text-slate-600 leading-tight line-clamp-2">
                           {step.desc}
                         </p>
                       </div>

@@ -13,6 +13,8 @@ import {
   Plane,
   ChevronLeft,
   ChevronRight,
+  Wrench,
+  TrendingUp,
 } from 'lucide-react';
 import { ChapterShell } from '../components/ChapterShell';
 
@@ -161,6 +163,13 @@ const DOMAINS: DomainData[] = [
     checkColor: 'text-white',
     tagColor: 'text-[#0284C7]',
     tagBg: 'bg-sky-100 text-[#0369A1]',
+    specialCallout: {
+      icon: <Wrench className="w-4 h-4 text-[#0284C7] shrink-0" />,
+      text: 'Physical computing: motors, sensors & microcontrollers.',
+      bg: '#F0F9FF',
+      border: '#BAE6FD',
+      color: '#0369A1',
+    },
     slideNumber: '01',
     items: [
       'Microcontrollers & Embedded C',
@@ -250,6 +259,13 @@ const DOMAINS: DomainData[] = [
     checkColor: 'text-white',
     tagColor: 'text-[#EA580C]',
     tagBg: 'bg-orange-100 text-[#C2410C]',
+    specialCallout: {
+      icon: <TrendingUp className="w-4 h-4 text-[#EA580C] shrink-0" />,
+      text: 'Sensor telemetry: live analysis & evidence-based conclusions.',
+      bg: '#FFF7ED',
+      border: '#FFEDD5',
+      color: '#C2410C',
+    },
     slideNumber: '03',
     items: [
       'Data Wrangling & Cleaning',

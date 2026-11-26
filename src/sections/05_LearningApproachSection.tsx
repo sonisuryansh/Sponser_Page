@@ -21,6 +21,7 @@ interface ApproachCardData {
   badgeText: string;
   badgeBorder: string;
   description: string;
+  focusArea: string;
   bullets: string[];
   icon: React.ReactNode;
   iconBg: string;
@@ -38,9 +39,11 @@ const APPROACH_CARDS: ApproachCardData[] = [
     badgeText: '#0284C7',
     badgeBorder: '#BAE6FD',
     description: 'Every term ends with something they made, on real hardware.',
+    focusArea: 'Tangible breadboard circuits, motor drivers & real sensor rigs',
     bullets: [
       'Tangible circuits, sensors & motor actuators',
       'Tested and improved iteratively each session',
+      'Real hardware debugging & signal verification',
       'Working functional build at term completion',
     ],
     icon: <Wrench className="w-5 h-5 text-[#0284C7]" />,
@@ -58,9 +61,11 @@ const APPROACH_CARDS: ApproachCardData[] = [
     badgeBorder: '#FDE68A',
     description:
       'The curriculum builds year on year and is reviewed and updated as technology changes.',
+    focusArea: 'Progressive spiral pathway from Grade 3 foundations to Grade 12 robotics',
     bullets: [
       'Structured Grade 3 to 12 academic progression',
       'Annual review aligning with modern tech & AI',
+      'Age-appropriate intuition before theoretical depth',
       'Zero extra preparation load for school teachers',
     ],
     icon: <BookOpen className="w-5 h-5 text-[#D97706]" />,
@@ -78,10 +83,12 @@ const APPROACH_CARDS: ApproachCardData[] = [
     badgeBorder: '#A7F3D0',
     description:
       'From Grade 9, students present their projects to teachers, parents and peers.',
+    focusArea: 'Public technical presentations, peer demonstrations & portfolio defense',
     bullets: [
       'Annual science exhibition & project showcase',
       'Live demonstration of engineering prototypes',
-      'Builds presentation confidence & technical rigor',
+      'Student technical defense & portfolio curation',
+      'Builds presentation confidence & engineering rigor',
     ],
     icon: <Presentation className="w-5 h-5 text-[#059669]" />,
     iconBg: '#ECFDF5',
@@ -267,10 +274,18 @@ export const LearningApproachSection: React.FC = () => {
                     <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mt-1 font-normal">
                       {card.description}
                     </p>
+
+                    {/* Focus Area Sub-Callout */}
+                    <div className="mt-2 p-1.5 rounded-lg bg-black/[0.02] border border-black/5 text-[9.5px] sm:text-[10px] font-sans font-medium text-slate-600 leading-tight">
+                      <span className="font-mono text-[8.5px] uppercase tracking-wider font-bold text-slate-400 block mb-0.5">
+                        Core Method:
+                      </span>
+                      <span>{card.focusArea}</span>
+                    </div>
                   </div>
 
                   {/* Concrete Deliverable Points */}
-                  <ul className="space-y-1 mt-auto pt-2 border-t border-slate-100">
+                  <ul className="space-y-1 mt-auto pt-2 border-t border-slate-100 flex-1 flex flex-col justify-around">
                     {card.bullets.map((b) => (
                       <li key={b} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] font-sans leading-tight">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] shrink-0" />
