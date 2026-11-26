@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import { BookOpen, Layers, CheckSquare, Video, ArrowRight, X, CheckCircle2 } from 'lucide-react';
-import gsap from 'gsap';
 
 const tileIcons: Record<string, React.ReactNode> = {
   'E-Books': <BookOpen className="w-4 h-4" />,
@@ -215,34 +214,22 @@ export const ResourcesSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const tilesRef = useRef<HTMLDivElement>(null);
   const [selectedTile, setSelectedTile] = useState<string | null>(null);
+  const [flippedTile, setFlippedTile] = useState<string | null>(null);
 
-  // Close modal on Escape key
+  // Close modal or flip on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedTile(null);
+      if (e.key === 'Escape') {
+        if (selectedTile) {
+          setSelectedTile(null);
+        } else if (flippedTile) {
+          setFlippedTile(null);
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // Entrance animation for resource tiles
-  useEffect(() => {
-    const el = tilesRef.current;
-    if (!el) return;
-
-    const tiles = el.querySelectorAll<HTMLElement>('.resource-tile');
-    gsap.fromTo(
-      tiles,
-      { y: 24, opacity: 0.3 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.08,
-        ease: 'power2.out',
-      }
-    );
-  }, []);
+  }, [selectedTile, flippedTile]);
 
   const activeDetail = selectedTile ? RESOURCE_CARD_DATA[selectedTile] || RESOURCE_CARD_DATA['E-Books'] : null;
 
@@ -293,6 +280,7 @@ export const ResourcesSection: React.FC = () => {
             {siteConfig.resources.tiles.map((tile) => {
               const detail = RESOURCE_CARD_DATA[tile.title] || RESOURCE_CARD_DATA['E-Books'];
               const theme = tileThemeMap[tile.title] || tileThemeMap['E-Books'];
+              const isFlipped = flippedTile === tile.title;
 
               return (
                 <div
@@ -300,17 +288,17 @@ export const ResourcesSection: React.FC = () => {
                   className={`resource-flip-wrapper resource-tile ${theme.themeClass}`}
                 >
                   <div
-                    onClick={() => setSelectedTile(tile.title)}
-                    className="resource-flip-card group"
+                    onClick={() => setFlippedTile(isFlipped ? null : tile.title)}
+                    className={`resource-flip-card group ${isFlipped ? 'is-flipped' : ''}`}
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        setSelectedTile(tile.title);
+                        setFlippedTile(isFlipped ? null : tile.title);
                       }
                     }}
-                    aria-label={`View ${tile.title} details`}
+                    aria-label={`Toggle ${tile.title} details`}
                   >
                     {/* Front Face (Cover) */}
                     <div className="resource-flip-face resource-flip-front select-none flex flex-col justify-between">
@@ -348,7 +336,7 @@ export const ResourcesSection: React.FC = () => {
 
                       {/* Bottom Open Affordance */}
                       <div className="resource-bottom-bar flex items-center justify-between text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider font-bold pt-2 border-t mt-auto transition-colors">
-                        <span>Hover for specs</span>
+                        <span>Click for specs</span>
                         <span className="text-xs">↻</span>
                       </div>
                     </div>
@@ -397,11 +385,28 @@ export const ResourcesSection: React.FC = () => {
                       </div>
 
                       {/* Bottom Action CTA */}
-                      <div className="resource-back-cta flex items-center justify-between pt-2 border-t border-black/5 mt-auto flex-none">
-                        <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold group-hover:translate-x-0.5 transition-transform">
-                          Click for Full Specs
-                        </span>
-                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                      <div className="resource-back-cta flex items-center justify-between pt-2 border-t border-black/5 mt-auto flex-none gap-2">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setFlippedTile(null);
+                          }}
+                          className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
+                        >
+                          ↻ Flip back
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedTile(tile.title);
+                          }}
+                          className="flex items-center gap-1 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold text-[#b45309] hover:underline cursor-pointer"
+                        >
+                          <span>Full Specs</span>
+                          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                        </button>
                       </div>
                     </div>
                   </div>

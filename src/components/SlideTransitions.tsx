@@ -35,20 +35,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   const activeTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const wrappersRef = useRef<(HTMLDivElement | null)[]>([]);
   const backdropRef = useRef<HTMLDivElement>(null);
-  const shuttersRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (shuttersRef.current) {
-      shuttersRef.current.classList.remove('is-active');
-      gsap.set(shuttersRef.current, { display: 'none', visibility: 'hidden' });
-      gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
-        x: 0,
-        y: 0,
-        xPercent: 120,
-        yPercent: -12,
-        skewX: -4,
-      });
-    }
     gsap.set(backdropRef.current, { opacity: 0 });
   }, []);
 
@@ -71,30 +59,15 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const isForward = targetIndex > fromIndex;
       const fromFrame = fromWrapper.querySelector<HTMLElement>('.slide-frame');
       const toFrame = toWrapper.querySelector<HTMLElement>('.slide-frame');
-      const fromContent = fromWrapper.querySelector<HTMLElement>('.chapter-content');
-      const toContent = toWrapper.querySelector<HTMLElement>('.chapter-content');
       const fromScrollPane = fromWrapper.querySelector<HTMLElement>('.slide-scroll-pane');
       const scrollPane = toWrapper.querySelector<HTMLElement>('.slide-scroll-pane');
-      const strips = shuttersRef.current?.querySelectorAll<HTMLElement>('.shutter-strip');
 
-      // Cancel any running timeline cleanly and reset shutters
+      // Cancel any running timeline cleanly
       if (activeTimelineRef.current) {
         activeTimelineRef.current.kill();
         activeTimelineRef.current = null;
       }
-      if (strips?.length) {
-        gsap.killTweensOf(strips);
-      }
-      if (backdropRef.current) {
-        gsap.killTweensOf(backdropRef.current);
-      }
-      if (shuttersRef.current) {
-        shuttersRef.current.classList.remove('is-active');
-        gsap.set(shuttersRef.current, { display: 'none', visibility: 'hidden' });
-        if (strips?.length) {
-          gsap.set(strips, { x: 0, y: 0, xPercent: 120, yPercent: -12, skewX: -4 });
-        }
-      }
+      gsap.killTweensOf([fromWrapper, toWrapper, fromFrame, toFrame]);
 
       transitioningRef.current = true;
       setIsTransitioning(true);
@@ -103,8 +76,27 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       if (fromScrollPane) fromScrollPane.style.overflowY = 'hidden';
       if (scrollPane) scrollPane.style.overflowY = 'hidden';
 
-      gsap.set(fromWrapper, { display: 'block', visibility: 'visible', zIndex: 10, opacity: 1, pointerEvents: 'none' });
-      gsap.set(toWrapper, { display: 'block', visibility: 'visible', zIndex: 20, opacity: 0, pointerEvents: 'none' });
+      const enterY = isForward ? 45 : -45;
+      const exitY = isForward ? -35 : 35;
+
+      gsap.set(fromWrapper, {
+        display: 'block',
+        visibility: 'visible',
+        zIndex: 10,
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        pointerEvents: 'none',
+      });
+      gsap.set(toWrapper, {
+        display: 'block',
+        visibility: 'visible',
+        zIndex: 20,
+        opacity: 0,
+        y: enterY,
+        scale: 0.99,
+        pointerEvents: 'none',
+      });
 
       let watchdogTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -115,27 +107,32 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
           activeTimelineRef.current = null;
         }
 
-        gsap.set(fromWrapper, { display: 'none', visibility: 'hidden', zIndex: 0, opacity: 0, pointerEvents: 'none' });
-        gsap.set(toWrapper, { display: 'block', visibility: 'visible', zIndex: 10, opacity: 1, pointerEvents: 'auto' });
+        gsap.set(fromWrapper, {
+          display: 'none',
+          visibility: 'hidden',
+          zIndex: 0,
+          opacity: 0,
+          y: 0,
+          pointerEvents: 'none',
+        });
+        gsap.set(toWrapper, {
+          display: 'block',
+          visibility: 'visible',
+          zIndex: 10,
+          opacity: 1,
+          y: 0,
+          pointerEvents: 'auto',
+        });
         if (fromScrollPane) fromScrollPane.style.overflowY = '';
         if (scrollPane) {
           scrollPane.style.overflowY = '';
           scrollPane.scrollTop = 0;
         }
 
-        gsap.set([fromFrame, toFrame, fromContent, toContent], { clearProps: 'transform,opacity,clipPath,scale' });
+        gsap.set([fromFrame, toFrame, fromWrapper, toWrapper], {
+          clearProps: 'transform,opacity,clipPath,scale,y',
+        });
         gsap.set(backdropRef.current, { opacity: 0 });
-        if (shuttersRef.current) {
-          shuttersRef.current.classList.remove('is-active');
-          gsap.set(shuttersRef.current, { display: 'none', visibility: 'hidden' });
-          gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
-            x: 0,
-            y: 0,
-            xPercent: 120,
-            yPercent: -12,
-            skewX: -4,
-          });
-        }
 
         activeIndexRef.current = targetIndex;
         setActiveIndex(targetIndex);
@@ -145,107 +142,45 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         lastGestureTimeRef.current = Date.now();
       };
 
-      // Failsafe watchdog timer (950ms) to ensure transition state never deadlocks
+      // Failsafe watchdog timer (600ms) to ensure transition state never deadlocks
       watchdogTimer = setTimeout(() => {
         if (transitioningRef.current) {
           finish();
         }
-      }, 950);
-
-      // Directional shutter trajectories (Older Version):
-      // Forward (down): enter from +115% (right) -> 0% -> exit to -115% (left)
-      // Reverse (up): enter from -115% (left) -> 0% -> exit to +115% (right)
-      const enterX = isForward ? 115 : -115;
-      const enterY = isForward ? -4 : 4;
-      const enterSkew = isForward ? -2 : 2;
-
-      const exitX = isForward ? -115 : 115;
-      const exitY = isForward ? 4 : -4;
-      const exitSkew = isForward ? 2 : -2;
-
-      if (shuttersRef.current) {
-        shuttersRef.current.classList.add('is-active');
-        gsap.set(shuttersRef.current, { display: 'block', visibility: 'visible' });
-      }
-      if (strips?.length) {
-        gsap.set(strips, {
-          x: 0,
-          y: 0,
-          xPercent: enterX,
-          yPercent: enterY,
-          skewX: enterSkew,
-        });
-      }
+      }, 600);
 
       const timeline = gsap.timeline({
         onComplete: finish,
       });
       activeTimelineRef.current = timeline;
 
-      // 1. Outgoing slide frame subtly recedes and softens
-      if (fromFrame) {
-        timeline.to(fromFrame, { scale: 0.95, opacity: 0.4, duration: 0.32, ease: 'power2.out' }, 0);
-      }
+      // 1. Outgoing slide gently glides away and fades out (0.34s)
+      timeline.to(
+        fromWrapper,
+        {
+          y: exitY,
+          scale: 0.98,
+          opacity: 0,
+          duration: 0.34,
+          ease: 'power2.inOut',
+        },
+        0
+      );
 
-      // 2. Shutters sweep IN to 100% solidly cover the screen (duration: 0.35s, stagger: 0.025s)
-      if (strips?.length) {
-        timeline.to(
-          strips,
-          {
-            xPercent: 0,
-            yPercent: 0,
-            skewX: 0,
-            duration: 0.35,
-            stagger: 0.025,
-            ease: 'power3.inOut',
-          },
-          0.02
-        );
-      }
-
-      // 3. SWAP SLIDES while screen is 100% solidly covered by shutters at t = 0.43s
-      // All 3 strips reach xPercent: 0 by t = 0.42s. Screen is 100% covered!
-      timeline.add(() => {
-        try {
-          activeIndexRef.current = targetIndex;
-          setActiveIndex(targetIndex);
-          onSlideChange(targetIndex);
-
-          gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden', display: 'none', pointerEvents: 'none' });
-          gsap.set(toWrapper, { opacity: 1, visibility: 'visible', display: 'block', pointerEvents: 'auto' });
-          if (scrollPane) scrollPane.scrollTop = 0;
-        } catch (err) {
-          console.warn('Error during slide swap:', err);
-        }
-      }, 0.43);
-
-      // 4. Shutters sweep OUT to reveal new slide (from 0.48s to 0.86s)
-      if (strips?.length) {
-        timeline.to(
-          strips,
-          {
-            xPercent: exitX,
-            yPercent: exitY,
-            skewX: exitSkew,
-            duration: 0.35,
-            stagger: 0.025,
-            ease: 'power3.inOut',
-          },
-          0.48
-        );
-      }
-
-      // 5. Incoming slide frame gently emerges into crisp focus as shutters open
-      if (toFrame) {
-        timeline.fromTo(
-          toFrame,
-          { scale: 0.97, opacity: 0.7 },
-          { scale: 1, opacity: 1, duration: 0.34, ease: 'power2.out' },
-          0.48
-        );
-      }
+      // 2. Incoming slide glides smoothly into place with luxury ease (0.42s)
+      timeline.to(
+        toWrapper,
+        {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 0.42,
+          ease: 'power3.out',
+        },
+        0.03
+      );
     },
-    [onSlideChange, pageBgColor, slides]
+    [onSlideChange, slides.length]
   );
 
   useEffect(() => {
@@ -259,7 +194,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const now = Date.now();
       if (
         transitioningRef.current ||
-        now - lastGestureTimeRef.current < 450 ||
+        now - lastGestureTimeRef.current < 220 ||
         document.querySelector('[aria-modal="true"]')
       ) {
         return;
@@ -502,12 +437,6 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             </div>
           );
         })}
-      </div>
-
-      <div ref={shuttersRef} className="slide-transition-shutters" aria-hidden="true">
-        <div className="shutter-strip shutter-strip-light" />
-        <div className="shutter-strip shutter-strip-gold" style={{ backgroundColor: accentColor }} />
-        <div className="shutter-strip shutter-strip-dark" />
       </div>
 
       {/* Side Scrolling Note (Like Image 2: SCROLL TO EXPLORE + Downward Arrow, Hidden ONLY on Last Section) */}

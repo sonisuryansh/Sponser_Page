@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ChapterShell } from '../components/ChapterShell';
 import { ArrowRight, Compass, Sparkles } from 'lucide-react';
-import gsap from 'gsap';
 
 interface StepItem {
   num: string;
@@ -72,37 +71,6 @@ export const AboutSection: React.FC = () => {
       setActiveStepIndex((prev) => (prev + 1) % STEPS.length);
     }, 3200);
     return () => clearInterval(interval);
-  }, []);
-
-  // Smooth editorial reveal on mount
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
-    if (prefersReducedMotion || isMobile) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll('.editorial-reveal'),
-        { y: 12, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.04,
-          ease: 'power3.out',
-        }
-      );
-    }, el);
-
-    return () => ctx.revert();
   }, []);
 
   const handleScrollToNext = () => {

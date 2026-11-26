@@ -1,8 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import { Puzzle, Target, Lightbulb, Leaf, RefreshCw, ArrowRight } from 'lucide-react';
-import gsap from 'gsap';
 
 interface MissionValueCard {
   num: string;
@@ -71,36 +70,6 @@ const MISSION_CARDS: MissionValueCard[] = [
 export const MissionSection: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    const el = contentRef.current;
-    if (!el) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
-    if (prefersReducedMotion || isMobile) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll('.editorial-reveal'),
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.07,
-          ease: 'power3.out',
-        }
-      );
-    }, el);
-
-    return () => ctx.revert();
-  }, []);
 
   const handleExplore = () => {
     window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 3 }));

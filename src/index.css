@@ -107,49 +107,6 @@
   display: none;
 }
 
-.slide-transition-shutters {
-  position: absolute;
-  z-index: 55;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  display: none;
-  visibility: hidden;
-}
-
-.slide-transition-shutters.is-active {
-  display: block;
-  visibility: visible;
-}
-
-.shutter-strip {
-  position: absolute;
-  left: -20%;
-  right: -20%;
-  width: 140%;
-  height: 38%;
-  will-change: transform;
-  pointer-events: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.shutter-strip-light {
-  top: -2%;
-  background: #FAF6EE;
-}
-
-.shutter-strip-gold {
-  top: 31%;
-  background: #c8a45d;
-}
-
-.shutter-strip-dark {
-  top: 64%;
-  background: #0A0E17;
-}
-
 /* Side Scrolling Note (Image 2 style: SCROLL TO EXPLORE + Downward Arrow) */
 .slide-scroll-cta {
   position: absolute;
@@ -296,15 +253,21 @@
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transform-origin: center center;
-  -webkit-transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   outline: none;
   will-change: transform;
 }
 
-.resource-flip-wrapper:hover .resource-flip-card,
-.resource-flip-wrapper:focus-within .resource-flip-card,
+.resource-flip-wrapper:hover .resource-flip-card:not(.is-flipped) {
+  transform: translateY(-4px);
+}
+
+.resource-flip-wrapper:hover .resource-flip-card.is-flipped {
+  transform: rotateY(180deg) translateY(-4px);
+}
+
 .resource-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
@@ -627,12 +590,18 @@
   transform-style: preserve-3d;
   transform-origin: center center;
   will-change: transform;
-  -webkit-transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pillar-flip-wrapper:hover .pillar-flip-card,
-.pillar-flip-wrapper:focus-within .pillar-flip-card,
+.pillar-flip-wrapper:hover .pillar-flip-card:not(.is-flipped) {
+  transform: translateY(-4px);
+}
+
+.pillar-flip-wrapper:hover .pillar-flip-card.is-flipped {
+  transform: rotateY(180deg) translateY(-4px);
+}
+
 .pillar-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
@@ -750,12 +719,18 @@
   transform-style: preserve-3d;
   transform-origin: center center;
   will-change: transform;
-  -webkit-transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.benefit-flip-wrapper:hover .benefit-flip-card,
-.benefit-flip-wrapper:focus-within .benefit-flip-card,
+.benefit-flip-wrapper:hover .benefit-flip-card:not(.is-flipped) {
+  transform: translateY(-4px);
+}
+
+.benefit-flip-wrapper:hover .benefit-flip-card.is-flipped {
+  transform: rotateY(180deg) translateY(-4px);
+}
+
 .benefit-flip-card.is-flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);

@@ -15,7 +15,6 @@ import {
   Check,
   Sparkles,
 } from 'lucide-react';
-import gsap from 'gsap';
 
 interface BenefitCardConfig {
   title: string;
@@ -146,36 +145,6 @@ export const BenefitsSection: React.FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
-    if (prefersReducedMotion || isMobile) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll('.editorial-reveal'),
-        { y: 16, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.06,
-          ease: 'power3.out',
-        }
-      );
-    }, el);
-
-    return () => ctx.revert();
   }, []);
 
   const handleScrollToNext = () => {

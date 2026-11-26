@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import { ShieldCheck, Check, GraduationCap, Cpu, Sparkles, CheckCircle2 } from 'lucide-react';
-import gsap from 'gsap';
 
 const pillarIcons = [
   <GraduationCap key="1" className="w-4 h-4 text-white" />,
@@ -96,36 +95,6 @@ export const TeacherEmpowermentSection: React.FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-
-    if (prefersReducedMotion || isMobile) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll('.editorial-reveal'),
-        { y: 16, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.75,
-          stagger: 0.06,
-          ease: 'power3.out',
-        }
-      );
-    }, el);
-
-    return () => ctx.revert();
   }, []);
 
   const handleScrollToNext = () => {
