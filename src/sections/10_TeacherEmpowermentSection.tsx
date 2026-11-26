@@ -234,10 +234,10 @@ export const TeacherEmpowermentSection: React.FC = () => {
                     </div>
 
                     {/* BACK FACE — Dark Obsidian Luxury Panel with Deliverables from Image 1 */}
-                    <div className="pillar-flip-face pillar-flip-back flex flex-col justify-between">
+                    <div className="pillar-flip-face pillar-flip-back flex flex-col justify-between overflow-y-auto no-scrollbar">
                       <div>
                         {/* Top Header */}
-                        <div className="flex items-center justify-between pb-1 border-b border-white/10 mb-1.5">
+                        <div className="flex items-center justify-between pb-1 border-b border-white/10 mb-1">
                           <span className={`font-mono text-[9px] uppercase tracking-widest font-bold ${backAccents[idx]}`}>
                             {col.tag} &bull; Deliverables
                           </span>
@@ -247,19 +247,19 @@ export const TeacherEmpowermentSection: React.FC = () => {
                         </div>
 
                         {/* Sub-Headline */}
-                        <h4 className="font-serif font-bold text-xs sm:text-[13.5px] text-white leading-tight mb-0.5">
+                        <h4 className="font-serif font-bold text-xs sm:text-[13px] text-white leading-tight mb-0.5">
                           {pillarPopups[idx].title}
                         </h4>
 
                         {/* Purpose Summary */}
-                        <p className="font-sans text-[10px] sm:text-[10.5px] text-[#b3afa6] leading-snug mb-1.5">
+                        <p className="font-sans text-[9.5px] sm:text-[10px] text-[#b3afa6] leading-snug mb-1">
                           {pillarPopups[idx].purpose}
                         </p>
 
                         {/* Concrete Deliverables Checklist from Image 1 Workshop Journey */}
-                        <ul className="space-y-1">
+                        <ul className="space-y-0.5 sm:space-y-1">
                           {pillarDetails[idx].map((point) => (
-                            <li key={point} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#ece9e2] font-sans leading-tight">
+                            <li key={point} className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] text-[#ece9e2] font-sans leading-tight">
                               <span className={`w-1.5 h-1.5 rounded-full ${bulletColors[idx]} shrink-0`} />
                               <span>{point}</span>
                             </li>

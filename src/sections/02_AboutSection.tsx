@@ -127,7 +127,7 @@ export const AboutSection: React.FC = () => {
         className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset Grand White Card Container - Matches Page 3 Shape & Elegance */}
-        <div className="relative w-full my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col justify-between box-border gap-3.5 sm:gap-4.5 xl:gap-5 flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]">
+        <div className="relative w-full h-full flex-1 bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col justify-between box-border gap-3 sm:gap-4 xl:gap-5 overflow-hidden">
 
           {/* Top Section Header: Symmetrical Eyebrow + Clean Headline */}
           <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center">
@@ -208,7 +208,7 @@ export const AboutSection: React.FC = () => {
               </div>
 
               {/* Lab Photo Showcase (Natural Aspect Ratio with Faces Fully Visible) */}
-              <div className="relative w-full flex-1 min-h-[190px] sm:min-h-[220px] lg:min-h-[240px] max-h-[270px] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs group bg-slate-900">
+              <div className="relative w-full flex-1 min-h-[190px] sm:min-h-[220px] lg:min-h-[240px] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs group bg-slate-900">
                 <img
                   src="/assets/aim_vision_lab_session.webp"
                   alt="School Laboratory Session"

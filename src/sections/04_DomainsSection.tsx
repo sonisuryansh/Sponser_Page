@@ -835,7 +835,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
             <div
               ref={modalBoxRef}
               onWheel={handleModalWheel}
-              className={`relative w-full max-w-4xl max-h-[calc(100svh-var(--header-h,64px)-20px)] sm:max-h-[90vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-4 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out my-auto`}
+              className={`relative w-full max-w-5xl xl:max-w-6xl max-h-[calc(100svh-var(--header-h,64px)-20px)] sm:max-h-[90vh] overflow-y-auto rounded-3xl border-2 ${activeCard.borderColor} bg-white p-4 sm:p-7 text-[#0F172A] shadow-2xl transition-all duration-500 ease-out my-auto`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Animated Transition Container for Domain Swaps */}

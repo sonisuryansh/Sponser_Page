@@ -124,7 +124,7 @@ export const MissionSection: React.FC = () => {
         {/* Main Inset Grand White Card Container */}
         <div
           ref={contentRef}
-          className="relative w-full my-auto bg-white shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col justify-between gap-3.5 sm:gap-4.5 flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]"
+          className="relative w-full h-full flex-1 bg-white shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col justify-between gap-3 sm:gap-4 overflow-hidden"
         >
           {/* Top Area: Eyebrow, Statement Headline & Narrative Copy */}
           <div className="flex-none text-center max-w-4xl mx-auto mb-1.5 sm:mb-2">

@@ -342,7 +342,7 @@ export const CurriculumSection: React.FC = () => {
         className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Unified Inset Card - Matches Reference Image 1 (Spacious) */}
-        <div className="relative w-full my-auto bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border flex-1 max-h-[calc(100svh-var(--header-h,64px)-14px)]">
+        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border">
 
           {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
           <div className="w-full sm:w-48 lg:w-52 xl:w-56 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-2.5 sm:py-4 px-2 sm:px-3 select-none shrink-0">
@@ -378,11 +378,10 @@ export const CurriculumSection: React.FC = () => {
                         tabButtonRefs.current[idx] = el;
                       }}
                       onClick={() => setActiveStageIndex(idx)}
-                      className={`group relative flex items-center gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 text-left cursor-pointer transition-all rounded-xl text-[11px] sm:text-[11.5px] xl:text-xs font-semibold shrink-0 sm:shrink-0 whitespace-nowrap ${
-                        isActive
+                      className={`group relative flex items-center gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 text-left cursor-pointer transition-all rounded-xl text-[11px] sm:text-[11.5px] xl:text-xs font-semibold shrink-0 sm:shrink-0 whitespace-nowrap ${isActive
                           ? 'bg-[#FFF7ED] text-[#0F172A] border sm:border-0 border-[#EA580C]/40 sm:border-r-[3.5px] sm:border-[#EA580C] shadow-xs font-bold'
                           : 'text-[#64748B] hover:bg-black/[0.03] hover:text-[#0F172A] border border-transparent'
-                      }`}
+                        }`}
                       aria-label={`Go to ${stage.gradeLabel}`}
                     >
                       <span

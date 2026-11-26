@@ -161,7 +161,7 @@ export const RequirementsSection: React.FC = () => {
         </div>
 
         {/* Two Majestic Architectural Cards: School Provides vs MedhaArc Labs Delivers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-stretch w-full flex-1 max-h-[560px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-stretch w-full flex-1 my-1.5 sm:my-2">
           {/* Card 1: School provides */}
           <div
             ref={leftColRef}
