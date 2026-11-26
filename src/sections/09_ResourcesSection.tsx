@@ -50,77 +50,163 @@ const tileThemeMap: Record<string, { themeClass: string; color: string; bgSoft: 
   },
 };
 
-interface ResourceDetail {
+interface ResourceCardContent {
   title: string;
   tag: string;
-  summary: string;
-  features: string[];
-  specs: { label: string; value: string }[];
+  frontDescription: string;
+  frontHighlights: string[];
+  backHeading: string;
+  backTag: string;
+  backSpecs: { label: string; value: string }[];
+  backCapabilities: string[];
+  modalSummary: string;
+  modalFeatures: string[];
 }
 
-const resourceDetails: Record<string, ResourceDetail> = {
+const RESOURCE_CARD_DATA: Record<string, ResourceCardContent> = {
   'E-Books': {
     title: 'E-Books & Interactive Workbooks',
-    tag: 'Digital Activity Guides',
-    summary: 'Comprehensive grade-tailored workbooks designed as step-by-step companions for hands-on lab builds and independent study.',
-    features: [
+    tag: 'WORKBOOK',
+    frontDescription: 'Grade-wise digital workbooks that guide each hands-on build.',
+    frontHighlights: [
+      'Visual hardware pinouts, circuit diagrams & debugging checklists',
+      'Step-by-step programming logic flowcharts & syntax walkthroughs',
+      'Printable student activity sheets with reflection prompts',
+    ],
+    backHeading: 'Digital Workbook Architecture',
+    backTag: 'SPECIFICATIONS',
+    backSpecs: [
+      { label: 'Format', value: 'Interactive Digital ePub & PDF' },
+      { label: 'Curriculum', value: 'Aligned to NEP 2020 (Grades 3–12)' },
+      { label: 'Offline Access', value: '100% Cached on Lab Workstations' },
+      { label: 'Teacher Tools', value: 'Pre-annotated Master Answer Keys' },
+    ],
+    backCapabilities: [
+      'Interactive schematic viewers with pin zoom',
+      'Downloadable for offline home study',
+    ],
+    modalSummary: 'Comprehensive grade-tailored workbooks designed as step-by-step companions for hands-on lab builds and independent study.',
+    modalFeatures: [
       'Visual hardware pinouts, circuit diagrams, and debugging checklists for every physical build.',
       'Step-by-step programming logic flowcharts and syntax walkthroughs.',
       'Printable student activity sheets with dedicated observation and reflection prompts.',
       'Available as both downloadable offline PDFs and interactive digital workbooks.',
     ],
-    specs: [
-      { label: 'Coverage', value: 'Grades 3 through 12' },
-      { label: 'Access Mode', value: 'Lab Devices & Offline PDF' },
-      { label: 'Format', value: 'Interactive Digital & Print-Ready' },
+  },
+  Books: {
+    title: 'E-Books & Interactive Workbooks',
+    tag: 'WORKBOOK',
+    frontDescription: 'Grade-wise digital workbooks that guide each hands-on build.',
+    frontHighlights: [
+      'Visual hardware pinouts, circuit diagrams & debugging checklists',
+      'Step-by-step programming logic flowcharts & syntax walkthroughs',
+      'Printable student activity sheets with reflection prompts',
+    ],
+    backHeading: 'Digital Workbook Architecture',
+    backTag: 'SPECIFICATIONS',
+    backSpecs: [
+      { label: 'Format', value: 'Interactive Digital ePub & PDF' },
+      { label: 'Curriculum', value: 'Aligned to NEP 2020 (Grades 3–12)' },
+      { label: 'Offline Access', value: '100% Cached on Lab Workstations' },
+      { label: 'Teacher Tools', value: 'Pre-annotated Master Answer Keys' },
+    ],
+    backCapabilities: [
+      'Interactive schematic viewers with pin zoom',
+      'Downloadable for offline home study',
+    ],
+    modalSummary: 'Comprehensive grade-tailored workbooks designed as step-by-step companions for hands-on lab builds and independent study.',
+    modalFeatures: [
+      'Visual hardware pinouts, circuit diagrams, and debugging checklists for every physical build.',
+      'Step-by-step programming logic flowcharts and syntax walkthroughs.',
+      'Printable student activity sheets with dedicated observation and reflection prompts.',
+      'Available as both downloadable offline PDFs and interactive digital workbooks.',
     ],
   },
   Modules: {
     title: 'Structured Concept Modules',
-    tag: 'Sequential Topic Units',
-    summary: 'Bite-sized, sequential digital learning modules structured to bridge foundational reasoning with physical prototypes.',
-    features: [
+    tag: 'SEQUENTIAL',
+    frontDescription: 'Short, sequential modules bridging core logic to hardware.',
+    frontHighlights: [
+      'Modular topic units covering Robotics, AI, Data & Aerial Systems',
+      'Structured week-by-week progression synchronized with school calendar',
+      'Interactive simulations allowing circuit testing before wiring',
+    ],
+    backHeading: 'Courseware & Simulation Specs',
+    backTag: 'SPECIFICATIONS',
+    backSpecs: [
+      { label: 'Progression', value: 'Spiral Pacing (Foundations → Systems)' },
+      { label: 'Web IDE', value: 'Integrated Block & Text Code Runner' },
+      { label: 'Platforms', value: 'Windows, Chromebooks, iPad & Linux' },
+      { label: 'Checkpoints', value: 'Automated Milestone Comprehension Checks' },
+    ],
+    backCapabilities: [
+      'Virtual circuit & sensor logic simulation',
+      'Direct pairing with physical lab hardware',
+    ],
+    modalSummary: 'Bite-sized, sequential digital learning modules structured to bridge foundational reasoning with physical prototypes.',
+    modalFeatures: [
       'Modular topic units covering Robotics, AI/ML, Data Analytics, and Aerial Systems.',
       'Structured week-by-week progression synchronized with school academic calendars.',
       'Interactive simulations allowing students to test circuits and logic before wiring hardware.',
       'Clear milestone checkpoints that validate comprehension before advancing to complex projects.',
     ],
-    specs: [
-      { label: 'Pacing', value: 'Teacher-Led & Self-Directed' },
-      { label: 'Domains', value: '4 Core Technology Domains' },
-      { label: 'Integration', value: 'Direct Lab Hardware Sync' },
-    ],
   },
   Quizzes: {
     title: 'Formative Assessment & Quizzes',
-    tag: 'Knowledge Reinforcement',
-    summary: 'Low-stakes, real-time diagnostic checks that empower teachers and help students reflect on their learning without exam anxiety.',
-    features: [
+    tag: 'ASSESSMENT',
+    frontDescription: 'Quick checks so students and teachers can see what has landed.',
+    frontHighlights: [
+      'Immediate conceptual feedback following each practical build',
+      'Real-world diagnostic problem-solving scenarios without drills',
+      'Teacher dashboard analytics to spot learning gaps in real time',
+    ],
+    backHeading: 'Formative Evaluation Engine',
+    backTag: 'SPECIFICATIONS',
+    backSpecs: [
+      { label: 'Assessment Mode', value: 'Formative Diagnostic Reinforcement' },
+      { label: 'Grading Engine', value: 'Instant Automated Evaluation (0 Teacher Load)' },
+      { label: 'Analytics', value: 'Class Mastery Heatmap Dashboard' },
+      { label: 'Remediation', value: 'Dynamic Conceptual Hint Loops' },
+    ],
+    backCapabilities: [
+      'Identifies concept blindspots before next session',
+      'Exportable term progress reports for schools',
+    ],
+    modalSummary: 'Low-stakes, real-time diagnostic checks that empower teachers and help students reflect on their learning without exam anxiety.',
+    modalFeatures: [
       'Immediate conceptual feedback following each practical laboratory build.',
       'Real-world diagnostic problem-solving scenarios rather than memorization drills.',
       'Teacher dashboard analytics to spot learning gaps and adapt classroom mentoring.',
       'Milestone achievement badges celebrating algorithmic thinking and engineering resilience.',
     ],
-    specs: [
-      { label: 'Assessment Type', value: 'Formative & Diagnostic' },
-      { label: 'Feedback', value: 'Instant Concept Explanations' },
-      { label: 'Analytics', value: 'Teacher Progress Dashboard' },
-    ],
   },
   Videos: {
     title: 'Demonstration & Explainer Videos',
-    tag: 'Visual Demonstration Media',
-    summary: 'High-definition video walkthroughs and real-world technology demonstrations accessible anywhere, anytime.',
-    features: [
+    tag: 'MEDIA',
+    frontDescription: 'Short explainers and demonstrations to revisit in class or home.',
+    frontHighlights: [
+      'Close-up hardware assembly tutorials clarifying delicate wiring',
+      'Micro-concept explainers (2–4 mins) ideal for quick revision',
+      'Industry spotlights demonstrating classroom principles in aerospace & AI',
+    ],
+    backHeading: 'Media Library & Streaming Specs',
+    backTag: 'SPECIFICATIONS',
+    backSpecs: [
+      { label: 'Resolution', value: 'Full HD 1080p Multi-Angle Macro Camera' },
+      { label: 'Length', value: '2 to 4 min Focused Micro-Modules' },
+      { label: 'Streaming', value: 'On-Demand Cloud & School LAN Cache' },
+      { label: 'Accessibility', value: 'Chapter Indexed with English Subtitles' },
+    ],
+    backCapabilities: [
+      'Designed for teacher in-class pause-and-build flow',
+      'Step-by-step visual safety checklists',
+    ],
+    modalSummary: 'High-definition video walkthroughs and real-world technology demonstrations accessible anywhere, anytime.',
+    modalFeatures: [
       'Close-up hardware assembly tutorials clarifying delicate wiring and sensor alignments.',
       'Micro-concept explainers (2–4 mins) ideal for quick revision before lab sessions.',
       'Industry spotlights demonstrating how classroom principles power real-world aerospace and AI.',
       'Accessible on-demand on school tablets, lab workstations, or at home.',
-    ],
-    specs: [
-      { label: 'Video Length', value: '2 to 4 min Micro-Units' },
-      { label: 'Resolution', value: 'HD Close-Up Video Guides' },
-      { label: 'Streaming', value: '24/7 On-Demand Streaming' },
     ],
   },
 };
@@ -158,7 +244,7 @@ export const ResourcesSection: React.FC = () => {
     );
   }, []);
 
-  const activeDetail = selectedTile ? resourceDetails[selectedTile] || resourceDetails['E-Books'] : null;
+  const activeDetail = selectedTile ? RESOURCE_CARD_DATA[selectedTile] || RESOURCE_CARD_DATA['E-Books'] : null;
 
   return (
     <ChapterShell
@@ -205,7 +291,7 @@ export const ResourcesSection: React.FC = () => {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 flex-1 items-stretch my-1.5 sm:my-2 min-h-0"
           >
             {siteConfig.resources.tiles.map((tile) => {
-              const detail = resourceDetails[tile.title] || resourceDetails['E-Books'];
+              const detail = RESOURCE_CARD_DATA[tile.title] || RESOURCE_CARD_DATA['E-Books'];
               const theme = tileThemeMap[tile.title] || tileThemeMap['E-Books'];
 
               return (
@@ -251,7 +337,7 @@ export const ResourcesSection: React.FC = () => {
 
                         {/* Highlights list on front face */}
                         <div className="pt-2 border-t border-black/5 flex flex-col gap-1.5 text-[10px] sm:text-[10.5px] text-[#475569]">
-                          {detail.features.slice(0, 3).map((feat, fIdx) => (
+                          {detail.frontHighlights.map((feat, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-1.5 leading-snug">
                               <span className="w-1.5 h-1.5 rounded-full mt-1 shrink-0 bg-[#c8a45d]" />
                               <span className="line-clamp-2">{feat}</span>
@@ -267,31 +353,51 @@ export const ResourcesSection: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Back Face (Inside Specs Page) */}
+                    {/* Back Face (Inside Specs Page — COMPLETELY DISTINCT FROM FRONT) */}
                     <div className="resource-flip-face resource-flip-back select-none flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
+                      <div className="flex-1 flex flex-col justify-between min-h-0">
+                        {/* Back Top Tag & Badge */}
+                        <div className="flex items-center justify-between mb-1 pb-1 border-b border-black/5 flex-none">
                           <span className="resource-back-tag font-mono text-[9px] uppercase tracking-wider font-bold">
                             Inside {tile.title}
                           </span>
-                          <span className="text-[8.5px] font-mono text-[#777] bg-black/[0.04] px-1.5 py-0.5 rounded-[2px]">
-                            Specs
+                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold text-[#b45309] bg-amber-50 border border-amber-200/80 px-1.5 py-0.2 rounded-[2px]">
+                            {detail.backTag}
                           </span>
                         </div>
-                        <h4 className="font-serif text-[14px] sm:text-[15px] font-medium text-[#111111] leading-snug mb-2">
-                          {detail.title}
+
+                        {/* Back Heading */}
+                        <h4 className="font-serif text-[12.5px] sm:text-[13.5px] font-bold text-[#111111] leading-tight mb-1 flex-none">
+                          {detail.backHeading}
                         </h4>
-                        <ul className="space-y-1.5 text-[10.5px] sm:text-[11px] text-[#555555] leading-snug">
-                          {detail.features.slice(0, 3).map((feat, fIdx) => (
-                            <li key={fIdx} className="flex items-start gap-1.5">
-                              <span className="resource-back-dot w-1 h-1 rounded-full mt-1.5 shrink-0" />
-                              <span>{feat}</span>
-                            </li>
+
+                        {/* 4 Specifications Rows (Key-Value Table) */}
+                        <div className="space-y-1 my-1 py-1 border-y border-black/5 flex-1 flex flex-col justify-around">
+                          {detail.backSpecs.map((spec, sIdx) => (
+                            <div key={sIdx} className="flex items-center justify-between text-[8.5px] sm:text-[9.5px] leading-tight gap-1">
+                              <span className="font-mono text-slate-400 font-semibold uppercase tracking-wider shrink-0 text-[8px] sm:text-[8.5px]">
+                                {spec.label}:
+                              </span>
+                              <span className="font-sans font-semibold text-slate-800 text-right truncate">
+                                {spec.value}
+                              </span>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
+
+                        {/* Institutional Capabilities */}
+                        <div className="space-y-0.5 flex-none pt-0.5">
+                          {detail.backCapabilities.map((cap, cIdx) => (
+                            <div key={cIdx} className="flex items-center gap-1.5 text-[8.5px] sm:text-[9.5px] text-slate-600 font-sans leading-tight">
+                              <span className="resource-back-dot w-1 h-1 rounded-full shrink-0" />
+                              <span className="truncate">{cap}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
-                      <div className="resource-back-cta flex items-center justify-between pt-2 border-t border-black/5 mt-auto">
+                      {/* Bottom Action CTA */}
+                      <div className="resource-back-cta flex items-center justify-between pt-2 border-t border-black/5 mt-auto flex-none">
                         <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold group-hover:translate-x-0.5 transition-transform">
                           Click for Full Specs
                         </span>
@@ -367,7 +473,7 @@ export const ResourcesSection: React.FC = () => {
 
               {/* Modal Summary Description */}
               <p className="font-sans text-xs sm:text-[13px] text-[#444444] leading-relaxed mb-5">
-                {activeDetail.summary}
+                {activeDetail.modalSummary}
               </p>
 
               {/* Key Features Bullet List */}
@@ -376,7 +482,7 @@ export const ResourcesSection: React.FC = () => {
                   Key Components & Student Value
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {activeDetail.features.map((feat, idx) => (
+                  {activeDetail.modalFeatures.map((feat, idx) => (
                     <div
                       key={idx}
                       className="p-3 bg-[#FAF9F6] border border-black/6 rounded-[3px] flex items-start gap-2.5"
@@ -394,8 +500,8 @@ export const ResourcesSection: React.FC = () => {
               </div>
 
               {/* Bottom Specs Strip */}
-              <div className="pt-4 border-t border-black/8 grid grid-cols-3 gap-3">
-                {activeDetail.specs.map((spec, idx) => (
+              <div className="pt-4 border-t border-black/8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {activeDetail.backSpecs.map((spec, idx) => (
                   <div key={idx}>
                     <span className="font-mono text-[9px] uppercase tracking-widest text-[#888888] block mb-1">
                       {spec.label}
