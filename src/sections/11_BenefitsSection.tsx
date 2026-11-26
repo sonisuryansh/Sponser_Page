@@ -238,30 +238,33 @@ export const BenefitsSection: React.FC = () => {
                         </p>
 
                         {/* Bottom Status Badge */}
-                        <div className="mt-auto pt-3">
+                        <div className="mt-auto pt-2.5 flex items-center justify-between">
                           {card.badgeType === 'confirmed' ? (
-                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] text-[11px] font-semibold shadow-2xs">
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] text-[10.5px] font-semibold shadow-2xs">
                               <CheckCircle2 className="w-3.5 h-3.5 text-[#16A34A] shrink-0" />
                               <span>{card.badgeLabel}</span>
                             </div>
                           ) : (
-                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] text-[11px] font-semibold shadow-2xs">
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] text-[10.5px] font-semibold shadow-2xs">
                               <Clock className="w-3.5 h-3.5 text-[#D97706] shrink-0" />
                               <span>{card.badgeLabel}</span>
                             </div>
                           )}
+                          <span className="text-[10px] font-mono text-slate-400 group-hover:text-slate-600 transition-colors">
+                            ↻
+                          </span>
                         </div>
                       </div>
                     </div>
 
                     {/* BACK FACE — Deep Dive Details revealed on hover or touch */}
                     <div
-                      className={`benefit-flip-face benefit-flip-back border-2 ${card.borderColor} bg-white rounded-2xl shadow-lg`}
+                      className={`benefit-flip-face benefit-flip-back border-2 ${card.borderColor} bg-white rounded-2xl shadow-lg no-scrollbar overflow-y-auto`}
                     >
-                      <div>
+                      <div className="flex-1 flex flex-col justify-start min-h-0">
                         {/* Top Header */}
-                        <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-slate-100">
-                          <span className={`font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider font-bold ${card.backAccentColor}`}>
+                        <div className="flex items-center justify-between pb-1 mb-1.5 border-b border-slate-100 flex-none">
+                          <span className={`font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider font-bold ${card.backAccentColor}`}>
                             0{idx + 1} &bull; {card.title}
                           </span>
                           <div className={`w-6 h-6 flex items-center justify-center rounded-lg ${card.iconBg} border`}>
@@ -272,30 +275,30 @@ export const BenefitsSection: React.FC = () => {
                         </div>
 
                         {/* Back Heading */}
-                        <h4 className="font-serif text-[15px] sm:text-[16.5px] font-bold text-[#0F172A] mb-1 leading-snug">
+                        <h4 className="font-serif text-[13.5px] sm:text-[14.5px] font-bold text-[#0F172A] mb-1 leading-snug flex-none">
                           {card.popupTitle}
                         </h4>
 
                         {/* Purpose Narrative */}
-                        <p className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-relaxed mb-2">
+                        <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-snug mb-2 flex-none">
                           {card.popupPurpose}
                         </p>
 
                         {/* Concrete Deliverable Badge */}
-                        <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-start gap-2">
-                          <Check className={`w-4 h-4 ${card.backAccentColor} shrink-0 mt-0.5 stroke-[2.5]`} />
-                          <span className="font-sans text-[11px] sm:text-[11.5px] text-[#334155] leading-snug font-medium">
+                        <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/70 flex items-start gap-1.5 flex-none">
+                          <Check className={`w-3.5 h-3.5 ${card.backAccentColor} shrink-0 mt-0.5 stroke-[2.5]`} />
+                          <span className="font-sans text-[10.5px] sm:text-[11px] text-[#334155] leading-snug font-medium">
                             {card.deliverable}
                           </span>
                         </div>
                       </div>
 
                       {/* Back Bottom Bar */}
-                      <div className="pt-2 border-t border-slate-100 mt-auto flex items-center justify-between">
-                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-slate-500 font-semibold truncate mr-1">
+                      <div className="pt-1.5 border-t border-slate-100 mt-auto flex items-center justify-between flex-none">
+                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold truncate mr-1">
                           {card.popupBadge}
                         </span>
-                        <span className={`font-mono text-[10.5px] sm:text-[11px] ${card.backAccentColor} font-bold flex items-center gap-1`}>
+                        <span className={`font-mono text-[10px] sm:text-[10.5px] ${card.backAccentColor} font-bold flex items-center gap-1 shrink-0 whitespace-nowrap`}>
                           <span>Turn back</span>
                           <span className="text-xs">↻</span>
                         </span>
@@ -309,7 +312,7 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Institutional Value Banner (Directly below cards from Image 1) */}
-        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl px-5 py-3 sm:px-6 sm:py-3.5 shadow-xs mt-3 sm:mt-3.5">
+        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl px-5 py-2.5 sm:px-6 sm:py-3 shadow-xs mt-2 sm:mt-2.5">
           <div className="flex items-center gap-4 sm:gap-6">
             <div className="shrink-0 flex items-center justify-center">
               <School className="w-9 h-9 sm:w-11 sm:h-11 text-[#D97706]" />
@@ -322,7 +325,7 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Institutional Value Bottom Strip (From Image 1) */}
-        <div className="editorial-reveal w-full self-stretch flex-none mt-2.5 sm:mt-3 pt-2.5 border-t border-slate-200/80">
+        <div className="editorial-reveal w-full self-stretch flex-none mt-2 sm:mt-2.5 pt-2 border-t border-slate-200/80">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-3.5 shrink-0">
               <div className="flex flex-col font-mono text-[10px] sm:text-[10.5px] tracking-[0.2em] uppercase font-black text-[#0F172A] leading-tight">
