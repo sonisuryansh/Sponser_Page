@@ -140,6 +140,17 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         transitioningRef.current = false;
         setIsTransitioning(false);
         lastGestureTimeRef.current = Date.now();
+
+        const steppable = toWrapper.querySelector<HTMLElement>('[data-steppable="true"]');
+        if (steppable) {
+          const isStepBackFromAdjacent = fromIndex === targetIndex + 1;
+          steppable.dispatchEvent(
+            new CustomEvent('slide:enter', {
+              bubbles: true,
+              detail: { direction: isStepBackFromAdjacent ? -1 : 1 },
+            })
+          );
+        }
       };
 
       // Failsafe watchdog timer (600ms) to ensure transition state never deadlocks
@@ -198,6 +209,23 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         document.querySelector('[aria-modal="true"]')
       ) {
         return;
+      }
+
+      // Check if current active slide handles internal multi-step animations (e.g. Domains 4-card sequence, Curriculum stages, Lab zones)
+      const activeWrapper = wrappersRef.current[activeIndexRef.current];
+      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
+      if (customSteppable) {
+        const stepEvent = new CustomEvent('slide:step', {
+          bubbles: true,
+          cancelable: true,
+          detail: { direction },
+        });
+        const notPrevented = customSteppable.dispatchEvent(stepEvent);
+        if (!notPrevented) {
+          // Slide handled the step internally! Don't transition slides.
+          lastGestureTimeRef.current = now;
+          return;
+        }
       }
 
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(

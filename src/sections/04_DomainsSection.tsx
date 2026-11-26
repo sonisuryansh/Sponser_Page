@@ -423,28 +423,23 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
     if (!el) return;
 
     const handleStep = (e: Event) => {
-      const cur = activeCardIndexRef.current;
-      // When modal is NOT open, do not intercept scroll! Let SlideTransitions smoothly advance slides.
-      if (cur === -1) {
-        return;
-      }
-
       const now = Date.now();
-      if (now - lastStepTimeRef.current < 450) {
+      if (now - lastStepTimeRef.current < 350) {
         e.preventDefault();
         return;
       }
 
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
+      const cur = activeCardIndexRef.current;
 
       if (dir > 0) {
-        // Modal is open, scrolling down:
+        // Forward scroll (down): step from Deck (-1) into Domain 01 (Card 0), then 1 -> 2 -> 3
         if (cur < DOMAINS.length - 1) {
           e.preventDefault();
           lastStepTimeRef.current = now;
           stepDirectionRef.current = 1;
-          const next = cur + 1;
+          const next = cur === -1 ? 0 : cur + 1;
           setActiveCardIndex(next);
           activeCardIndexRef.current = next;
           onSlideChange?.(next + 3);
@@ -457,22 +452,16 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           // Do NOT call e.preventDefault(), so SlideTransitions proceeds to next slide!
         }
       } else {
-        // Modal is open, scrolling up:
-        if (cur > 0) {
+        // Reverse scroll (up): step back through cards: 3 -> 2 -> 1 -> 0 -> Deck (-1)
+        if (cur > -1) {
           e.preventDefault();
           lastStepTimeRef.current = now;
           stepDirectionRef.current = -1;
           const prev = cur - 1;
           setActiveCardIndex(prev);
           activeCardIndexRef.current = prev;
-        } else {
-          // First domain (Domain 01: Robotics) reversed:
-          // DISMISS MODAL and return to the 4-card deck!
-          e.preventDefault();
-          lastStepTimeRef.current = now;
-          setActiveCardIndex(-1);
-          activeCardIndexRef.current = -1;
         }
+        // At Deck view (-1), e.preventDefault() is NOT called, so SlideTransitions goes back to Slide 03!
       }
     };
 
