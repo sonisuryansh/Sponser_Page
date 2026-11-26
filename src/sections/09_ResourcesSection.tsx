@@ -202,7 +202,7 @@ export const ResourcesSection: React.FC = () => {
           {/* 4 Interactive Resource Cards Grid with 3D Book Cover Open Effect */}
           <div
             ref={tilesRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 my-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 flex-1 items-stretch my-1.5 sm:my-2 min-h-0"
           >
             {siteConfig.resources.tiles.map((tile) => {
               const detail = resourceDetails[tile.title] || resourceDetails['E-Books'];
@@ -227,7 +227,7 @@ export const ResourcesSection: React.FC = () => {
                     aria-label={`View ${tile.title} details`}
                   >
                     {/* Front Face (Cover) */}
-                    <div className="resource-flip-face resource-flip-front select-none">
+                    <div className="resource-flip-face resource-flip-front select-none flex flex-col justify-between">
                       <div>
                         {/* Icon & Category Tag */}
                         <div className="flex items-center justify-between mb-2 sm:mb-2.5">
@@ -268,7 +268,7 @@ export const ResourcesSection: React.FC = () => {
                     </div>
 
                     {/* Back Face (Inside Specs Page) */}
-                    <div className="resource-flip-face resource-flip-back select-none">
+                    <div className="resource-flip-face resource-flip-back select-none flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between mb-1">
                           <span className="resource-back-tag font-mono text-[9px] uppercase tracking-wider font-bold">

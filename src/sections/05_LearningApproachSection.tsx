@@ -221,7 +221,7 @@ export const LearningApproachSection: React.FC = () => {
             </div>
 
             {/* ─── 3 Colorful Pedagogical Cards (Exact replica of Image 1 with full rich details) ─── */}
-            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 my-1">
+            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 my-1.5 sm:my-2 flex-1 items-stretch min-h-0">
               {APPROACH_CARDS.map((card) => (
                 <div
                   key={card.title}
@@ -230,7 +230,7 @@ export const LearningApproachSection: React.FC = () => {
                     borderColor: card.cardBorder,
                     boxShadow: `0 6px 20px -4px ${card.glowColor}`,
                   }}
-                  className="flex flex-col justify-between p-3 sm:p-3.5 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="flex flex-col justify-between p-3 sm:p-3.5 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full"
                 >
                   <div>
                     {/* Top Row: Icon in Rounded Box + Card Title */}
@@ -267,17 +267,17 @@ export const LearningApproachSection: React.FC = () => {
                     <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mt-1 font-normal">
                       {card.description}
                     </p>
-
-                    {/* Concrete Deliverable Points */}
-                    <ul className="space-y-1 mt-2 pt-2 border-t border-slate-100">
-                      {card.bullets.map((b) => (
-                        <li key={b} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] font-sans leading-tight">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] shrink-0" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
+
+                  {/* Concrete Deliverable Points */}
+                  <ul className="space-y-1 mt-auto pt-2 border-t border-slate-100">
+                    {card.bullets.map((b) => (
+                      <li key={b} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] font-sans leading-tight">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] shrink-0" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>

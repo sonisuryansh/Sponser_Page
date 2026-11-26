@@ -78,6 +78,29 @@ const projectChips: Record<string, string[]> = {
   'proj-5': ['3-DOF Kinematics', 'Micro-Servo Actuation', 'Geometric Pick & Place'],
 };
 
+const projectSpecs: Record<string, { arch: string; takeaway: string }> = {
+  'proj-1': {
+    arch: 'Microcontroller-driven dual H-bridge motor driver, real-time pulse-width modulation (PWM) speed regulation, and ultrasonic echo-ranging.',
+    takeaway: 'Closed-loop obstacle avoidance, reactive steering algorithms & chassis assembly.',
+  },
+  'proj-2': {
+    arch: 'Multi-sensor I2C telemetry bus, low-power particulate matter sensing, and local buffer transmission to classroom dashboard.',
+    takeaway: 'Real-world data acquisition, calibration curves, and environmental metrics analysis.',
+  },
+  'proj-3': {
+    arch: 'Quadcopter frame with safety ducted prop guards, 6-DOF IMU sensor fusion, and tethered altitude hold calibration.',
+    takeaway: 'Aerodynamic lift principles, PID stabilization loops & safe indoor arena piloting.',
+  },
+  'proj-4': {
+    arch: 'On-device lightweight convolutional neural inference, optical feature detection, and digital confidence scoring.',
+    takeaway: 'Training dataset curation, computer vision pipelines, and automated sorting logic.',
+  },
+  'proj-5': {
+    arch: '3-degree-of-freedom articulated arm with inverse kinematics solver, high-torque servo linkages, and magnetic gripper.',
+    takeaway: 'Joint coordinate transformations, mechanical gear reduction & repeatable trajectory planning.',
+  },
+};
+
 export const ProjectShowcaseSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
@@ -229,7 +252,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               borderColor: currentMeta.borderLight,
               background: `linear-gradient(135deg, #FFFFFF 0%, ${currentMeta.bgLight} 100%)`,
             }}
-            className="relative flex-1 min-h-0 flex flex-col md:flex-row items-center gap-3 sm:gap-4 lg:gap-6 border-2 rounded-2xl p-3 sm:p-4 lg:p-4.5 mb-2 shadow-xs transition-all duration-500 overflow-hidden"
+            className="relative flex-1 min-h-0 grid grid-cols-1 md:grid-cols-12 items-stretch gap-4 lg:gap-6 border-2 rounded-2xl p-3 sm:p-4 lg:p-5 mb-2 shadow-xs transition-all duration-500 overflow-hidden"
           >
             {/* Ambient Background Corner Glow */}
             <div
@@ -238,8 +261,8 @@ export const ProjectShowcaseSection: React.FC = () => {
             />
 
             {/* Left Narrative & Metadata */}
-            <div className="flex-1 w-full min-w-0 z-10 flex flex-col justify-between h-full">
-              <div>
+            <div className="md:col-span-7 lg:col-span-8 w-full min-w-0 z-10 flex flex-col justify-between h-full min-h-0">
+              <div className="flex-1 flex flex-col justify-between min-h-0">
                 {/* Domain Badge Row (Grades Removed) */}
                 <div className="flex items-center gap-2 mb-1 sm:mb-1.5 flex-wrap">
                   <span
@@ -260,21 +283,21 @@ export const ProjectShowcaseSection: React.FC = () => {
                 </div>
 
                 {/* Project Title */}
-                <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] font-bold text-[#0F172A] leading-tight mb-1">
+                <h3 className="font-serif text-lg sm:text-xl lg:text-[24px] font-bold text-[#0F172A] leading-tight mb-1">
                   {currentProject.name}
                 </h3>
 
                 {/* Summary Description */}
-                <p className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug font-normal mb-2 max-w-xl line-clamp-3">
+                <p className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug font-normal mb-1.5 max-w-xl line-clamp-2">
                   {currentProject.summary}
                 </p>
 
                 {/* Hardware / Spec Chips */}
-                <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 pt-1.5 border-t border-black/8">
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-1.5 pt-1.5 border-t border-black/8">
                   {activeChips.map((chip, chipIdx) => (
                     <span
                       key={chip}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200/90 font-sans text-[10px] sm:text-[10.5px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200/90 font-sans text-[9.5px] sm:text-[10px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
                     >
                       <span
                         style={{ backgroundColor: chipIdx === 0 ? currentMeta.color : '#F59E0B' }}
@@ -284,17 +307,43 @@ export const ProjectShowcaseSection: React.FC = () => {
                     </span>
                   ))}
                 </div>
+
+                {/* Architecture & Student Mastery Specifications */}
+                {(() => {
+                  const spec = projectSpecs[currentProject.id];
+                  if (!spec) return null;
+                  return (
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white/80 border border-black/8 shadow-2xs space-y-1 my-1">
+                      <div className="flex items-start gap-1.5">
+                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider font-bold text-[#0F172A] shrink-0 mt-0.5">
+                          Architecture:
+                        </span>
+                        <span className="font-sans text-[10px] sm:text-[11px] text-[#475569] leading-tight font-normal line-clamp-2">
+                          {spec.arch}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-1.5 pt-1 border-t border-black/5">
+                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider font-bold text-[#b45309] shrink-0 mt-0.5">
+                          Student Mastery:
+                        </span>
+                        <span className="font-sans text-[10px] sm:text-[11px] text-[#334155] leading-tight font-medium line-clamp-2">
+                          {spec.takeaway}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Inspect Action Button */}
-              <div className="pt-1 flex-none">
+              <div className="pt-1.5 flex-none">
                 <button
                   type="button"
                   onClick={() => setSelectedProject(currentProject)}
-                  className="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[10px] sm:text-[10.5px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
+                  className="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[10px] sm:text-[11px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
                 >
                   <span>Inspect Project Build</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
                 </button>
               </div>
             </div>
@@ -305,29 +354,29 @@ export const ProjectShowcaseSection: React.FC = () => {
               style={{
                 borderColor: currentMeta.borderLight,
               }}
-              className="relative w-full md:w-[280px] lg:w-[320px] xl:w-[360px] h-[140px] sm:h-[160px] md:h-full max-h-[220px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer shrink-0 transition-all hover:shadow-xl"
+              className="md:col-span-5 lg:col-span-4 relative h-full min-h-[180px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer transition-all hover:shadow-xl flex flex-col justify-between"
             >
               <img
                 src={currentProject.image}
                 alt={currentProject.name}
-                className="w-full h-full object-cover object-center filter saturate-[0.92] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="absolute inset-0 w-full h-full object-cover object-center filter saturate-[0.92] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
 
               {/* Maximize Icon Pill */}
-              <div className="absolute top-2.5 right-2.5 p-1.5 bg-black/60 hover:bg-black/80 backdrop-blur-xs rounded-full text-white/90 group-hover:text-white group-hover:scale-110 transition-all border border-white/20 shadow-xs">
+              <div className="relative z-10 self-end m-2.5 p-1.5 bg-black/60 hover:bg-black/80 backdrop-blur-xs rounded-full text-white/90 group-hover:text-white group-hover:scale-110 transition-all border border-white/20 shadow-xs">
                 <Maximize2 className="w-3.5 h-3.5" />
               </div>
 
               {/* Bottom Label Overlay */}
-              <div className="absolute bottom-2.5 left-3 right-3 text-white">
+              <div className="relative z-10 m-3 text-white">
                 <span
                   style={{ color: currentMeta.pillBorder }}
                   className="font-mono text-[9px] uppercase tracking-wider block font-bold leading-tight mb-0.5"
                 >
                   Student Portfolio Showcase
                 </span>
-                <span className="font-serif text-[12.5px] font-medium leading-tight line-clamp-1 text-white/95">
+                <span className="font-serif text-[12.5px] sm:text-[13px] font-medium leading-tight line-clamp-1 text-white/95">
                   {currentProject.name}
                 </span>
               </div>
