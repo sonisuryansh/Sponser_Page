@@ -131,97 +131,144 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
       {/* Main Viewport Container (Guaranteed 100svh Full Height Composition) */}
       <div
         ref={containerRef}
-        className="relative z-10 w-full min-h-[100svh] flex-1 flex flex-col justify-between pt-20 sm:pt-24 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none max-w-[1440px] mx-auto"
+        className="relative z-10 w-full h-full min-h-full flex-1 flex flex-col justify-between pt-[calc(var(--header-h,64px)+8px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none max-w-[1440px] mx-auto overflow-hidden"
       >
-        {/* Subtle Top Anchor clearance for fixed navigation header */}
-        <div className="flex-none h-2 sm:h-4" />
-
-        {/* Central Executive Focus Area (Perfect Vertical Center) */}
+        {/* Central Executive Focus Area (Spaced Naturally across Viewport) */}
         <div
           ref={contentRef}
-          className="w-full max-w-3xl mx-auto flex flex-col items-center text-center my-auto py-1 sm:py-2"
+          className="w-full max-w-4xl mx-auto flex-1 flex flex-col items-center justify-between text-center py-2 sm:py-3 min-h-0"
         >
-          {/* Eyebrow Badge (Subtle Minimal Aerospace Tag) */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/[0.04] border border-white/10 mb-2 sm:mb-2.5 backdrop-blur-md shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] animate-pulse" />
-            <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.24em] text-[#c8a45d] font-semibold">
-              {siteConfig.closing.eyebrow} &bull; Academic Partnership
-            </span>
+          {/* Top Eyebrow & Editorial Headline */}
+          <div className="flex-none flex flex-col items-center mb-1 sm:mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 mb-2 sm:mb-2.5 backdrop-blur-md shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] animate-pulse" />
+              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
+                {siteConfig.closing.eyebrow} &bull; Academic Partnership
+              </span>
+            </div>
+
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-[36px] font-bold leading-tight tracking-tight text-[#FAF9F6] mb-1.5 max-w-3xl px-2 sm:px-0 text-center">
+              {siteConfig.closing.headline}
+            </h2>
+
+            <p className="font-serif italic text-xs sm:text-sm md:text-base text-white/80 leading-relaxed max-w-xl font-normal px-2 sm:px-0">
+              &ldquo;{siteConfig.closing.line}&rdquo;
+            </p>
           </div>
 
-          {/* Editorial Headline */}
-          <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#FAF9F6] mb-1.5 sm:mb-2 max-w-3xl px-2 sm:px-0 text-center">
-            {siteConfig.closing.headline}
-          </h2>
+          {/* Executive Partnership Pillars (Anchoring the Center Viewport) */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 my-2 sm:my-3">
+            {/* Pillar 1 */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/12 backdrop-blur-md flex flex-col justify-between text-left hover:border-[#c8a45d]/50 hover:bg-white/[0.06] transition-all shadow-md">
+              <div>
+                <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
+                  Pillar 01 &bull; Lab Setup
+                </span>
+                <h4 className="font-serif text-sm sm:text-base font-bold text-white mb-1.5">
+                  Turnkey Infrastructure
+                </h4>
+                <p className="font-sans text-[11px] sm:text-[12px] text-white/75 leading-relaxed">
+                  Dedicated school lab hardware, safety compliance, tools, and ongoing maintenance all managed directly by MedhaArc Labs.
+                </p>
+              </div>
+            </div>
 
-          {/* Subtitle Message */}
-          <p className="font-serif italic text-xs sm:text-sm md:text-base text-white/75 leading-snug max-w-xl mb-3 sm:mb-4 font-normal px-2 sm:px-0">
-            &ldquo;{siteConfig.closing.line}&rdquo;
-          </p>
+            {/* Pillar 2 */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/12 backdrop-blur-md flex flex-col justify-between text-left hover:border-[#c8a45d]/50 hover:bg-white/[0.06] transition-all shadow-md">
+              <div>
+                <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
+                  Pillar 02 &bull; Faculty Support
+                </span>
+                <h4 className="font-serif text-sm sm:text-base font-bold text-white mb-1.5">
+                  Zero Faculty Burden
+                </h4>
+                <p className="font-sans text-[11px] sm:text-[12px] text-white/75 leading-relaxed">
+                  Expert MedhaArc instructors conduct every student session. School staff are completely free from lesson preparation or kit management.
+                </p>
+              </div>
+            </div>
 
-          {/* Primary Action Button (Sophisticated Muted Champagne Gold) */}
-          <button
-            onClick={onOpenContact}
-            className="group relative inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-[11px] sm:text-xs uppercase tracking-[0.16em] font-bold rounded-[3px] shadow-[0_4px_24px_rgba(200,164,93,0.28)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.45)] hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 cursor-pointer"
-          >
-            <Calendar className="w-3.5 h-3.5 text-[#080A0D]" />
-            <span>{siteConfig.closing.ctaText}</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#080A0D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-          </button>
+            {/* Pillar 3 */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/12 backdrop-blur-md flex flex-col justify-between text-left hover:border-[#c8a45d]/50 hover:bg-white/[0.06] transition-all shadow-md">
+              <div>
+                <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
+                  Pillar 03 &bull; Student Outlines
+                </span>
+                <h4 className="font-serif text-sm sm:text-base font-bold text-white mb-1.5">
+                  Lifelong Portfolios
+                </h4>
+                <p className="font-sans text-[11px] sm:text-[12px] text-white/75 leading-relaxed">
+                  Every student builds tangible hardware, earns milestone certificates, and graduates with verified digital engineering portfolios.
+                </p>
+              </div>
+            </div>
+          </div>
 
-          {/* Contact & Social Links (Responsive Stack on Mobile, Single Row on Desktop) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-white/70 mt-3 sm:mt-4 w-full max-w-sm sm:max-w-none mx-auto">
-            {/* Official Email */}
+          {/* Primary Action Button & Communication Links */}
+          <div className="flex-none flex flex-col items-center mt-1 sm:mt-2">
             <button
-              onClick={handleCopyEmail}
-              className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3 py-1 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
-              title="Click to copy official email"
+              onClick={onOpenContact}
+              className="group relative inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 sm:px-9 py-3 sm:py-3.5 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-xs sm:text-[13px] uppercase tracking-[0.16em] font-bold rounded-lg shadow-[0_4px_24px_rgba(200,164,93,0.35)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer"
             >
-              {copiedEmail ? (
-                <>
-                  <Check className="w-3 h-3 text-emerald-400" />
-                  <span className="text-emerald-300 font-medium">team@medhaarc.com copied!</span>
-                </>
-              ) : (
-                <>
-                  <Mail className="w-3 h-3 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
-                  <span>team@medhaarc.com</span>
-                  <Copy className="w-2.5 h-2.5 text-white/30 group-hover:text-[#c8a45d] transition-colors" />
-                </>
-              )}
+              <Calendar className="w-4 h-4 text-[#080A0D]" />
+              <span>{siteConfig.closing.ctaText}</span>
+              <ArrowUpRight className="w-4 h-4 text-[#080A0D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </button>
 
-            <span className="hidden sm:inline-block w-px h-3 bg-white/15 select-none" />
+            {/* Contact & Social Links */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs font-mono text-white/75 mt-3 sm:mt-4 w-full max-w-sm sm:max-w-none mx-auto">
+              {/* Official Email */}
+              <button
+                onClick={handleCopyEmail}
+                className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/12 hover:border-[#c8a45d]/40 text-white/85 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
+                title="Click to copy official email"
+              >
+                {copiedEmail ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-emerald-300 font-medium">team@medhaarc.com copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-3.5 h-3.5 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
+                    <span>team@medhaarc.com</span>
+                    <Copy className="w-3 h-3 text-white/30 group-hover:text-[#c8a45d] transition-colors" />
+                  </>
+                )}
+              </button>
 
-            {/* Official Website */}
-            <a
-              href={siteConfig.closing.websiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3 py-1 rounded-full bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#c8a45d]/40 text-white/80 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
-            >
-              <Globe className="w-3 h-3 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
-              <span>medhaarc.com</span>
-              <ArrowUpRight className="w-2.5 h-2.5 text-white/30 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
+              <span className="hidden sm:inline-block w-px h-3.5 bg-white/20 select-none" />
 
-            <span className="hidden sm:inline-block w-px h-3 bg-white/15 select-none" />
+              {/* Official Website */}
+              <a
+                href={siteConfig.closing.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-3.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/12 hover:border-[#c8a45d]/40 text-white/85 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer"
+              >
+                <Globe className="w-3.5 h-3.5 text-[#c8a45d]/90 group-hover:scale-110 transition-transform" />
+                <span>medhaarc.com</span>
+                <ArrowUpRight className="w-3 h-3 text-white/30 group-hover:text-[#c8a45d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
 
-            {/* Clean Social Links */}
-            <div className="flex items-center justify-center gap-2 mt-0.5 sm:mt-0">
-              {socialChannels.map((soc) => (
-                <a
-                  key={soc.name}
-                  href={soc.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={soc.name}
-                  title={soc.name}
-                  className="w-7 h-7 flex items-center justify-center rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#c8a45d]/40 text-white/50 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer hover:scale-105"
-                >
-                  {soc.icon}
-                </a>
-              ))}
+              <span className="hidden sm:inline-block w-px h-3.5 bg-white/20 select-none" />
+
+              {/* Clean Social Links */}
+              <div className="flex items-center justify-center gap-2 mt-0.5 sm:mt-0">
+                {socialChannels.map((soc) => (
+                  <a
+                    key={soc.name}
+                    href={soc.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={soc.name}
+                    title={soc.name}
+                    className="w-7 h-7 flex items-center justify-center rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/12 hover:border-[#c8a45d]/40 text-white/60 hover:text-[#c8a45d] transition-all duration-200 cursor-pointer hover:scale-105"
+                  >
+                    {soc.icon}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

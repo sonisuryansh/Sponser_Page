@@ -78,6 +78,29 @@ const projectChips: Record<string, string[]> = {
   'proj-5': ['3-DOF Kinematics', 'Micro-Servo Actuation', 'Geometric Pick & Place'],
 };
 
+const projectSpecs: Record<string, { arch: string; takeaway: string }> = {
+  'proj-1': {
+    arch: 'Microcontroller-driven dual H-bridge motor driver, real-time pulse-width modulation (PWM) speed regulation, and ultrasonic echo-ranging.',
+    takeaway: 'Closed-loop obstacle avoidance, reactive steering algorithms & chassis assembly.',
+  },
+  'proj-2': {
+    arch: 'Multi-sensor I2C telemetry bus, low-power particulate matter sensing, and local buffer transmission to classroom dashboard.',
+    takeaway: 'Real-world data acquisition, calibration curves, and environmental metrics analysis.',
+  },
+  'proj-3': {
+    arch: 'Quadcopter frame with safety ducted prop guards, 6-DOF IMU sensor fusion, and tethered altitude hold calibration.',
+    takeaway: 'Aerodynamic lift principles, PID stabilization loops & safe indoor arena piloting.',
+  },
+  'proj-4': {
+    arch: 'On-device lightweight convolutional neural inference, optical feature detection, and digital confidence scoring.',
+    takeaway: 'Training dataset curation, computer vision pipelines, and automated sorting logic.',
+  },
+  'proj-5': {
+    arch: '3-degree-of-freedom articulated arm with inverse kinematics solver, high-torque servo linkages, and magnetic gripper.',
+    takeaway: 'Joint coordinate transformations, mechanical gear reduction & repeatable trajectory planning.',
+  },
+};
+
 export const ProjectShowcaseSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
@@ -114,13 +137,13 @@ export const ProjectShowcaseSection: React.FC = () => {
       {/* 100svh Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-stretch pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset White Panel */}
-        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-hidden">
+        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col justify-between p-4 sm:p-5 lg:p-6 box-border z-10 overflow-hidden">
 
           {/* Top Header: Eyebrow with gold accent & Headline */}
-          <div className="flex-none text-center mb-1.5 sm:mb-2">
+          <div className="flex-none text-center mb-1 sm:mb-2">
             <div className="flex items-center justify-center gap-2 mb-1">
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
               <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
@@ -129,15 +152,15 @@ export const ProjectShowcaseSection: React.FC = () => {
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
 
-            <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] text-center">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold leading-tight tracking-tight text-[#0F172A] text-center">
               {siteConfig.showcase.headline}
             </h2>
           </div>
 
           {/* ─── Dynamic Project Switcher Tabs (Tasteful colors & icons) ─── */}
-          <div className="flex flex-col items-center justify-center gap-1 sm:gap-1.5 mb-2 pb-1.5 border-b border-black/8">
+          <div className="flex flex-col items-center justify-center gap-1.5 sm:gap-2 mb-2 pb-2 border-b border-black/8">
             {/* Top Row: 3 Projects */}
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
               {projects.slice(0, 3).map((proj, idx) => {
                 const actualIdx = idx;
                 const isActive = activeProjectIndex === actualIdx;
@@ -150,7 +173,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                     style={{
                       borderColor: isActive ? meta.color : undefined,
                     }}
-                    className={`group relative px-2.5 sm:px-3 py-1 rounded-lg border text-[10.5px] sm:text-[11px] font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-1.5 ${isActive
+                    className={`group relative px-3 sm:px-3.5 py-1.5 rounded-lg border text-[11px] sm:text-[12px] font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-2 ${isActive
                       ? 'bg-[#0F172A] text-white shadow-xs'
                       : 'bg-[#F8FAFC] border-slate-200/90 text-[#475569] hover:text-[#0F172A] hover:bg-white hover:border-slate-300 hover:shadow-2xs'
                       }`}
@@ -180,7 +203,7 @@ export const ProjectShowcaseSection: React.FC = () => {
             </div>
 
             {/* Bottom Row: 2 Projects */}
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
               {projects.slice(3, 5).map((proj, idx) => {
                 const actualIdx = idx + 3;
                 const isActive = activeProjectIndex === actualIdx;
@@ -193,7 +216,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                     style={{
                       borderColor: isActive ? meta.color : undefined,
                     }}
-                    className={`group relative px-2.5 sm:px-3 py-1 rounded-lg border text-[10.5px] sm:text-[11px] font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-1.5 ${isActive
+                    className={`group relative px-3 sm:px-3.5 py-1.5 rounded-lg border text-[11px] sm:text-[12px] font-semibold tracking-wide transition-all cursor-pointer flex items-center gap-2 ${isActive
                       ? 'bg-[#0F172A] text-white shadow-xs'
                       : 'bg-[#F8FAFC] border-slate-200/90 text-[#475569] hover:text-[#0F172A] hover:bg-white hover:border-slate-300 hover:shadow-2xs'
                       }`}
@@ -223,76 +246,105 @@ export const ProjectShowcaseSection: React.FC = () => {
             </div>
           </div>
 
-          {/* ─── Active Project Presentation Box (Dynamic, Tastefully Colorful) ─── */}
+          {/* ─── Active Project Presentation Box (Expanded Majestic Card) ─── */}
           <div
             style={{
               borderColor: currentMeta.borderLight,
               background: `linear-gradient(135deg, #FFFFFF 0%, ${currentMeta.bgLight} 100%)`,
             }}
-            className="relative flex flex-col md:flex-row items-center gap-3 sm:gap-4 lg:gap-5 border-2 rounded-xl p-3 sm:p-3.5 lg:p-4 mb-2 shadow-2xs transition-all duration-500 overflow-hidden"
+            className="relative flex-1 flex flex-col md:flex-row items-center gap-5 sm:gap-7 lg:gap-9 border-2 rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 my-2 sm:my-3 shadow-xs transition-all duration-500 overflow-hidden"
           >
             {/* Ambient Background Corner Glow */}
             <div
               style={{ backgroundColor: currentMeta.color }}
-              className="absolute top-0 right-0 w-32 h-32 sm:w-48 sm:h-48 rounded-full blur-3xl opacity-10 pointer-events-none"
+              className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 rounded-full blur-3xl opacity-15 pointer-events-none"
             />
 
             {/* Left Narrative & Metadata */}
-            <div className="flex-1 w-full min-w-0 z-10">
-              {/* Domain Badge Row (Grades Removed) */}
-              <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span
-                  style={{
-                    backgroundColor: currentMeta.bgLight,
-                    borderColor: currentMeta.borderLight,
-                    color: currentMeta.textColor,
-                  }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[9.5px] sm:text-[10px] font-mono-tech font-bold uppercase tracking-wider shadow-2xs"
-                >
-                  {currentMeta.icon}
-                  <span>{currentProject.domain}</span>
-                </span>
-
-                <span className="hidden sm:inline font-mono text-[8.5px] uppercase tracking-widest text-[#94A3B8] font-bold ml-auto">
-                  Student Engineering Capstone
-                </span>
-              </div>
-
-              {/* Project Title */}
-              <h3 className="font-serif text-lg sm:text-xl lg:text-[21px] font-bold text-[#0F172A] leading-tight mb-1">
-                {currentProject.name}
-              </h3>
-
-              {/* Summary Description */}
-              <p className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug font-normal mb-2 max-w-xl line-clamp-2">
-                {currentProject.summary}
-              </p>
-
-              {/* Hardware / Spec Chips */}
-              <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2.5 pt-1.5 border-t border-black/8">
-                {activeChips.map((chip, chipIdx) => (
+            <div className="flex-1 w-full min-w-0 z-10 flex flex-col justify-between h-full">
+              <div>
+                {/* Domain Badge Row */}
+                <div className="flex items-center gap-2 mb-2.5 flex-wrap">
                   <span
-                    key={chip}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200/90 font-sans text-[10px] sm:text-[10.5px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
+                    style={{
+                      backgroundColor: currentMeta.bgLight,
+                      borderColor: currentMeta.borderLight,
+                      color: currentMeta.textColor,
+                    }}
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-[10.5px] sm:text-[11.5px] font-mono-tech font-bold uppercase tracking-wider shadow-2xs"
                   >
-                    <span
-                      style={{ backgroundColor: chipIdx === 0 ? currentMeta.color : '#F59E0B' }}
-                      className="w-1.5 h-1.5 rounded-full shrink-0"
-                    />
-                    <span>{chip}</span>
+                    {currentMeta.icon}
+                    <span>{currentProject.domain}</span>
                   </span>
-                ))}
+
+                  <span className="hidden sm:inline font-mono text-[9.5px] uppercase tracking-widest text-[#94A3B8] font-bold ml-auto">
+                    Student Engineering Capstone
+                  </span>
+                </div>
+
+                {/* Project Title */}
+                <h3 className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#0F172A] leading-tight mb-2.5">
+                  {currentProject.name}
+                </h3>
+
+                {/* Summary Description */}
+                <p className="font-sans text-xs sm:text-[14px] text-[#475569] leading-relaxed font-normal mb-4 max-w-2xl">
+                  {currentProject.summary}
+                </p>
+
+                {/* Hardware / Spec Chips */}
+                <div className="flex flex-wrap gap-2 mb-3.5 pt-3 border-t border-black/8">
+                  {activeChips.map((chip, chipIdx) => (
+                    <span
+                      key={chip}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-slate-200/90 font-sans text-[11px] sm:text-[12px] font-medium text-[#334155] shadow-2xs hover:border-slate-300 transition-colors"
+                    >
+                      <span
+                        style={{ backgroundColor: chipIdx === 0 ? currentMeta.color : '#F59E0B' }}
+                        className="w-2 h-2 rounded-full shrink-0"
+                      />
+                      <span>{chip}</span>
+                    </span>
+                  ))}
+                </div>
+
+                {/* Architecture & Student Mastery Highlights */}
+                {(() => {
+                  const spec = projectSpecs[currentProject.id] || projectSpecs['proj-1'];
+                  return (
+                    <div className="p-3 sm:p-3.5 rounded-xl bg-white/70 border border-black/6 mb-4 space-y-1.5 text-left shadow-2xs">
+                      <div className="flex items-start gap-2">
+                        <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-[#475569] shrink-0 mt-0.5">
+                          Architecture:
+                        </span>
+                        <span className="font-sans text-[11px] sm:text-xs text-[#334155] leading-snug">
+                          {spec.arch}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-[#b45309] shrink-0 mt-0.5">
+                          Student Mastery:
+                        </span>
+                        <span className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug font-medium">
+                          {spec.takeaway}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Inspect Action Button */}
-              <button
-                type="button"
-                onClick={() => setSelectedProject(currentProject)}
-                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[10px] sm:text-[10.5px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
-              >
-                <span>Inspect Project Build</span>
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
-              </button>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(currentProject)}
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-xs sm:text-[13px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
+                >
+                  <span>Inspect Project Build</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
+                </button>
+              </div>
             </div>
 
             {/* Right Photo Frame */}
@@ -301,29 +353,29 @@ export const ProjectShowcaseSection: React.FC = () => {
               style={{
                 borderColor: currentMeta.borderLight,
               }}
-              className="relative w-full md:w-[260px] lg:w-[300px] h-[135px] sm:h-[150px] lg:h-[160px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer shrink-0 transition-all hover:shadow-xl"
+              className="relative w-full md:w-[360px] lg:w-[420px] xl:w-[480px] h-[220px] sm:h-[260px] lg:h-[300px] xl:h-[340px] rounded-2xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer shrink-0 transition-all hover:shadow-xl"
             >
               <img
                 src={currentProject.image}
                 alt={currentProject.name}
                 className="w-full h-full object-cover object-center filter saturate-[0.92] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
 
               {/* Maximize Icon Pill */}
-              <div className="absolute top-2.5 right-2.5 p-1.5 bg-black/60 hover:bg-black/80 backdrop-blur-xs rounded-full text-white/90 group-hover:text-white group-hover:scale-110 transition-all border border-white/20 shadow-xs">
-                <Maximize2 className="w-3.5 h-3.5" />
+              <div className="absolute top-3 right-3 p-2 bg-black/60 hover:bg-black/80 backdrop-blur-xs rounded-full text-white/90 group-hover:text-white group-hover:scale-110 transition-all border border-white/20 shadow-xs">
+                <Maximize2 className="w-4 h-4" />
               </div>
 
               {/* Bottom Label Overlay */}
-              <div className="absolute bottom-2.5 left-3 right-3 text-white">
+              <div className="absolute bottom-3 left-4 right-4 text-white">
                 <span
                   style={{ color: currentMeta.pillBorder }}
-                  className="font-mono text-[9px] uppercase tracking-wider block font-bold leading-tight mb-0.5"
+                  className="font-mono text-[9.5px] uppercase tracking-wider block font-bold leading-tight mb-1"
                 >
                   Student Portfolio Showcase
                 </span>
-                <span className="font-serif text-[12.5px] font-medium leading-tight line-clamp-1 text-white/95">
+                <span className="font-serif text-[14px] sm:text-[15px] font-bold leading-tight line-clamp-1 text-white/95">
                   {currentProject.name}
                 </span>
               </div>

@@ -599,30 +599,30 @@ export const CurriculumSection: React.FC = () => {
             {/* Right Photo Column (Matching Image 1) */}
             <div
               ref={imageAreaRef}
-              className="hidden lg:flex w-[320px] xl:w-[360px] shrink-0 items-center justify-center"
+              className="hidden lg:flex w-[340px] xl:w-[400px] 2xl:w-[440px] shrink-0 items-stretch h-full pb-1"
             >
-              <div className="relative w-full h-[320px] sm:h-[350px] lg:h-[370px] rounded-2xl overflow-hidden border border-black/10 shadow-lg group bg-black/5">
+              <div className="relative w-full h-full min-h-[360px] lg:min-h-[420px] xl:min-h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden border border-black/10 shadow-lg group bg-black/5 flex flex-col justify-between">
                 <img
                   src={meta.image}
                   alt={`${currentStage.gradeLabel} hardware and curriculum session`}
-                  className="w-full h-full object-cover object-center filter saturate-[0.92] contrast-[1.04] group-hover:scale-104 transition-transform duration-700 ease-out"
+                  className="absolute inset-0 w-full h-full object-cover object-center filter saturate-[0.92] contrast-[1.04] group-hover:scale-104 transition-transform duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
                 {/* Corner Branding Tag */}
-                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full border border-black/10 shadow-xs flex items-center gap-1.5">
+                <div className="relative z-10 m-3.5 self-end bg-white/95 backdrop-blur-md px-3 py-1 rounded-full border border-black/10 shadow-xs flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#EA580C]" />
-                  <span className="font-mono text-[9px] font-bold text-[#0F172A] uppercase tracking-wider">
+                  <span className="font-mono text-[9.5px] font-bold text-[#0F172A] uppercase tracking-wider">
                     {currentStage.gradeLabel}
                   </span>
                 </div>
 
                 {/* Bottom Overlay Title */}
-                <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <span className="font-mono text-[9px] uppercase tracking-wider block opacity-90 text-[#FDBA74] font-bold">
+                <div className="relative z-10 p-4 sm:p-5 text-white">
+                  <span className="font-mono text-[10px] uppercase tracking-wider block opacity-95 text-[#FDBA74] font-bold mb-1">
                     Hands-On Student Platform
                   </span>
-                  <span className="font-serif text-[12.5px] font-medium leading-tight text-white/95 block">
+                  <span className="font-serif text-[15px] sm:text-base font-bold leading-tight text-white block">
                     {currentStage.termProject || currentStage.title}
                   </span>
                 </div>

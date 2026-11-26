@@ -148,12 +148,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         lastGestureTimeRef.current = Date.now();
       };
 
-      // Failsafe watchdog timer (650ms) to ensure transition state never deadlocks
+      // Failsafe watchdog timer (420ms) to ensure transition state never deadlocks
       watchdogTimer = setTimeout(() => {
         if (transitioningRef.current) {
           finish();
         }
-      }, 650);
+      }, 420);
 
       // Directional shutter trajectories:
       // Forward (down): enter from +110% (right) -> 0% -> exit to -110% (left)
@@ -189,7 +189,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
       // 1. Zoom out outgoing frame subtly
       if (fromFrame) {
-        timeline.to(fromFrame, { scale: 0.96, duration: 0.22, ease: 'power2.out' }, 0);
+        timeline.to(fromFrame, { scale: 0.96, duration: 0.16, ease: 'power2.out' }, 0);
       }
 
       // 2. Outgoing targets slide slightly away
@@ -197,10 +197,10 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         timeline.to(
           outgoingTargets,
           {
-            x: isForward ? -20 : 20,
+            x: isForward ? -16 : 16,
             opacity: 0,
-            duration: 0.18,
-            stagger: 0.01,
+            duration: 0.14,
+            stagger: 0.008,
             ease: 'power2.in',
           },
           0
@@ -210,11 +210,11 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       // 3. Backdrop darkens during curtain sweep
       if (backdropRef.current) {
         timeline
-          .fromTo(backdropRef.current, { opacity: 0 }, { opacity: 0.85, duration: 0.22, ease: 'power2.out' }, 0)
-          .to(backdropRef.current, { opacity: 0, duration: 0.22, ease: 'power2.in' }, 0.28);
+          .fromTo(backdropRef.current, { opacity: 0 }, { opacity: 0.85, duration: 0.16, ease: 'power2.out' }, 0)
+          .to(backdropRef.current, { opacity: 0, duration: 0.16, ease: 'power2.in' }, 0.19);
       }
 
-      // 4. Shutters sweep IN to cover the screen (0.02s to 0.24s)
+      // 4. Shutters sweep IN to cover the screen (0.01s to 0.17s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -222,15 +222,15 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: 0,
             yPercent: 0,
             skewX: 0,
-            duration: 0.20,
-            stagger: 0.02,
+            duration: 0.13,
+            stagger: 0.012,
             ease: 'power3.inOut',
           },
-          0.02
+          0.01
         );
       }
 
-      // 5. SWAP SLIDES while screen is fully covered by shutters at t = 0.26s
+      // 5. SWAP SLIDES while screen is fully covered by shutters at t = 0.18s
       timeline.add(() => {
         gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden', display: 'none', pointerEvents: 'none' });
         gsap.set(toWrapper, { opacity: 1, visibility: 'visible', display: 'block', pointerEvents: 'auto' });
@@ -245,9 +245,9 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             })
           );
         }
-      }, 0.26);
+      }, 0.18);
 
-      // 6. Shutters sweep OUT to reveal new slide (0.28s to 0.50s - strictly NON-OVERLAPPING!)
+      // 6. Shutters sweep OUT to reveal new slide (0.19s to 0.35s)
       if (strips?.length) {
         timeline.to(
           strips,
@@ -255,11 +255,11 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             xPercent: exitX,
             yPercent: exitY,
             skewX: exitSkew,
-            duration: 0.20,
-            stagger: 0.02,
+            duration: 0.13,
+            stagger: 0.012,
             ease: 'power3.inOut',
           },
-          0.28
+          0.19
         );
       }
 
@@ -268,8 +268,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         timeline.fromTo(
           toContent,
           { opacity: 0 },
-          { opacity: 1, duration: 0.22, ease: 'power2.out' },
-          0.28
+          { opacity: 1, duration: 0.16, ease: 'power2.out' },
+          0.19
         );
       }
 
@@ -456,8 +456,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         typeof customEvent.detail === 'number'
           ? customEvent.detail
           : typeof customEvent.detail?.index === 'number'
-          ? customEvent.detail.index
-          : null;
+            ? customEvent.detail.index
+            : null;
       if (typeof targetIdx === 'number') {
         goToSlide(targetIdx);
       }
