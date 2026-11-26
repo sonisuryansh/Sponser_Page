@@ -179,6 +179,11 @@ export const TeacherEmpowermentSection: React.FC = () => {
               const tagColors = ['text-[#bae6fd]', 'text-[#ffedd5]', 'text-[#fef9c3]'];
               const backAccents = ['text-[#38bdf8]', 'text-[#fb923c]', 'text-[#facc15]'];
               const bulletColors = ['bg-[#38bdf8]', 'bg-[#fb923c]', 'bg-[#facc15]'];
+              const backBottomLabels = [
+                'For Students • Zero Extra Load',
+                'For Teachers • 4–5 Workshops',
+                'Skills That Stay Permanently',
+              ];
               const isFlipped = activePillarIndex === idx;
 
               return (
@@ -235,44 +240,47 @@ export const TeacherEmpowermentSection: React.FC = () => {
 
                     {/* BACK FACE — Dark Obsidian Luxury Panel with Deliverables from Image 1 */}
                     <div className="pillar-flip-face pillar-flip-back flex flex-col justify-between overflow-y-auto no-scrollbar">
-                      <div>
-                        {/* Top Header */}
-                        <div className="flex items-center justify-between pb-1 border-b border-white/10 mb-1">
-                          <span className={`font-mono text-[9px] uppercase tracking-widest font-bold ${backAccents[idx]}`}>
-                            {col.tag} &bull; Deliverables
-                          </span>
-                          <span className="text-[8.5px] font-mono uppercase px-1.5 py-0.5 rounded-[2px] bg-white/10 text-white/70">
-                            {pillarPopups[idx].badge}
-                          </span>
+                      {/* Top Header */}
+                      <div className="flex items-center justify-between pb-1.5 border-b border-white/15 mb-1.5 flex-none">
+                        <span className={`font-mono text-[9px] sm:text-[9.5px] uppercase tracking-widest font-bold ${backAccents[idx]}`}>
+                          {col.tag} &bull; Deliverables
+                        </span>
+                        <span className="text-[8.5px] sm:text-[9px] font-mono uppercase px-2 py-0.5 rounded-[3px] bg-white/10 text-white/80 font-medium border border-white/10">
+                          {pillarPopups[idx].badge}
+                        </span>
+                      </div>
+
+                      {/* Middle Content: Title, Purpose, and Checklist evenly spaced */}
+                      <div className="flex-1 flex flex-col justify-between py-0.5 min-h-0">
+                        <div>
+                          {/* Sub-Headline */}
+                          <h4 className="font-serif font-bold text-[13.5px] sm:text-[14px] text-white leading-snug mb-1">
+                            {pillarPopups[idx].title}
+                          </h4>
+
+                          {/* Purpose Summary */}
+                          <p className={`font-sans text-[10px] sm:text-[10.5px] text-[#b3afa6] leading-relaxed ${idx === 1 ? 'mb-1.5' : 'mb-2.5'}`}>
+                            {pillarPopups[idx].purpose}
+                          </p>
                         </div>
 
-                        {/* Sub-Headline */}
-                        <h4 className="font-serif font-bold text-xs sm:text-[13px] text-white leading-tight mb-0.5">
-                          {pillarPopups[idx].title}
-                        </h4>
-
-                        {/* Purpose Summary */}
-                        <p className="font-sans text-[9.5px] sm:text-[10px] text-[#b3afa6] leading-snug mb-1">
-                          {pillarPopups[idx].purpose}
-                        </p>
-
-                        {/* Concrete Deliverables Checklist from Image 1 Workshop Journey */}
-                        <ul className="space-y-0.5 sm:space-y-1">
+                        {/* Concrete Deliverables Checklist with generous line gap */}
+                        <ul className={`flex-1 flex flex-col justify-evenly py-0.5 ${idx === 1 ? 'space-y-1' : 'space-y-2.5'}`}>
                           {pillarDetails[idx].map((point) => (
-                            <li key={point} className="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] text-[#ece9e2] font-sans leading-tight">
-                              <span className={`w-1.5 h-1.5 rounded-full ${bulletColors[idx]} shrink-0`} />
-                              <span>{point}</span>
+                            <li key={point} className="flex items-start gap-2 text-[10px] sm:text-[10.5px] text-[#f1f0eb] font-sans leading-snug">
+                              <span className={`w-1.5 h-1.5 rounded-full ${bulletColors[idx]} shrink-0 mt-1 shadow-[0_0_6px_rgba(255,255,255,0.4)]`} />
+                              <span className="font-medium">{point}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
                       {/* Bottom Return Affordance */}
-                      <div className="flex items-center justify-between pt-1 border-t border-white/10 mt-1 text-[8.5px] sm:text-[9px] font-mono text-white/60">
+                      <div className="flex items-center justify-between pt-1.5 border-t border-white/15 mt-1 text-[8.5px] sm:text-[9px] font-mono text-white/70 flex-none">
                         <span className={`${backAccents[idx]} font-semibold`}>
-                          Skills That Stay
+                          {backBottomLabels[idx]}
                         </span>
-                        <span className="opacity-70">↻ Click to flip back</span>
+                        <span className="opacity-80">↻ Click to flip back</span>
                       </div>
                     </div>
                   </div>

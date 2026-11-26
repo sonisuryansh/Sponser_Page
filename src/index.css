@@ -606,14 +606,14 @@
   position: relative;
   width: 100%;
   min-width: 0;
-  height: 242px;
+  height: 248px;
   -webkit-perspective: 1400px;
   perspective: 1400px;
 }
 
 @media (min-width: 1280px) {
   .pillar-flip-wrapper {
-    height: 254px;
+    height: 258px;
   }
 }
 
@@ -713,7 +713,7 @@
   background: linear-gradient(165deg, #1c1b1a 0%, #0d0c0c 100%);
   -webkit-transform: rotateY(180deg) translateZ(1px);
   transform: rotateY(180deg) translateZ(1px);
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1.15rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
