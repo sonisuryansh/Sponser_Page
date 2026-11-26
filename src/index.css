@@ -115,38 +115,39 @@
   height: 100%;
   overflow: hidden;
   pointer-events: none;
+  display: none;
   visibility: hidden;
 }
 
 .slide-transition-shutters.is-active {
+  display: block;
   visibility: visible;
 }
 
 .shutter-strip {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  top: 0;
   left: 0;
+  right: 0;
+  width: 100%;
+  height: 33.4%;
   will-change: transform;
   pointer-events: none;
-  transform: translate3d(105%, 0, 0);
+  transform: translate3d(120%, 0, 0);
 }
 
-.shutter-strip-lead {
-  z-index: 1;
-  background: #0F172A;
+.shutter-strip-light {
+  top: 0;
+  background: #FAF6EE;
 }
 
 .shutter-strip-gold {
-  z-index: 2;
+  top: 33.3%;
   background: #c8a45d;
 }
 
-.shutter-strip-canvas {
-  z-index: 3;
-  background: #FAF8F5;
+.shutter-strip-dark {
+  top: 66.6%;
+  background: #0A0E17;
 }
 
 /* Side Scrolling Note (Image 2 style: SCROLL TO EXPLORE + Downward Arrow) */
