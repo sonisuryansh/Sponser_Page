@@ -384,29 +384,27 @@ export const ProjectShowcaseSection: React.FC = () => {
           </div>
 
           {/* ─── Bottom Future Readiness Band & Trailing Link ─── */}
-          <div className="flex-none pt-1 border-t border-black/8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[10px] sm:text-[10.5px] font-mono text-[#555555] mb-2">
-              <div className="flex items-center gap-2 truncate">
+          <div className="flex-none pt-1 border-t border-black/8 text-center">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-center gap-1.5 sm:gap-3 text-[10px] sm:text-[10.5px] font-mono text-[#555555] mb-2 text-center">
+              <div className="flex items-center justify-center gap-2 flex-wrap">
                 <span className="uppercase tracking-wider font-bold text-[#0F172A] flex items-center gap-1.5 shrink-0">
                   <Sparkles className="w-3 h-3 text-[#F59E0B]" />
                   <span>Future Readiness:</span>
                 </span>
-                <span className="truncate text-[#64748B]">
+                <span className="text-[#64748B]">
                   Physical AI · Generative AI · AI Agents · Digital Twins · Edge AI · Smart IoT · Autonomous Drones
                 </span>
               </div>
-              <span className="uppercase tracking-widest text-[#B45309] shrink-0 font-bold text-[10px] hidden sm:inline">
-                Explore → Experiment → Apply → Build
-              </span>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-center">
               <button
                 type="button"
                 onClick={handleScrollToNext}
-                className="group flex items-center text-left focus:outline-none cursor-pointer w-full max-w-xl"
+                className="group flex items-center justify-center text-center focus:outline-none cursor-pointer w-full max-w-2xl mx-auto"
               >
-                <span className="font-sans font-bold text-[9px] sm:text-[10.5px] uppercase tracking-[0.1em] sm:tracking-[0.22em] text-[#0F172A] group-hover:text-[#B45309] transition-colors truncate">
+                <span className="h-[1px] bg-black/20 group-hover:bg-[#B45309] transition-all flex-1 mr-4" />
+                <span className="font-sans font-bold text-[9px] sm:text-[10.5px] uppercase tracking-[0.1em] sm:tracking-[0.22em] text-[#0F172A] group-hover:text-[#B45309] transition-colors shrink-0">
                   Discover our STEM lab infrastructure &amp; setups
                 </span>
                 <span className="h-[1px] bg-black/20 group-hover:bg-[#B45309] transition-all flex-1 ml-4" />
