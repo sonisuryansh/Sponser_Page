@@ -255,20 +255,22 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       if (event.ctrlKey) return;
       if (document.querySelector('[aria-modal="true"]')) return;
 
-      const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
-        '.slide-scroll-pane'
-      );
-      if (pane && pane.scrollHeight > pane.clientHeight + 16) {
-        const atTop = pane.scrollTop <= 6;
-        const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
-        const dir = event.deltaY > 0 ? 1 : -1;
-        if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) {
-          return;
+      const activeWrapper = wrappersRef.current[activeIndexRef.current];
+      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
+      if (!customSteppable) {
+        const pane = activeWrapper?.querySelector<HTMLElement>('.slide-scroll-pane');
+        if (pane && pane.scrollHeight > pane.clientHeight + 16) {
+          const atTop = pane.scrollTop <= 6;
+          const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
+          const dir = event.deltaY > 0 ? 1 : -1;
+          if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) {
+            return;
+          }
         }
       }
 
       if (event.cancelable) event.preventDefault();
-      if (Math.abs(event.deltaY) < 18) return;
+      if (Math.abs(event.deltaY) < 14) return;
 
       const direction = event.deltaY > 0 ? 1 : -1;
       handleGesture(direction);
@@ -283,17 +285,19 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       if (touchStartY === null || !event.cancelable) return;
       if (document.querySelector('[aria-modal="true"]')) return;
 
-      const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
-        '.slide-scroll-pane'
-      );
-      if (pane && pane.scrollHeight > pane.clientHeight + 16) {
-        const currentY = event.touches[0]?.clientY;
-        if (currentY !== undefined) {
-          const deltaY = currentY - touchStartY;
-          const atTop = pane.scrollTop <= 6;
-          const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
-          const dir = deltaY < 0 ? 1 : -1;
-          if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return;
+      const activeWrapper = wrappersRef.current[activeIndexRef.current];
+      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
+      if (!customSteppable) {
+        const pane = activeWrapper?.querySelector<HTMLElement>('.slide-scroll-pane');
+        if (pane && pane.scrollHeight > pane.clientHeight + 16) {
+          const currentY = event.touches[0]?.clientY;
+          if (currentY !== undefined) {
+            const deltaY = currentY - touchStartY;
+            const atTop = pane.scrollTop <= 6;
+            const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
+            const dir = deltaY < 0 ? 1 : -1;
+            if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return;
+          }
         }
       }
 

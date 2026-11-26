@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import {
@@ -154,6 +154,7 @@ export const CurriculumSection: React.FC = () => {
   const [isSectionActive, setIsSectionActive] = useState(false);
   const steppableRef = useRef<HTMLDivElement>(null);
   const activeStageIndexRef = useRef(activeStageIndex);
+  const lastStepTimeRef = useRef(0);
   const contentAreaRef = useRef<HTMLDivElement>(null);
   const imageAreaRef = useRef<HTMLDivElement>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -213,6 +214,40 @@ export const CurriculumSection: React.FC = () => {
     };
   }, []);
 
+  // Step forward or backward through grades with rate limiting & boundary check
+  const stepStage = useCallback(
+    (dir: number): boolean => {
+      const now = Date.now();
+      // 360ms rate limit ensures each wheel tick advances exactly one grade cleanly without skipping
+      if (now - lastStepTimeRef.current < 360) {
+        return true; // Still within cooldown: swallow momentum scroll events!
+      }
+
+      const cur = activeStageIndexRef.current;
+      if (dir > 0) {
+        if (cur < allStages.length - 1) {
+          lastStepTimeRef.current = now;
+          const next = cur + 1;
+          activeStageIndexRef.current = next;
+          setActiveStageIndex(next);
+          return true;
+        }
+        return false; // Boundary reached (Grade 12): allow slide transition
+      } else if (dir < 0) {
+        if (cur > 0) {
+          lastStepTimeRef.current = now;
+          const prev = cur - 1;
+          activeStageIndexRef.current = prev;
+          setActiveStageIndex(prev);
+          return true;
+        }
+        return false; // Boundary reached (Grades 3–4): allow slide transition back
+      }
+      return false;
+    },
+    [allStages.length]
+  );
+
   // Step through grades on scroll / gesture, and only advance slide when reaching boundary
   useEffect(() => {
     const el = steppableRef.current;
@@ -221,39 +256,41 @@ export const CurriculumSection: React.FC = () => {
     const handleStep = (e: Event) => {
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
-      const cur = activeStageIndexRef.current;
+      const handled = stepStage(dir);
+      if (handled) {
+        e.preventDefault();
+      }
+    };
 
-      if (dir > 0) {
-        if (cur < allStages.length - 1) {
-          e.preventDefault();
-          setActiveStageIndex(cur + 1);
-        }
-      } else if (dir < 0) {
-        if (cur > 0) {
-          e.preventDefault();
-          setActiveStageIndex(cur - 1);
-        }
+    const handleWheel = (e: WheelEvent) => {
+      if (e.ctrlKey) return;
+      if (Math.abs(e.deltaY) < 14) return;
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const handled = stepStage(dir);
+      if (handled) {
+        e.preventDefault();
+        e.stopPropagation();
       }
     };
 
     const handleEnter = (e: Event) => {
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
-      if (dir > 0) {
-        setActiveStageIndex(0);
-      } else {
-        setActiveStageIndex(allStages.length - 1);
-      }
+      const targetIdx = dir > 0 ? 0 : allStages.length - 1;
+      activeStageIndexRef.current = targetIdx;
+      setActiveStageIndex(targetIdx);
     };
 
     el.addEventListener('slide:step', handleStep);
     el.addEventListener('slide:enter', handleEnter);
+    el.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
       el.removeEventListener('slide:step', handleStep);
       el.removeEventListener('slide:enter', handleEnter);
+      el.removeEventListener('wheel', handleWheel);
     };
-  }, [allStages.length]);
+  }, [stepStage, allStages.length]);
 
   // Arrow key navigation when section is visible
   useEffect(() => {
@@ -267,23 +304,22 @@ export const CurriculumSection: React.FC = () => {
         return;
       }
 
-      const cur = activeStageIndexRef.current;
-      if (e.key === 'ArrowRight') {
-        if (cur < allStages.length - 1) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        const handled = stepStage(1);
+        if (handled) {
           e.preventDefault();
-          setActiveStageIndex(cur + 1);
         }
-      } else if (e.key === 'ArrowLeft') {
-        if (cur > 0) {
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        const handled = stepStage(-1);
+        if (handled) {
           e.preventDefault();
-          setActiveStageIndex(cur - 1);
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isSectionActive, allStages.length]);
+  }, [isSectionActive, stepStage]);
 
   // Gentle transition when active stage changes
   useEffect(() => {

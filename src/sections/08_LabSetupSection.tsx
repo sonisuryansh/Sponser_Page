@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
 import gsap from 'gsap';
@@ -179,6 +179,7 @@ export const LabSetupSection: React.FC = () => {
 
   // Chronological zone cycling when user is on this section
   const activeZoneIndexRef = useRef(activeZoneIndex);
+  const lastStepTimeRef = useRef(0);
   useEffect(() => {
     activeZoneIndexRef.current = activeZoneIndex;
   }, [activeZoneIndex]);
@@ -193,6 +194,40 @@ export const LabSetupSection: React.FC = () => {
     return () => clearInterval(timer);
   }, [isSectionActive, isHovered, zones.length]);
 
+  // Step forward or backward through zones with rate limiting & boundary check
+  const stepZone = useCallback(
+    (dir: number): boolean => {
+      const now = Date.now();
+      // 360ms rate limit ensures each wheel tick advances exactly one zone cleanly
+      if (now - lastStepTimeRef.current < 360) {
+        return true; // Still within cooldown: swallow momentum scroll events!
+      }
+
+      const cur = activeZoneIndexRef.current;
+      if (dir > 0) {
+        if (cur < zones.length - 1) {
+          lastStepTimeRef.current = now;
+          const next = cur + 1;
+          activeZoneIndexRef.current = next;
+          setActiveZoneIndex(next);
+          return true;
+        }
+        return false; // Zone 04 reached: allow slide transition to next slide
+      } else if (dir < 0) {
+        if (cur > 0) {
+          lastStepTimeRef.current = now;
+          const prev = cur - 1;
+          activeZoneIndexRef.current = prev;
+          setActiveZoneIndex(prev);
+          return true;
+        }
+        return false; // Zone 01 reached: allow slide transition back
+      }
+      return false;
+    },
+    [zones.length]
+  );
+
   // Listen to step navigation events (wheel scroll & arrow keys hooked to slide:step)
   useEffect(() => {
     const el = containerRef.current;
@@ -201,40 +236,41 @@ export const LabSetupSection: React.FC = () => {
     const handleStep = (e: Event) => {
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
-      const cur = activeZoneIndexRef.current;
+      const handled = stepZone(dir);
+      if (handled) {
+        e.preventDefault();
+      }
+    };
 
-      if (dir > 0) {
-        // Step forward chronologically: Zone 01 -> 02 -> 03 -> 04
-        if (cur < zones.length - 1) {
-          e.preventDefault();
-          setActiveZoneIndex(cur + 1);
-        }
-      } else if (dir < 0) {
-        // Step backward: Zone 04 -> 03 -> 02 -> 01
-        if (cur > 0) {
-          e.preventDefault();
-          setActiveZoneIndex(cur - 1);
-        }
+    const handleWheel = (e: WheelEvent) => {
+      if (e.ctrlKey) return;
+      if (Math.abs(e.deltaY) < 14) return;
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const handled = stepZone(dir);
+      if (handled) {
+        e.preventDefault();
+        e.stopPropagation();
       }
     };
 
     const handleEnter = (e: Event) => {
       const customEvent = e as CustomEvent<{ direction: number }>;
       const dir = customEvent.detail?.direction || 1;
-      if (dir > 0) {
-        setActiveZoneIndex(0);
-      } else {
-        setActiveZoneIndex(zones.length - 1);
-      }
+      const targetIdx = dir > 0 ? 0 : zones.length - 1;
+      activeZoneIndexRef.current = targetIdx;
+      setActiveZoneIndex(targetIdx);
     };
 
     el.addEventListener('slide:step', handleStep);
     el.addEventListener('slide:enter', handleEnter);
+    el.addEventListener('wheel', handleWheel, { passive: false });
+
     return () => {
       el.removeEventListener('slide:step', handleStep);
       el.removeEventListener('slide:enter', handleEnter);
+      el.removeEventListener('wheel', handleWheel);
     };
-  }, [zones.length]);
+  }, [stepZone, zones.length]);
 
   // Gentle side panel transition when active zone changes
   useEffect(() => {
