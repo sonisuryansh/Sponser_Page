@@ -171,13 +171,13 @@ export const ResourcesSection: React.FC = () => {
       {/* 100svh Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-stretch pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset White/Creamish Panel */}
-        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col justify-between p-4 sm:p-5 lg:p-6 box-border z-10 overflow-hidden">
+        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-hidden">
 
           {/* Eyebrow & Headline Header (Centered) */}
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-2 pb-2 border-b border-black/8 flex-none">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-2 pb-1.5 border-b border-black/8">
             <div className="flex items-center justify-center gap-2 mb-1">
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
               <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
@@ -185,15 +185,15 @@ export const ResourcesSection: React.FC = () => {
               </span>
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold leading-tight tracking-tight text-[#0F172A] mb-0.5 text-center">
               {siteConfig.resources.headline}
             </h2>
-            <p className="text-xs sm:text-[13px] text-[#555555] font-sans max-w-2xl mx-auto leading-relaxed mb-1.5">
+            <p className="text-[11px] sm:text-xs text-[#555555] font-sans max-w-2xl mx-auto leading-snug mb-1.5 line-clamp-2">
               {siteConfig.resources.paragraph}
             </p>
 
             {!siteConfig.confirm.lmsReady && (
-              <div className="px-3 py-1 bg-[#FAF9F6] border border-black/10 text-[#666666] text-[9.5px] sm:text-[10.5px] font-mono uppercase tracking-wider rounded-md">
+              <div className="px-2.5 py-0.5 bg-[#FAF9F6] border border-black/10 text-[#666666] text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider rounded-[2px]">
                 {siteConfig.resources.statusNotice}
               </div>
             )}
@@ -202,7 +202,7 @@ export const ResourcesSection: React.FC = () => {
           {/* 4 Interactive Resource Cards Grid with 3D Book Cover Open Effect */}
           <div
             ref={tilesRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 flex-1 my-2 sm:my-3 items-stretch min-h-0"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 my-auto"
           >
             {siteConfig.resources.tiles.map((tile) => {
               const detail = resourceDetails[tile.title] || resourceDetails['E-Books'];
@@ -227,33 +227,33 @@ export const ResourcesSection: React.FC = () => {
                     aria-label={`View ${tile.title} details`}
                   >
                     {/* Front Face (Cover) */}
-                    <div className="resource-flip-face resource-flip-front select-none flex flex-col justify-between">
+                    <div className="resource-flip-face resource-flip-front select-none">
                       <div>
                         {/* Icon & Category Tag */}
                         <div className="flex items-center justify-between mb-3">
-                          <div className="resource-icon-box w-9 h-9 flex items-center justify-center border rounded-lg shadow-2xs transition-colors">
+                          <div className="resource-icon-box w-8 h-8 flex items-center justify-center border rounded-[3px] shadow-2xs transition-colors">
                             {tileIcons[tile.title] || <BookOpen className="w-4 h-4" />}
                           </div>
-                          <span className="resource-tag-badge text-[9.5px] font-mono uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-md">
+                          <span className="resource-tag-badge text-[9px] font-mono uppercase tracking-widest font-semibold px-2 py-0.5 rounded-[2px]">
                             {tile.tag}
                           </span>
                         </div>
 
                         {/* Tile Title */}
-                        <h3 className="resource-tile-title font-serif text-xl sm:text-[23px] font-bold tracking-tight mb-2 transition-colors">
+                        <h3 className="resource-tile-title font-serif text-xl sm:text-[22px] font-medium tracking-tight mb-1.5 transition-colors">
                           {tile.title}
                         </h3>
 
                         {/* Tile Description */}
-                        <p className="resource-tile-desc text-xs sm:text-[12.5px] leading-relaxed mb-3">
+                        <p className="resource-tile-desc text-xs leading-relaxed">
                           {tile.description}
                         </p>
 
                         {/* Highlights list on front face */}
-                        <div className="mt-2 pt-2.5 border-t border-black/5 flex flex-col gap-1.5 text-[10.5px] sm:text-[11px] text-[#475569]">
+                        <div className="mt-2 pt-2 border-t border-black/5 flex flex-col gap-1 text-[10.5px] text-[#475569]">
                           {detail.features.slice(0, 2).map((feat, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-1.5 leading-snug">
-                              <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 bg-[#c8a45d]" />
+                              <span className="w-1.5 h-1.5 rounded-full mt-1 shrink-0 bg-[#c8a45d]" />
                               <span className="line-clamp-1">{feat}</span>
                             </div>
                           ))}
@@ -261,41 +261,41 @@ export const ResourcesSection: React.FC = () => {
                       </div>
 
                       {/* Bottom Open Affordance */}
-                      <div className="resource-bottom-bar flex items-center justify-between text-[10.5px] font-mono uppercase tracking-wider font-bold pt-2.5 border-t mt-auto transition-colors">
+                      <div className="resource-bottom-bar flex items-center justify-between text-[10px] font-mono uppercase tracking-wider font-bold pt-2.5 border-t mt-auto transition-colors">
                         <span>Hover to view specs</span>
                         <span className="text-xs">↻</span>
                       </div>
                     </div>
 
                     {/* Back Face (Inside Specs Page) */}
-                    <div className="resource-flip-face resource-flip-back select-none flex flex-col justify-between">
+                    <div className="resource-flip-face resource-flip-back select-none">
                       <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="resource-back-tag font-mono text-[9.5px] uppercase tracking-wider font-bold">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="resource-back-tag font-mono text-[9px] uppercase tracking-wider font-bold">
                             Inside {tile.title}
                           </span>
-                          <span className="text-[9px] font-mono text-[#777] bg-black/[0.05] px-2 py-0.5 rounded-md">
+                          <span className="text-[8.5px] font-mono text-[#777] bg-black/[0.04] px-1.5 py-0.5 rounded-[2px]">
                             Specs
                           </span>
                         </div>
-                        <h4 className="font-serif text-[15px] sm:text-base font-bold text-[#111111] leading-snug mb-2">
+                        <h4 className="font-serif text-[14px] sm:text-[15px] font-medium text-[#111111] leading-snug mb-2">
                           {detail.title}
                         </h4>
-                        <ul className="space-y-2 text-[10.5px] sm:text-[11.5px] text-[#555555] leading-snug">
-                          {detail.features.slice(0, 4).map((feat, fIdx) => (
+                        <ul className="space-y-1.5 text-[10.5px] sm:text-[11px] text-[#555555] leading-snug">
+                          {detail.features.slice(0, 3).map((feat, fIdx) => (
                             <li key={fIdx} className="flex items-start gap-1.5">
-                              <span className="resource-back-dot w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" />
+                              <span className="resource-back-dot w-1 h-1 rounded-full mt-1.5 shrink-0" />
                               <span>{feat}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      <div className="resource-back-cta flex items-center justify-between pt-2.5 border-t border-black/5 mt-auto">
-                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider font-bold group-hover:translate-x-0.5 transition-transform">
+                      <div className="resource-back-cta flex items-center justify-between pt-2 border-t border-black/5 mt-auto">
+                        <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold group-hover:translate-x-0.5 transition-transform">
                           Click for Full Specs
                         </span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </div>

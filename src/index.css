@@ -109,40 +109,44 @@
 
 .slide-transition-shutters {
   position: absolute;
-  z-index: 35;
+  z-index: 55;
   inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   pointer-events: none;
-  display: none !important;
-  visibility: hidden !important;
+  visibility: hidden;
 }
 
 .slide-transition-shutters.is-active {
-  display: block !important;
-  visibility: visible !important;
+  visibility: visible;
 }
 
 .shutter-strip {
   position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
   left: 0;
-  right: 0;
-  height: 33.4%;
   will-change: transform;
-  transform: translate3d(120%, 0, 0);
+  pointer-events: none;
+  transform: translate3d(105%, 0, 0);
 }
 
-.shutter-strip-light {
-  top: 0;
-  background: #F1F1EF;
+.shutter-strip-lead {
+  z-index: 1;
+  background: #0F172A;
 }
 
 .shutter-strip-gold {
-  top: 33.3%;
+  z-index: 2;
+  background: #c8a45d;
 }
 
-.shutter-strip-dark {
-  top: 66.6%;
-  background: #0a0e14;
+.shutter-strip-canvas {
+  z-index: 3;
+  background: #FAF8F5;
 }
 
 /* Side Scrolling Note (Image 2 style: SCROLL TO EXPLORE + Downward Arrow) */
