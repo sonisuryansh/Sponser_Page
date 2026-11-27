@@ -302,7 +302,7 @@ export const LabSetupSection: React.FC = () => {
         className="relative w-full h-full max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset Card Container - Light Grey Slate Whole Card with Light Grey Border */}
-        <div className="relative w-full h-full max-h-full min-h-0 flex-1 bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl sm:rounded-3xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-hidden gap-2">
+        <div className="relative w-full h-full max-h-full min-h-0 flex-1 my-auto max-h-[820px] xl:max-h-[860px] bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl sm:rounded-3xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-hidden gap-2">
 
           {/* Eyebrow & Statement Headline */}
           <div className="flex-none max-w-3xl mx-auto text-center">
@@ -409,12 +409,12 @@ export const LabSetupSection: React.FC = () => {
                     {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 flex-1 min-h-0 items-stretch my-1">
                       {/* Box 1: Workstation Equipment & Hardware */}
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-between min-h-0 shadow-xs">
-                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-2 flex items-center gap-1.5">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-2.5 sm:gap-3 min-h-0 shadow-xs">
+                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-2 flex items-center gap-1.5 flex-none">
                           <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                           <span>Workstation Hardware & Tools</span>
                         </div>
-                        <ul className="space-y-1.5 font-sans text-[10px] sm:text-[11px] text-white/85 flex-1 flex flex-col justify-around">
+                        <ul className="space-y-2 sm:space-y-2.5 font-sans text-[10px] sm:text-[11px] text-white/85 my-auto">
                           {spec.equipment.map((item, i) => (
                             <li key={i} className="flex items-start gap-1.5 leading-snug">
                               <span className="text-white/40 text-[9px] shrink-0 mt-0.5">&bull;</span>
@@ -425,12 +425,12 @@ export const LabSetupSection: React.FC = () => {
                       </div>
 
                       {/* Box 2: Student Deliverables & Mastery */}
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-between min-h-0 shadow-xs">
-                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-2 flex items-center gap-1.5">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-2.5 sm:gap-3 min-h-0 shadow-xs">
+                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-2 flex items-center gap-1.5 flex-none">
                           <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                           <span>Student Builds & Lab Mastery</span>
                         </div>
-                        <ul className="space-y-1.5 font-sans text-[10px] sm:text-[11px] text-white/85 flex-1 flex flex-col justify-around">
+                        <ul className="space-y-2 sm:space-y-2.5 font-sans text-[10px] sm:text-[11px] text-white/85 my-auto">
                           {spec.deliverables.map((item, i) => (
                             <li key={i} className="flex items-start gap-1.5 leading-snug">
                               <span className="text-white/40 text-[9px] shrink-0 mt-0.5">&bull;</span>

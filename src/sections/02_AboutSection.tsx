@@ -95,7 +95,7 @@ export const AboutSection: React.FC = () => {
         className="relative w-full h-full max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Inset Grand White Card Container - Matches Page 3 Shape & Elegance */}
-        <div className="relative w-full h-full max-h-full min-h-0 flex-1 bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-2.5 sm:p-3.5 lg:p-4 xl:p-5 flex flex-col justify-between box-border gap-1.5 sm:gap-2 lg:gap-2.5 overflow-hidden">
+        <div className="relative w-full h-full max-h-full min-h-0 flex-1 my-auto max-h-[820px] xl:max-h-[860px] bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-2.5 sm:p-3.5 lg:p-4 xl:p-5 flex flex-col justify-between box-border gap-1.5 sm:gap-2 lg:gap-2.5 overflow-hidden">
 
           {/* Top Section Header: Symmetrical Eyebrow + Clean Headline */}
           <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center">
@@ -226,7 +226,7 @@ export const AboutSection: React.FC = () => {
               </div>
 
               {/* 4 Grand Stepper Cards Taking Full Height with Generous Typography */}
-              <div className="flex flex-col gap-1 sm:gap-1.5 flex-1 justify-between min-h-0">
+              <div className="flex flex-col gap-1.5 sm:gap-2 flex-1 justify-center my-auto min-h-0">
                 {STEPS.map((step, idx) => {
                   const isActive = activeStepIndex === idx;
 
@@ -235,14 +235,14 @@ export const AboutSection: React.FC = () => {
                       key={step.name}
                       type="button"
                       onClick={() => setActiveStepIndex(idx)}
-                      className={`group relative p-1.5 sm:p-2 lg:p-2.5 rounded-lg border text-left transition-all duration-300 cursor-pointer flex-1 flex items-center gap-2 sm:gap-2.5 min-h-0 ${isActive
+                      className={`group relative p-2 sm:p-2.5 lg:p-3 rounded-lg border text-left transition-all duration-300 cursor-pointer flex items-center gap-2.5 sm:gap-3 shrink-0 ${isActive
                         ? `${step.borderActive} ${step.bgActive} shadow-xs -translate-x-0.5`
                         : 'border-slate-200/80 bg-white hover:bg-slate-50/80 hover:border-slate-300'
                         }`}
                     >
                       {/* Step Number Badge */}
                       <span
-                        className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 rounded-md flex items-center justify-center font-mono font-bold text-[10px] sm:text-[10.5px] lg:text-[11px] shrink-0 shadow-2xs transition-colors ${isActive
+                        className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-md flex items-center justify-center font-mono font-bold text-[10.5px] sm:text-[11px] lg:text-[12px] shrink-0 shadow-2xs transition-colors ${isActive
                           ? `${step.numBg} text-white`
                           : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
                           }`}
@@ -253,17 +253,17 @@ export const AboutSection: React.FC = () => {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-0.5">
-                          <h4 className="font-serif font-bold text-[11px] sm:text-[11.5px] lg:text-[12.5px] text-[#0F172A] leading-tight">
+                          <h4 className="font-serif font-bold text-[12px] sm:text-[12.5px] lg:text-[13.5px] text-[#0F172A] leading-tight">
                             {step.name}
                           </h4>
                           <span
-                            className={`font-mono text-[7.5px] sm:text-[8px] lg:text-[8.5px] font-semibold px-1.5 py-0.2 rounded transition-colors ${isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
+                            className={`font-mono text-[8px] sm:text-[8.5px] lg:text-[9px] font-semibold px-1.5 py-0.5 rounded transition-colors ${isActive ? step.badgeBg : 'text-slate-500 bg-slate-100'
                               }`}
                           >
                             {step.subtitle}
                           </span>
                         </div>
-                        <p className="font-sans text-[9px] sm:text-[9.5px] lg:text-[10px] text-slate-600 leading-tight line-clamp-2">
+                        <p className="font-sans text-[10px] sm:text-[10.5px] lg:text-[11px] text-slate-600 leading-snug line-clamp-2">
                           {step.desc}
                         </p>
                       </div>
