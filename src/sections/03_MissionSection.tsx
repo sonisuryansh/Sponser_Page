@@ -147,19 +147,8 @@ export const MissionSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Subheader Row Above 5 Cards */}
-          <div className="editorial-reveal my-0.5 flex items-center justify-between pb-1 border-b border-slate-100">
-            <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0F172A] font-bold">
-              CORE EDUCATIONAL VALUES
-            </span>
-            <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#7C3AED] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
-              <span>5 PILLARS OF EDUCATION</span>
-            </div>
-          </div>
-
           {/* Middle Area: 5 Premium Value Cards with 3D Animated Illustration GIFs */}
-          <div className="editorial-reveal my-0.5 flex-1 flex flex-col justify-center">
+          <div className="editorial-reveal my-1 flex-1 flex flex-col justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 lg:gap-3 xl:gap-3.5 items-stretch">
               {MISSION_CARDS.map((val) => (
                 <div
