@@ -72,7 +72,7 @@ const pillarPopups = [
   {
     title: '4–5 AI Skills Workshops',
     purpose:
-      'Short, practical workshops scheduled after the programme is under way to upgrade teachers’ own skills with modern AI tools and daily workflows.',
+      'Practical workshops to upskill teachers with modern AI tools, lesson drafting, and daily workflows.',
     badge: 'For Teachers',
   },
   {
@@ -226,25 +226,25 @@ export const TeacherEmpowermentSection: React.FC = () => {
                       </div>
 
                       {/* Middle Content: Title, Purpose, and Checklist evenly spaced */}
-                      <div className="flex-1 flex flex-col justify-between py-0.5 min-h-0">
-                        <div>
+                      <div className="flex-1 min-h-0 flex flex-col justify-between py-0.5">
+                        <div className="flex-none mb-1">
                           {/* Sub-Headline */}
-                          <h4 className="font-serif font-bold text-[15px] sm:text-[16px] text-white leading-snug mb-1">
+                          <h4 className="font-serif font-bold text-[14px] sm:text-[15px] text-white leading-tight mb-0.5">
                             {pillarPopups[idx].title}
                           </h4>
 
                           {/* Purpose Summary */}
-                          <p className={`font-sans text-[12px] sm:text-[12.5px] text-[#cfcac0] leading-relaxed font-normal ${idx === 1 ? 'mb-1.5' : 'mb-2.5'}`}>
+                          <p className="font-sans text-[11px] sm:text-[11.5px] text-[#cfcac0] leading-snug font-normal line-clamp-2">
                             {pillarPopups[idx].purpose}
                           </p>
                         </div>
 
-                        {/* Concrete Deliverables Checklist with generous line gap */}
-                        <ul className={`flex-1 flex flex-col justify-evenly py-0.5 ${idx === 1 ? 'space-y-1' : 'space-y-2.5'}`}>
+                        {/* Concrete Deliverables Checklist with clean spacing */}
+                        <ul className="flex-1 min-h-0 flex flex-col justify-between py-0.5 gap-1">
                           {pillarDetails[idx].map((point) => (
-                            <li key={point} className="flex items-start gap-2 text-[12px] sm:text-[12.5px] text-[#f8f7f4] font-sans leading-snug">
+                            <li key={point} className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-[#f8f7f4] font-sans leading-tight">
                               <span className={`w-1.5 h-1.5 rounded-full ${bulletColors[idx]} shrink-0 mt-1 shadow-[0_0_6px_rgba(255,255,255,0.4)]`} />
-                              <span className="font-medium">{point}</span>
+                              <span className="font-medium line-clamp-1">{point}</span>
                             </li>
                           ))}
                         </ul>
