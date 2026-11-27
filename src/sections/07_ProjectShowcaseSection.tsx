@@ -10,7 +10,6 @@ import {
   Plane,
   Cpu,
   Wrench,
-  Sparkles,
   CheckCircle2,
 } from 'lucide-react';
 
@@ -100,69 +99,6 @@ const projectMilestones: Record<string, string> = {
   'proj-3': 'Indoor tethered flight rig with 6-DOF IMU stabilization and altitude control',
   'proj-4': 'On-device vision model classifying classroom recyclables with confidence scoring',
   'proj-5': '3-DOF precision robotic arm executing automated inverse kinematics sorting',
-};
-
-const projectDeliverables: Record<string, { archBullets: string[]; masteryBullets: string[] }> = {
-  'proj-1': {
-    archBullets: [
-      'Dual H-bridge PWM motor driver with current protection',
-      'HC-SR04 ultrasonic sonar distance telemetry sensor',
-      'Precision 4WD chassis with differential steering calibration',
-    ],
-    masteryBullets: [
-      'Closed-loop reactive steering and collision thresholds',
-      'Chassis balance, gear alignment & soldered wire harness',
-      'Defended in student engineering lab portfolio review',
-    ],
-  },
-  'proj-2': {
-    archBullets: [
-      'Multi-sensor I2C telemetry bus with low-power polling',
-      'Particulate matter (PM2.5/PM10) optical air probe',
-      'Calibrated ambient temperature & humidity telemetry sensor',
-    ],
-    masteryBullets: [
-      'Real-world continuous data logging & buffer transmission',
-      'Graph analysis, calibration curves & sensor verification',
-      'Live environmental monitoring presented to school faculty',
-    ],
-  },
-  'proj-3': {
-    archBullets: [
-      'Ducted prop safety frame with high-thrust brushless motors',
-      '6-DOF IMU gyroscopic flight controller & sensor fusion',
-      'Tethered altitude hold sensor & PID stabilization loop',
-    ],
-    masteryBullets: [
-      'PID pitch/roll/yaw balancing & throttle control logic',
-      'Tethered test arena safety protocols and flight log defense',
-      'Aerodynamic lift calculations documented in engineering journal',
-    ],
-  },
-  'proj-4': {
-    archBullets: [
-      'Edge neural camera pipeline running on-device inference',
-      'Embedded machine learning weights for visual classification',
-      'Real-time confidence scoring & automated sort trigger',
-    ],
-    masteryBullets: [
-      'Training dataset curation, feature labeling & validation',
-      'Automated sorting triggers and classification confidence',
-      'Computer vision accuracy benchmark presentation',
-    ],
-  },
-  'proj-5': {
-    archBullets: [
-      '3-DOF articulated arm joints with metal-gear micro servos',
-      'Inverse kinematics geometric solver & end-effector gripper',
-      'Microcontroller trajectory interpolation & repeatability test',
-    ],
-    masteryBullets: [
-      'Joint coordinate transformations & repeatable trajectory paths',
-      'Mechanical gear reduction, torque limits & physical payload',
-      'Tabletop robotics demonstration with automated pick-and-place',
-    ],
-  },
 };
 
 export const ProjectShowcaseSection: React.FC = () => {
@@ -292,10 +228,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                   <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-mono text-[9.5px] sm:text-[10px] font-bold border border-slate-200/80">
                     {currentProject.grade} Capstone
                   </span>
-
-                  <span className="hidden sm:inline font-mono text-[9px] uppercase tracking-wider text-slate-500 font-bold ml-auto">
-                    100% Student-Engineered Artifact
-                  </span>
                 </div>
 
                 {/* 2. Project Title & Orange Accent Bar */}
@@ -314,60 +246,29 @@ export const ProjectShowcaseSection: React.FC = () => {
               {/* 5. Dual Architecture & Student Mastery Specification Cards */}
               {(() => {
                 const spec = projectSpecs[currentProject.id];
-                const deliv = projectDeliverables[currentProject.id];
                 if (!spec) return null;
                 return (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 my-auto flex-none items-stretch">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 my-auto flex-none items-stretch">
                     {/* Architecture Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/95 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between gap-1 mb-1 text-[#0284C7]">
-                          <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold">
-                            <Cpu className="w-3.5 h-3.5 shrink-0" />
-                            <span>Architecture &amp; Hardware</span>
-                          </div>
-                        </div>
-                        <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-700 leading-snug font-normal line-clamp-2">
-                          {spec.arch}
-                        </p>
+                    <div className="p-3 sm:p-3.5 rounded-xl bg-slate-50/70 border border-slate-200/80 shadow-2xs flex flex-col justify-center">
+                      <div className="flex items-center gap-1.5 font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider font-bold text-[#0284C7] mb-1">
+                        <Cpu className="w-3.5 h-3.5 shrink-0" />
+                        <span>Architecture &amp; Hardware</span>
                       </div>
-
-                      {deliv?.archBullets && (
-                        <ul className="mt-2 pt-1.5 border-t border-slate-100 space-y-1">
-                          {deliv.archBullets.slice(0, 2).map((b, i) => (
-                            <li key={i} className="flex items-start gap-1.5 text-[9.5px] sm:text-[10px] text-[#334155] leading-tight font-medium">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-1 shadow-2xs" />
-                              <span className="line-clamp-1">{b}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-700 leading-relaxed font-normal">
+                        {spec.arch}
+                      </p>
                     </div>
 
                     {/* Student Mastery Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/95 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between gap-1 mb-1 text-[#EA580C]">
-                          <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold">
-                            <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                            <span>Student Mastery &amp; Defense</span>
-                          </div>
-                        </div>
-                        <p className="font-sans text-[11px] sm:text-[11.5px] text-[#0F172A] leading-snug font-medium line-clamp-2">
-                          {spec.takeaway}
-                        </p>
+                    <div className="p-3 sm:p-3.5 rounded-xl bg-orange-50/40 border border-orange-200/60 shadow-2xs flex flex-col justify-center">
+                      <div className="flex items-center gap-1.5 font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider font-bold text-[#EA580C] mb-1">
+                        <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                        <span>Student Mastery &amp; Defense</span>
                       </div>
-
-                      {deliv?.masteryBullets && (
-                        <ul className="mt-2 pt-1.5 border-t border-slate-100 space-y-1">
-                          {deliv.masteryBullets.slice(0, 2).map((b, i) => (
-                            <li key={i} className="flex items-start gap-1.5 text-[9.5px] sm:text-[10px] text-[#334155] leading-tight font-medium">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-1 shadow-2xs" />
-                              <span className="line-clamp-1">{b}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-700 leading-relaxed font-normal">
+                        {spec.takeaway}
+                      </p>
                     </div>
                   </div>
                 );
@@ -376,7 +277,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               {/* 5b. Unified Capstone Milestone & Verification Strip */}
               {(() => {
                 return (
-                  <div className="px-3 py-1.5 rounded-lg bg-[#FFF7ED] border border-[#FED7AA] flex items-center justify-between gap-2 flex-none shadow-2xs">
+                  <div className="px-3.5 py-2 rounded-xl bg-[#FFF7ED] border border-[#FED7AA] flex items-center justify-between gap-2 flex-none shadow-2xs">
                     <div className="flex items-center gap-2 min-w-0">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
                       <span className="font-mono text-[9px] sm:text-[9.5px] uppercase font-bold text-[#C2410C] shrink-0">
@@ -391,20 +292,15 @@ export const ProjectShowcaseSection: React.FC = () => {
               })()}
 
               {/* 6. Action Button & Telemetry Indicator */}
-              <div className="pt-1.5 border-t border-black/6 flex items-center justify-between gap-2 flex-wrap flex-none">
+              <div className="pt-2 border-t border-black/6 flex items-center justify-between gap-2 flex-wrap flex-none">
                 <button
                   type="button"
                   onClick={() => setSelectedProject(currentProject)}
-                  className="group inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
+                  className="group inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono text-[10px] sm:text-[10.5px] font-bold uppercase tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
                 >
                   <span>Inspect Full Project Build</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />
                 </button>
-
-                <div className="flex items-center gap-1.5 text-slate-500 font-sans text-[10.5px] sm:text-[11px]">
-                  <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
-                  <span className="font-medium text-slate-600">Working prototype ready for annual STEM showcase</span>
-                </div>
               </div>
             </div>
 
