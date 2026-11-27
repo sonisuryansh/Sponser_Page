@@ -86,27 +86,22 @@ export const RequirementsSection: React.FC = () => {
     {
       title: 'Dedicated Lab Space',
       detail: 'Minimum 600 sq ft, well-lit and ventilated dedicated room for hands-on engineering.',
-      tag: 'Min 600 sq ft',
     },
     {
       title: 'Student Workstations',
       detail: 'Standard desktop or laptop systems for embedded programming, CAD modeling, and telemetry.',
-      tag: '1:1 or 2:1 Ratio',
     },
     {
       title: 'Workbenches & Power Infrastructure',
       detail: 'Collaborative workbenches with accessible, safe multi-point power strips and grounded rails.',
-      tag: 'Safe 230V Outlets',
     },
     {
       title: 'Student Timetable Scheduling',
       detail: 'Designated 40 to 60 minute periods per batch (recommended ~40 students per session).',
-      tag: 'Weekly Periods',
     },
     {
       title: 'Network & Internet Access',
       detail: 'Standard school Wi-Fi or LAN connection for cloud compiler sync, toolchains, and LMS access.',
-      tag: 'School Wi-Fi / LAN',
     },
   ];
 
@@ -114,27 +109,22 @@ export const RequirementsSection: React.FC = () => {
     {
       title: 'Turnkey Curriculum & Session Plans',
       detail: 'Complete Grade 3–12 progressive engineering syllabus, reviewed and updated annually.',
-      tag: 'Annual NEP Review',
     },
     {
       title: 'Engineering Kits & Consumables',
       detail: 'Robotics kits, microcontrollers, sensors, motors, breadboards, and replacement parts.',
-      tag: '100% Provided',
     },
     {
       title: 'Dedicated Expert Instructors',
       detail: 'MedhaArc Mentors conduct and lead every student session with zero prep for school faculty.',
-      tag: 'Zero Teacher Load',
     },
     {
       title: 'Teacher AI Upskilling Workshops',
       detail: '4–5 practical AI productivity workshops for school teachers, plus released digital resources.',
-      tag: 'Faculty AI Training',
     },
     {
       title: 'Ongoing Hardware Maintenance',
       detail: 'Prompt component replacement, toolchain updates, and continuous consumable replenishment.',
-      tag: 'Full Warranty',
     },
   ];
 
@@ -209,14 +199,9 @@ export const RequirementsSection: React.FC = () => {
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] font-bold text-[#0F172A] leading-tight">
-                          {item.title}
-                        </span>
-                        <span className="font-mono text-[9px] sm:text-[9.5px] uppercase px-1.5 py-0.5 rounded bg-sky-50 text-[#0369A1] font-bold shrink-0 border border-sky-100">
-                          {item.tag}
-                        </span>
-                      </div>
+                      <h4 className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] font-bold text-[#0F172A] leading-tight">
+                        {item.title}
+                      </h4>
                       <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#475569] leading-snug mt-0.5 font-normal">
                         {item.detail}
                       </p>
@@ -271,14 +256,9 @@ export const RequirementsSection: React.FC = () => {
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] font-bold text-[#0F172A] leading-tight">
-                          {item.title}
-                        </span>
-                        <span className="font-mono text-[9px] sm:text-[9.5px] uppercase px-1.5 py-0.5 rounded bg-amber-50 text-[#B45309] font-bold shrink-0 border border-amber-100">
-                          {item.tag}
-                        </span>
-                      </div>
+                      <h4 className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] font-bold text-[#0F172A] leading-tight">
+                        {item.title}
+                      </h4>
                       <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#475569] leading-snug mt-0.5 font-normal">
                         {item.detail}
                       </p>
