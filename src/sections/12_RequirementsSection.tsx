@@ -274,27 +274,6 @@ export const RequirementsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Executive Partnership Guarantee Callout Strip */}
-        <div className="w-full flex-none mt-1.5 sm:mt-2 p-2 sm:p-2.5 lg:p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3">
-          <div className="flex items-center gap-2.5 text-left min-w-0">
-            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0 font-bold text-xs shadow-2xs">
-              ✓
-            </div>
-            <div className="min-w-0">
-              <span className="font-sans font-bold text-xs sm:text-[12.5px] text-[#0F172A] block leading-tight">
-                Zero Faculty Preparation Burden
-              </span>
-              <span className="font-sans text-[10px] sm:text-[11px] text-[#64748B] leading-tight truncate block">
-                MedhaArc mentors handle end-to-end curriculum delivery, hardware setup, student safety, and troubleshooting.
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1.5 font-mono text-[9.5px] sm:text-[10px] text-[#0284C7] font-semibold bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200 shrink-0">
-            <span>Turnkey STEM Delivery</span>
-          </div>
-        </div>
-
         {/* Bottom Trailing Navigation CTA */}
         <div className="flex-none pt-1 sm:pt-1.5 flex items-center justify-center">
           <button
