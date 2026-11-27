@@ -430,13 +430,9 @@ export const LabSetupSection: React.FC = () => {
                         </span>
                       </div>
 
-                      <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] text-white font-bold mb-0.5 leading-tight tracking-tight text-center">
+                      <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] text-white font-bold leading-tight tracking-tight text-center">
                         {currentZone.name}
                       </h3>
-
-                      <p className="text-[11.5px] sm:text-[12px] lg:text-[12.5px] text-white/90 font-sans leading-snug font-normal text-center max-w-2xl mx-auto">
-                        {spec.summary}
-                      </p>
                     </div>
 
                     {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables with Zero Void */}
