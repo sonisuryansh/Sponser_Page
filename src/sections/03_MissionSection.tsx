@@ -6,7 +6,9 @@ import { ArrowRight } from 'lucide-react';
 interface MissionValueCard {
   num: string;
   name: string;
+  pillar: string;
   description: string;
+  tags: [string, string];
   gif: string;
   numBg: string;
   numColor: string;
@@ -19,7 +21,9 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '01',
     name: 'Hands-on Learning',
-    description: 'Learn by building, creating and working with real hardware.',
+    pillar: 'Physical Prototyping',
+    description: 'Learn by building, testing, and creating with real industrial hardware and sensors.',
+    tags: ['Hardware Circuits', 'Microcontrollers'],
     gif: '/assets/values/val_icon_1_hands_on.gif',
     numBg: 'bg-orange-50 border-orange-200',
     numColor: 'text-[#EA580C]',
@@ -30,7 +34,9 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '02',
     name: 'Problem-Solving',
-    description: 'Think logically, break down challenges and find better solutions.',
+    pillar: 'Logical Thinking',
+    description: 'Deconstruct complex challenges into clear logic and structured algorithmic steps.',
+    tags: ['Root-Cause Analysis', 'Computational Logic'],
     gif: '/assets/values/val_icon_2_problem_solving.gif',
     numBg: 'bg-sky-50 border-sky-200',
     numColor: 'text-[#0284C7]',
@@ -41,7 +47,9 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '03',
     name: 'Creativity & Innovation',
-    description: 'Turn creative ideas into working designs and prototypes.',
+    pillar: 'Design Synthesis',
+    description: 'Transform original ideas into custom 3D CAD models, schematics, and functional prototypes.',
+    tags: ['Custom 3D CAD', 'Working Prototypes'],
     gif: '/assets/values/val_icon_3_creativity.gif',
     numBg: 'bg-purple-50 border-purple-200',
     numColor: 'text-[#9333EA]',
@@ -52,7 +60,9 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '04',
     name: 'Responsible Technology',
-    description: 'Build technology with safety, responsibility and ethics.',
+    pillar: 'Lab Safety & Ethics',
+    description: 'Engineer technology grounded in strict safety compliance, user privacy, and ethical AI awareness.',
+    tags: ['Lab Safety Rules', 'Ethical AI Design'],
     gif: '/assets/values/val_icon_4_responsible_tech.gif',
     numBg: 'bg-emerald-50 border-emerald-200',
     numColor: 'text-[#16A34A]',
@@ -63,7 +73,9 @@ const MISSION_CARDS: MissionValueCard[] = [
   {
     num: '05',
     name: 'Continuous Learning',
-    description: 'Keep exploring, experimenting and improving every day.',
+    pillar: 'Iterative Mastery',
+    description: 'Foster lifelong curiosity and progressive skill growth through milestone portfolio defense.',
+    tags: ['Skill Milestones', 'Lifelong Maker'],
     gif: '/assets/values/val_icon_5_continuous_learning.gif',
     numBg: 'bg-rose-50 border-rose-200',
     numColor: 'text-[#E11D48]',
@@ -148,44 +160,58 @@ export const MissionSection: React.FC = () => {
           </div>
 
           {/* Middle Area: 5 Premium Value Cards with 3D Animated Illustration GIFs */}
-          <div className="editorial-reveal my-1 flex-1 flex flex-col justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 lg:gap-3 xl:gap-3.5 items-stretch">
+          <div className="editorial-reveal my-2 sm:my-3 flex-1 min-h-0 flex flex-col justify-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4 items-stretch h-full flex-1 min-h-0">
               {MISSION_CARDS.map((val) => (
                 <div
                   key={val.name}
-                  className={`group relative flex flex-col justify-between p-3 sm:p-3.5 bg-white border ${val.borderColor} ${val.bottomBorder} rounded-xl sm:rounded-2xl shadow-2xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 min-h-[170px] sm:min-h-[185px] lg:min-h-[195px] overflow-hidden`}
+                  className={`group relative flex flex-col justify-between p-3.5 sm:p-4 lg:p-4.5 bg-white border ${val.borderColor} ${val.bottomBorder} rounded-xl sm:rounded-2xl shadow-2xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full overflow-hidden`}
                 >
                   {/* Subtle Corner Glow */}
                   <div
-                    className={`absolute -top-6 -right-6 w-20 h-20 rounded-full bg-gradient-to-br ${val.glowColor} blur-xl pointer-events-none`}
+                    className={`absolute -top-6 -right-6 w-24 h-24 rounded-full bg-gradient-to-br ${val.glowColor} blur-xl pointer-events-none`}
                   />
 
-                  {/* Header Row: Top Number Pill */}
-                  <div className="relative z-10 flex items-center justify-between mb-1">
+                  {/* Header Row: Top Number Pill & Pillar Badge */}
+                  <div className="relative z-10 flex items-center justify-between gap-1.5 mb-1.5">
                     <span className={`font-mono text-[10px] sm:text-[10.5px] font-bold px-2 py-0.5 rounded-full border ${val.numBg} ${val.numColor}`}>
                       {val.num}
                     </span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-[#EA580C] transition-colors" />
+                    <span className="font-mono text-[8px] sm:text-[8.5px] font-bold uppercase tracking-wider text-slate-400 truncate">
+                      {val.pillar}
+                    </span>
                   </div>
 
                   {/* Center: 3D Animated GIF Illustration */}
-                  <div className="relative z-10 my-1 sm:my-1.5 flex items-center justify-center h-14 sm:h-16 w-full">
+                  <div className="relative z-10 my-auto py-2 flex items-center justify-center h-16 sm:h-20 lg:h-24 w-full">
                     <img
                       src={val.gif}
                       alt={val.name}
-                      className="h-12 sm:h-14 lg:h-16 w-12 sm:w-14 lg:w-16 object-contain mx-auto group-hover:scale-108 transition-transform duration-300 drop-shadow-xs"
+                      className="h-14 sm:h-16 lg:h-20 w-14 sm:w-16 lg:w-20 object-contain mx-auto group-hover:scale-108 transition-transform duration-300 drop-shadow-xs"
                       loading="eager"
                     />
                   </div>
 
-                  {/* Title & Concise Description */}
-                  <div className="relative z-10 text-center mt-auto">
-                    <h3 className="font-serif text-[14px] sm:text-[15px] font-bold text-[#0F172A] leading-tight tracking-tight mb-1 group-hover:text-[#EA580C] transition-colors">
+                  {/* Title, Description & Action Tags */}
+                  <div className="relative z-10 text-center mt-auto flex flex-col gap-1.5">
+                    <h3 className="font-serif text-[15px] sm:text-[16px] lg:text-[17px] font-bold text-[#0F172A] leading-tight tracking-tight group-hover:text-[#EA580C] transition-colors">
                       {val.name}
                     </h3>
-                    <p className="font-sans text-[11.5px] sm:text-[12px] text-[#334155] leading-snug font-normal">
+                    <p className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-snug font-normal">
                       {val.description}
                     </p>
+
+                    {/* Concrete Skill Focus Tags */}
+                    <div className="flex flex-wrap items-center justify-center gap-1 pt-2 border-t border-slate-100">
+                      {val.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="font-mono text-[8px] sm:text-[8.5px] px-1.5 py-0.5 rounded bg-slate-50 text-slate-600 font-semibold border border-slate-200/70"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}
