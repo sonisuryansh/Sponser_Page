@@ -139,11 +139,11 @@ export const RequirementsSection: React.FC = () => {
       {/* Centered Main Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+4px)] pb-2.5 sm:pb-3 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+2px)] pb-1.5 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Eyebrow & Grand Headline */}
-        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-1 sm:mb-1.5">
-          <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5 sm:mb-1">
+        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-0.5 sm:mb-1">
+          <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5">
             <span className="h-[1.5px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b45309]" />
             <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               {siteConfig.requirements.eyebrow}
@@ -151,58 +151,58 @@ export const RequirementsSection: React.FC = () => {
             <span className="h-[1.5px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b45309]" />
           </div>
 
-          <h2 className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[28px] xl:text-[32px] font-bold leading-tight tracking-tight text-[#0F172A] text-center mb-0.5">
+          <h2 className="editorial-reveal font-serif text-lg sm:text-xl lg:text-[24px] xl:text-[26px] font-bold leading-tight tracking-tight text-[#0F172A] text-center mb-0.5">
             {siteConfig.requirements.headline}
           </h2>
 
-          <p className="editorial-reveal font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-[#475569] leading-snug max-w-2xl text-center font-normal">
+          <p className="editorial-reveal font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#475569] leading-snug max-w-2xl text-center font-normal">
             A transparent division of infrastructure and academic responsibilities ensuring seamless turnkey operations with zero load on school teachers.
           </p>
         </div>
 
         {/* Two Balanced Architectural Cards: School Provides vs MedhaArc Labs Delivers */}
-        <div className="editorial-reveal grid grid-cols-1 md:grid-cols-2 gap-3.5 lg:gap-5 items-stretch w-full max-w-6xl mx-auto flex-none my-1 min-h-0">
+        <div className="editorial-reveal grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4 items-stretch w-full max-w-6xl mx-auto flex-none my-0.5 min-h-0">
           {/* Card 1: School provides */}
           <div
             ref={leftColRef}
             className="bg-white rounded-2xl shadow-[0_8px_24px_rgba(2,132,199,0.06)] border-2 border-[#BAE6FD] border-b-[4px] border-b-[#0284C7] overflow-hidden flex flex-col justify-between transition-all hover:shadow-[0_14px_32px_rgba(2,132,199,0.1)]"
           >
             {/* Top Header Bar with Soft Blue Gradient */}
-            <div className="relative bg-gradient-to-r from-[#E0F2FE] via-[#F0F9FF] to-[#E0F2FE]/60 px-3.5 py-1.5 sm:px-4 sm:py-2 flex items-center justify-between border-b border-[#BAE6FD]/80 flex-none">
+            <div className="relative bg-gradient-to-r from-[#E0F2FE] via-[#F0F9FF] to-[#E0F2FE]/60 px-3 py-1 sm:px-3.5 sm:py-1.5 flex items-center justify-between border-b border-[#BAE6FD]/80 flex-none">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white border border-[#BAE6FD] shadow-xs flex items-center justify-center shrink-0">
-                  <School className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0284C7]" />
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white border border-[#BAE6FD] shadow-xs flex items-center justify-center shrink-0">
+                  <School className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#0284C7]" />
                 </div>
                 <div>
-                  <span className="font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-wider text-[#0284C7] font-bold block leading-none mb-0.5">
+                  <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#0284C7] font-bold block leading-none mb-0.5">
                     FACILITY &amp; ACCESS
                   </span>
-                  <h3 className="font-serif text-sm sm:text-base lg:text-lg font-bold text-[#0F172A] tracking-tight leading-tight">
+                  <h3 className="font-serif text-xs sm:text-sm lg:text-base font-bold text-[#0F172A] tracking-tight leading-tight">
                     {siteConfig.requirements.columns[0].title}
                   </h3>
                 </div>
               </div>
-              <span className="inline-flex px-2 py-0.5 rounded-full bg-sky-100 text-[#0369A1] font-mono text-[9px] sm:text-[9.5px] font-bold border border-sky-200">
+              <span className="inline-flex px-2 py-0.5 rounded-full bg-sky-100 text-[#0369A1] font-mono text-[8.5px] sm:text-[9px] font-bold border border-sky-200">
                 School Space
               </span>
             </div>
 
             {/* List Items */}
-            <div className="p-3 sm:p-3.5 lg:p-4 flex flex-col justify-between">
-              <ul className="space-y-1.5 sm:space-y-2">
+            <div className="p-2 sm:p-2.5 lg:p-2.5 flex flex-col justify-between">
+              <ul className="space-y-1 sm:space-y-1.5">
                 {schoolRequirements.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2.5 pb-1.5 border-b border-slate-100/80 last:border-b-0 last:pb-0"
+                    className="flex items-start gap-2 pb-1 border-b border-slate-100/80 last:border-b-0 last:pb-0"
                   >
-                    <span className="w-4.5 h-4.5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                    <span className="w-4 h-4 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] font-bold text-[#0F172A] leading-tight">
+                      <h4 className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] font-bold text-[#0F172A] leading-tight">
                         {item.title}
                       </h4>
-                      <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#475569] leading-snug mt-0.5 font-normal">
+                      <p className="font-sans text-[10px] sm:text-[10.5px] lg:text-[11px] text-[#475569] leading-snug mt-0.5 font-normal">
                         {item.detail}
                       </p>
                     </div>
@@ -212,9 +212,9 @@ export const RequirementsSection: React.FC = () => {
             </div>
 
             {/* School Commitment Footer */}
-            <div className="bg-sky-50/70 border-t border-[#BAE6FD]/70 px-3.5 py-1.5 sm:px-4 flex items-center justify-between text-[9px] sm:text-[9.5px] font-mono text-[#0369A1] flex-none">
+            <div className="bg-sky-50/70 border-t border-[#BAE6FD]/70 px-3 py-1 sm:px-3.5 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-[#0369A1] flex-none">
               <span className="font-bold uppercase tracking-wider">School Responsibility</span>
-              <span className="font-semibold text-slate-600">Space &amp; Infrastructure Ready by Term Start</span>
+              <span className="font-semibold text-slate-600">Space Ready by Term Start</span>
             </div>
           </div>
 
@@ -224,42 +224,42 @@ export const RequirementsSection: React.FC = () => {
             className="bg-white rounded-2xl shadow-[0_8px_24px_rgba(217,119,6,0.06)] border-2 border-[#FDE68A] border-b-[4px] border-b-[#D97706] overflow-hidden flex flex-col justify-between transition-all hover:shadow-[0_14px_32px_rgba(217,119,6,0.1)]"
           >
             {/* Top Header Bar with Soft Amber Gradient */}
-            <div className="relative bg-gradient-to-r from-[#FEF3C7] via-[#FFFBEB] to-[#FEF3C7]/60 px-3.5 py-1.5 sm:px-4 sm:py-2 flex items-center justify-between border-b border-[#FDE68A]/80 flex-none">
+            <div className="relative bg-gradient-to-r from-[#FEF3C7] via-[#FFFBEB] to-[#FEF3C7]/60 px-3 py-1 sm:px-3.5 sm:py-1.5 flex items-center justify-between border-b border-[#FDE68A]/80 flex-none">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white border border-[#FDE68A] shadow-xs flex items-center justify-center shrink-0">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white border border-[#FDE68A] shadow-xs flex items-center justify-center shrink-0">
                   <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#B45309]" />
                 </div>
                 <div>
-                  <span className="font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-wider text-[#B45309] font-bold block leading-none mb-0.5">
+                  <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#B45309] font-bold block leading-none mb-0.5">
                     FULL TURNKEY EXECUTION
                   </span>
-                  <h3 className="font-serif text-sm sm:text-base lg:text-lg text-[#0F172A] tracking-tight leading-tight">
+                  <h3 className="font-serif text-xs sm:text-sm lg:text-base text-[#0F172A] tracking-tight leading-tight">
                     <span className="font-normal">MedhaArc Labs </span>
                     <span className="font-bold">delivers</span>
                   </h3>
                 </div>
               </div>
-              <span className="inline-flex px-2 py-0.5 rounded-full bg-amber-100 text-[#92400E] font-mono text-[9px] sm:text-[9.5px] font-bold border border-amber-200">
+              <span className="inline-flex px-2 py-0.5 rounded-full bg-amber-100 text-[#92400E] font-mono text-[8.5px] sm:text-[9px] font-bold border border-amber-200">
                 100% Turnkey
               </span>
             </div>
 
             {/* List Items */}
-            <div className="p-3 sm:p-3.5 lg:p-4 flex flex-col justify-between">
-              <ul className="space-y-1.5 sm:space-y-2">
+            <div className="p-2 sm:p-2.5 lg:p-2.5 flex flex-col justify-between">
+              <ul className="space-y-1 sm:space-y-1.5">
                 {medhaarcDeliverables.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2.5 pb-1.5 border-b border-slate-100/80 last:border-b-0 last:pb-0"
+                    className="flex items-start gap-2 pb-1 border-b border-slate-100/80 last:border-b-0 last:pb-0"
                   >
-                    <span className="w-4.5 h-4.5 rounded-full bg-[#FEF3C7] text-[#D97706] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                    <span className="w-4 h-4 rounded-full bg-[#FEF3C7] text-[#D97706] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] font-bold text-[#0F172A] leading-tight">
+                      <h4 className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] font-bold text-[#0F172A] leading-tight">
                         {item.title}
                       </h4>
-                      <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#475569] leading-snug mt-0.5 font-normal">
+                      <p className="font-sans text-[10px] sm:text-[10.5px] lg:text-[11px] text-[#475569] leading-snug mt-0.5 font-normal">
                         {item.detail}
                       </p>
                     </div>
@@ -269,7 +269,7 @@ export const RequirementsSection: React.FC = () => {
             </div>
 
             {/* MedhaArc Guarantee Footer */}
-            <div className="bg-amber-50/70 border-t border-[#FDE68A]/70 px-3.5 py-1.5 sm:px-4 flex items-center justify-between text-[9px] sm:text-[9.5px] font-mono text-[#B45309] flex-none">
+            <div className="bg-amber-50/70 border-t border-[#FDE68A]/70 px-3 py-1 sm:px-3.5 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-[#B45309] flex-none">
               <span className="font-bold uppercase tracking-wider">MedhaArc Commitment</span>
               <span className="font-semibold text-slate-600">Hardware, Mentors &amp; Syllabus 100% Managed</span>
             </div>
@@ -277,47 +277,47 @@ export const RequirementsSection: React.FC = () => {
         </div>
 
         {/* Highlight Boundary & SLA Banner */}
-        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-xl px-4 py-2 sm:px-5 sm:py-2.5 shadow-xs mt-1 sm:mt-1.5 max-w-6xl mx-auto">
-          <div className="flex items-center gap-3 sm:gap-5">
+        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-xl px-3.5 py-1.5 sm:px-4 sm:py-2 shadow-xs mt-0.5 max-w-6xl mx-auto">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div className="shrink-0 flex items-center justify-center">
-              <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8 text-[#D97706]" />
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-[#D97706]" />
             </div>
-            <div className="w-[1.5px] h-6 sm:h-8 bg-[#FDE68A] shrink-0" />
-            <h3 className="font-serif text-sm sm:text-base lg:text-[18px] font-bold text-[#0F172A] leading-snug">
+            <div className="w-[1.5px] h-5 sm:h-6 bg-[#FDE68A] shrink-0" />
+            <h3 className="font-serif text-xs sm:text-[13px] lg:text-[14px] font-bold text-[#0F172A] leading-snug">
               Zero Teacher Burden: MedhaArc mentors run 100% of the practical curriculum inside your school.
             </h3>
           </div>
         </div>
 
         {/* Operational Guarantees Bottom Strip */}
-        <div className="editorial-reveal w-full self-stretch flex-none mt-1 sm:mt-1.5 pt-1.5 border-t border-slate-200/80 max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 text-xs">
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="flex flex-col font-mono text-[9.5px] sm:text-[10px] tracking-[0.2em] uppercase font-black text-[#0F172A] leading-tight">
+        <div className="editorial-reveal w-full self-stretch flex-none mt-0.5 pt-1 border-t border-slate-200/80 max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-1.5 text-xs">
+            <div className="flex items-center gap-2.5 shrink-0">
+              <div className="flex flex-col font-mono text-[8.5px] sm:text-[9px] tracking-[0.2em] uppercase font-black text-[#0F172A] leading-tight">
                 <span>PARTNERSHIP</span>
                 <span>STANDARDS</span>
               </div>
-              <div className="hidden sm:block w-[1.5px] h-5 bg-slate-300" />
+              <div className="hidden sm:block w-[1.5px] h-4 bg-slate-300" />
             </div>
 
-            <div className="flex flex-wrap items-center gap-3.5 sm:gap-6 lg:gap-8 font-sans text-[11px] sm:text-[11.5px] text-[#1E293B] font-semibold">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-5 lg:gap-6 font-sans text-[10px] sm:text-[10.5px] text-[#1E293B] font-semibold">
               <div className="flex items-center gap-1.5">
-                <div className="w-5 h-5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
-                  <CheckCircle2 className="w-3 h-3 text-[#D97706]" />
+                <div className="w-4.5 h-4.5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-2.5 h-2.5 text-[#D97706]" />
                 </div>
                 <span>Zero Preparation Required for School Faculty</span>
               </div>
 
               <div className="flex items-center gap-1.5">
-                <div className="w-5 h-5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
-                  <RefreshCw className="w-3 h-3 text-[#D97706]" />
+                <div className="w-4.5 h-4.5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <RefreshCw className="w-2.5 h-2.5 text-[#D97706]" />
                 </div>
                 <span>Continuous Component Servicing &amp; Replenishment</span>
               </div>
 
               <div className="flex items-center gap-1.5">
-                <div className="w-5 h-5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
-                  <Sparkles className="w-3 h-3 text-[#D97706]" />
+                <div className="w-4.5 h-4.5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <Sparkles className="w-2.5 h-2.5 text-[#D97706]" />
                 </div>
                 <span>Turnkey Lab Operations with Verified Protocols</span>
               </div>
@@ -326,13 +326,13 @@ export const RequirementsSection: React.FC = () => {
         </div>
 
         {/* Bottom Trailing Navigation CTA */}
-        <div className="editorial-reveal flex-none pt-1 flex items-center justify-center">
+        <div className="editorial-reveal flex-none pt-0.5 flex items-center justify-center">
           <button
             type="button"
             onClick={handleScrollToNext}
             className="group flex items-center justify-center text-center focus:outline-none cursor-pointer"
           >
-            <span className="font-sans font-bold text-[9px] sm:text-[9.5px] uppercase tracking-[0.2em] text-[#64748B] group-hover:text-[#c8a45d] transition-colors">
+            <span className="font-sans font-bold text-[8.5px] sm:text-[9px] uppercase tracking-[0.2em] text-[#64748B] group-hover:text-[#c8a45d] transition-colors">
               Explore partnership investment packages →
             </span>
           </button>

@@ -196,13 +196,13 @@ export const BenefitsSection: React.FC = () => {
       {/* Main Viewport Container (Centered in 100svh window on desktop, scrollable on mobile) */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Top Header: Eyebrow with gold accent lines, Serif Title, & Subtitle */}
-        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-2.5">
-          <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
+        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-1 sm:mb-1.5">
+          <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5">
             <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
-            <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               INSTITUTIONAL VALUE
             </span>
             <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
@@ -210,19 +210,19 @@ export const BenefitsSection: React.FC = () => {
 
           <h2
             ref={headlineRef}
-            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[36px] xl:text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center"
+            className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[28px] xl:text-[32px] font-bold leading-tight tracking-tight text-[#0F172A] mb-0.5 text-center"
           >
             Student and School Benefits
           </h2>
 
-          <p className="editorial-reveal font-sans text-[12.5px] sm:text-[13.5px] text-[#475569] leading-relaxed max-w-3xl text-center font-normal">
+          <p className="editorial-reveal font-sans text-xs sm:text-[13px] text-[#475569] leading-snug max-w-3xl text-center font-normal">
             Technology education provides meaningful value for students and schools through hands-on learning, real projects and visible outcomes.
           </p>
         </div>
 
         {/* 5 Distinct Colorful Value Cards (Exact Image 1 Styling + 3D Flip Turn-Around on Hover/Click) */}
-        <div className="editorial-reveal w-full self-stretch flex-none my-1 sm:my-1.5 flex flex-col justify-center min-h-0">
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4 items-stretch">
+        <div className="editorial-reveal w-full self-stretch flex-none my-0.5 flex flex-col justify-center min-h-0">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 lg:gap-3 xl:gap-3.5 items-stretch">
             {BENEFIT_CARDS.map((card, idx) => {
               const isFlipped = activeCardIndex === idx || hoveredCardIndex === idx;
 
@@ -362,62 +362,62 @@ export const BenefitsSection: React.FC = () => {
         </div>
 
         {/* Institutional Value Banner (Directly below cards from Image 1) */}
-        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl px-5 py-2.5 sm:px-6 sm:py-3 shadow-xs mt-2 sm:mt-2.5">
-          <div className="flex items-center gap-4 sm:gap-6">
+        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-xl px-4 py-1.5 sm:px-5 sm:py-2 shadow-xs mt-1 sm:mt-1.5">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div className="shrink-0 flex items-center justify-center">
-              <School className="w-9 h-9 sm:w-11 sm:h-11 text-[#D97706]" />
+              <School className="w-7 h-7 sm:w-8 sm:h-8 text-[#D97706]" />
             </div>
-            <div className="w-[1.5px] h-8 sm:h-10 bg-[#FDE68A] shrink-0" />
-            <h3 className="font-serif text-base sm:text-lg lg:text-[21px] font-bold text-[#0F172A] leading-snug">
+            <div className="w-[1.5px] h-6 sm:h-7 bg-[#FDE68A] shrink-0" />
+            <h3 className="font-serif text-sm sm:text-base lg:text-[18px] font-bold text-[#0F172A] leading-snug">
               A visible, practical programme that families can see.
             </h3>
           </div>
         </div>
 
         {/* Institutional Value Bottom Strip (From Image 1) */}
-        <div className="editorial-reveal w-full self-stretch flex-none mt-2 sm:mt-2.5 pt-2 border-t border-slate-200/80">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-3.5 shrink-0">
-              <div className="flex flex-col font-mono text-[10px] sm:text-[10.5px] tracking-[0.2em] uppercase font-black text-[#0F172A] leading-tight">
+        <div className="editorial-reveal w-full self-stretch flex-none mt-1 sm:mt-1.5 pt-1.5 border-t border-slate-200/80">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-2.5 shrink-0">
+              <div className="flex flex-col font-mono text-[9px] sm:text-[9.5px] tracking-[0.2em] uppercase font-black text-[#0F172A] leading-tight">
                 <span>INSTITUTIONAL</span>
                 <span>VALUE</span>
               </div>
-              <div className="hidden sm:block w-[1.5px] h-6 bg-slate-300" />
+              <div className="hidden sm:block w-[1.5px] h-5 bg-slate-300" />
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 sm:gap-7 lg:gap-9 font-sans text-xs sm:text-[12.5px] text-[#1E293B] font-semibold">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
-                  <Users className="w-3.5 h-3.5 text-[#D97706]" />
+            <div className="flex flex-wrap items-center gap-3 sm:gap-5 lg:gap-7 font-sans text-[11px] sm:text-[11.5px] text-[#1E293B] font-semibold">
+              <div className="flex items-center gap-1.5">
+                <div className="w-5 h-5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <Users className="w-3 h-3 text-[#D97706]" />
                 </div>
                 <span>Tangible student projects and showcases</span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
-                  <Layers className="w-3.5 h-3.5 text-[#D97706]" />
+              <div className="flex items-center gap-1.5">
+                <div className="w-5 h-5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <Layers className="w-3 h-3 text-[#D97706]" />
                 </div>
-                <span>A structured, grade-wise technology programme</span>
+                <span>Structured grade-wise tech programme</span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
-                  <Briefcase className="w-3.5 h-3.5 text-[#D97706]" />
+              <div className="flex items-center gap-1.5">
+                <div className="w-5 h-5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <Briefcase className="w-3 h-3 text-[#D97706]" />
                 </div>
-                <span>Student portfolios that build over time</span>
+                <span>Student portfolios building over time</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Trailing Link CTA */}
-        <div className="editorial-reveal flex-none pt-2 flex items-center justify-center mt-1">
+        <div className="editorial-reveal flex-none pt-1 flex items-center justify-center mt-0.5">
           <button
             type="button"
             onClick={handleScrollToNext}
             className="group flex items-center justify-center text-center focus:outline-none cursor-pointer"
           >
-            <span className="font-sans font-bold text-[9px] sm:text-[9.5px] uppercase tracking-[0.2em] text-[#64748B] group-hover:text-[#c8a45d] transition-colors">
+            <span className="font-sans font-bold text-[8.5px] sm:text-[9px] uppercase tracking-[0.2em] text-[#64748B] group-hover:text-[#c8a45d] transition-colors">
               Discover school requirements &amp; partnership boundaries →
             </span>
           </button>

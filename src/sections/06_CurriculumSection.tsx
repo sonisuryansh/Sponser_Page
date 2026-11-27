@@ -379,10 +379,10 @@ export const CurriculumSection: React.FC = () => {
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+10px)] pb-8 lg:pb-14 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
+        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 lg:pb-2.5 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
       >
         {/* Main Unified Inset Card - Matches Section 02 Executive Size & Border */}
-        <div className="relative w-full h-auto lg:h-full max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] min-h-0 flex-1 lg:my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-3 sm:p-4 lg:p-4.5 flex flex-col justify-between box-border gap-2 sm:gap-2.5 overflow-visible lg:overflow-hidden">
+        <div className="relative w-full h-auto lg:h-full max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] min-h-0 flex-1 lg:my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-2.5 sm:p-3.5 lg:p-3 flex flex-col justify-between box-border gap-1.5 sm:gap-2 overflow-visible lg:overflow-hidden">
 
           {/* Middle Layout (Sidebar + Main Content + Photo) */}
           <div className="flex-1 flex flex-col sm:flex-row items-stretch min-h-0 gap-2.5 sm:gap-3.5 lg:gap-4 overflow-hidden">
@@ -472,47 +472,47 @@ export const CurriculumSection: React.FC = () => {
                 {(() => {
                   const stageChips = STAGE_CHIP_DETAILS[currentStage.id] || STAGE_CHIP_DETAILS['grade-10'];
                   return (
-                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 mb-1.5">
+                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 mb-1">
                       {/* Chip 1: Blue Theme */}
-                      <div className="flex items-start gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
-                        <div className="w-4.5 h-4.5 rounded-md bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-1.5 p-1 sm:p-1.5 rounded-lg bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
+                        <div className="w-4 h-4 rounded-md bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[0]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[0].title}
                           </span>
-                          <span className="font-sans text-[10px] sm:text-[10.5px] text-[#0284C7] leading-snug block mt-0.5 font-medium">
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#0284C7] leading-snug block mt-0.5 font-medium">
                             {stageChips[0].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 2: Purple Theme */}
-                      <div className="flex items-start gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
-                        <div className="w-4.5 h-4.5 rounded-md bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-1.5 p-1 sm:p-1.5 rounded-lg bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
+                        <div className="w-4 h-4 rounded-md bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[1]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[1].title}
                           </span>
-                          <span className="font-sans text-[10px] sm:text-[10.5px] text-[#9333EA] leading-snug block mt-0.5 font-medium">
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#9333EA] leading-snug block mt-0.5 font-medium">
                             {stageChips[1].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 3: Green Theme */}
-                      <div className="flex items-start gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
-                        <div className="w-4.5 h-4.5 rounded-md bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-1.5 p-1 sm:p-1.5 rounded-lg bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
+                        <div className="w-4 h-4 rounded-md bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[2]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[2].title}
                           </span>
-                          <span className="font-sans text-[10px] sm:text-[10.5px] text-[#16A34A] leading-snug block mt-0.5 font-medium">
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#16A34A] leading-snug block mt-0.5 font-medium">
                             {stageChips[2].subtitle}
                           </span>
                         </div>
@@ -523,15 +523,15 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5. "Students can..." Callout Box */}
                 {currentStage.outcome && (
-                  <div className="stage-anim p-1.5 sm:p-2 rounded-xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2 shadow-xs mb-1.5">
-                    <div className="w-4.5 h-4.5 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
-                      <Target className="w-3 h-3" />
+                  <div className="stage-anim p-1 sm:p-1.5 rounded-lg bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-1.5 sm:gap-2 shadow-xs mb-1">
+                    <div className="w-4 h-4 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
+                      <Target className="w-2.5 h-2.5" />
                     </div>
                     <div>
-                      <span className="font-serif font-bold text-[11px] sm:text-[11.5px] text-[#C2410C] block leading-tight mb-0.5">
+                      <span className="font-serif font-bold text-[10.5px] sm:text-[11px] text-[#C2410C] block leading-tight mb-0.5">
                         Students can...
                       </span>
-                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed font-normal">
+                      <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug font-normal">
                         {currentStage.outcome}
                       </p>
                     </div>
@@ -540,32 +540,32 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5b. Hands-on Term Capstone & Hardware Lab Platform Cards */}
                 {currentStage.termProject && (
-                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-1 min-h-[220px] items-stretch">
+                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1 min-h-0 items-stretch">
                     {/* Term Project Card */}
-                    <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between min-h-0 h-full overflow-hidden">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between min-h-0 h-full overflow-hidden">
                       <div data-zone-scroll="true" className="curriculum-detail-scroll flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain pr-1">
                         <div className="flex items-center justify-between mb-0.5">
-                          <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
+                          <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
                             Hands-on Term Project
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[13.5px] sm:text-[14.5px] text-[#0F172A] leading-snug mb-0.5">
+                        <h4 className="font-serif font-bold text-[12.5px] sm:text-[13.5px] text-[#0F172A] leading-snug mb-0.5">
                           {currentStage.termProject}
                         </h4>
-                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1.5 font-normal">
+                        <p className="font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug mb-1 font-normal">
                           {currentStage.termProjectDesc}
                         </p>
 
                         {/* Term Project Key Highlights */}
                         {currentStage.termProjectHighlights && currentStage.termProjectHighlights.length > 0 && (
-                          <div className="pt-1 border-t border-black/6">
-                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
+                          <div className="pt-0.5 border-t border-black/6">
+                            <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
                               Key Build Deliverables
                             </span>
-                            <ul className="space-y-1">
+                            <ul className="space-y-0.5">
                               {currentStage.termProjectHighlights.map((hl, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[10.5px] sm:text-[11px] text-[#334155] leading-snug font-medium">
+                                <li key={i} className="flex items-start gap-1 text-[10px] sm:text-[10.5px] text-[#334155] leading-snug font-medium">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-0.5 shadow-2xs" />
                                   <span>{hl}</span>
                                 </li>
@@ -579,10 +579,10 @@ export const CurriculumSection: React.FC = () => {
                       {/* Milestone Footer Badge */}
                       {currentStage.termProjectDeliverable && (
                         <div className="mt-1 pt-1 border-t border-black/6 flex-none">
-                          <div className="px-2 py-0.5 sm:py-1 rounded-md bg-[#FFF7ED] border border-[#FED7AA] flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
-                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase font-bold text-[#C2410C] shrink-0">Milestone:</span>
-                            <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#9A3412] leading-snug min-w-0">
+                          <div className="px-2 py-0.5 rounded-md bg-[#FFF7ED] border border-[#FED7AA] flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
+                            <CheckCircle2 className="w-3 h-3 text-[#EA580C] shrink-0" />
+                            <span className="font-mono text-[8px] sm:text-[8.5px] uppercase font-bold text-[#C2410C] shrink-0">Milestone:</span>
+                            <span className="font-sans text-[9.5px] sm:text-[10px] font-bold text-[#9A3412] leading-snug min-w-0">
                               {currentStage.termProjectDeliverable.replace(/^Milestone:\s*/, '')}
                             </span>
                           </div>
@@ -591,30 +591,30 @@ export const CurriculumSection: React.FC = () => {
                     </div>
 
                     {/* Lab Hardware & Tools Card */}
-                    <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between min-h-0 h-full overflow-hidden">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between min-h-0 h-full overflow-hidden">
                       <div data-zone-scroll="true" className="curriculum-detail-scroll flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain pr-1">
                         <div className="flex items-center justify-between mb-0.5">
-                          <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
+                          <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
                             Lab Platform &amp; Hardware
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[13.5px] sm:text-[14.5px] text-[#0F172A] leading-snug mb-0.5">
+                        <h4 className="font-serif font-bold text-[12.5px] sm:text-[13.5px] text-[#0F172A] leading-snug mb-0.5">
                           {currentStage.hardwarePlatform}
                         </h4>
-                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1.5 font-normal">
+                        <p className="font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug mb-1 font-normal">
                           {currentStage.hardwarePlatformDesc}
                         </p>
 
                         {/* Hardware & Tools Specification Highlights */}
                         {currentStage.hardwarePlatformTools && currentStage.hardwarePlatformTools.length > 0 && (
-                          <div className="pt-1 border-t border-black/6">
-                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
+                          <div className="pt-0.5 border-t border-black/6">
+                            <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
                               Hardware &amp; Toolchain Setup
                             </span>
-                            <ul className="space-y-1">
+                            <ul className="space-y-0.5">
                               {currentStage.hardwarePlatformTools.map((tool, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[10.5px] sm:text-[11px] text-[#334155] leading-snug font-medium">
+                                <li key={i} className="flex items-start gap-1 text-[10px] sm:text-[10.5px] text-[#334155] leading-snug font-medium">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-0.5 shadow-2xs" />
                                   <span>{tool}</span>
                                 </li>
@@ -627,11 +627,11 @@ export const CurriculumSection: React.FC = () => {
 
                       {/* Lab Standard Environment Footer Badge */}
                       {currentStage.hardwareEnvironment && (
-                        <div className="mt-1.5 pt-1 border-t border-black/6 flex-none">
-                          <div className="px-2 py-1 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
-                            <Cpu className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
-                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase font-bold text-[#0284C7] shrink-0">Standard:</span>
-                            <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0369A1] leading-snug min-w-0">
+                        <div className="mt-1 pt-1 border-t border-black/6 flex-none">
+                          <div className="px-2 py-0.5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
+                            <Cpu className="w-3 h-3 text-[#0284C7] shrink-0" />
+                            <span className="font-mono text-[8px] sm:text-[8.5px] uppercase font-bold text-[#0284C7] shrink-0">Standard:</span>
+                            <span className="font-sans text-[9.5px] sm:text-[10px] font-bold text-[#0369A1] leading-snug min-w-0">
                               {currentStage.hardwareEnvironment.replace(/^Standard:\s*/, '')}
                             </span>
                           </div>
