@@ -120,63 +120,63 @@ export const AboutSection: React.FC = () => {
             <div className="lg:col-span-6 flex flex-col justify-between gap-2.5 sm:gap-3 min-h-0">
 
               {/* Grand Our Aim Card (Spacious, Clear & Prominent) */}
-              <div className="p-4 sm:p-5 lg:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-sky-50/90 via-[#F8FAFC] to-white border-2 border-sky-200/90 shadow-xs hover:border-sky-400/80 transition-all flex flex-col justify-between flex-none">
+              <div className="p-3 sm:p-3.5 lg:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-sky-50/90 via-[#F8FAFC] to-white border-2 border-sky-200/90 shadow-xs hover:border-sky-400/80 transition-all flex flex-col justify-between flex-none">
                 <div>
                   {/* Header: Icon, Tag & Badge */}
-                  <div className="flex items-center justify-between mb-2.5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-sky-100 text-[#0284C7] flex items-center justify-center shrink-0 shadow-2xs">
-                        <Compass className="w-4.5 h-4.5 stroke-[2.5]" />
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-sky-100 text-[#0284C7] flex items-center justify-center shrink-0 shadow-2xs">
+                        <Compass className="w-4 h-4 stroke-[2.5]" />
                       </div>
-                      <span className="font-mono text-[11px] sm:text-[11.5px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
+                      <span className="font-mono text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
                         OUR AIM
                       </span>
                     </div>
-                    <span className="font-mono text-[9px] sm:text-[9.5px] uppercase px-2.5 py-0.5 rounded-full bg-sky-100/90 text-[#0369A1] font-bold border border-sky-200">
+                    <span className="font-mono text-[8.5px] sm:text-[9px] uppercase px-2 py-0.5 rounded-full bg-sky-100/90 text-[#0369A1] font-bold border border-sky-200">
                       Core Foundation
                     </span>
                   </div>
 
                   {/* Grand Title */}
-                  <h3 className="font-serif text-[20px] sm:text-[22px] lg:text-[24px] font-bold text-[#0F172A] tracking-tight leading-snug mb-1.5">
+                  <h3 className="font-serif text-[17px] sm:text-[19px] lg:text-[21px] font-bold text-[#0F172A] tracking-tight leading-snug mb-1">
                     Understandable Technology
                   </h3>
 
                   {/* Rich Legible Description */}
-                  <p className="font-sans text-[13px] sm:text-[13.5px] lg:text-[14px] text-slate-700 leading-relaxed font-normal mb-3">
+                  <p className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-slate-700 leading-snug font-normal mb-2">
                     Making technology understandable through tangible hardware, intuitive physical computing, and structured age-appropriate learning from Grade 3.
                   </p>
                 </div>
 
                 {/* 3 Concrete Foundational Principles */}
-                <div className="pt-2.5 border-t border-sky-100/90 flex flex-col gap-1.5 text-[11.5px] sm:text-[12px] text-[#0369A1] font-sans font-medium">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#0284C7] shrink-0" />
+                <div className="pt-2 border-t border-sky-100/90 flex flex-col gap-1 text-[11px] sm:text-[11.5px] text-[#0369A1] font-sans font-medium">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0" />
                     <span>Physical breadboard circuits &amp; real sensors — no hidden black boxes</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#0284C7] shrink-0" />
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0" />
                     <span>Intuitive physical computing before abstract mathematical complexity</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#0284C7] shrink-0" />
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0" />
                     <span>Zero technology anxiety through guided, iterative hands-on experiments</span>
                   </div>
                 </div>
 
                 {/* Grounded Responsibility Bar */}
-                <div className="mt-3 pt-2 border-t border-sky-100/80 flex items-center justify-between text-[9px] sm:text-[9.5px] font-mono text-[#0284C7]">
+                <div className="mt-2 pt-1.5 border-t border-sky-100/80 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-[#0284C7]">
                   <span className="font-bold uppercase tracking-wider">Pedagogical Standard</span>
                   <span className="font-semibold text-slate-600">100% Hands-On Hardware Intuition</span>
                 </div>
               </div>
 
               {/* Lab Photo Showcase (Balanced Height, Rich Landscape Framing) */}
-              <div className="relative w-full h-36 sm:h-44 lg:h-full flex-1 min-h-[140px] sm:min-h-[160px] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs group bg-slate-900">
+              <div className="relative w-full h-40 sm:h-48 lg:h-full flex-1 min-h-[140px] sm:min-h-[170px] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs group bg-slate-900">
                 <img
                   src="/assets/learning_cycle_students.png"
                   alt="School Laboratory Session"
-                  className="w-full h-full object-cover object-[center_35%] transition-transform duration-700 ease-out group-hover:scale-103"
+                  className="w-full h-full object-cover object-[center_55%] transition-transform duration-700 ease-out group-hover:scale-103"
                   loading="eager"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -213,31 +213,31 @@ export const AboutSection: React.FC = () => {
             <div
               onMouseEnter={() => setIsUserHovering(true)}
               onMouseLeave={() => setIsUserHovering(false)}
-              className="lg:col-span-6 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 bg-[#FFFDF9] p-3.5 sm:p-4 lg:p-4.5 shadow-2xs min-h-0"
+              className="lg:col-span-6 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 bg-[#FFFDF9] p-2.5 sm:p-3 lg:p-3.5 shadow-2xs min-h-0"
             >
               {/* Methodology Header */}
-              <div className="flex items-center justify-between pb-2 border-b border-amber-100/90 mb-1.5 sm:mb-2 flex-none">
+              <div className="flex items-center justify-between pb-1.5 border-b border-amber-100/90 mb-1 sm:mb-1.5 flex-none">
                 <div>
-                  <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-[0.2em] text-[#b45309] font-bold block mb-0.5">
+                  <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-[0.2em] text-[#b45309] font-bold block mb-0.5">
                     OUR LEARNING METHODOLOGY
                   </span>
-                  <h3 className="font-serif font-bold text-[14px] sm:text-[15px] lg:text-[16px] text-[#0F172A] tracking-tight">
+                  <h3 className="font-serif font-bold text-[13.5px] sm:text-[14.5px] lg:text-[15.5px] text-[#0F172A] tracking-tight leading-tight">
                     The <span className="text-[#EA580C]">4-Stage</span> Learning Cycle
                   </h3>
-                  <p className="font-sans text-[10.5px] sm:text-[11px] text-slate-500 leading-tight">
+                  <p className="font-sans text-[10px] sm:text-[10.5px] text-slate-500 leading-tight">
                     A practical journey from curiosity to real innovation.
                   </p>
                 </div>
-                <span className="font-mono text-[8.5px] sm:text-[9px] uppercase px-2.5 py-0.5 rounded-full bg-orange-100 text-[#EA580C] font-bold border border-orange-200 shrink-0">
+                <span className="font-mono text-[8px] sm:text-[8.5px] uppercase px-2 py-0.5 rounded-full bg-orange-100 text-[#EA580C] font-bold border border-orange-200 shrink-0">
                   Active Cycle
                 </span>
               </div>
 
               {/* 4 Connected Vertical Step Cards - CONCISE & BALANCED (NO EXCESSIVE SPACING) */}
-              <div className="relative flex flex-col justify-between gap-1.5 sm:gap-2 flex-1 min-h-0 py-0.5">
+              <div className="relative flex flex-col justify-between gap-1 sm:gap-1.5 flex-1 min-h-0 py-0.5">
                 {/* Continuous Vertical Connecting Line anchored strictly from center of step 1 to center of step 4 */}
                 <div
-                  className="absolute left-[15px] sm:left-[17px] top-5 bottom-5 w-[2px] bg-slate-200 z-0 pointer-events-none"
+                  className="absolute left-[13px] sm:left-[15px] top-4 bottom-4 w-[2px] bg-slate-200 z-0 pointer-events-none"
                   aria-hidden="true"
                 />
 
@@ -249,23 +249,23 @@ export const AboutSection: React.FC = () => {
                       key={step.name}
                       onClick={() => setActiveStepIndex(idx)}
                       onMouseEnter={() => setActiveStepIndex(idx)}
-                      className={`relative z-10 p-2 sm:p-2.5 rounded-xl border text-left transition-all duration-300 cursor-pointer flex items-start gap-2.5 sm:gap-3 ${isActive
+                      className={`relative z-10 p-1.5 sm:p-2 rounded-xl border text-left transition-all duration-300 cursor-pointer flex items-start gap-2 sm:gap-2.5 ${isActive
                         ? 'bg-[#FFF7ED] border-[#EA580C] shadow-xs -translate-x-0.5'
                         : 'bg-white/95 border-slate-200/80 hover:bg-[#FAF9F5] hover:border-slate-300'
                         }`}
                     >
                       {/* Step Number Circle (on top of continuous vertical line) */}
                       <span
-                        className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center font-mono font-bold text-[10px] sm:text-[11px] shrink-0 mt-0.5 transition-all ${isActive
-                          ? 'bg-[#EA580C] text-white shadow-xs ring-4 ring-[#FFEDD5]'
-                          : 'bg-slate-100 text-slate-600 ring-4 ring-white'
+                        className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center font-mono font-bold text-[9px] sm:text-[10px] shrink-0 mt-0.5 transition-all ${isActive
+                          ? 'bg-[#EA580C] text-white shadow-xs ring-3 ring-[#FFEDD5]'
+                          : 'bg-slate-100 text-slate-600 ring-3 ring-white'
                           }`}
                       >
                         {step.num}
                       </span>
 
                       {/* Illustrated Stage Icon */}
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center mt-0.5">
+                      <div className="w-6 h-6 sm:w-7 sm:h-7 shrink-0 flex items-center justify-center mt-0.5">
                         <img
                           src={step.icon}
                           alt={step.name}
@@ -276,11 +276,11 @@ export const AboutSection: React.FC = () => {
                       {/* Content: Title, Description, and Active Spotlight Extension */}
                       <div className="flex-1 min-w-0 pr-0.5">
                         <div className="flex items-center justify-between mb-0.5">
-                          <h4 className={`font-serif font-bold text-[13px] sm:text-[14px] leading-tight ${isActive ? 'text-[#EA580C]' : 'text-[#0F172A]'}`}>
+                          <h4 className={`font-serif font-bold text-[12.5px] sm:text-[13.5px] leading-tight ${isActive ? 'text-[#EA580C]' : 'text-[#0F172A]'}`}>
                             {step.name}
                           </h4>
                           <span
-                            className={`font-mono text-[8px] sm:text-[8.5px] font-bold px-2 py-0.5 rounded-full transition-colors ${isActive
+                            className={`font-mono text-[7.5px] sm:text-[8px] font-bold px-1.5 py-0.5 rounded-full transition-colors ${isActive
                               ? 'text-[#EA580C] bg-[#FFEDD5] border border-orange-200/80'
                               : 'text-slate-500 bg-slate-100 border border-slate-200/60'
                               }`}
@@ -288,21 +288,21 @@ export const AboutSection: React.FC = () => {
                             {step.badge}
                           </span>
                         </div>
-                        <p className="font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-600 leading-snug line-clamp-2 font-normal">
+                        <p className="font-sans text-[10px] sm:text-[10.5px] text-slate-600 leading-snug line-clamp-1 sm:line-clamp-2 font-normal">
                           {step.desc}
                         </p>
 
                         {/* Interactive In-Practice Spotlight directly inside the active step */}
                         {isActive && (
-                          <div className="mt-1.5 pt-1.5 border-t border-orange-200/70 flex flex-col gap-1">
-                            <p className="font-sans text-[10px] sm:text-[10.5px] text-slate-700 leading-tight font-medium">
+                          <div className="mt-1 pt-1 border-t border-orange-200/70 flex flex-col gap-0.5">
+                            <p className="font-sans text-[9.5px] sm:text-[10px] text-slate-700 leading-tight font-medium line-clamp-2">
                               {step.inAction}
                             </p>
                             <div className="flex flex-wrap items-center gap-1 pt-0.5">
                               {step.tags.map((tag) => (
                                 <span
                                   key={tag}
-                                  className="font-mono text-[7.5px] sm:text-[8px] px-1.5 py-0.5 rounded bg-white text-[#EA580C] font-semibold border border-orange-200/70"
+                                  className="font-mono text-[7px] sm:text-[7.5px] px-1.5 py-0.5 rounded bg-white text-[#EA580C] font-semibold border border-orange-200/70"
                                 >
                                   {tag}
                                 </span>
