@@ -17,6 +17,9 @@ import {
 } from 'lucide-react';
 
 interface BenefitCardConfig {
+  categoryTag: string;
+  stageChip: string;
+  bullets: string[];
   title: string;
   description: string;
   icon: 'Wrench' | 'Boxes' | 'Award' | 'Trophy' | 'Folder';
@@ -35,6 +38,12 @@ interface BenefitCardConfig {
 
 const BENEFIT_CARDS: BenefitCardConfig[] = [
   {
+    categoryTag: '01 · CORE ABILITY',
+    stageChip: 'TECHNICAL RIGOR',
+    bullets: [
+      'Algorithmic logic & hardware debugging',
+      'Circuit assembly & sensor calibration',
+    ],
     title: 'Skills',
     description: 'Builds problem-solving, teamwork and technical confidence.',
     icon: 'Wrench',
@@ -51,6 +60,12 @@ const BENEFIT_CARDS: BenefitCardConfig[] = [
     popupBadge: 'Student Competence',
   },
   {
+    categoryTag: '02 · PHYSICAL BUILDS',
+    stageChip: 'PARENT SHOWCASE',
+    bullets: [
+      'Working rovers, flight rigs & sensor stations',
+      'Physical hardware showcased term-by-term',
+    ],
     title: 'Projects',
     description: 'Students build working projects, grade by grade.',
     icon: 'Boxes',
@@ -67,6 +82,12 @@ const BENEFIT_CARDS: BenefitCardConfig[] = [
     popupBadge: 'Parent Value',
   },
   {
+    categoryTag: '03 · CREDENTIALS',
+    stageChip: 'NEP 2020 MILESTONE',
+    bullets: [
+      'Formal certificate for each level completed',
+      'Verified alignment with modern STEM benchmarks',
+    ],
     title: 'Certificates',
     description: 'A certificate for each level completed.',
     icon: 'Award',
@@ -83,8 +104,14 @@ const BENEFIT_CARDS: BenefitCardConfig[] = [
     popupBadge: 'Recognition',
   },
   {
+    categoryTag: '04 · TEAM ARENAS',
+    stageChip: 'INTER-SCHOOL',
+    bullets: [
+      'School events & science carnival exhibits',
+      'Team problem-solving in robotics arenas',
+    ],
     title: 'Competitions',
-    description: 'Today, students contribute showcase projects to school events and science carnivals. Inter-school competitions are planned as skills grow.',
+    description: 'Showcase projects in school events and upcoming inter-school challenges.',
     icon: 'Trophy',
     badgeType: 'coming',
     badgeLabel: 'Coming – Inter-school',
@@ -99,6 +126,12 @@ const BENEFIT_CARDS: BenefitCardConfig[] = [
     popupBadge: 'Student Participation',
   },
   {
+    categoryTag: '05 · STUDENT ARCHIVE',
+    stageChip: 'PORTFOLIO DEFENSE',
+    bullets: [
+      'Organized digital record of code & builds',
+      'Cumulative proof of engineering growth',
+    ],
     title: 'Portfolios',
     description: "A record of each student's builds to show and grow.",
     icon: 'Folder',
@@ -217,41 +250,58 @@ export const BenefitsSection: React.FC = () => {
                     <div
                       className={`benefit-flip-face benefit-flip-front border-2 ${card.borderColor} ${card.bgGradient} rounded-2xl shadow-xs`}
                     >
-                      <div className="flex flex-col h-full">
-                        {/* Top Rounded Icon Box */}
-                        <div
-                          className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${card.iconBg} border shadow-2xs flex items-center justify-center shrink-0 mb-3`}
-                        >
-                          <span className={card.iconColor}>
-                            {renderIcon(card.icon, 'w-5 h-5')}
-                          </span>
+                      <div className="flex flex-col h-full justify-between">
+                        <div>
+                          {/* Top Tag & Rounded Icon Box */}
+                          <div className="flex items-center justify-between gap-2 mb-2">
+                            <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border bg-white/80 text-slate-600 border-slate-200">
+                              {card.categoryTag}
+                            </span>
+                            <div
+                              className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl ${card.iconBg} border shadow-2xs flex items-center justify-center shrink-0`}
+                            >
+                              <span className={card.iconColor}>
+                                {renderIcon(card.icon, 'w-4 h-4')}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="font-serif text-[17px] sm:text-[18px] lg:text-[19px] font-bold text-[#0F172A] tracking-tight mb-1 leading-tight">
+                            {card.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#334155] leading-snug font-normal mb-2">
+                            {card.description}
+                          </p>
+
+                          {/* Bullets */}
+                          <div className="pt-2 border-t border-slate-200/60 flex flex-col gap-1.5 mb-2">
+                            {card.bullets.map((b, bIdx) => (
+                              <div key={bIdx} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-slate-700 leading-tight">
+                                <Check className="w-3 h-3 text-[#0F172A] shrink-0 mt-0.5 stroke-[2.5]" />
+                                <span className="font-sans font-medium">{b}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
 
-                        {/* Title */}
-                        <h3 className="font-serif text-[19px] sm:text-[20px] lg:text-[21px] font-bold text-[#0F172A] tracking-tight mb-2 leading-tight">
-                          {card.title}
-                        </h3>
-
-                        {/* Description */}
-                        <p className="font-sans text-[13px] sm:text-[13.5px] lg:text-[14px] text-[#334155] leading-relaxed font-normal">
-                          {card.description}
-                        </p>
-
-                        {/* Bottom Status Badge */}
-                        <div className="mt-auto pt-2.5 flex items-center justify-between">
+                        {/* Bottom Status Badge & Chip */}
+                        <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between">
                           {card.badgeType === 'confirmed' ? (
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] text-[11px] sm:text-[11.5px] font-semibold shadow-2xs">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#16A34A] shrink-0" />
+                            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] text-[9.5px] sm:text-[10px] font-semibold shadow-2xs">
+                              <CheckCircle2 className="w-3 h-3 text-[#16A34A] shrink-0" />
                               <span>{card.badgeLabel}</span>
                             </div>
                           ) : (
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] text-[11px] sm:text-[11.5px] font-semibold shadow-2xs">
-                              <Clock className="w-3.5 h-3.5 text-[#D97706] shrink-0" />
+                            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] text-[9.5px] sm:text-[10px] font-semibold shadow-2xs">
+                              <Clock className="w-3 h-3 text-[#D97706] shrink-0" />
                               <span>{card.badgeLabel}</span>
                             </div>
                           )}
-                          <span className="text-[11px] font-mono text-slate-400 group-hover:text-slate-600 transition-colors">
-                            ↻
+                          <span className="font-mono text-[7.5px] sm:text-[8px] px-1.5 py-0.5 rounded bg-white text-slate-500 font-semibold border border-slate-200">
+                            {card.stageChip}
                           </span>
                         </div>
                       </div>

@@ -37,6 +37,7 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   const activeIndexRef = useRef(currentIndex);
   const transitioningRef = useRef(false);
   const lastGestureTimeRef = useRef(0);
+  const scrollableWheelRef = useRef(false);
   const wrappersRef = useRef<(HTMLDivElement | null)[]>([]);
   const backdropRef = useRef<HTMLDivElement>(null);
   const shuttersRef = useRef<HTMLDivElement>(null);
@@ -382,6 +383,20 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
     const handleWheel = (event: WheelEvent) => {
       if (event.ctrlKey || !event.cancelable) return;
       const direction = Math.sign(event.deltaY);
+      const target = event.target;
+      const scrollArea = target instanceof HTMLElement
+        ? target.closest<HTMLElement>('[data-zone-scroll="true"]')
+        : null;
+      if (scrollArea) {
+        const canScroll = direction > 0
+          ? scrollArea.scrollTop + scrollArea.clientHeight < scrollArea.scrollHeight - 1
+          : scrollArea.scrollTop > 0;
+        if (canScroll) {
+          scrollableWheelRef.current = true;
+          return;
+        }
+      }
+      scrollableWheelRef.current = false;
       if (direction && shouldCaptureGesture(direction)) event.preventDefault();
     };
     const handleTouchStart = (event: TouchEvent) => {
@@ -448,8 +463,20 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       type: 'wheel',
       tolerance: 30,
       preventDefault: false,
-      onDown: () => handleGesture(1),
-      onUp: () => handleGesture(-1),
+      onDown: () => {
+        if (scrollableWheelRef.current) {
+          scrollableWheelRef.current = false;
+          return;
+        }
+        handleGesture(1);
+      },
+      onUp: () => {
+        if (scrollableWheelRef.current) {
+          scrollableWheelRef.current = false;
+          return;
+        }
+        handleGesture(-1);
+      },
     });
     const touchObserver = Observer.create({
       target: window,

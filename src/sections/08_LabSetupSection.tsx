@@ -40,12 +40,9 @@ interface ZoneItemDetail {
 }
 
 interface ZoneExtendedSpec {
-  roleBadge: string;
   summary: string;
-  equipmentBadge: string;
   hardwareStandard: string;
   equipment: ZoneItemDetail[];
-  deliverableBadge: string;
   milestone: string;
   deliverables: ZoneItemDetail[];
   safetyStandards: string[];
@@ -53,53 +50,21 @@ interface ZoneExtendedSpec {
 
 const ZONE_EXTENDED_SPECS: ZoneExtendedSpec[] = [
   {
-    roleBadge: 'Hardware Prototyping & Soldering',
-    summary: 'Dedicated electrical engineering benches equipped for rapid circuit assembly, through-hole & SMD soldering, motor driver topologies, and diagnostic signal testing.',
-    equipmentBadge: 'Bench Hardware',
-    hardwareStandard: 'Class 100 ESD Safe',
-    equipment: [
-      { label: 'Soldering Stations', desc: 'Temperature-regulated 200–480°C rapid-heat irons with brass wire tip cleaners' },
-      { label: 'DC Power Rails', desc: 'Variable 0–30V / 5A digital bench supplies with active over-current limits' },
-      { label: 'ESD Protection', desc: 'Anti-static dissipative silicone mats & grounded coil wrist lanyards' },
-      { label: 'Digital Scopes', desc: 'Dual-channel 100MHz waveform capture & real-time signal logic analysis' },
-      { label: 'Diagnostic Rig', desc: 'Precision digital multimeters, continuity probes & logic level test clips' },
-    ],
-    deliverableBadge: 'Hands-On Output',
-    milestone: 'Working Circuit & PCB Prototype',
-    deliverables: [
-      { label: 'Circuit Assembly', desc: 'Custom sensor breadboards & clean through-hole soldered PCB assemblies' },
-      { label: 'Motor Harnesses', desc: 'High-flex motor driver wiring with strain relief & color-coded headers' },
-      { label: 'Signal Diagnostics', desc: 'Power rail ripple testing, logic high/low checks & voltage verification' },
-      { label: 'Actuator Tuning', desc: 'Closed-loop servo calibration, PWM duty cycles & continuous load testing' },
-      { label: 'Bench Verification', desc: '100% physically tested functional circuits ready for chassis mounting' },
-    ],
-    safetyStandards: [
-      'ESD Dissipative Surface',
-      'Active Fume Extraction',
-      'Emergency Cutoff Switch',
-      'ANSI Z87.1 Eye Protection',
-    ],
-  },
-  {
-    roleBadge: 'Computing, Firmware & Simulation',
+    // Zone 01: Software terminals
     summary: 'Networked workstations designed for real-time firmware compilation, CAD 3D modeling, algorithm scripting, and telemetry visualization across robotics & AI pipelines.',
-    equipmentBadge: 'Workstation Stack',
     hardwareStandard: 'ISO-Standard Workstation',
     equipment: [
       { label: 'Engineering PCs', desc: 'Networked high-performance workstations (Intel Core i7, 32GB RAM)' },
-      { label: 'Dual Displays', desc: 'Split-screen layout for simultaneous code editor & 3D CAD modeling' },
       { label: 'Dev Toolchains', desc: 'Pre-configured VS Code, Arduino IDE, PlatformIO & ROS 2 stacks' },
       { label: 'Hardware Debuggers', desc: 'High-speed ST-Link / J-Link flashers & USB serial monitoring taps' },
       { label: 'Simulation Rig', desc: 'Kinematic robot simulators for algorithm verification before field runs' },
     ],
-    deliverableBadge: 'Software & CAD Output',
     milestone: 'Compiled Firmware & 3D Chassis',
     deliverables: [
       { label: 'Firmware Flashing', desc: 'Bare-metal C++/Python compilation & embedded microcontroller flashing' },
       { label: 'Live Telemetry', desc: 'Real-time IMU, ultrasonic & environmental serial chart plotting' },
       { label: 'Mechanical CAD', desc: 'Parametric 3D printable chassis, gear housings & custom sensor brackets' },
       { label: 'Algorithmic PID', desc: 'Closed-loop proportional-integral speed & orientation calibration' },
-      { label: 'Code Repositories', desc: 'Version-controlled GitHub repositories and student build documentation' },
     ],
     safetyStandards: [
       'Isolated Lab Subnet',
@@ -109,25 +74,69 @@ const ZONE_EXTENDED_SPECS: ZoneExtendedSpec[] = [
     ],
   },
   {
-    roleBadge: 'Tethered Flight & Arena Control',
+    // Zone 02: Hardware and prototyping bench
+    summary: 'Dedicated electrical engineering benches equipped for rapid circuit assembly, through-hole & SMD soldering, motor driver topologies, and diagnostic signal testing.',
+    hardwareStandard: 'Class 100 ESD Safe',
+    equipment: [
+      { label: 'Soldering Stations', desc: 'Temperature-regulated 200–480°C rapid-heat irons with brass wire tip cleaners' },
+      { label: 'DC Power Rails', desc: 'Variable 0–30V / 5A digital bench supplies with active over-current limits' },
+      { label: 'ESD Protection', desc: 'Anti-static dissipative silicone mats & grounded coil wrist lanyards' },
+      { label: 'Digital Scopes', desc: 'Dual-channel 100MHz waveform capture & real-time signal logic analysis' },
+    ],
+    milestone: 'Working Circuit & PCB Prototype',
+    deliverables: [
+      { label: 'Circuit Assembly', desc: 'Custom sensor breadboards & clean through-hole soldered PCB assemblies' },
+      { label: 'Motor Harnesses', desc: 'High-flex motor driver wiring with strain relief & color-coded headers' },
+      { label: 'Signal Diagnostics', desc: 'Power rail ripple testing, logic high/low checks & voltage verification' },
+      { label: 'Actuator Tuning', desc: 'Closed-loop servo calibration, PWM duty cycles & continuous load testing' },
+    ],
+    safetyStandards: [
+      'ESD Dissipative Surface',
+      'Active Fume Extraction',
+      'Emergency Cutoff Switch',
+      'ANSI Z87.1 Eye Protection',
+    ],
+  },
+  {
+    // Zone 03: Innovation and maker space
+    summary: 'Additive manufacturing and mechanical fabrication space dedicated to rapid structural iteration, 3D printing, and mechanical chassis design.',
+    hardwareStandard: 'HEPA Active Filtration',
+    equipment: [
+      { label: '3D Printers', desc: 'High-speed dual-extrusion FDM 3D printers running PLA+ and PETG engineering filaments' },
+      { label: 'Laser Rapid Cutter', desc: 'Enclosed desktop laser for rapid acrylic chassis panels and structural brackets' },
+      { label: 'Assembly Toolkits', desc: 'Calibrated metric hex keys, tapped thread inserts, deburring tools & calipers' },
+      { label: 'Filament Dry-Box', desc: 'Humidity-controlled active heated storage preserving engineering filaments' },
+    ],
+    milestone: 'Custom 3D Chassis & Mechanism',
+    deliverables: [
+      { label: 'Rapid Prototyping', desc: 'Iterative 3D print slicing, layer optimization & structural infill tuning' },
+      { label: 'Mechanism Assembly', desc: 'Rack-and-pinion, planetary gearsets & multi-axis linkage joints' },
+      { label: 'Chassis Integration', desc: 'Rigid mounting plates securing battery brackets, motors & flight boards' },
+      { label: 'Dimensional Inspection', desc: 'Digital caliper tolerance testing verifying mechanical clearance' },
+    ],
+    safetyStandards: [
+      'HEPA Air Extraction',
+      'Enclosed Build Chambers',
+      'Non-Toxic Bio-Filaments',
+      'Thermal Runaway Protection',
+    ],
+  },
+  {
+    // Zone 04: Drone control zone
     summary: 'Enclosed indoor flight testing facility engineered for aerial kinematics, PID flight controller calibration, optical localization, and obstacle navigation.',
-    equipmentBadge: 'Flight Systems',
     hardwareStandard: 'Tethered Arena Protocol',
     equipment: [
       { label: 'Flight Arena', desc: '360° high-tensile protective safety netting enclosure with impact padding' },
       { label: 'Radio Transmitters', desc: 'Digital 2.4GHz ExpressLRS low-latency transmitters with telemetry' },
       { label: 'Optical Navigation', desc: 'Downward optical flow localization sensors & precision landing pads' },
       { label: 'Obstacle Course', desc: 'Modular indoor navigation hoops, slalom pylons & aerial challenge gates' },
-      { label: 'Battery Bunker', desc: 'Fireproof LiPo charging safe with cell-voltage balancing monitors' },
     ],
-    deliverableBadge: 'Flight Competency',
     milestone: 'Autonomous Tethered Flight',
     deliverables: [
       { label: 'Flight Stabilization', desc: 'Multi-axis PID gyro rate tuning, roll/pitch calibration & blackbox logs' },
       { label: 'Waypoint Execution', desc: 'Autonomous waypoint coordinate navigation and trajectory tracking' },
       { label: 'Obstacle Evasion', desc: 'Low-altitude obstacle avoidance maneuvering & proximity telemetry' },
       { label: 'Failsafe Drills', desc: 'Emergency cut-off procedures, disarm verification & safe soft landings' },
-      { label: 'Pilot Portfolio', desc: 'Telemetry flight logs, tuning charts & student drone pilot badge' },
     ],
     safetyStandards: [
       'Enclosed Safety Netting',
@@ -137,24 +146,20 @@ const ZONE_EXTENDED_SPECS: ZoneExtendedSpec[] = [
     ],
   },
   {
-    roleBadge: 'Logistics, Tooling & Asset Vault',
+    // Zone 05: Storage
     summary: 'Modular component inventory and tooling logistics center ensuring high-density organized storage, hardware tracking, component accountability, and team access.',
-    equipmentBadge: 'Inventory Infrastructure',
     hardwareStandard: 'Strict Asset Governance',
     equipment: [
       { label: 'Industrial Racks', desc: 'Heavy-duty steel shelving with color-coded modular storage bins' },
       { label: 'ESD Compartments', desc: 'Conductive static-shielded component drawers for ICs & sensitive chips' },
-      { label: 'Calibrated Hand Tools', desc: 'Precision torque screwdrivers, flush wire cutters & ratcheting crimpers' },
       { label: 'Digital Check-in', desc: 'Barcode / QR scanner inventory terminal for checkout & auditing' },
       { label: 'Battery Conditioning', desc: 'Temperature-monitored LiPo storage lockers with state-of-charge logs' },
     ],
-    deliverableBadge: 'Lab Logistics',
     milestone: 'Audited Hardware Inventory',
     deliverables: [
       { label: 'Kit Auditing', desc: 'Student team hardware checkout logs, reconciliation & inventory audits' },
       { label: 'Consumable Stocking', desc: 'Resistors, LEDs, headers, jumper wires & fast replenishing system' },
       { label: 'Battery Care', desc: 'LiPo internal resistance tracking and routine storage-voltage cycles' },
-      { label: 'Sub-Assemblies', desc: 'Staged fastener kits, motor brackets & pre-sorted project hardware' },
       { label: 'Accountability', desc: 'Zero missing parts protocol with disciplined student team ownership' },
     ],
     safetyStandards: [
@@ -279,6 +284,16 @@ export const LabSetupSection: React.FC = () => {
       if (e.ctrlKey) return;
       if (Math.abs(e.deltaY) < 14) return;
       const dir = e.deltaY > 0 ? 1 : -1;
+      const target = e.target;
+      if (target instanceof HTMLElement) {
+        const scrollArea = target.closest<HTMLElement>('[data-zone-scroll="true"]');
+        if (scrollArea) {
+          const canScroll = dir > 0
+            ? scrollArea.scrollTop + scrollArea.clientHeight < scrollArea.scrollHeight - 1
+            : scrollArea.scrollTop > 0;
+          if (canScroll) return;
+        }
+      }
       const handled = stepZone(dir);
       if (handled) {
         e.preventDefault();
@@ -346,7 +361,7 @@ export const LabSetupSection: React.FC = () => {
               </span>
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
-            <h2 className="font-serif text-lg sm:text-2xl lg:text-[25px] font-bold leading-tight tracking-tight text-white mb-0.5 text-center">
+            <h2 className="font-serif text-xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-bold leading-tight tracking-tight bg-gradient-to-r from-white via-amber-100 to-amber-400 bg-clip-text text-transparent mb-0.5 text-center">
               {siteConfig.labSetup.headline}
             </h2>
             <p className="text-[11.5px] sm:text-[12.5px] text-white/85 font-sans max-w-2xl mx-auto leading-snug line-clamp-2 font-normal">
@@ -419,17 +434,8 @@ export const LabSetupSection: React.FC = () => {
                 const spec = ZONE_EXTENDED_SPECS[activeZoneIndex] || ZONE_EXTENDED_SPECS[0];
                 return (
                   <div className="flex-1 flex flex-col justify-between min-h-0 gap-1.5 sm:gap-2 overflow-visible lg:overflow-hidden">
-                    {/* Top Zone Header */}
+                    {/* Active Zone Heading */}
                     <div className="flex-none">
-                      <div className="flex items-center justify-between mb-1 border-b border-white/10 pb-1">
-                        <span className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-wider font-bold ${activeColor.badge}`}>
-                          ZONE 0{activeZoneIndex + 1} OF 0{zones.length} &bull; {spec.roleBadge}
-                        </span>
-                        <span className="text-[9px] sm:text-[9.5px] font-mono text-white/75 px-2 py-0.5 bg-white/10 rounded-[3px] border border-white/15 font-semibold">
-                          Active STEM Zone
-                        </span>
-                      </div>
-
                       <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] text-white font-bold leading-tight tracking-tight text-center">
                         {currentZone.name}
                       </h3>
@@ -438,56 +444,54 @@ export const LabSetupSection: React.FC = () => {
                     {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables with Zero Void */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-none lg:flex-1 min-h-0 items-stretch my-0.5">
                       {/* Box 1: Workstation Equipment & Hardware */}
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs">
-                        <div>
-                          <div className="text-[9.5px] sm:text-[10px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1 flex items-center justify-between flex-none">
+                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs lg:overflow-hidden">
+                        <div className="lg:flex lg:min-h-0 lg:flex-1 lg:flex-col">
+                          <div className="text-[10px] sm:text-[10.5px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1.5 flex items-center flex-none">
                             <div className="flex items-center gap-1.5">
                               <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                               <span>Workstation Hardware &amp; Tools</span>
                             </div>
-                            <span className="text-[8.5px] font-mono text-white/50">{spec.equipmentBadge}</span>
                           </div>
-                          <ul className="space-y-1 sm:space-y-1.5 font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-white/95 leading-snug">
+                          <ul data-zone-scroll="true" className="space-y-2 font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-white/95 leading-relaxed lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
                             {spec.equipment.map((item, i) => (
-                              <li key={i} className="flex items-start gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1" />
-                                <span>
-                                  <strong className="text-white font-semibold">{item.label}: </strong>
-                                  <span className="text-white/80">{item.desc}</span>
+                              <li key={i} className="flex items-start gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1.5" />
+                                <span className="min-w-0">
+                                  <strong className="block text-white font-semibold mb-0.5">{item.label}</strong>
+                                  <span className="block text-white/80">{item.desc}</span>
                                 </span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60">
+                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60 lg:shrink-0">
                           <span>Bench Standard</span>
                           <span className={`font-semibold ${activeColor.badge}`}>{spec.hardwareStandard}</span>
                         </div>
                       </div>
 
                       {/* Box 2: Student Deliverables & Mastery */}
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs">
-                        <div>
-                          <div className="text-[9.5px] sm:text-[10px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1 flex items-center justify-between flex-none">
+                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs lg:overflow-hidden">
+                      <div className="lg:flex lg:min-h-0 lg:flex-1 lg:flex-col">
+                          <div className="text-[10px] sm:text-[10.5px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1.5 flex items-center flex-none">
                             <div className="flex items-center gap-1.5">
                               <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                               <span>Student Builds &amp; Lab Mastery</span>
                             </div>
-                            <span className="text-[8.5px] font-mono text-white/50">{spec.deliverableBadge}</span>
                           </div>
-                          <ul className="space-y-1 sm:space-y-1.5 font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-white/95 leading-snug">
+                        <ul data-zone-scroll="true" className="space-y-2 font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-white/95 leading-relaxed lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
                             {spec.deliverables.map((item, i) => (
-                              <li key={i} className="flex items-start gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1" />
-                                <span>
-                                  <strong className="text-white font-semibold">{item.label}: </strong>
-                                  <span className="text-white/80">{item.desc}</span>
+                              <li key={i} className="flex items-start gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1.5" />
+                                <span className="min-w-0">
+                                  <strong className="block text-white font-semibold mb-0.5">{item.label}</strong>
+                                  <span className="block text-white/80">{item.desc}</span>
                                 </span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60">
+                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60 lg:shrink-0">
                           <span>Mastery Milestone</span>
                           <span className={`font-semibold ${activeColor.badge}`}>{spec.milestone}</span>
                         </div>

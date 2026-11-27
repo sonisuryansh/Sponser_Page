@@ -264,6 +264,18 @@ export const CurriculumSection: React.FC = () => {
     const handleWheel = (e: WheelEvent) => {
       if (e.ctrlKey) return;
       if (Math.abs(e.deltaY) < 14) return;
+
+      const target = e.target;
+      const scrollArea = target instanceof HTMLElement
+        ? target.closest<HTMLElement>('[data-zone-scroll="true"]')
+        : null;
+      if (scrollArea) {
+        const canScroll = e.deltaY > 0
+          ? scrollArea.scrollTop + scrollArea.clientHeight < scrollArea.scrollHeight - 1
+          : scrollArea.scrollTop > 0;
+        if (canScroll) return;
+      }
+
       const dir = e.deltaY > 0 ? 1 : -1;
       const handled = stepStage(dir);
       if (handled) {
@@ -367,7 +379,7 @@ export const CurriculumSection: React.FC = () => {
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+10px)] pb-8 lg:pb-3 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
+        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+10px)] pb-8 lg:pb-14 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
       >
         {/* Main Unified Inset Card - Matches Section 02 Executive Size & Border */}
         <div className="relative w-full h-auto lg:h-full max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] min-h-0 flex-1 lg:my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-3 sm:p-4 lg:p-4.5 flex flex-col justify-between box-border gap-2 sm:gap-2.5 overflow-visible lg:overflow-hidden">
@@ -433,17 +445,17 @@ export const CurriculumSection: React.FC = () => {
             {/* ─── Main Content Column ─── */}
             <div
               ref={contentAreaRef}
-              className="flex-1 flex flex-col justify-between overflow-hidden h-full min-h-0 py-0.5 px-0.5 sm:px-1"
+              className="flex-1 min-w-0 flex flex-col justify-between overflow-hidden h-full min-h-0 py-0.5 px-0.5 sm:px-1"
             >
-              <div className="flex-1 flex flex-col justify-between min-h-0">
+              <div className="flex-1 flex flex-col gap-2 sm:gap-2.5 min-h-0">
                 {/* 1. Large Grade Headline with Orange Accent */}
                 <div className="stage-anim">
-                  <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-none mb-1">
+                  <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-none mb-1 text-center">
                     {renderGradeHeadline(currentStage.gradeLabel)}
                   </h2>
 
                   {/* Orange Accent Bar Under Headline */}
-                  <div className="w-10 sm:w-12 h-1 bg-[#EA580C] rounded-full mb-1.5" />
+                  <div className="w-10 sm:w-12 h-1 bg-[#EA580C] rounded-full mb-1.5 mx-auto" />
                 </div>
 
                 {/* 2. Stage Title */}
@@ -470,7 +482,7 @@ export const CurriculumSection: React.FC = () => {
                           <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[0].title}
                           </span>
-                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#0284C7] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[10px] sm:text-[10.5px] text-[#0284C7] leading-snug block mt-0.5 font-medium">
                             {stageChips[0].subtitle}
                           </span>
                         </div>
@@ -485,7 +497,7 @@ export const CurriculumSection: React.FC = () => {
                           <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[1].title}
                           </span>
-                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#9333EA] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[10px] sm:text-[10.5px] text-[#9333EA] leading-snug block mt-0.5 font-medium">
                             {stageChips[1].subtitle}
                           </span>
                         </div>
@@ -500,7 +512,7 @@ export const CurriculumSection: React.FC = () => {
                           <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[2].title}
                           </span>
-                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#16A34A] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[10px] sm:text-[10.5px] text-[#16A34A] leading-snug block mt-0.5 font-medium">
                             {stageChips[2].subtitle}
                           </span>
                         </div>
@@ -519,7 +531,7 @@ export const CurriculumSection: React.FC = () => {
                       <span className="font-serif font-bold text-[11px] sm:text-[11.5px] text-[#C2410C] block leading-tight mb-0.5">
                         Students can...
                       </span>
-                      <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug font-normal line-clamp-2">
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed font-normal">
                         {currentStage.outcome}
                       </p>
                     </div>
@@ -528,20 +540,20 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5b. Hands-on Term Capstone & Hardware Lab Platform Cards */}
                 {currentStage.termProject && (
-                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1 min-h-0 items-stretch">
+                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-1 min-h-[220px] items-stretch">
                     {/* Term Project Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
-                      <div className="min-h-0 flex flex-col">
+                    <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between min-h-0 h-full overflow-hidden">
+                      <div data-zone-scroll="true" className="curriculum-detail-scroll flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain pr-1">
                         <div className="flex items-center justify-between mb-0.5">
                           <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
                             Hands-on Term Project
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[13px] sm:text-[14px] text-[#0F172A] leading-tight mb-0.5 line-clamp-1 sm:line-clamp-2">
+                        <h4 className="font-serif font-bold text-[13.5px] sm:text-[14.5px] text-[#0F172A] leading-snug mb-0.5">
                           {currentStage.termProject}
                         </h4>
-                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1 line-clamp-1 sm:line-clamp-2 font-normal">
+                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1.5 font-normal">
                           {currentStage.termProjectDesc}
                         </p>
 
@@ -551,36 +563,26 @@ export const CurriculumSection: React.FC = () => {
                             <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
                               Key Build Deliverables
                             </span>
-                            <ul className="space-y-0.5 sm:space-y-1">
-                              {currentStage.termProjectHighlights.slice(0, 2).map((hl, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-tight font-medium">
+                            <ul className="space-y-1">
+                              {currentStage.termProjectHighlights.map((hl, i) => (
+                                <li key={i} className="flex items-start gap-1.5 text-[10.5px] sm:text-[11px] text-[#334155] leading-snug font-medium">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-0.5 shadow-2xs" />
-                                  <span className="line-clamp-1">{hl}</span>
+                                  <span>{hl}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
                         )}
 
-                        {/* Practical Competency Tags */}
-                        {currentStage.termProjectSkills && (
-                          <div className="flex flex-wrap gap-1 mt-1 pt-1 border-t border-black/5">
-                            {currentStage.termProjectSkills.slice(0, 3).map((skill, i) => (
-                              <span key={i} className="px-1.5 py-0.5 rounded-[4px] bg-[#FFF7ED] border border-[#FED7AA] text-[#C2410C] font-mono text-[8.5px] sm:text-[9px] font-bold">
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
 
                       {/* Milestone Footer Badge */}
                       {currentStage.termProjectDeliverable && (
-                        <div className="mt-1.5 pt-1 border-t border-black/6 flex-none">
-                          <div className="px-2 py-0.5 rounded-md bg-[#FFF7ED] border border-[#FED7AA] flex items-center gap-1.5 min-w-0">
+                        <div className="mt-1 pt-1 border-t border-black/6 flex-none">
+                          <div className="px-2 py-0.5 sm:py-1 rounded-md bg-[#FFF7ED] border border-[#FED7AA] flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
                             <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
                             <span className="font-mono text-[8.5px] sm:text-[9px] uppercase font-bold text-[#C2410C] shrink-0">Milestone:</span>
-                            <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#9A3412] truncate">
+                            <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#9A3412] leading-snug min-w-0">
                               {currentStage.termProjectDeliverable.replace(/^Milestone:\s*/, '')}
                             </span>
                           </div>
@@ -589,18 +591,18 @@ export const CurriculumSection: React.FC = () => {
                     </div>
 
                     {/* Lab Hardware & Tools Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
-                      <div className="min-h-0 flex flex-col">
+                    <div className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between min-h-0 h-full overflow-hidden">
+                      <div data-zone-scroll="true" className="curriculum-detail-scroll flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain pr-1">
                         <div className="flex items-center justify-between mb-0.5">
-                          <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
+                          <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
                             Lab Platform &amp; Hardware
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[13px] sm:text-[14px] text-[#0F172A] leading-tight mb-0.5 line-clamp-1 sm:line-clamp-2">
+                        <h4 className="font-serif font-bold text-[13.5px] sm:text-[14.5px] text-[#0F172A] leading-snug mb-0.5">
                           {currentStage.hardwarePlatform}
                         </h4>
-                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1 line-clamp-1 sm:line-clamp-2 font-normal">
+                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1.5 font-normal">
                           {currentStage.hardwarePlatformDesc}
                         </p>
 
@@ -610,36 +612,26 @@ export const CurriculumSection: React.FC = () => {
                             <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
                               Hardware &amp; Toolchain Setup
                             </span>
-                            <ul className="space-y-0.5 sm:space-y-1">
-                              {currentStage.hardwarePlatformTools.slice(0, 2).map((tool, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-tight font-medium">
+                            <ul className="space-y-1">
+                              {currentStage.hardwarePlatformTools.map((tool, i) => (
+                                <li key={i} className="flex items-start gap-1.5 text-[10.5px] sm:text-[11px] text-[#334155] leading-snug font-medium">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-0.5 shadow-2xs" />
-                                  <span className="line-clamp-1">{tool}</span>
+                                  <span>{tool}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
                         )}
 
-                        {/* Lab Architecture Tags */}
-                        {currentStage.hardwareTags && (
-                          <div className="flex flex-wrap gap-1 mt-1 pt-1 border-t border-black/5">
-                            {currentStage.hardwareTags.slice(0, 3).map((tag, i) => (
-                              <span key={i} className="px-1.5 py-0.5 rounded-[4px] bg-[#F0F9FF] border border-[#BAE6FD] text-[#0284C7] font-mono text-[8.5px] sm:text-[9px] font-bold">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
 
                       {/* Lab Standard Environment Footer Badge */}
                       {currentStage.hardwareEnvironment && (
                         <div className="mt-1.5 pt-1 border-t border-black/6 flex-none">
-                          <div className="px-2 py-0.5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] flex items-center gap-1.5 min-w-0">
+                          <div className="px-2 py-1 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] flex flex-wrap items-center gap-x-1.5 gap-y-0.5 min-w-0">
                             <Cpu className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
                             <span className="font-mono text-[8.5px] sm:text-[9px] uppercase font-bold text-[#0284C7] shrink-0">Standard:</span>
-                            <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#0369A1] truncate">
+                            <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0369A1] leading-snug min-w-0">
                               {currentStage.hardwareEnvironment.replace(/^Standard:\s*/, '')}
                             </span>
                           </div>

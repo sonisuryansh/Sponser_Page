@@ -71,14 +71,6 @@ const PROJECT_META: Record<string, ProjectStyleMeta> = {
   },
 };
 
-const projectChips: Record<string, string[]> = {
-  'proj-1': ['Ultrasonic Sensor', 'Dual Motor Calibration', 'Obstacle Avoidance Logic'],
-  'proj-2': ['Telemetry Dashboard', 'Air Quality Monitoring', 'Real-time Analytics'],
-  'proj-3': ['Indoor Flight Cage', '3-Axis Gyro Stability', 'Tethered Safety Protocol'],
-  'proj-4': ['Edge Neural Model', 'Camera Classifier', 'Recyclable Item Sorting'],
-  'proj-5': ['3-DOF Kinematics', 'Micro-Servo Actuation', 'Geometric Pick & Place'],
-};
-
 const projectSpecs: Record<string, { arch: string; takeaway: string }> = {
   'proj-1': {
     arch: 'Microcontroller-driven dual H-bridge motor driver, real-time pulse-width modulation (PWM) speed regulation, and ultrasonic echo-ranging.',
@@ -110,7 +102,7 @@ const projectMilestones: Record<string, string> = {
   'proj-5': '3-DOF precision robotic arm executing automated inverse kinematics sorting',
 };
 
-const projectDeliverables: Record<string, { archBullets: string[]; masteryBullets: string[]; stats: [string, string, string] }> = {
+const projectDeliverables: Record<string, { archBullets: string[]; masteryBullets: string[] }> = {
   'proj-1': {
     archBullets: [
       'Dual H-bridge PWM motor driver with current protection',
@@ -122,7 +114,6 @@ const projectDeliverables: Record<string, { archBullets: string[]; masteryBullet
       'Chassis balance, gear alignment & soldered wire harness',
       'Defended in student engineering lab portfolio review',
     ],
-    stats: ['Level 2 Autonomous', '20ms Polling Loop', '100% Tangible Build'],
   },
   'proj-2': {
     archBullets: [
@@ -135,7 +126,6 @@ const projectDeliverables: Record<string, { archBullets: string[]; masteryBullet
       'Graph analysis, calibration curves & sensor verification',
       'Live environmental monitoring presented to school faculty',
     ],
-    stats: ['I2C Sensor Bus', '500ms Stream Rate', 'Live Telemetry Dashboard'],
   },
   'proj-3': {
     archBullets: [
@@ -148,7 +138,6 @@ const projectDeliverables: Record<string, { archBullets: string[]; masteryBullet
       'Tethered test arena safety protocols and flight log defense',
       'Aerodynamic lift calculations documented in engineering journal',
     ],
-    stats: ['6-DOF Flight Fusion', 'PID Auto-Level', 'Safety Tethered Arena'],
   },
   'proj-4': {
     archBullets: [
@@ -161,7 +150,6 @@ const projectDeliverables: Record<string, { archBullets: string[]; masteryBullet
       'Automated sorting triggers and classification confidence',
       'Computer vision accuracy benchmark presentation',
     ],
-    stats: ['On-Device Neural', '94% Lab Accuracy', 'Automated Sort Trigger'],
   },
   'proj-5': {
     archBullets: [
@@ -174,7 +162,6 @@ const projectDeliverables: Record<string, { archBullets: string[]; masteryBullet
       'Mechanical gear reduction, torque limits & physical payload',
       'Tabletop robotics demonstration with automated pick-and-place',
     ],
-    stats: ['3-DOF Kinematics', '±1.5mm Precision', 'Mechanical Gear Linkage'],
   },
 };
 
@@ -185,8 +172,6 @@ export const ProjectShowcaseSection: React.FC = () => {
 
   const projects = siteConfig.showcase.projects;
   const currentProject = projects[activeProjectIndex] || projects[0];
-  const activeChips =
-    projectChips[currentProject.id] || ['Core Engineering', 'Hands-on Prototype', 'Project Build'];
 
   const currentMeta = PROJECT_META[currentProject.id] || PROJECT_META['proj-1'];
 
@@ -324,21 +309,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                   {currentProject.summary}
                 </p>
 
-                {/* 4. Hardware / Spec Chips */}
-                <div className="flex flex-wrap gap-1.5 mt-1.5 pt-1.5 border-t border-black/6">
-                  {activeChips.map((chip, chipIdx) => (
-                    <span
-                      key={chip}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-white border border-slate-200/90 font-sans text-[10px] sm:text-[10.5px] font-semibold text-[#0F172A] shadow-2xs hover:border-slate-300 transition-colors"
-                    >
-                      <span
-                        style={{ backgroundColor: chipIdx === 0 ? currentMeta.color : '#EA580C' }}
-                        className="w-1.5 h-1.5 rounded-full shrink-0"
-                      />
-                      <span>{chip}</span>
-                    </span>
-                  ))}
-                </div>
               </div>
 
               {/* 5. Dual Architecture & Student Mastery Specification Cards */}
@@ -356,11 +326,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                             <Cpu className="w-3.5 h-3.5 shrink-0" />
                             <span>Architecture &amp; Hardware</span>
                           </div>
-                          {deliv?.stats && (
-                            <span className="font-mono text-[8px] sm:text-[8.5px] font-bold text-[#0284C7] bg-sky-50 border border-sky-200/70 px-1.5 py-0.5 rounded shrink-0">
-                              {deliv.stats[0]}
-                            </span>
-                          )}
                         </div>
                         <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-700 leading-snug font-normal line-clamp-2">
                           {spec.arch}
@@ -387,11 +352,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                             <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                             <span>Student Mastery &amp; Defense</span>
                           </div>
-                          {deliv?.stats && (
-                            <span className="font-mono text-[8px] sm:text-[8.5px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-1.5 py-0.5 rounded shrink-0">
-                              {deliv.stats[2]}
-                            </span>
-                          )}
                         </div>
                         <p className="font-sans text-[11px] sm:text-[11.5px] text-[#0F172A] leading-snug font-medium line-clamp-2">
                           {spec.takeaway}
@@ -415,7 +375,6 @@ export const ProjectShowcaseSection: React.FC = () => {
 
               {/* 5b. Unified Capstone Milestone & Verification Strip */}
               {(() => {
-                const deliv = projectDeliverables[currentProject.id];
                 return (
                   <div className="px-3 py-1.5 rounded-lg bg-[#FFF7ED] border border-[#FED7AA] flex items-center justify-between gap-2 flex-none shadow-2xs">
                     <div className="flex items-center gap-2 min-w-0">
@@ -427,11 +386,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                         {projectMilestones[currentProject.id] || 'Verified Working Hardware Prototype'}
                       </span>
                     </div>
-                    {deliv?.stats?.[1] && (
-                      <span className="hidden sm:inline-block font-mono text-[9px] sm:text-[9.5px] font-bold text-[#0284C7] bg-white/90 px-2 py-0.5 rounded border border-blue-200/70 shrink-0">
-                        {deliv.stats[1]}
-                      </span>
-                    )}
                   </div>
                 );
               })()}
@@ -565,16 +519,6 @@ export const ProjectShowcaseSection: React.FC = () => {
                 {selectedProject.summary}
               </p>
 
-              <div className="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
-                {(projectChips[selectedProject.id] || []).map((chip) => (
-                  <span
-                    key={chip}
-                    className="px-3 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 font-sans text-xs font-medium"
-                  >
-                    {chip}
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
         </div>
