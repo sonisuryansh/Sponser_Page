@@ -650,11 +650,6 @@ export const siteConfig = {
         name: 'Drone control zone',
         description: 'Indoor training with hoops and low and high obstacles, behind a marked safety line.',
       },
-      {
-        id: 'zone-storage',
-        name: 'Storage',
-        description: 'Kits and materials stay in the lab between sessions; movable equipment frees the floor.',
-      },
     ],
     resourceLists: [
       {
