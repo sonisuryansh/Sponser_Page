@@ -402,54 +402,54 @@ export const LabSetupSection: React.FC = () => {
                     {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables with Zero Void */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-none lg:flex-1 min-h-0 items-stretch my-0.5">
                       {/* Box 1: Workstation Equipment & Hardware */}
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs overflow-hidden">
-                        <div className="flex min-h-0 flex-1 flex-col justify-start">
-                          <div className="text-[10px] sm:text-[10.5px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1.5 flex items-center flex-none">
+                      <div className="p-2.5 sm:p-3 lg:p-3.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs overflow-hidden">
+                        <div className="flex min-h-0 flex-1 flex-col justify-between">
+                          <div className="text-[10px] sm:text-[10.5px] uppercase tracking-wider text-white/85 font-mono font-bold mb-2 sm:mb-2.5 flex items-center flex-none">
                             <div className="flex items-center gap-1.5">
                               <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                               <span>Workstation Hardware &amp; Tools</span>
                             </div>
                           </div>
-                          <ul className="space-y-1 sm:space-y-1.5 font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-white/95 leading-snug flex-1 overflow-hidden">
+                          <ul className="flex-1 flex flex-col justify-evenly py-1 sm:py-1.5 gap-2 sm:gap-2.5 font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-white/95 leading-snug overflow-hidden">
                             {spec.equipment.map((item, i) => (
-                              <li key={i} className="flex items-start gap-1.5">
+                              <li key={i} className="flex items-start gap-2 py-0.5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1" />
-                                <div className="min-w-0">
+                                <div className="min-w-0 flex-1">
                                   <strong className="text-white font-semibold">{item.label}: </strong>
-                                  <span className="text-white/80">{item.desc}</span>
+                                  <span className="text-white/85 leading-normal">{item.desc}</span>
                                 </div>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60 shrink-0">
+                        <div className="mt-2 pt-1.5 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60 shrink-0">
                           <span>Bench Standard</span>
                           <span className={`font-semibold ${activeColor.badge}`}>{spec.hardwareStandard}</span>
                         </div>
                       </div>
 
                       {/* Box 2: Student Deliverables & Mastery */}
-                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs overflow-hidden">
-                        <div className="flex min-h-0 flex-1 flex-col justify-start">
-                          <div className="text-[10px] sm:text-[10.5px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1.5 flex items-center flex-none">
+                      <div className="p-2.5 sm:p-3 lg:p-3.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs overflow-hidden">
+                        <div className="flex min-h-0 flex-1 flex-col justify-between">
+                          <div className="text-[10px] sm:text-[10.5px] uppercase tracking-wider text-white/85 font-mono font-bold mb-2 sm:mb-2.5 flex items-center flex-none">
                             <div className="flex items-center gap-1.5">
                               <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                               <span>Student Builds &amp; Lab Mastery</span>
                             </div>
                           </div>
-                          <ul className="space-y-1 sm:space-y-1.5 font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-white/95 leading-snug flex-1 overflow-hidden">
+                          <ul className="flex-1 flex flex-col justify-evenly py-1 sm:py-1.5 gap-2 sm:gap-2.5 font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-white/95 leading-snug overflow-hidden">
                             {spec.deliverables.map((item, i) => (
-                              <li key={i} className="flex items-start gap-1.5">
+                              <li key={i} className="flex items-start gap-2 py-0.5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1" />
-                                <div className="min-w-0">
+                                <div className="min-w-0 flex-1">
                                   <strong className="text-white font-semibold">{item.label}: </strong>
-                                  <span className="text-white/80">{item.desc}</span>
+                                  <span className="text-white/85 leading-normal">{item.desc}</span>
                                 </div>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60 shrink-0">
+                        <div className="mt-2 pt-1.5 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60 shrink-0">
                           <span>Mastery Milestone</span>
                           <span className={`font-semibold ${activeColor.badge}`}>{spec.milestone}</span>
                         </div>
