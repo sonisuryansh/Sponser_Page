@@ -460,47 +460,47 @@ export const CurriculumSection: React.FC = () => {
                 {(() => {
                   const stageChips = STAGE_CHIP_DETAILS[currentStage.id] || STAGE_CHIP_DETAILS['grade-10'];
                   return (
-                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 mb-2">
+                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 mb-1.5">
                       {/* Chip 1: Blue Theme */}
-                      <div className="flex items-start gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
-                        <div className="w-5 h-5 rounded-md bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
+                        <div className="w-4.5 h-4.5 rounded-md bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[0]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[0].title}
                           </span>
-                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#0284C7] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#0284C7] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[0].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 2: Purple Theme */}
-                      <div className="flex items-start gap-2 p-2 sm:p-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
-                        <div className="w-5 h-5 rounded-md bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
+                        <div className="w-4.5 h-4.5 rounded-md bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[1]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[1].title}
                           </span>
-                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#9333EA] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#9333EA] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[1].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 3: Green Theme */}
-                      <div className="flex items-start gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
-                        <div className="w-5 h-5 rounded-md bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="flex items-start gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
+                        <div className="w-4.5 h-4.5 rounded-md bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[2]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[2].title}
                           </span>
-                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#16A34A] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#16A34A] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[2].subtitle}
                           </span>
                         </div>
@@ -511,15 +511,15 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5. "Students can..." Callout Box */}
                 {currentStage.outcome && (
-                  <div className="stage-anim p-2 sm:p-2.5 rounded-xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2.5 shadow-xs mb-2">
-                    <div className="w-5 h-5 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
-                      <Target className="w-3.5 h-3.5" />
+                  <div className="stage-anim p-1.5 sm:p-2 rounded-xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2 shadow-xs mb-1.5">
+                    <div className="w-4.5 h-4.5 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
+                      <Target className="w-3 h-3" />
                     </div>
                     <div>
-                      <span className="font-serif font-bold text-[11.5px] sm:text-[12px] text-[#C2410C] block leading-tight mb-0.5">
+                      <span className="font-serif font-bold text-[11px] sm:text-[11.5px] text-[#C2410C] block leading-tight mb-0.5">
                         Students can...
                       </span>
-                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-snug font-normal line-clamp-2">
+                      <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug font-normal line-clamp-2">
                         {currentStage.outcome}
                       </p>
                     </div>
@@ -528,34 +528,34 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5b. Hands-on Term Capstone & Hardware Lab Platform Cards */}
                 {currentStage.termProject && (
-                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-1 min-h-0 items-stretch">
+                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1 min-h-0 items-stretch">
                     {/* Term Project Card */}
-                    <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
+                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
                       <div className="min-h-0 flex flex-col">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
                             Hands-on Term Project
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[14px] sm:text-[15px] text-[#0F172A] leading-tight mb-0.5">
+                        <h4 className="font-serif font-bold text-[13px] sm:text-[14px] text-[#0F172A] leading-tight mb-0.5 line-clamp-1 sm:line-clamp-2">
                           {currentStage.termProject}
                         </h4>
-                        <p className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-snug mb-1.5 line-clamp-2 font-normal">
+                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1 line-clamp-1 sm:line-clamp-2 font-normal">
                           {currentStage.termProjectDesc}
                         </p>
 
                         {/* Term Project Key Highlights */}
                         {currentStage.termProjectHighlights && currentStage.termProjectHighlights.length > 0 && (
-                          <div className="pt-1.5 border-t border-black/6">
-                            <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#64748B] font-bold block mb-1">
+                          <div className="pt-1 border-t border-black/6">
+                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
                               Key Build Deliverables
                             </span>
-                            <ul className="space-y-1">
+                            <ul className="space-y-0.5 sm:space-y-1">
                               {currentStage.termProjectHighlights.slice(0, 2).map((hl, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] leading-snug font-medium">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-1 shadow-2xs" />
-                                  <span>{hl}</span>
+                                <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-tight font-medium">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-0.5 shadow-2xs" />
+                                  <span className="line-clamp-1">{hl}</span>
                                 </li>
                               ))}
                             </ul>
@@ -564,9 +564,9 @@ export const CurriculumSection: React.FC = () => {
 
                         {/* Practical Competency Tags */}
                         {currentStage.termProjectSkills && (
-                          <div className="flex flex-wrap gap-1 mt-1.5 pt-1.5 border-t border-black/5">
+                          <div className="flex flex-wrap gap-1 mt-1 pt-1 border-t border-black/5">
                             {currentStage.termProjectSkills.slice(0, 3).map((skill, i) => (
-                              <span key={i} className="px-2 py-0.5 rounded-[4px] bg-[#FFF7ED] border border-[#FED7AA] text-[#C2410C] font-mono text-[9px] sm:text-[9.5px] font-bold">
+                              <span key={i} className="px-1.5 py-0.5 rounded-[4px] bg-[#FFF7ED] border border-[#FED7AA] text-[#C2410C] font-mono text-[8.5px] sm:text-[9px] font-bold">
                                 {skill}
                               </span>
                             ))}
@@ -576,11 +576,11 @@ export const CurriculumSection: React.FC = () => {
 
                       {/* Milestone Footer Badge */}
                       {currentStage.termProjectDeliverable && (
-                        <div className="mt-2 pt-1.5 border-t border-black/6">
-                          <div className="px-2 py-1 rounded-md bg-[#FFF7ED] border border-[#FED7AA] flex items-center gap-1.5 min-w-0">
+                        <div className="mt-1.5 pt-1 border-t border-black/6 flex-none">
+                          <div className="px-2 py-0.5 rounded-md bg-[#FFF7ED] border border-[#FED7AA] flex items-center gap-1.5 min-w-0">
                             <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
-                            <span className="font-mono text-[9px] sm:text-[9.5px] uppercase font-bold text-[#C2410C] shrink-0">Milestone:</span>
-                            <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#9A3412] truncate">
+                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase font-bold text-[#C2410C] shrink-0">Milestone:</span>
+                            <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#9A3412] truncate">
                               {currentStage.termProjectDeliverable.replace(/^Milestone:\s*/, '')}
                             </span>
                           </div>
@@ -589,32 +589,32 @@ export const CurriculumSection: React.FC = () => {
                     </div>
 
                     {/* Lab Hardware & Tools Card */}
-                    <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
+                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
                       <div className="min-h-0 flex flex-col">
-                        <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center justify-between mb-0.5">
                           <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
                             Lab Platform &amp; Hardware
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[14px] sm:text-[15px] text-[#0F172A] leading-tight mb-0.5">
+                        <h4 className="font-serif font-bold text-[13px] sm:text-[14px] text-[#0F172A] leading-tight mb-0.5 line-clamp-1 sm:line-clamp-2">
                           {currentStage.hardwarePlatform}
                         </h4>
-                        <p className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-snug mb-1.5 line-clamp-2 font-normal">
+                        <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mb-1 line-clamp-1 sm:line-clamp-2 font-normal">
                           {currentStage.hardwarePlatformDesc}
                         </p>
 
                         {/* Hardware & Tools Specification Highlights */}
                         {currentStage.hardwarePlatformTools && currentStage.hardwarePlatformTools.length > 0 && (
-                          <div className="pt-1.5 border-t border-black/6">
-                            <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#64748B] font-bold block mb-1">
+                          <div className="pt-1 border-t border-black/6">
+                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-0.5">
                               Hardware &amp; Toolchain Setup
                             </span>
-                            <ul className="space-y-1">
+                            <ul className="space-y-0.5 sm:space-y-1">
                               {currentStage.hardwarePlatformTools.slice(0, 2).map((tool, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] leading-snug font-medium">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-1 shadow-2xs" />
-                                  <span>{tool}</span>
+                                <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-tight font-medium">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-0.5 shadow-2xs" />
+                                  <span className="line-clamp-1">{tool}</span>
                                 </li>
                               ))}
                             </ul>
@@ -623,9 +623,9 @@ export const CurriculumSection: React.FC = () => {
 
                         {/* Lab Architecture Tags */}
                         {currentStage.hardwareTags && (
-                          <div className="flex flex-wrap gap-1 mt-1.5 pt-1.5 border-t border-black/5">
+                          <div className="flex flex-wrap gap-1 mt-1 pt-1 border-t border-black/5">
                             {currentStage.hardwareTags.slice(0, 3).map((tag, i) => (
-                              <span key={i} className="px-2 py-0.5 rounded-[4px] bg-[#F0F9FF] border border-[#BAE6FD] text-[#0284C7] font-mono text-[9px] sm:text-[9.5px] font-bold">
+                              <span key={i} className="px-1.5 py-0.5 rounded-[4px] bg-[#F0F9FF] border border-[#BAE6FD] text-[#0284C7] font-mono text-[8.5px] sm:text-[9px] font-bold">
                                 {tag}
                               </span>
                             ))}
@@ -635,11 +635,11 @@ export const CurriculumSection: React.FC = () => {
 
                       {/* Lab Standard Environment Footer Badge */}
                       {currentStage.hardwareEnvironment && (
-                        <div className="mt-2 pt-1.5 border-t border-black/6">
-                          <div className="px-2 py-1 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] flex items-center gap-1.5 min-w-0">
+                        <div className="mt-1.5 pt-1 border-t border-black/6 flex-none">
+                          <div className="px-2 py-0.5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] flex items-center gap-1.5 min-w-0">
                             <Cpu className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
-                            <span className="font-mono text-[9px] sm:text-[9.5px] uppercase font-bold text-[#0284C7] shrink-0">Standard:</span>
-                            <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0369A1] truncate">
+                            <span className="font-mono text-[8.5px] sm:text-[9px] uppercase font-bold text-[#0284C7] shrink-0">Standard:</span>
+                            <span className="font-sans text-[10px] sm:text-[10.5px] font-bold text-[#0369A1] truncate">
                               {currentStage.hardwareEnvironment.replace(/^Standard:\s*/, '')}
                             </span>
                           </div>
