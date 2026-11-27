@@ -96,6 +96,36 @@
   pointer-events: none;
 }
 
+.slide-transition-shutters {
+  position: absolute;
+  z-index: 35;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shutter-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 33.4%;
+  will-change: transform;
+}
+
+.shutter-strip-light {
+  top: 0;
+  background: #F1F1EF;
+}
+
+.shutter-strip-gold {
+  top: 33.3%;
+}
+
+.shutter-strip-dark {
+  top: 66.6%;
+  background: #0a0e14;
+}
+
 .slide-scroll-pane {
   height: 100svh;
   overscroll-behavior-y: contain;

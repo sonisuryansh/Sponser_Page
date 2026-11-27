@@ -20,6 +20,11 @@ interface SlideTransitionsProps {
   pageBgColor?: string;
 }
 
+const animatedTargetsSelector =
+  'h1,h2,.statement-headline,p,.about-panel,.value-card,.domain-fan-card,.approach-block,.curriculum-card,.project-card,.resource-card,article';
+const bodyTargetsSelector =
+  'p,.about-panel,.value-card,.domain-fan-card,.approach-block,.curriculum-card,.project-card,.resource-card,article';
+
 export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   slides,
   currentIndex,
@@ -32,11 +37,18 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
   const activeIndexRef = useRef(currentIndex);
   const transitioningRef = useRef(false);
   const lastGestureTimeRef = useRef(0);
-  const activeTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const wrappersRef = useRef<(HTMLDivElement | null)[]>([]);
   const backdropRef = useRef<HTMLDivElement>(null);
+  const shuttersRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    if (shuttersRef.current) {
+      gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
+        xPercent: 110,
+        yPercent: -12,
+        skewX: -4,
+      });
+    }
     gsap.set(backdropRef.current, { opacity: 0 });
   }, []);
 
@@ -58,16 +70,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
       const isForward = targetIndex > fromIndex;
       const fromFrame = fromWrapper.querySelector<HTMLElement>('.slide-frame');
-      const toFrame = toWrapper.querySelector<HTMLElement>('.slide-frame');
+      const fromContent = fromWrapper.querySelector<HTMLElement>('.chapter-content');
+      const toContent = toWrapper.querySelector<HTMLElement>('.chapter-content');
       const fromScrollPane = fromWrapper.querySelector<HTMLElement>('.slide-scroll-pane');
       const scrollPane = toWrapper.querySelector<HTMLElement>('.slide-scroll-pane');
-
-      // Cancel any running timeline cleanly
-      if (activeTimelineRef.current) {
-        activeTimelineRef.current.kill();
-        activeTimelineRef.current = null;
-      }
-      gsap.killTweensOf([fromWrapper, toWrapper, fromFrame, toFrame]);
+      const toImage = toWrapper.querySelector<HTMLElement>('.chapter-media-img');
+      const strips = shuttersRef.current?.querySelectorAll<HTMLElement>('.shutter-strip');
 
       transitioningRef.current = true;
       setIsTransitioning(true);
@@ -76,63 +84,40 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       if (fromScrollPane) fromScrollPane.style.overflowY = 'hidden';
       if (scrollPane) scrollPane.style.overflowY = 'hidden';
 
-      const enterY = isForward ? 45 : -45;
-      const exitY = isForward ? -35 : 35;
+      onSlideChange(targetIndex);
 
-      gsap.set(fromWrapper, {
-        display: 'block',
-        visibility: 'visible',
-        zIndex: 10,
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        pointerEvents: 'none',
-      });
-      gsap.set(toWrapper, {
-        display: 'block',
-        visibility: 'visible',
-        zIndex: 20,
-        opacity: 0,
-        y: enterY,
-        scale: 0.99,
-        pointerEvents: 'none',
-      });
+      gsap.set([fromWrapper, toWrapper], { visibility: 'visible' });
+      gsap.set(fromWrapper, { zIndex: 10, opacity: 1 });
+      gsap.set(toWrapper, { zIndex: 20, opacity: 0 });
 
       let watchdogTimer: ReturnType<typeof setTimeout> | null = null;
 
       const finish = () => {
         if (watchdogTimer) clearTimeout(watchdogTimer);
-        if (activeTimelineRef.current) {
-          activeTimelineRef.current.kill();
-          activeTimelineRef.current = null;
-        }
-
-        gsap.set(fromWrapper, {
-          display: 'none',
-          visibility: 'hidden',
-          zIndex: 0,
-          opacity: 0,
-          y: 0,
-          pointerEvents: 'none',
-        });
-        gsap.set(toWrapper, {
-          display: 'block',
-          visibility: 'visible',
-          zIndex: 10,
-          opacity: 1,
-          y: 0,
-          pointerEvents: 'auto',
-        });
+        gsap.set(fromWrapper, { visibility: 'hidden', zIndex: 0, opacity: 0 });
+        gsap.set(toWrapper, { visibility: 'visible', zIndex: 10, opacity: 1 });
         if (fromScrollPane) fromScrollPane.style.overflowY = '';
         if (scrollPane) {
           scrollPane.style.overflowY = '';
           scrollPane.scrollTop = 0;
         }
 
-        gsap.set([fromFrame, toFrame, fromWrapper, toWrapper], {
-          clearProps: 'transform,opacity,clipPath,scale,y',
-        });
+        gsap.set([fromFrame, fromContent, toContent], { clearProps: 'transform,opacity,clipPath,scale' });
+        gsap.set(
+          [
+            fromContent?.querySelectorAll(animatedTargetsSelector),
+            toContent?.querySelectorAll(animatedTargetsSelector),
+          ],
+          { clearProps: 'transform,opacity,clipPath,scale' }
+        );
         gsap.set(backdropRef.current, { opacity: 0 });
+        if (shuttersRef.current) {
+          gsap.set(shuttersRef.current.querySelectorAll('.shutter-strip'), {
+            xPercent: 110,
+            yPercent: -12,
+            skewX: -4,
+          });
+        }
 
         activeIndexRef.current = targetIndex;
         setActiveIndex(targetIndex);
@@ -140,6 +125,89 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         transitioningRef.current = false;
         setIsTransitioning(false);
         lastGestureTimeRef.current = Date.now();
+      };
+
+      // Failsafe watchdog timer (1100ms) to ensure transition state never deadlocks
+      watchdogTimer = setTimeout(() => {
+        if (transitioningRef.current) {
+          finish();
+        }
+      }, 1100);
+
+      // Directional shutter trajectories:
+      // Forward (down): enter from +110% (right) -> 0% -> exit to -110% (left)
+      // Reverse (up): enter from -110% (left) -> 0% -> exit to +110% (right)
+      const enterX = isForward ? 110 : -110;
+      const enterY = isForward ? -12 : 12;
+      const enterSkew = isForward ? -4 : 4;
+
+      const exitX = isForward ? -110 : 110;
+      const exitY = isForward ? 12 : -12;
+      const exitSkew = isForward ? 4 : -4;
+
+      if (strips?.length) {
+        gsap.set(strips, {
+          xPercent: enterX,
+          yPercent: enterY,
+          skewX: enterSkew,
+        });
+      }
+
+      const incomingHeadings = toContent?.querySelectorAll<HTMLElement>('h1,h2,.statement-headline');
+      const incomingBody = toContent?.querySelectorAll<HTMLElement>(bodyTargetsSelector);
+      const outgoingTargets = fromContent?.querySelectorAll<HTMLElement>(animatedTargetsSelector);
+
+      const timeline = gsap.timeline({
+        onComplete: finish,
+      });
+
+      // 1. Zoom out outgoing frame subtly
+      if (fromFrame) {
+        timeline.to(fromFrame, { scale: 0.94, duration: 0.42, ease: 'power2.out' }, 0);
+      }
+
+      // 2. Outgoing targets slide slightly away
+      if (outgoingTargets?.length) {
+        timeline.to(
+          outgoingTargets,
+          {
+            x: isForward ? -25 : 25,
+            opacity: 0,
+            duration: 0.32,
+            stagger: 0.015,
+            ease: 'power2.in',
+          },
+          0.04
+        );
+      }
+
+      // 3. Backdrop darkens during curtain sweep
+      if (backdropRef.current) {
+        timeline
+          .fromTo(backdropRef.current, { opacity: 0 }, { opacity: 0.88, duration: 0.4, ease: 'power2.out' }, 0)
+          .to(backdropRef.current, { opacity: 0, duration: 0.36, ease: 'power2.in' }, 0.54);
+      }
+
+      // 4. Shutters sweep IN to cover the screen
+      if (strips?.length) {
+        timeline.to(
+          strips,
+          {
+            xPercent: 0,
+            yPercent: 0,
+            skewX: 0,
+            duration: 0.42,
+            stagger: 0.05,
+            ease: 'power3.inOut',
+          },
+          0.04
+        );
+      }
+
+      // 5. SWAP SLIDES while screen is fully covered by shutters at t = 0.44s
+      timeline.add(() => {
+        gsap.set(fromWrapper, { opacity: 0, visibility: 'hidden' });
+        gsap.set(toWrapper, { opacity: 1, visibility: 'visible' });
 
         const steppable = toWrapper.querySelector<HTMLElement>('[data-steppable="true"]');
         if (steppable) {
@@ -151,45 +219,86 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             })
           );
         }
-      };
+      }, 0.44);
 
-      // Failsafe watchdog timer (600ms) to ensure transition state never deadlocks
-      watchdogTimer = setTimeout(() => {
-        if (transitioningRef.current) {
-          finish();
-        }
-      }, 600);
+      // 7. Shutters sweep OUT to reveal new slide
+      if (strips?.length) {
+        timeline.to(
+          strips,
+          {
+            xPercent: exitX,
+            yPercent: exitY,
+            skewX: exitSkew,
+            duration: 0.42,
+            stagger: 0.05,
+            ease: 'power3.inOut',
+          },
+          0.46
+        );
+      }
 
-      const timeline = gsap.timeline({
-        onComplete: finish,
-      });
-      activeTimelineRef.current = timeline;
+      // 8. Incoming content reveals with crisp forward animation
+      if (toContent) {
+        timeline.fromTo(
+          toContent,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3, ease: 'power2.out' },
+          0.48
+        );
+      }
 
-      // 1. Outgoing slide gently glides away and fades out (0.34s)
-      timeline.to(
-        fromWrapper,
-        {
-          y: exitY,
-          scale: 0.98,
-          opacity: 0,
-          duration: 0.34,
-          ease: 'power2.inOut',
-        },
-        0
-      );
+      if (incomingHeadings?.length) {
+        timeline.fromTo(
+          incomingHeadings,
+          {
+            y: isForward ? 22 : -22,
+            opacity: 0,
+            clipPath: isForward ? 'inset(0 0 100% 0)' : 'inset(100% 0 0 0)',
+          },
+          {
+            y: 0,
+            opacity: 1,
+            clipPath: 'inset(0 0 0% 0)',
+            duration: 0.38,
+            stagger: 0.05,
+            ease: 'power3.out',
+          },
+          0.5
+        );
+      }
 
-      // 2. Incoming slide glides smoothly into place with luxury ease (0.42s)
-      timeline.to(
-        toWrapper,
-        {
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          duration: 0.42,
-          ease: 'power3.out',
-        },
-        0.03
-      );
+      if (incomingBody?.length) {
+        const bodyStagger = Math.min(0.035, 0.25 / incomingBody.length);
+        timeline.fromTo(
+          incomingBody,
+          { y: isForward ? 16 : -16, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.36,
+            stagger: bodyStagger,
+            ease: 'power2.out',
+          },
+          0.54
+        );
+      }
+
+      if (toImage) {
+        timeline.fromTo(
+          toImage,
+          {
+            scale: 1.05,
+            filter: 'saturate(0.85) brightness(1.05) blur(3px)',
+          },
+          {
+            scale: 1,
+            filter: 'saturate(0.75) brightness(0.85) blur(0px)',
+            duration: 0.48,
+            ease: 'power2.out',
+          },
+          0.46
+        );
+      }
     },
     [onSlideChange, slides.length]
   );
@@ -205,15 +314,16 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const now = Date.now();
       if (
         transitioningRef.current ||
-        now - lastGestureTimeRef.current < 220 ||
+        now - lastGestureTimeRef.current < 450 ||
         document.querySelector('[aria-modal="true"]')
       ) {
         return;
       }
 
-      // Check if current active slide handles internal multi-step animations (e.g. Domains 4-card sequence, Curriculum stages, Lab zones)
+      // Check if current active slide handles internal multi-step animations (e.g. Domains, Curriculum, Lab zones)
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
       const activeWrapper = wrappersRef.current[activeIndexRef.current];
-      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
+      const customSteppable = !isMobile ? activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]') : null;
       if (customSteppable) {
         const stepEvent = new CustomEvent('slide:step', {
           bubbles: true,
@@ -231,9 +341,9 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
       const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
         '.slide-scroll-pane'
       );
-      if (pane && pane.scrollHeight > pane.clientHeight + 16) {
+      if (pane && pane.scrollHeight > pane.clientHeight + 8) {
         const atTop = pane.scrollTop <= 6;
-        const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
+        const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 8;
         if ((direction > 0 && !atBottom) || (direction < 0 && !atTop)) return;
       }
 
@@ -249,99 +359,69 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
 
   useEffect(() => {
     let touchStartY: number | null = null;
-    let touchStartX: number | null = null;
+
+    const shouldCaptureGesture = (direction: number) => {
+      if (transitioningRef.current) return true;
+      if (document.querySelector('[aria-modal="true"]')) return false;
+
+      const isMobile = window.innerWidth < 1024;
+      const activeWrapper = wrappersRef.current[activeIndexRef.current];
+      const customSteppable = !isMobile ? activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]') : null;
+      if (customSteppable) return true;
+
+      const pane = wrappersRef.current[activeIndexRef.current]?.querySelector<HTMLElement>(
+        '.slide-scroll-pane'
+      );
+      if (!pane || pane.scrollHeight <= pane.clientHeight + 8) return true;
+
+      const atTop = pane.scrollTop <= 6;
+      const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 8;
+      return direction > 0 ? atBottom : atTop;
+    };
 
     const handleWheel = (event: WheelEvent) => {
-      if (event.ctrlKey) return;
-      if (document.querySelector('[aria-modal="true"]')) return;
-
-      const activeWrapper = wrappersRef.current[activeIndexRef.current];
-      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
-      if (!customSteppable) {
-        const pane = activeWrapper?.querySelector<HTMLElement>('.slide-scroll-pane');
-        if (pane && pane.scrollHeight > pane.clientHeight + 16) {
-          const atTop = pane.scrollTop <= 6;
-          const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
-          const dir = event.deltaY > 0 ? 1 : -1;
-          if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) {
-            return;
-          }
-        }
-      }
-
-      if (event.cancelable) event.preventDefault();
-      if (Math.abs(event.deltaY) < 14) return;
-
-      const direction = event.deltaY > 0 ? 1 : -1;
-      handleGesture(direction);
+      if (event.ctrlKey || !event.cancelable) return;
+      const direction = Math.sign(event.deltaY);
+      if (direction && shouldCaptureGesture(direction)) event.preventDefault();
     };
-
     const handleTouchStart = (event: TouchEvent) => {
       touchStartY = event.touches[0]?.clientY ?? null;
-      touchStartX = event.touches[0]?.clientX ?? null;
     };
-
     const handleTouchMove = (event: TouchEvent) => {
       if (touchStartY === null || !event.cancelable) return;
-      if (document.querySelector('[aria-modal="true"]')) return;
-
-      const activeWrapper = wrappersRef.current[activeIndexRef.current];
-      const customSteppable = activeWrapper?.querySelector<HTMLElement>('[data-steppable="true"]');
-      if (!customSteppable) {
-        const pane = activeWrapper?.querySelector<HTMLElement>('.slide-scroll-pane');
-        if (pane && pane.scrollHeight > pane.clientHeight + 16) {
-          const currentY = event.touches[0]?.clientY;
-          if (currentY !== undefined) {
-            const deltaY = currentY - touchStartY;
-            const atTop = pane.scrollTop <= 6;
-            const atBottom = Math.ceil(pane.scrollTop + pane.clientHeight) >= pane.scrollHeight - 12;
-            const dir = deltaY < 0 ? 1 : -1;
-            if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return;
-          }
-        }
-      }
-
-      event.preventDefault();
+      const currentY = event.touches[0]?.clientY;
+      if (currentY === undefined) return;
+      const deltaY = currentY - touchStartY;
+      const direction = deltaY < 0 ? 1 : -1;
+      if (deltaY !== 0 && shouldCaptureGesture(direction)) event.preventDefault();
     };
-
     const handleTouchEnd = (event: TouchEvent) => {
-      if (touchStartY === null || document.querySelector('[aria-modal="true"]')) {
-        touchStartY = null;
-        touchStartX = null;
-        return;
-      }
-
       const endY = event.changedTouches[0]?.clientY;
-      const endX = event.changedTouches[0]?.clientX;
-      if (endY !== undefined && touchStartX !== null && endX !== undefined) {
+      if (touchStartY !== null && endY !== undefined) {
         const deltaY = endY - touchStartY;
-        const deltaX = endX - touchStartX;
-        if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) >= 32) {
-          const direction = deltaY < 0 ? 1 : -1;
+        const direction = deltaY < 0 ? 1 : -1;
+        if (Math.abs(deltaY) >= 30 && shouldCaptureGesture(direction)) {
           handleGesture(direction);
         }
       }
       touchStartY = null;
-      touchStartX = null;
     };
-
-    const clearTouch = () => {
+    const clearTouchStart = () => {
       touchStartY = null;
-      touchStartX = null;
     };
 
     window.addEventListener('wheel', handleWheel, { capture: true, passive: false });
     window.addEventListener('touchstart', handleTouchStart, { capture: true, passive: true });
     window.addEventListener('touchmove', handleTouchMove, { capture: true, passive: false });
     window.addEventListener('touchend', handleTouchEnd, { capture: true, passive: false });
-    window.addEventListener('touchcancel', clearTouch, true);
+    window.addEventListener('touchcancel', clearTouchStart, true);
 
     return () => {
       window.removeEventListener('wheel', handleWheel, true);
       window.removeEventListener('touchstart', handleTouchStart, true);
       window.removeEventListener('touchmove', handleTouchMove, true);
       window.removeEventListener('touchend', handleTouchEnd, true);
-      window.removeEventListener('touchcancel', clearTouch, true);
+      window.removeEventListener('touchcancel', clearTouchStart, true);
     };
   }, [handleGesture]);
 
@@ -352,8 +432,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
         typeof customEvent.detail === 'number'
           ? customEvent.detail
           : typeof customEvent.detail?.index === 'number'
-            ? customEvent.detail.index
-            : null;
+          ? customEvent.detail.index
+          : null;
       if (typeof targetIdx === 'number') {
         goToSlide(targetIdx);
       }
@@ -361,6 +441,30 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
     window.addEventListener('go-to-slide', handleGoTo);
     return () => window.removeEventListener('go-to-slide', handleGoTo);
   }, [goToSlide]);
+
+  useEffect(() => {
+    const wheelObserver = Observer.create({
+      target: window,
+      type: 'wheel',
+      tolerance: 30,
+      preventDefault: false,
+      onDown: () => handleGesture(1),
+      onUp: () => handleGesture(-1),
+    });
+    const touchObserver = Observer.create({
+      target: window,
+      type: 'touch',
+      tolerance: 30,
+      preventDefault: false,
+      onUp: () => handleGesture(1),
+      onDown: () => handleGesture(-1),
+    });
+
+    return () => {
+      wheelObserver.kill();
+      touchObserver.kill();
+    };
+  }, [handleGesture]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -455,10 +559,8 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
               className="slide-item absolute inset-0 h-full w-full overflow-hidden will-change-transform"
               style={{
                 zIndex: isActive ? 10 : 0,
-                display: isActive ? 'block' : 'none',
                 visibility: isActive ? 'visible' : 'hidden',
                 opacity: isActive ? 1 : 0,
-                pointerEvents: isActive ? 'auto' : 'none',
               }}
             >
               <div className="slide-frame h-full w-full origin-center overflow-hidden will-change-transform">
@@ -469,6 +571,12 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
             </div>
           );
         })}
+      </div>
+
+      <div ref={shuttersRef} className="slide-transition-shutters" aria-hidden="true">
+        <div className="shutter-strip shutter-strip-light" />
+        <div className="shutter-strip shutter-strip-gold" style={{ backgroundColor: accentColor }} />
+        <div className="shutter-strip shutter-strip-dark" />
       </div>
 
       {/* Side Scrolling Note (Like Image 2: SCROLL TO EXPLORE + Downward Arrow, Hidden ONLY on Last Section) */}
@@ -524,3 +632,5 @@ export const SlideTransitions: React.FC<SlideTransitionsProps> = ({
     </div>
   );
 };
+
+export default SlideTransitions;
