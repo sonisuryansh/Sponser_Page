@@ -1,14 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { siteConfig } from '../config/content.config';
 import { ChapterShell } from '../components/ChapterShell';
-import { BookOpen, Layers, CheckSquare, Video, ArrowRight, X, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Layers, CheckSquare, Video, ArrowRight, X, CheckCircle2, Users } from 'lucide-react';
 
 const tileIcons: Record<string, React.ReactNode> = {
-  'E-Books': <BookOpen className="w-4 h-4" />,
-  Books: <BookOpen className="w-4 h-4" />,
-  Modules: <Layers className="w-4 h-4" />,
-  Quizzes: <CheckSquare className="w-4 h-4" />,
-  Videos: <Video className="w-4 h-4" />,
+  'E-Books': <BookOpen className="w-5 h-5" />,
+  Books: <BookOpen className="w-5 h-5" />,
+  Modules: <Layers className="w-5 h-5" />,
+  Quizzes: <CheckSquare className="w-5 h-5" />,
+  Videos: <Video className="w-5 h-5" />,
 };
 
 const tileThemeMap: Record<string, { themeClass: string; color: string; bgSoft: string; badgeBorder: string; badgeText: string }> = {
@@ -212,6 +212,7 @@ const RESOURCE_CARD_DATA: Record<string, ResourceCardContent> = {
 
 export const ResourcesSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
   const tilesRef = useRef<HTMLDivElement>(null);
   const [selectedTile, setSelectedTile] = useState<string | null>(null);
   const [flippedTile, setFlippedTile] = useState<string | null>(null);
@@ -232,6 +233,10 @@ export const ResourcesSection: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedTile, flippedTile]);
 
+  const handleScrollToNext = () => {
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 9 }));
+  };
+
   const activeDetail = selectedTile ? RESOURCE_CARD_DATA[selectedTile] || RESOURCE_CARD_DATA['E-Books'] : null;
 
   return (
@@ -240,45 +245,49 @@ export const ResourcesSection: React.FC = () => {
       chapterNumber="09"
       theme="light"
       fullBleed={true}
-      className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#FAF6EE] select-none"
+      className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF6EE]"
     >
-      {/* Viewport Container */}
+      {/* Main Viewport Container (Centered in 100svh window, matching Section 11 exactly) */}
       <div
         ref={containerRef}
-        className="relative w-full h-auto lg:h-full min-h-0 flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+4px)] pb-3 sm:pb-4 px-3 sm:px-5 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
+        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
-        {/* Main Inset White/Creamish Panel */}
-        <div className="relative w-full h-auto lg:h-full flex-1 lg:my-auto max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-visible lg:overflow-hidden">
-
-          {/* Eyebrow & Headline Header (Centered) */}
-          <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-2 pb-1.5 border-b border-black/8">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-              <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
-                {siteConfig.resources.eyebrow}
-              </span>
-              <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-            </div>
-            <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center">
-              {siteConfig.resources.headline}
-            </h2>
-            <p className="text-[12.5px] sm:text-[13.5px] text-[#475569] font-sans max-w-2xl mx-auto leading-relaxed mb-1.5 line-clamp-2 font-normal">
-              {siteConfig.resources.paragraph}
-            </p>
-
-            {!siteConfig.confirm.lmsReady && (
-              <div className="px-2.5 py-0.5 bg-[#FAF9F6] border border-black/10 text-[#555555] text-[10px] sm:text-[10.5px] font-mono uppercase tracking-wider rounded-[3px] font-semibold">
-                {siteConfig.resources.statusNotice}
-              </div>
-            )}
+        {/* Top Header: Eyebrow with gold accent lines, Serif Title, Subtitle & Status Notice */}
+        <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-1.5 sm:mb-2">
+          <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
+            <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+              {siteConfig.resources.eyebrow}
+            </span>
+            <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
           </div>
 
-          {/* 4 Interactive Resource Cards Grid with 3D Book Cover Open Effect */}
+          <h2
+            ref={headlineRef}
+            className="editorial-reveal font-serif text-2xl sm:text-3xl lg:text-[36px] xl:text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mb-1 text-center"
+          >
+            {siteConfig.resources.headline}
+          </h2>
+
+          <p className="editorial-reveal font-sans text-[12.5px] sm:text-[13.5px] text-[#475569] leading-relaxed max-w-3xl text-center font-normal mb-1.5">
+            {siteConfig.resources.paragraph}
+          </p>
+
+          {!siteConfig.confirm.lmsReady && (
+            <div className="editorial-reveal inline-flex items-center gap-1.5 px-3 py-0.5 bg-[#FFFBEB] border border-[#FDE68A] text-[#92400E] text-[10px] sm:text-[10.5px] font-mono uppercase tracking-wider rounded-full font-bold shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D97706] animate-pulse" />
+              <span>{siteConfig.resources.statusNotice}</span>
+            </div>
+          )}
+        </div>
+
+        {/* 4 Distinct Colorful Resource Cards (Matching Section 11 proportions + 3D Flip Turn-Around) */}
+        <div className="editorial-reveal w-full self-stretch flex-none my-1 flex flex-col justify-center min-h-0">
           <div
             ref={tilesRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 flex-1 items-stretch my-auto max-h-[460px] min-h-0"
+            className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-3.5 xl:gap-4 items-stretch"
           >
-            {siteConfig.resources.tiles.map((tile) => {
+            {siteConfig.resources.tiles.map((tile, idx) => {
               const detail = RESOURCE_CARD_DATA[tile.title] || RESOURCE_CARD_DATA['E-Books'];
               const theme = tileThemeMap[tile.title] || tileThemeMap['E-Books'];
               const isFlipped = flippedTile === tile.title || hoveredTile === tile.title;
@@ -305,29 +314,29 @@ export const ResourcesSection: React.FC = () => {
                   >
                     {/* Front Face (Cover) */}
                     <div className="resource-flip-face resource-flip-front select-none flex flex-col justify-between">
-                      <div>
-                        {/* Icon & Category Tag */}
+                      <div className="flex flex-col h-full">
+                        {/* Top Rounded Icon Box & Category Tag */}
                         <div className="flex items-center justify-between mb-2 sm:mb-2.5">
-                          <div className="resource-icon-box w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center border rounded-[3px] shadow-2xs transition-colors">
-                            {tileIcons[tile.title] || <BookOpen className="w-4 h-4" />}
+                          <div className="resource-icon-box w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border shadow-2xs transition-colors">
+                            {tileIcons[tile.title] || <BookOpen className="w-5 h-5" />}
                           </div>
-                          <span className="resource-tag-badge text-[9.5px] sm:text-[10.5px] font-mono uppercase tracking-widest font-bold px-2 py-0.5 rounded-[3px]">
+                          <span className="resource-tag-badge text-[9.5px] sm:text-[10px] font-mono uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full border">
                             {tile.tag}
                           </span>
                         </div>
 
                         {/* Tile Title */}
-                        <h3 className="resource-tile-title font-serif text-lg sm:text-[21px] font-bold tracking-tight mb-1 transition-colors">
+                        <h3 className="resource-tile-title font-serif text-[19px] sm:text-[20px] lg:text-[21px] font-bold text-[#0F172A] tracking-tight mb-1.5 leading-tight transition-colors">
                           {tile.title}
                         </h3>
 
                         {/* Tile Description */}
-                        <p className="resource-tile-desc text-[12.5px] sm:text-[13px] text-[#475569] leading-snug line-clamp-2 mb-2 font-normal">
+                        <p className="resource-tile-desc font-sans text-[12.5px] sm:text-[13px] text-[#475569] leading-snug line-clamp-2 mb-2 font-normal">
                           {tile.description}
                         </p>
 
                         {/* Highlights list on front face */}
-                        <div className="pt-2 border-t border-black/5 flex flex-col gap-1.5 text-[12px] sm:text-[12.5px] text-[#1E293B] font-medium">
+                        <div className="pt-2 border-t border-black/5 flex flex-col gap-1 text-[11px] sm:text-[11.5px] text-[#1E293B] font-medium">
                           {detail.frontHighlights.map((feat, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-1.5 leading-snug">
                               <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 bg-[#c8a45d]" />
@@ -335,38 +344,38 @@ export const ResourcesSection: React.FC = () => {
                             </div>
                           ))}
                         </div>
-                      </div>
 
-                      {/* Bottom Open Affordance */}
-                      <div className="resource-bottom-bar flex items-center justify-between text-[11px] sm:text-[11.5px] font-mono uppercase tracking-wider font-bold pt-2 border-t mt-auto transition-colors">
-                        <span>Hover for specs</span>
-                        <span className="text-xs">↻</span>
+                        {/* Bottom Open Affordance */}
+                        <div className="resource-bottom-bar flex items-center justify-between text-[11px] sm:text-[11.5px] font-mono uppercase tracking-wider font-bold pt-2 border-t border-black/5 mt-auto transition-colors">
+                          <span>Hover for specs</span>
+                          <span className="text-xs">↻</span>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Back Face (Inside Specs Page — COMPLETELY DISTINCT FROM FRONT) */}
+                    {/* Back Face (Inside Specs Page) */}
                     <div className="resource-flip-face resource-flip-back select-none flex flex-col justify-between">
                       <div className="flex-1 flex flex-col justify-between min-h-0">
                         {/* Back Top Tag & Badge */}
-                        <div className="flex items-center justify-between mb-1 pb-1 border-b border-black/5 flex-none">
+                        <div className="flex items-center justify-between pb-1 mb-1 border-b border-black/5 flex-none">
                           <span className="resource-back-tag font-mono text-[10.5px] sm:text-[11px] uppercase tracking-wider font-bold">
-                            Inside {tile.title}
+                            0{idx + 1} &bull; {tile.title}
                           </span>
-                          <span className="text-[10px] sm:text-[10.5px] font-mono font-bold text-[#b45309] bg-amber-50 border border-amber-200/80 px-2 py-0.5 rounded-[3px]">
+                          <span className="text-[9.5px] sm:text-[10px] font-mono font-bold text-[#b45309] bg-amber-50 border border-amber-200/80 px-2 py-0.5 rounded-full">
                             {detail.backTag}
                           </span>
                         </div>
 
                         {/* Back Heading */}
-                        <h4 className="font-serif text-[15px] sm:text-[16px] font-bold text-[#111111] leading-tight mb-1 flex-none">
+                        <h4 className="font-serif text-[14px] sm:text-[15px] font-bold text-[#0F172A] leading-tight mb-1 flex-none">
                           {detail.backHeading}
                         </h4>
 
                         {/* 4 Specifications Rows (Key-Value Table) */}
-                        <div className="space-y-1.5 my-1 py-1 border-y border-black/5 flex-1 flex flex-col justify-around">
+                        <div className="space-y-1 my-1 py-1 border-y border-black/5 flex-1 flex flex-col justify-around">
                           {detail.backSpecs.map((spec, sIdx) => (
-                            <div key={sIdx} className="flex items-center justify-between text-[11px] sm:text-[12px] leading-tight gap-1 font-medium">
-                              <span className="font-mono text-slate-500 font-bold uppercase tracking-wider shrink-0 text-[10px] sm:text-[10.5px]">
+                            <div key={sIdx} className="flex items-center justify-between text-[10.5px] sm:text-[11px] leading-tight gap-1 font-medium">
+                              <span className="font-mono text-slate-500 font-bold uppercase tracking-wider shrink-0 text-[9.5px] sm:text-[10px]">
                                 {spec.label}:
                               </span>
                               <span className="font-sans font-semibold text-slate-900 text-right truncate">
@@ -377,9 +386,9 @@ export const ResourcesSection: React.FC = () => {
                         </div>
 
                         {/* Institutional Capabilities */}
-                        <div className="space-y-1 flex-none pt-0.5">
+                        <div className="space-y-0.5 flex-none pt-0.5">
                           {detail.backCapabilities.map((cap, cIdx) => (
-                            <div key={cIdx} className="flex items-center gap-1.5 text-[10.5px] sm:text-[11.5px] text-slate-800 font-sans leading-tight font-medium">
+                            <div key={cIdx} className="flex items-center gap-1.5 text-[10.5px] sm:text-[11px] text-slate-800 font-sans leading-tight font-medium">
                               <span className="resource-back-dot w-1.5 h-1.5 rounded-full shrink-0" />
                               <span className="truncate">{cap}</span>
                             </div>
@@ -388,7 +397,7 @@ export const ResourcesSection: React.FC = () => {
                       </div>
 
                       {/* Bottom Action CTA */}
-                      <div className="resource-back-cta flex items-center justify-between pt-2 border-t border-black/5 mt-auto flex-none gap-2">
+                      <div className="resource-back-cta flex items-center justify-between pt-1.5 border-t border-black/5 mt-auto flex-none gap-2">
                         <button
                           type="button"
                           onClick={(e) => {
@@ -397,7 +406,7 @@ export const ResourcesSection: React.FC = () => {
                           }}
                           className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider text-slate-600 hover:text-slate-900 font-bold transition-colors cursor-pointer"
                         >
-                          ↻ Flip back
+                          ↻ Turn back
                         </button>
                         <button
                           type="button"
@@ -417,15 +426,68 @@ export const ResourcesSection: React.FC = () => {
               );
             })}
           </div>
+        </div>
 
-          {/* Bottom Card Footer Strip */}
-          <div className="pt-3.5 mt-4 border-t border-black/8 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[#888888] gap-2">
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d]" />
-              <span>Digital Learning Platform & Classroom Support Assets</span>
-            </span>
-            <span>Accessible in School Lab & At Home</span>
+        {/* Highlight Banner (Matching Section 11 Exact Architecture) */}
+        <div className="editorial-reveal w-full self-stretch flex-none bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl px-5 py-2.5 sm:px-6 sm:py-3 shadow-xs mt-1.5 sm:mt-2">
+          <div className="flex items-center gap-4 sm:gap-6">
+            <div className="shrink-0 flex items-center justify-center">
+              <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 text-[#D97706]" />
+            </div>
+            <div className="w-[1.5px] h-8 sm:h-10 bg-[#FDE68A] shrink-0" />
+            <h3 className="font-serif text-base sm:text-lg lg:text-[20px] font-bold text-[#0F172A] leading-snug">
+              Structured digital assets ensuring zero learning loss between weekly school lab sessions.
+            </h3>
           </div>
+        </div>
+
+        {/* Digital Ecosystem Bottom Strip (Matching Section 11 Exact Architecture) */}
+        <div className="editorial-reveal w-full self-stretch flex-none mt-1.5 sm:mt-2 pt-2 border-t border-slate-200/80">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-3.5 shrink-0">
+              <div className="flex flex-col font-mono text-[10px] sm:text-[10.5px] tracking-[0.2em] uppercase font-black text-[#0F172A] leading-tight">
+                <span>DIGITAL</span>
+                <span>ECOSYSTEM</span>
+              </div>
+              <div className="hidden sm:block w-[1.5px] h-6 bg-slate-300" />
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4 sm:gap-7 lg:gap-9 font-sans text-xs sm:text-[12.5px] text-[#1E293B] font-semibold">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#D97706]" />
+                </div>
+                <span>100% Offline Cached on Lab Workstations</span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <Layers className="w-3.5 h-3.5 text-[#D97706]" />
+                </div>
+                <span>Grade-wise NEP 2020 Aligned Courseware</span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+                  <Users className="w-3.5 h-3.5 text-[#D97706]" />
+                </div>
+                <span>Real-Time Teacher Progress Heatmaps</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Trailing Link CTA */}
+        <div className="editorial-reveal flex-none pt-1.5 flex items-center justify-center mt-0.5">
+          <button
+            type="button"
+            onClick={handleScrollToNext}
+            className="group flex items-center justify-center text-center focus:outline-none cursor-pointer"
+          >
+            <span className="font-sans font-bold text-[9px] sm:text-[9.5px] uppercase tracking-[0.2em] text-[#64748B] group-hover:text-[#c8a45d] transition-colors">
+              Discover teacher empowerment &amp; classroom mentorship →
+            </span>
+          </button>
         </div>
       </div>
 

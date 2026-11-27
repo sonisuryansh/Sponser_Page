@@ -282,17 +282,22 @@
 .resource-flip-wrapper {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 260px;
+  height: 292px;
   -webkit-perspective: 1400px;
   perspective: 1400px;
+}
+
+@media (min-width: 1280px) {
+  .resource-flip-wrapper {
+    height: 308px;
+  }
 }
 
 .resource-flip-card {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 8px;
+  border-radius: 1.25rem;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transform-origin: center center;
@@ -325,7 +330,7 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 1.25rem;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
@@ -336,9 +341,9 @@
 
 .resource-flip-front {
   background-color: #FFFFFD;
-  border: 1px solid rgba(0, 0, 0, 0.09);
+  border: 1.5px solid rgba(0, 0, 0, 0.09);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
-  padding: 18px 16px;
+  padding: 1.25rem 1.15rem;
   -webkit-transform: rotateY(0deg) translateZ(1px);
   transform: rotateY(0deg) translateZ(1px);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -350,10 +355,10 @@
 
 .resource-flip-back {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.09);
-  border-left: 3.5px solid #c8a45d;
+  border: 1.5px solid rgba(0, 0, 0, 0.09);
+  border-left: 4px solid #c8a45d;
   box-shadow: 0 12px 32px rgba(200, 164, 93, 0.12), 0 3px 10px rgba(0, 0, 0, 0.04);
-  padding: 16px 15px;
+  padding: 0.95rem 1rem;
   -webkit-transform: rotateY(180deg) translateZ(1px);
   transform: rotateY(180deg) translateZ(1px);
 }
