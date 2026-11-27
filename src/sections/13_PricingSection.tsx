@@ -382,27 +382,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
           </div>
         </div>
 
-        {/* Comprehensive Inclusions Strip */}
-        <div className="w-full flex-none mt-2 sm:mt-2.5 p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-3 text-left">
-            <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-[#7C3AED] shrink-0 font-bold text-sm shadow-2xs">
-              ✓
-            </div>
-            <div>
-              <span className="font-sans font-bold text-xs sm:text-sm text-[#0F172A] block leading-tight">
-                All-Inclusive Turnkey Delivery Across Every Tier
-              </span>
-              <span className="font-sans text-[11px] sm:text-xs text-[#64748B] leading-tight">
-                Dedicated MedhaArc Mentors conduct all sessions &bull; Hardware kits &amp; replacements included &bull; 4–5 Teacher AI workshops &bull; Zero faculty prep.
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 font-mono text-[10.5px] text-[#7C3AED] font-semibold bg-purple-50 px-3 py-1.5 rounded-full border border-purple-200 shrink-0">
-            <span>Annual Institutional Model</span>
-          </div>
-        </div>
-
         {/* Bottom Footnote Pill Matching Image 1 */}
         <div className="flex-none mt-1.5 sm:mt-2 max-w-4xl mx-auto w-full">
           <div className="bg-white/95 border border-slate-200/90 rounded-full px-4 py-1.5 shadow-2xs flex items-center justify-center gap-2 text-center">
