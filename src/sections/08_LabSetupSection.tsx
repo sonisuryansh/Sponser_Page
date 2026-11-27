@@ -34,11 +34,20 @@ const zoneColorMap = [
   },
 ];
 
+interface ZoneItemDetail {
+  label: string;
+  desc: string;
+}
+
 interface ZoneExtendedSpec {
   roleBadge: string;
   summary: string;
-  equipment: string[];
-  deliverables: string[];
+  equipmentBadge: string;
+  hardwareStandard: string;
+  equipment: ZoneItemDetail[];
+  deliverableBadge: string;
+  milestone: string;
+  deliverables: ZoneItemDetail[];
   safetyStandards: string[];
 }
 
@@ -46,17 +55,23 @@ const ZONE_EXTENDED_SPECS: ZoneExtendedSpec[] = [
   {
     roleBadge: 'Hardware Prototyping & Soldering',
     summary: 'Dedicated electrical engineering benches equipped for rapid circuit assembly, through-hole & SMD soldering, motor driver topologies, and diagnostic signal testing.',
+    equipmentBadge: 'Bench Hardware',
+    hardwareStandard: 'Class 100 ESD Safe',
     equipment: [
-      'Temperature-regulated soldering stations (200–480°C)',
-      'Variable 0–30V / 5A DC regulated power supplies',
-      'Anti-static ESD silicone mats & grounded wrist straps',
-      'Dual-channel digital storage oscilloscopes (100MHz)',
+      { label: 'Soldering Stations', desc: 'Temperature-regulated 200–480°C rapid-heat irons with brass wire tip cleaners' },
+      { label: 'DC Power Rails', desc: 'Variable 0–30V / 5A digital bench supplies with active over-current limits' },
+      { label: 'ESD Protection', desc: 'Anti-static dissipative silicone mats & grounded coil wrist lanyards' },
+      { label: 'Digital Scopes', desc: 'Dual-channel 100MHz waveform capture & real-time signal logic analysis' },
+      { label: 'Diagnostic Rig', desc: 'Precision digital multimeters, continuity probes & logic level test clips' },
     ],
+    deliverableBadge: 'Hands-On Output',
+    milestone: 'Working Circuit & PCB Prototype',
     deliverables: [
-      'Custom sensor breadboards & soldered PCB assemblies',
-      'Precision motor driver wiring harnesses',
-      'Signal validation & power rail diagnostics',
-      'Closed-loop actuator calibration & load testing',
+      { label: 'Circuit Assembly', desc: 'Custom sensor breadboards & clean through-hole soldered PCB assemblies' },
+      { label: 'Motor Harnesses', desc: 'High-flex motor driver wiring with strain relief & color-coded headers' },
+      { label: 'Signal Diagnostics', desc: 'Power rail ripple testing, logic high/low checks & voltage verification' },
+      { label: 'Actuator Tuning', desc: 'Closed-loop servo calibration, PWM duty cycles & continuous load testing' },
+      { label: 'Bench Verification', desc: '100% physically tested functional circuits ready for chassis mounting' },
     ],
     safetyStandards: [
       'ESD Dissipative Surface',
@@ -68,17 +83,23 @@ const ZONE_EXTENDED_SPECS: ZoneExtendedSpec[] = [
   {
     roleBadge: 'Computing, Firmware & Simulation',
     summary: 'Networked workstations designed for real-time firmware compilation, CAD 3D modeling, algorithm scripting, and telemetry visualization across robotics & AI pipelines.',
+    equipmentBadge: 'Workstation Stack',
+    hardwareStandard: 'ISO-Standard Workstation',
     equipment: [
-      'High-performance networked engineering PCs (Intel Core i7)',
-      'Dual-display monitors for split-screen code & CAD modeling',
-      'Pre-configured VS Code, Arduino IDE & ROS 2 toolchains',
-      'High-speed hardware debuggers & serial loggers',
+      { label: 'Engineering PCs', desc: 'Networked high-performance workstations (Intel Core i7, 32GB RAM)' },
+      { label: 'Dual Displays', desc: 'Split-screen layout for simultaneous code editor & 3D CAD modeling' },
+      { label: 'Dev Toolchains', desc: 'Pre-configured VS Code, Arduino IDE, PlatformIO & ROS 2 stacks' },
+      { label: 'Hardware Debuggers', desc: 'High-speed ST-Link / J-Link flashers & USB serial monitoring taps' },
+      { label: 'Simulation Rig', desc: 'Kinematic robot simulators for algorithm verification before field runs' },
     ],
+    deliverableBadge: 'Software & CAD Output',
+    milestone: 'Compiled Firmware & 3D Chassis',
     deliverables: [
-      'Embedded firmware compilation & device flashing',
-      'Real-time IMU and environmental sensor plotting',
-      '3D printable mechanical CAD chassis designs',
-      'Closed-loop PID algorithmic parameter optimization',
+      { label: 'Firmware Flashing', desc: 'Bare-metal C++/Python compilation & embedded microcontroller flashing' },
+      { label: 'Live Telemetry', desc: 'Real-time IMU, ultrasonic & environmental serial chart plotting' },
+      { label: 'Mechanical CAD', desc: 'Parametric 3D printable chassis, gear housings & custom sensor brackets' },
+      { label: 'Algorithmic PID', desc: 'Closed-loop proportional-integral speed & orientation calibration' },
+      { label: 'Code Repositories', desc: 'Version-controlled GitHub repositories and student build documentation' },
     ],
     safetyStandards: [
       'Isolated Lab Subnet',
@@ -90,17 +111,23 @@ const ZONE_EXTENDED_SPECS: ZoneExtendedSpec[] = [
   {
     roleBadge: 'Tethered Flight & Arena Control',
     summary: 'Enclosed indoor flight testing facility engineered for aerial kinematics, PID flight controller calibration, optical localization, and obstacle navigation.',
+    equipmentBadge: 'Flight Systems',
+    hardwareStandard: 'Tethered Arena Protocol',
     equipment: [
-      '360° high-tensile protective safety netting enclosure',
-      'Digital 2.4GHz / ExpressLRS low-latency transmitters',
-      'Optical flow navigation sensors & precision landing pads',
-      'Modular indoor obstacle hoops & aerial slalom courses',
+      { label: 'Flight Arena', desc: '360° high-tensile protective safety netting enclosure with impact padding' },
+      { label: 'Radio Transmitters', desc: 'Digital 2.4GHz ExpressLRS low-latency transmitters with telemetry' },
+      { label: 'Optical Navigation', desc: 'Downward optical flow localization sensors & precision landing pads' },
+      { label: 'Obstacle Course', desc: 'Modular indoor navigation hoops, slalom pylons & aerial challenge gates' },
+      { label: 'Battery Bunker', desc: 'Fireproof LiPo charging safe with cell-voltage balancing monitors' },
     ],
+    deliverableBadge: 'Flight Competency',
+    milestone: 'Autonomous Tethered Flight',
     deliverables: [
-      'Multi-axis PID stabilization tuning & flight logs',
-      'Waypoint autonomous mission route execution',
-      'Low-altitude obstacle avoidance maneuvering',
-      'Real-time failsafe recovery & emergency landing drills',
+      { label: 'Flight Stabilization', desc: 'Multi-axis PID gyro rate tuning, roll/pitch calibration & blackbox logs' },
+      { label: 'Waypoint Execution', desc: 'Autonomous waypoint coordinate navigation and trajectory tracking' },
+      { label: 'Obstacle Evasion', desc: 'Low-altitude obstacle avoidance maneuvering & proximity telemetry' },
+      { label: 'Failsafe Drills', desc: 'Emergency cut-off procedures, disarm verification & safe soft landings' },
+      { label: 'Pilot Portfolio', desc: 'Telemetry flight logs, tuning charts & student drone pilot badge' },
     ],
     safetyStandards: [
       'Enclosed Safety Netting',
@@ -112,17 +139,23 @@ const ZONE_EXTENDED_SPECS: ZoneExtendedSpec[] = [
   {
     roleBadge: 'Logistics, Tooling & Asset Vault',
     summary: 'Modular component inventory and tooling logistics center ensuring high-density organized storage, hardware tracking, component accountability, and team access.',
+    equipmentBadge: 'Inventory Infrastructure',
+    hardwareStandard: 'Strict Asset Governance',
     equipment: [
-      'Heavy-duty industrial steel racking & modular bins',
-      'Conductive anti-static component distribution drawers',
-      'Calibrated precision torque drivers, crimpers & strippers',
-      'Digital barcode / QR inventory check-in / check-out terminal',
+      { label: 'Industrial Racks', desc: 'Heavy-duty steel shelving with color-coded modular storage bins' },
+      { label: 'ESD Compartments', desc: 'Conductive static-shielded component drawers for ICs & sensitive chips' },
+      { label: 'Calibrated Hand Tools', desc: 'Precision torque screwdrivers, flush wire cutters & ratcheting crimpers' },
+      { label: 'Digital Check-in', desc: 'Barcode / QR scanner inventory terminal for checkout & auditing' },
+      { label: 'Battery Conditioning', desc: 'Temperature-monitored LiPo storage lockers with state-of-charge logs' },
     ],
+    deliverableBadge: 'Lab Logistics',
+    milestone: 'Audited Hardware Inventory',
     deliverables: [
-      'Student team kit distribution & asset auditing',
-      'Consumable hardware inventory reconciliation',
-      'Safe LiPo battery conditioning & storage logs',
-      'Fastener & harness sub-assembly staging',
+      { label: 'Kit Auditing', desc: 'Student team hardware checkout logs, reconciliation & inventory audits' },
+      { label: 'Consumable Stocking', desc: 'Resistors, LEDs, headers, jumper wires & fast replenishing system' },
+      { label: 'Battery Care', desc: 'LiPo internal resistance tracking and routine storage-voltage cycles' },
+      { label: 'Sub-Assemblies', desc: 'Staged fastener kits, motor brackets & pre-sorted project hardware' },
+      { label: 'Accountability', desc: 'Zero missing parts protocol with disciplined student team ownership' },
     ],
     safetyStandards: [
       'Climate-Controlled Storage',
@@ -299,30 +332,30 @@ export const LabSetupSection: React.FC = () => {
       <div
         ref={containerRef}
         data-steppable="true"
-        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+10px)] pb-8 lg:pb-3 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
+        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+8px)] lg:pt-[calc(var(--header-h,64px)+10px)] pb-6 lg:pb-3 px-3 sm:px-5 lg:px-7 xl:px-9 box-border select-none z-10 max-w-[1380px] mx-auto overflow-visible lg:overflow-hidden"
       >
-        {/* Main Inset Card Container - Light Grey Slate Whole Card with Light Grey Border */}
-        <div className="relative w-full h-auto lg:h-full max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] min-h-0 flex-1 lg:my-auto bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl sm:rounded-3xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-visible lg:overflow-hidden gap-2">
+        {/* Main Inset Card Container - Refined Executive Proportions matching Section 02 */}
+        <div className="relative w-full h-auto lg:h-full max-h-none lg:max-h-[660px] xl:max-h-[740px] min-h-0 flex-1 lg:my-auto bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl sm:rounded-3xl flex flex-col justify-between p-3 sm:p-3.5 lg:p-4 box-border z-10 overflow-visible lg:overflow-hidden gap-1.5 sm:gap-2">
 
           {/* Eyebrow & Statement Headline */}
           <div className="flex-none max-w-3xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-2 mb-0.5 sm:mb-1">
+            <div className="flex items-center justify-center gap-2 mb-0.5">
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-              <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
+              <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
                 {siteConfig.labSetup.eyebrow}
               </span>
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
-            <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold leading-tight tracking-tight text-white mb-1 text-center">
+            <h2 className="font-serif text-lg sm:text-2xl lg:text-[25px] font-bold leading-tight tracking-tight text-white mb-0.5 text-center">
               {siteConfig.labSetup.headline}
             </h2>
-            <p className="text-[12.5px] sm:text-[13.5px] text-white/85 font-sans max-w-2xl mx-auto leading-relaxed line-clamp-2 font-normal">
+            <p className="text-[11.5px] sm:text-[12.5px] text-white/85 font-sans max-w-2xl mx-auto leading-snug line-clamp-2 font-normal">
               {siteConfig.labSetup.paragraph}
             </p>
           </div>
 
           {/* Top-Down Lab Layout & Interactive Hotspot Zones - Balanced 5:7 Split */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-stretch flex-1 min-h-0 border-t border-white/10 pt-2 sm:pt-2.5 overflow-visible lg:overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 lg:gap-3.5 items-stretch flex-1 min-h-0 border-t border-white/10 pt-1.5 sm:pt-2 overflow-visible lg:overflow-hidden">
             {/* Lab Visualization Photo with Zone Pins (Span 5 of 12 - Proportional, Sleek, Not Oversized) */}
             <div className="lg:col-span-5 relative h-56 sm:h-72 lg:h-full min-h-[220px] lg:min-h-0 rounded-xl overflow-hidden border border-white/20 bg-black/40 shadow-xl flex flex-col justify-between shrink-0">
               <img
@@ -334,14 +367,14 @@ export const LabSetupSection: React.FC = () => {
 
               {/* Zone Markers on Image */}
               <div className="absolute inset-0 p-2 sm:p-2.5 flex flex-col justify-between pointer-events-none">
-                <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-white/80 font-medium">
+                <div className="flex items-center justify-between text-[8.5px] sm:text-[9.5px] font-mono uppercase tracking-wider text-white/80 font-medium">
                   <span className="px-2 py-0.5 rounded-[3px] bg-black/75 backdrop-blur-xs border border-white/15">Dedicated Space Layout</span>
                   <span className="px-2 py-0.5 rounded-[3px] bg-black/75 backdrop-blur-xs border border-white/15">Safety & Flow Standard</span>
                 </div>
 
                 {/* Pin Buttons on Image */}
                 <div
-                  className="grid grid-cols-2 gap-1.5 pointer-events-auto"
+                  className="grid grid-cols-2 gap-1 sm:gap-1.5 pointer-events-auto"
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                 >
@@ -353,19 +386,19 @@ export const LabSetupSection: React.FC = () => {
                       <button
                         key={zone.id}
                         onClick={() => setActiveZoneIndex(idx)}
-                        className={`text-left p-1.5 sm:p-2 rounded-lg backdrop-blur-md transition-all font-mono tracking-wider cursor-pointer border ${isActive
+                        className={`text-left p-1 sm:p-1.5 rounded-lg backdrop-blur-md transition-all font-mono tracking-wider cursor-pointer border ${isActive
                           ? cInfo.activeBtn
                           : 'bg-black/60 border-white/20 text-white/80 hover:bg-black/80 hover:text-white'
                           }`}
                       >
                         <div className="flex items-center justify-between mb-0.5">
-                          <span className="font-semibold text-[9.5px] sm:text-[10.5px]">ZONE 0{idx + 1}</span>
+                          <span className="font-semibold text-[9px] sm:text-[10px]">ZONE 0{idx + 1}</span>
                           <span
-                            className={`w-2 h-2 rounded-full transition-all ${isActive ? cInfo.dot : 'bg-white/40'
+                            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all ${isActive ? cInfo.dot : 'bg-white/40'
                               }`}
                           />
                         </div>
-                        <div className="font-sans font-semibold text-[11px] sm:text-[12px] truncate text-white">
+                        <div className="font-sans font-semibold text-[10.5px] sm:text-[11.5px] truncate text-white">
                           {zone.name}
                         </div>
                       </button>
@@ -375,88 +408,112 @@ export const LabSetupSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Detailed Side Panel for Active Zone (Span 7 of 12 - Rich Engineering Specifications) */}
+            {/* Detailed Side Panel for Active Zone (Span 7 of 12 - Rich Balanced Writing Area) */}
             <div
               ref={sidePanelRef}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="lg:col-span-7 p-3 sm:p-4 lg:p-4.5 rounded-xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent border border-white/15 backdrop-blur-md flex flex-col justify-between h-auto lg:h-full min-h-0 shadow-lg overflow-visible lg:overflow-hidden"
+              className="lg:col-span-7 p-2.5 sm:p-3 lg:p-3.5 rounded-xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent border border-white/15 backdrop-blur-md flex flex-col justify-between h-auto lg:h-full min-h-0 shadow-lg overflow-visible lg:overflow-hidden"
             >
               {(() => {
                 const spec = ZONE_EXTENDED_SPECS[activeZoneIndex] || ZONE_EXTENDED_SPECS[0];
                 return (
-                  <div className="flex-1 flex flex-col justify-between min-h-0 gap-2 sm:gap-2.5 overflow-visible lg:overflow-hidden">
+                  <div className="flex-1 flex flex-col justify-between min-h-0 gap-1.5 sm:gap-2 overflow-visible lg:overflow-hidden">
                     {/* Top Zone Header */}
                     <div className="flex-none">
-                      <div className="flex items-center justify-between mb-1 sm:mb-1.5 border-b border-white/10 pb-1.5">
-                        <span className={`font-mono text-[11px] sm:text-[12px] uppercase tracking-wider font-bold ${activeColor.badge}`}>
+                      <div className="flex items-center justify-between mb-1 border-b border-white/10 pb-1">
+                        <span className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-wider font-bold ${activeColor.badge}`}>
                           ZONE 0{activeZoneIndex + 1} OF 0{zones.length} &bull; {spec.roleBadge}
                         </span>
-                        <span className="text-[10px] sm:text-[10.5px] font-mono text-white/75 px-2.5 py-0.5 bg-white/10 rounded-[3px] border border-white/15 font-semibold">
+                        <span className="text-[9px] sm:text-[9.5px] font-mono text-white/75 px-2 py-0.5 bg-white/10 rounded-[3px] border border-white/15 font-semibold">
                           Active STEM Zone
                         </span>
                       </div>
 
-                      <h3 className="font-serif text-xl sm:text-2xl lg:text-[25px] text-white font-bold mb-1 leading-tight tracking-tight">
+                      <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] text-white font-bold mb-0.5 leading-tight tracking-tight">
                         {currentZone.name}
                       </h3>
 
-                      <p className="text-[12.5px] sm:text-[13.5px] lg:text-[14px] text-white/90 font-sans leading-relaxed font-normal">
+                      <p className="text-[11.5px] sm:text-[12px] lg:text-[12.5px] text-white/90 font-sans leading-snug font-normal">
                         {spec.summary}
                       </p>
                     </div>
 
-                    {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-none lg:flex-1 min-h-0 items-stretch my-1">
+                    {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables with Zero Void */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-none lg:flex-1 min-h-0 items-stretch my-0.5">
                       {/* Box 1: Workstation Equipment & Hardware */}
-                      <div className="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
-                        <div className="text-[10.5px] sm:text-[11.5px] uppercase tracking-wider text-white/80 font-mono font-bold mb-1.5 flex items-center gap-2 flex-none">
-                          <span className={`w-2 h-2 rounded-full ${activeColor.dot}`} />
-                          <span>Workstation Hardware & Tools</span>
+                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs">
+                        <div>
+                          <div className="text-[9.5px] sm:text-[10px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1 flex items-center justify-between flex-none">
+                            <div className="flex items-center gap-1.5">
+                              <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
+                              <span>Workstation Hardware &amp; Tools</span>
+                            </div>
+                            <span className="text-[8.5px] font-mono text-white/50">{spec.equipmentBadge}</span>
+                          </div>
+                          <ul className="space-y-1 sm:space-y-1.5 font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-white/95 leading-snug">
+                            {spec.equipment.map((item, i) => (
+                              <li key={i} className="flex items-start gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1" />
+                                <span>
+                                  <strong className="text-white font-semibold">{item.label}: </strong>
+                                  <span className="text-white/80">{item.desc}</span>
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-white/95 font-medium">
-                          {spec.equipment.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2 leading-snug">
-                              <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1.5" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60">
+                          <span>Bench Standard</span>
+                          <span className={`font-semibold ${activeColor.badge}`}>{spec.hardwareStandard}</span>
+                        </div>
                       </div>
 
                       {/* Box 2: Student Deliverables & Mastery */}
-                      <div className="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
-                        <div className="text-[10.5px] sm:text-[11.5px] uppercase tracking-wider text-white/80 font-mono font-bold mb-1.5 flex items-center gap-2 flex-none">
-                          <span className={`w-2 h-2 rounded-full ${activeColor.dot}`} />
-                          <span>Student Builds & Lab Mastery</span>
+                      <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-between min-h-0 shadow-xs">
+                        <div>
+                          <div className="text-[9.5px] sm:text-[10px] uppercase tracking-wider text-white/85 font-mono font-bold mb-1 flex items-center justify-between flex-none">
+                            <div className="flex items-center gap-1.5">
+                              <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
+                              <span>Student Builds &amp; Lab Mastery</span>
+                            </div>
+                            <span className="text-[8.5px] font-mono text-white/50">{spec.deliverableBadge}</span>
+                          </div>
+                          <ul className="space-y-1 sm:space-y-1.5 font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-white/95 leading-snug">
+                            {spec.deliverables.map((item, i) => (
+                              <li key={i} className="flex items-start gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1" />
+                                <span>
+                                  <strong className="text-white font-semibold">{item.label}: </strong>
+                                  <span className="text-white/80">{item.desc}</span>
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-white/95 font-medium">
-                          {spec.deliverables.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2 leading-snug">
-                              <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1.5" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        <div className="mt-1.5 pt-1 border-t border-white/10 flex items-center justify-between text-[8.5px] sm:text-[9px] font-mono text-white/60">
+                          <span>Mastery Milestone</span>
+                          <span className={`font-semibold ${activeColor.badge}`}>{spec.milestone}</span>
+                        </div>
                       </div>
                     </div>
 
                     {/* Bottom Standards & Safety Badges */}
-                    <div className="border-t border-white/10 pt-2 flex-none">
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[9.5px] sm:text-[10.5px] uppercase tracking-wider text-white/60 font-mono font-bold">
+                    <div className="border-t border-white/10 pt-1 sm:pt-1.5 flex-none">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/60 font-mono font-bold">
                           Operational Safety &amp; Control Standards:
                         </span>
-                        <span className="text-[9.5px] sm:text-[10px] font-mono text-emerald-400 flex items-center gap-1.5 font-semibold">
+                        <span className="text-[8.5px] sm:text-[9px] font-mono text-emerald-400 flex items-center gap-1 font-semibold">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                           Inspected Standard
                         </span>
                       </div>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-1 sm:gap-1.5">
                         {spec.safetyStandards.map((std, i) => (
                           <span
                             key={i}
-                            className={`px-2.5 py-1 rounded-[4px] border text-[10px] sm:text-[11px] font-sans font-semibold ${activeColor.tag}`}
+                            className={`px-2 py-0.5 rounded-[4px] border text-[9px] sm:text-[10px] font-sans font-semibold ${activeColor.tag}`}
                           >
                             {std}
                           </span>
@@ -470,9 +527,9 @@ export const LabSetupSection: React.FC = () => {
           </div>
 
           {/* Safety & Compliance Badge Inside Card Footer */}
-          <div className="border-t border-white/10 pt-2.5 mt-2 flex flex-col sm:flex-row items-center sm:justify-between gap-1 text-[9px] sm:text-[10px] font-mono text-white/50 flex-none text-center sm:text-left">
-            <span>Electrical, ESD & Ventilation Safety Compliant</span>
-            <span>Dual Fire-Extinguisher & First-Aid Protocol</span>
+          <div className="border-t border-white/10 pt-1.5 mt-0.5 flex flex-col sm:flex-row items-center sm:justify-between gap-1 text-[8.5px] sm:text-[9.5px] font-mono text-white/50 flex-none text-center sm:text-left">
+            <span>Electrical, ESD &amp; Ventilation Safety Compliant</span>
+            <span>Dual Fire-Extinguisher &amp; First-Aid Protocol</span>
           </div>
         </div>
       </div>
