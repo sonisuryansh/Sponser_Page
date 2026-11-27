@@ -347,104 +347,94 @@ export const ProjectShowcaseSection: React.FC = () => {
                 const deliv = projectDeliverables[currentProject.id];
                 if (!spec) return null;
                 return (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-1 min-h-0 items-stretch">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 my-auto flex-none items-stretch">
                     {/* Architecture Card */}
-                    <div className="p-3 rounded-xl bg-white/95 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/95 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
                       <div>
-                        <div className="flex items-center gap-1.5 mb-1 text-[#0284C7]">
-                          <Cpu className="w-3.5 h-3.5 shrink-0" />
-                          <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold">
-                            System Architecture &amp; Hardware
-                          </span>
+                        <div className="flex items-center justify-between gap-1 mb-1 text-[#0284C7]">
+                          <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold">
+                            <Cpu className="w-3.5 h-3.5 shrink-0" />
+                            <span>Architecture &amp; Hardware</span>
+                          </div>
+                          {deliv?.stats && (
+                            <span className="font-mono text-[8px] sm:text-[8.5px] font-bold text-[#0284C7] bg-sky-50 border border-sky-200/70 px-1.5 py-0.5 rounded shrink-0">
+                              {deliv.stats[0]}
+                            </span>
+                          )}
                         </div>
-                        <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-700 leading-snug font-normal mb-1.5">
+                        <p className="font-sans text-[11px] sm:text-[11.5px] text-slate-700 leading-snug font-normal line-clamp-2">
                           {spec.arch}
                         </p>
                       </div>
 
-                      {deliv && deliv.archBullets && (
-                        <div className="pt-1.5 border-t border-black/5">
-                          <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-1">
-                            Key Hardware Modules
-                          </span>
-                          <ul className="space-y-1">
-                            {deliv.archBullets.map((b, i) => (
-                              <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-tight font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-1 shadow-2xs" />
-                                <span>{b}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                      {deliv?.archBullets && (
+                        <ul className="mt-2 pt-1.5 border-t border-slate-100 space-y-1">
+                          {deliv.archBullets.slice(0, 2).map((b, i) => (
+                            <li key={i} className="flex items-start gap-1.5 text-[9.5px] sm:text-[10px] text-[#334155] leading-tight font-medium">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-1 shadow-2xs" />
+                              <span className="line-clamp-1">{b}</span>
+                            </li>
+                          ))}
+                        </ul>
                       )}
                     </div>
 
                     {/* Student Mastery Card */}
-                    <div className="p-3 rounded-xl bg-white/95 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/95 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
                       <div>
-                        <div className="flex items-center gap-1.5 mb-1 text-[#EA580C]">
-                          <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                          <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold">
-                            Student Mastery &amp; Defense
-                          </span>
+                        <div className="flex items-center justify-between gap-1 mb-1 text-[#EA580C]">
+                          <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider font-bold">
+                            <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                            <span>Student Mastery &amp; Defense</span>
+                          </div>
+                          {deliv?.stats && (
+                            <span className="font-mono text-[8px] sm:text-[8.5px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-1.5 py-0.5 rounded shrink-0">
+                              {deliv.stats[2]}
+                            </span>
+                          )}
                         </div>
-                        <p className="font-sans text-[11px] sm:text-[11.5px] text-[#0F172A] leading-snug font-medium mb-1.5">
+                        <p className="font-sans text-[11px] sm:text-[11.5px] text-[#0F172A] leading-snug font-medium line-clamp-2">
                           {spec.takeaway}
                         </p>
                       </div>
 
-                      {deliv && deliv.masteryBullets && (
-                        <div className="pt-1.5 border-t border-black/5">
-                          <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-[#64748B] font-bold block mb-1">
-                            Practical Verification
-                          </span>
-                          <ul className="space-y-1">
-                            {deliv.masteryBullets.map((b, i) => (
-                              <li key={i} className="flex items-start gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] leading-tight font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-1 shadow-2xs" />
-                                <span>{b}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                      {deliv?.masteryBullets && (
+                        <ul className="mt-2 pt-1.5 border-t border-slate-100 space-y-1">
+                          {deliv.masteryBullets.slice(0, 2).map((b, i) => (
+                            <li key={i} className="flex items-start gap-1.5 text-[9.5px] sm:text-[10px] text-[#334155] leading-tight font-medium">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-1 shadow-2xs" />
+                              <span className="line-clamp-1">{b}</span>
+                            </li>
+                          ))}
+                        </ul>
                       )}
                     </div>
                   </div>
                 );
               })()}
 
-              {/* 5b. 3-Stat Technical Specifications Row */}
+              {/* 5b. Unified Capstone Milestone & Verification Strip */}
               {(() => {
                 const deliv = projectDeliverables[currentProject.id];
-                if (!deliv || !deliv.stats) return null;
                 return (
-                  <div className="grid grid-cols-3 gap-2 flex-none">
-                    <div className="px-2.5 py-1.5 rounded-lg bg-white/90 border border-slate-200/80 text-center shadow-2xs">
-                      <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-slate-500 font-bold block">System Class</span>
-                      <span className="font-serif text-[11.5px] sm:text-[12px] font-bold text-[#0F172A] block mt-0.5 truncate">{deliv.stats[0]}</span>
+                  <div className="px-3 py-1.5 rounded-lg bg-[#FFF7ED] border border-[#FED7AA] flex items-center justify-between gap-2 flex-none shadow-2xs">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
+                      <span className="font-mono text-[9px] sm:text-[9.5px] uppercase font-bold text-[#C2410C] shrink-0">
+                        Capstone Milestone:
+                      </span>
+                      <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#9A3412] truncate">
+                        {projectMilestones[currentProject.id] || 'Verified Working Hardware Prototype'}
+                      </span>
                     </div>
-                    <div className="px-2.5 py-1.5 rounded-lg bg-white/90 border border-slate-200/80 text-center shadow-2xs">
-                      <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-slate-500 font-bold block">Telemetry / Loop</span>
-                      <span className="font-serif text-[11.5px] sm:text-[12px] font-bold text-[#0284C7] block mt-0.5 truncate">{deliv.stats[1]}</span>
-                    </div>
-                    <div className="px-2.5 py-1.5 rounded-lg bg-white/90 border border-slate-200/80 text-center shadow-2xs">
-                      <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-slate-500 font-bold block">Portfolio Defense</span>
-                      <span className="font-serif text-[11.5px] sm:text-[12px] font-bold text-[#16A34A] block mt-0.5 truncate">{deliv.stats[2]}</span>
-                    </div>
+                    {deliv?.stats?.[1] && (
+                      <span className="hidden sm:inline-block font-mono text-[9px] sm:text-[9.5px] font-bold text-[#0284C7] bg-white/90 px-2 py-0.5 rounded border border-blue-200/70 shrink-0">
+                        {deliv.stats[1]}
+                      </span>
+                    )}
                   </div>
                 );
               })()}
-
-              {/* 5c. Milestone Badge */}
-              <div className="px-3 py-1.5 rounded-lg bg-[#FFF7ED] border border-[#FED7AA] flex items-center gap-2 flex-none">
-                <CheckCircle2 className="w-4 h-4 text-[#EA580C] shrink-0" />
-                <span className="font-mono text-[9px] sm:text-[9.5px] uppercase font-bold text-[#C2410C] shrink-0">
-                  Capstone Milestone:
-                </span>
-                <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#9A3412] truncate">
-                  {projectMilestones[currentProject.id] || 'Verified Working Hardware Prototype'}
-                </span>
-              </div>
 
               {/* 6. Action Button & Telemetry Indicator */}
               <div className="pt-1.5 border-t border-black/6 flex items-center justify-between gap-2 flex-wrap flex-none">

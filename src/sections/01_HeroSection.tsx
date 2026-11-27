@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         </h1>
 
         {/* Sub-headline: NEXT-GENERATION K-12 HANDS-ON INNOVATION ECOSYSTEM */}
-        <h2 className="font-mono text-[10px] sm:text-xs md:text-[13px] lg:text-sm font-bold text-white tracking-[0.16em] sm:tracking-[0.24em] uppercase mt-2.5 sm:mt-3 drop-shadow-md whitespace-nowrap">
+        <h2 className="font-mono text-[10px] sm:text-xs md:text-[13px] lg:text-sm font-bold text-white tracking-[0.16em] sm:tracking-[0.24em] uppercase mt-2.5 sm:mt-3 drop-shadow-md whitespace-nowrap max-[380px]:whitespace-normal">
           NEXT-GENERATION K-12 HANDS-ON INNOVATION ECOSYSTEM
         </h2>
 

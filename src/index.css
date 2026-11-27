@@ -224,6 +224,22 @@
   .slide-scroll-cta {
     display: none;
   }
+
+  #slide-wrapper-lab-setup .slide-scroll-pane {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200, 164, 93, 0.75) transparent;
+  }
+
+  #slide-wrapper-lab-setup .slide-scroll-pane::-webkit-scrollbar {
+    display: block;
+    width: 4px;
+    height: 0;
+  }
+
+  #slide-wrapper-lab-setup .slide-scroll-pane::-webkit-scrollbar-thumb {
+    background-color: rgba(200, 164, 93, 0.75);
+    border-radius: 999px;
+  }
 }
 
 /* Slide transition backdrop active */
