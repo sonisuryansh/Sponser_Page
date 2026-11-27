@@ -85,46 +85,46 @@ export const RequirementsSection: React.FC = () => {
   const schoolRequirements = [
     {
       title: 'Dedicated Lab Space',
-      detail: 'Minimum 600 sq ft, well-lit and ventilated dedicated room for hands-on engineering.',
+      detail: 'Min 600 sq ft, bright and ventilated dedicated room.',
     },
     {
       title: 'Student Workstations',
-      detail: 'Standard desktop or laptop systems for embedded programming, CAD modeling, and telemetry.',
+      detail: 'Computers or laptops for coding and 3D design.',
     },
     {
-      title: 'Workbenches & Power Infrastructure',
-      detail: 'Collaborative workbenches with accessible, safe multi-point power strips and grounded rails.',
+      title: 'Workbenches & Power',
+      detail: 'Lab tables with safe, multi-point power outlets.',
     },
     {
-      title: 'Student Timetable Scheduling',
-      detail: 'Designated 40 to 60 minute periods per batch (recommended ~40 students per session).',
+      title: 'Timetable Scheduling',
+      detail: 'One 40–60 min period per week per batch (~40 students).',
     },
     {
-      title: 'Network & Internet Access',
-      detail: 'Standard school Wi-Fi or LAN connection for cloud compiler sync, toolchains, and LMS access.',
+      title: 'Internet Access',
+      detail: 'Standard school Wi-Fi or LAN connection.',
     },
   ];
 
   const medhaarcDeliverables = [
     {
-      title: 'Turnkey Curriculum & Session Plans',
-      detail: 'Complete Grade 3–12 progressive engineering syllabus, reviewed and updated annually.',
+      title: 'Turnkey Curriculum',
+      detail: 'Grade 3–12 syllabus, reviewed and updated annually.',
     },
     {
-      title: 'Engineering Kits & Consumables',
-      detail: 'Robotics kits, microcontrollers, sensors, motors, breadboards, and replacement parts.',
+      title: 'Hardware & Kits',
+      detail: 'Robotics kits, microcontrollers, sensors, motors & spares.',
     },
     {
-      title: 'Dedicated Expert Instructors',
-      detail: 'MedhaArc Mentors conduct and lead every student session with zero prep for school faculty.',
+      title: 'Expert Mentors',
+      detail: 'MedhaArc mentors lead 100% of student sessions.',
     },
     {
-      title: 'Teacher AI Upskilling Workshops',
-      detail: '4–5 practical AI productivity workshops for school teachers, plus released digital resources.',
+      title: 'Teacher AI Workshops',
+      detail: '4–5 practical sessions on AI productivity & smart notes.',
     },
     {
-      title: 'Ongoing Hardware Maintenance',
-      detail: 'Prompt component replacement, toolchain updates, and continuous consumable replenishment.',
+      title: 'Maintenance & Spares',
+      detail: 'Prompt part replacements and consumable replenishment.',
     },
   ];
 
@@ -156,7 +156,7 @@ export const RequirementsSection: React.FC = () => {
           </h2>
 
           <p className="editorial-reveal font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] text-[#475569] leading-snug max-w-2xl text-center font-normal">
-            A transparent division of infrastructure and academic responsibilities ensuring seamless turnkey operations with zero load on school teachers.
+            Clear division of responsibilities &mdash; turnkey operations with zero prep load on school teachers.
           </p>
         </div>
 
@@ -199,10 +199,10 @@ export const RequirementsSection: React.FC = () => {
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] font-bold text-[#0F172A] leading-tight">
+                      <h4 className="font-sans text-[11.5px] sm:text-[12px] lg:text-[12.5px] font-bold text-[#0F172A] leading-tight">
                         {item.title}
                       </h4>
-                      <p className="font-sans text-[10px] sm:text-[10.5px] lg:text-[11px] text-[#475569] leading-snug mt-0.5 font-normal">
+                      <p className="font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-[#475569] leading-snug mt-0.5 font-normal">
                         {item.detail}
                       </p>
                     </div>
@@ -256,10 +256,10 @@ export const RequirementsSection: React.FC = () => {
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-sans text-[11px] sm:text-[11.5px] lg:text-[12px] font-bold text-[#0F172A] leading-tight">
+                      <h4 className="font-sans text-[11.5px] sm:text-[12px] lg:text-[12.5px] font-bold text-[#0F172A] leading-tight">
                         {item.title}
                       </h4>
-                      <p className="font-sans text-[10px] sm:text-[10.5px] lg:text-[11px] text-[#475569] leading-snug mt-0.5 font-normal">
+                      <p className="font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-[#475569] leading-snug mt-0.5 font-normal">
                         {item.detail}
                       </p>
                     </div>
