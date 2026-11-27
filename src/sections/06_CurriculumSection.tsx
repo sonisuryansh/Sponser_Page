@@ -358,7 +358,7 @@ export const CurriculumSection: React.FC = () => {
   return (
     <ChapterShell
       id="curriculum"
-      chapterNumber="06"
+      chapterNumber="07"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#FAF6EE] select-none"
@@ -711,7 +711,7 @@ export const CurriculumSection: React.FC = () => {
                 if (activeStageIndex < allStages.length - 1) {
                   setActiveStageIndex(activeStageIndex + 1);
                 } else {
-                  window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 6 }));
+                  window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 7 }));
                 }
               }}
               className="group inline-flex items-center gap-1.5 text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-[#0F172A] hover:text-[#EA580C] transition-colors ml-auto shrink-0 cursor-pointer pt-1 sm:pt-0"

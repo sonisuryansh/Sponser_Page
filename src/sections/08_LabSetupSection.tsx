@@ -322,7 +322,7 @@ export const LabSetupSection: React.FC = () => {
   return (
     <ChapterShell
       id="lab-setup"
-      chapterNumber="08"
+      chapterNumber="09"
       theme="dark"
       steps={4}
       fullBleed={true}

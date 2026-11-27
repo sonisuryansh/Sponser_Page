@@ -234,7 +234,7 @@ export const ResourcesSection: React.FC = () => {
   }, [selectedTile, flippedTile]);
 
   const handleScrollToNext = () => {
-    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 9 }));
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 10 }));
   };
 
   const activeDetail = selectedTile ? RESOURCE_CARD_DATA[selectedTile] || RESOURCE_CARD_DATA['E-Books'] : null;
@@ -242,7 +242,7 @@ export const ResourcesSection: React.FC = () => {
   return (
     <ChapterShell
       id="resources"
-      chapterNumber="09"
+      chapterNumber="10"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF6EE]"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ChapterShell } from '../components/ChapterShell';
-import { ArrowRight, Compass, Sparkles, Layers, Cpu, Award } from 'lucide-react';
+import { ArrowRight, Compass, Layers, Cpu, Award } from 'lucide-react';
 
 interface StepItem {
   num: string;
@@ -99,7 +99,7 @@ export const AboutSection: React.FC = () => {
             <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5">
               <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b45309]" />
               <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
-                AIM &amp; STRATEGIC VISION
+                FOUNDATIONAL AIM &amp; METHODOLOGY
               </span>
               <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b45309]" />
             </div>
@@ -109,100 +109,65 @@ export const AboutSection: React.FC = () => {
             </h2>
 
             <p className="editorial-reveal font-sans text-[12.5px] sm:text-[13.5px] text-slate-600 leading-snug max-w-2xl text-center font-normal">
-              Transforming passive consumers of technology into active creators, thinkers, and real-world innovators.
+              Demystifying complex technology through hands-on physical computing, tangible circuits, and structured age-appropriate learning.
             </p>
           </div>
 
-          {/* Middle Row: Rebalanced 7:5 Split - Aim & Vision Prominent & Large on Left, 4 Stages Concise on Right */}
+          {/* Middle Row: Balanced 6:6 Split - Our Aim Grand on Left, 4 Stages on Right */}
           <div className="editorial-reveal grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 xl:gap-5 items-stretch flex-1 min-h-0 overflow-visible lg:overflow-hidden">
 
-            {/* Left Column (Span 7 of 12): Prominent, Spacious Aim & Vision Cards + Lab Photo */}
-            <div className="lg:col-span-7 flex flex-col justify-between gap-2.5 sm:gap-3 min-h-0">
+            {/* Left Column (Span 6 of 12): Dedicated Grand Aim Card + Lab Photo */}
+            <div className="lg:col-span-6 flex flex-col justify-between gap-2.5 sm:gap-3 min-h-0">
 
-              {/* Dual Large Cards: Our Aim & Our Vision Side-by-Side with Generous Space */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-none">
-                {/* Card 1: Our Aim (Large, Spacious & Prominent) */}
-                <div className="p-3.5 sm:p-4 lg:p-4.5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-sky-50/90 via-[#F8FAFC] to-white border-2 border-sky-200/90 shadow-xs hover:border-sky-400/80 transition-all flex flex-col justify-between">
-                  <div>
-                    {/* Header: Icon, Tag & Badge */}
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-sky-100 text-[#0284C7] flex items-center justify-center shrink-0 shadow-2xs">
-                          <Compass className="w-4 h-4 stroke-[2.5]" />
-                        </div>
-                        <span className="font-mono text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
-                          OUR AIM
-                        </span>
+              {/* Grand Our Aim Card (Spacious, Clear & Prominent) */}
+              <div className="p-4 sm:p-5 lg:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-sky-50/90 via-[#F8FAFC] to-white border-2 border-sky-200/90 shadow-xs hover:border-sky-400/80 transition-all flex flex-col justify-between flex-none">
+                <div>
+                  {/* Header: Icon, Tag & Badge */}
+                  <div className="flex items-center justify-between mb-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-sky-100 text-[#0284C7] flex items-center justify-center shrink-0 shadow-2xs">
+                        <Compass className="w-4.5 h-4.5 stroke-[2.5]" />
                       </div>
-                      <span className="font-mono text-[9px] sm:text-[9.5px] uppercase px-2.5 py-0.5 rounded-full bg-sky-100/90 text-[#0369A1] font-bold border border-sky-200">
-                        Core Foundation
+                      <span className="font-mono text-[11px] sm:text-[11.5px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
+                        OUR AIM
                       </span>
                     </div>
-
-                    {/* Grand Title */}
-                    <h3 className="font-serif text-[18px] sm:text-[20px] lg:text-[22px] font-bold text-[#0F172A] tracking-tight leading-snug mb-1.5">
-                      Understandable Technology
-                    </h3>
-
-                    {/* Rich Legible Description */}
-                    <p className="font-sans text-[12.5px] sm:text-[13px] text-slate-700 leading-relaxed font-normal mb-2.5">
-                      Making technology understandable through tangible hardware, intuitive physical computing, and structured age-appropriate learning from Grade 3.
-                    </p>
+                    <span className="font-mono text-[9px] sm:text-[9.5px] uppercase px-2.5 py-0.5 rounded-full bg-sky-100/90 text-[#0369A1] font-bold border border-sky-200">
+                      Core Foundation
+                    </span>
                   </div>
 
-                  {/* Concrete Key Points */}
-                  <div className="pt-2 border-t border-sky-100/90 flex flex-col gap-1 text-[11px] sm:text-[11.5px] text-[#0369A1] font-sans font-medium">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0" />
-                      <span>Physical breadboard circuits &amp; real sensors</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0" />
-                      <span>Intuition &amp; concepts before abstract complexity</span>
-                    </div>
+                  {/* Grand Title */}
+                  <h3 className="font-serif text-[20px] sm:text-[22px] lg:text-[24px] font-bold text-[#0F172A] tracking-tight leading-snug mb-1.5">
+                    Understandable Technology
+                  </h3>
+
+                  {/* Rich Legible Description */}
+                  <p className="font-sans text-[13px] sm:text-[13.5px] lg:text-[14px] text-slate-700 leading-relaxed font-normal mb-3">
+                    Making technology understandable through tangible hardware, intuitive physical computing, and structured age-appropriate learning from Grade 3.
+                  </p>
+                </div>
+
+                {/* 3 Concrete Foundational Principles */}
+                <div className="pt-2.5 border-t border-sky-100/90 flex flex-col gap-1.5 text-[11.5px] sm:text-[12px] text-[#0369A1] font-sans font-medium">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#0284C7] shrink-0" />
+                    <span>Physical breadboard circuits &amp; real sensors — no hidden black boxes</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#0284C7] shrink-0" />
+                    <span>Intuitive physical computing before abstract mathematical complexity</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#0284C7] shrink-0" />
+                    <span>Zero technology anxiety through guided, iterative hands-on experiments</span>
                   </div>
                 </div>
 
-                {/* Card 2: Our Vision (Large, Spacious & Prominent) */}
-                <div className="p-3.5 sm:p-4 lg:p-4.5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-50/90 via-[#FAF5FF]/50 to-white border-2 border-purple-200/90 shadow-xs hover:border-purple-400/80 transition-all flex flex-col justify-between">
-                  <div>
-                    {/* Header: Icon, Tag & Badge */}
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-purple-100 text-[#9333EA] flex items-center justify-center shrink-0 shadow-2xs">
-                          <Sparkles className="w-4 h-4 stroke-[2.5]" />
-                        </div>
-                        <span className="font-mono text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] text-[#9333EA] font-bold">
-                          OUR VISION
-                        </span>
-                      </div>
-                      <span className="font-mono text-[9px] sm:text-[9.5px] uppercase px-2.5 py-0.5 rounded-full bg-purple-100/90 text-[#7E22CE] font-bold border border-purple-200">
-                        Strategic Impact
-                      </span>
-                    </div>
-
-                    {/* Grand Title */}
-                    <h3 className="font-serif text-[18px] sm:text-[20px] lg:text-[22px] font-bold text-[#0F172A] tracking-tight leading-snug mb-1.5">
-                      Confident Builders &amp; Solvers
-                    </h3>
-
-                    {/* Rich Legible Description */}
-                    <p className="font-sans text-[12.5px] sm:text-[13px] text-slate-700 leading-relaxed font-normal mb-2.5">
-                      Transforming passive consumers of technology into active creators, problem-solvers, and responsible innovators with verifiable real-world skills.
-                    </p>
-                  </div>
-
-                  {/* Concrete Key Points */}
-                  <div className="pt-2 border-t border-purple-100/90 flex flex-col gap-1 text-[11px] sm:text-[11.5px] text-[#7E22CE] font-sans font-medium">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA] shrink-0" />
-                      <span>Working engineering prototypes &amp; portfolio defense</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA] shrink-0" />
-                      <span>Creative problem-solving &amp; ethical AI awareness</span>
-                    </div>
-                  </div>
+                {/* Grounded Responsibility Bar */}
+                <div className="mt-3 pt-2 border-t border-sky-100/80 flex items-center justify-between text-[9px] sm:text-[9.5px] font-mono text-[#0284C7]">
+                  <span className="font-bold uppercase tracking-wider">Pedagogical Standard</span>
+                  <span className="font-semibold text-slate-600">100% Hands-On Hardware Intuition</span>
                 </div>
               </div>
 
@@ -244,11 +209,11 @@ export const AboutSection: React.FC = () => {
 
             </div>
 
-            {/* Right Column (Span 5 of 12): The 4-Stage Learning Cycle Placed Concise & Tight */}
+            {/* Right Column (Span 6 of 12): The 4-Stage Learning Cycle Placed Balanced */}
             <div
               onMouseEnter={() => setIsUserHovering(true)}
               onMouseLeave={() => setIsUserHovering(false)}
-              className="lg:col-span-5 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 bg-[#FFFDF9] p-3 sm:p-3.5 lg:p-4 shadow-2xs min-h-0"
+              className="lg:col-span-6 flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 bg-[#FFFDF9] p-3.5 sm:p-4 lg:p-4.5 shadow-2xs min-h-0"
             >
               {/* Methodology Header */}
               <div className="flex items-center justify-between pb-2 border-b border-amber-100/90 mb-1.5 sm:mb-2 flex-none">
@@ -411,7 +376,7 @@ export const AboutSection: React.FC = () => {
               onClick={handleScrollToNext}
               className="group inline-flex items-center gap-1.5 text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-[#0F172A] hover:text-[#b45309] transition-colors ml-auto shrink-0 cursor-pointer pt-1 md:pt-0"
             >
-              <span>Discover Guiding Purpose &amp; Core Values</span>
+              <span>Discover Our Strategic Vision</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 text-[#b45309]" />
             </button>
           </div>

@@ -144,7 +144,7 @@ export const LearningApproachSection: React.FC = () => {
   return (
     <ChapterShell
       id="approach"
-      chapterNumber="05"
+      chapterNumber="06"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#FAF6EE] select-none"

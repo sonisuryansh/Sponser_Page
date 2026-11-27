@@ -136,7 +136,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
   return (
     <ChapterShell
       id="pricing"
-      chapterNumber="13"
+      chapterNumber="14"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF8F5]"

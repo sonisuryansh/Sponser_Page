@@ -100,7 +100,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
   return (
     <ChapterShell
       id="closing"
-      chapterNumber="14"
+      chapterNumber="15"
       theme="dark"
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#080A0D] select-none"

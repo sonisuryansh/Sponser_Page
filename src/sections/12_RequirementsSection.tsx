@@ -79,7 +79,7 @@ export const RequirementsSection: React.FC = () => {
   }, []);
 
   const handleScrollToNext = () => {
-    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 12 }));
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 13 }));
   };
 
   const schoolRequirements = [
@@ -141,7 +141,7 @@ export const RequirementsSection: React.FC = () => {
   return (
     <ChapterShell
       id="requirements"
-      chapterNumber="12"
+      chapterNumber="13"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF8F5]"

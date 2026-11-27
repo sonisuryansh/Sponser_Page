@@ -12,7 +12,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onNavigateNext,
 }) => {
   const handleDomainClick = () => {
-    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 3 }));
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
   };
 
   return (

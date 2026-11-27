@@ -9,6 +9,7 @@ import { SlideTransitions } from './components/SlideTransitions';
 
 import { HeroSection } from './sections/01_HeroSection';
 import { AboutSection } from './sections/02_AboutSection';
+import { VisionSection } from './sections/03_VisionSection';
 import { MissionSection } from './sections/03_MissionSection';
 import { DomainsSection } from './sections/04_DomainsSection';
 import { LearningApproachSection } from './sections/05_LearningApproachSection';
@@ -105,6 +106,9 @@ export function App() {
             break;
           case 'about':
             element = <AboutSection />;
+            break;
+          case 'vision':
+            element = <VisionSection />;
             break;
           case 'mission':
             element = <MissionSection />;

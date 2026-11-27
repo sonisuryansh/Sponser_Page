@@ -149,13 +149,13 @@ export const BenefitsSection: React.FC = () => {
   }, []);
 
   const handleScrollToNext = () => {
-    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 11 }));
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 12 }));
   };
 
   return (
     <ChapterShell
       id="benefits"
-      chapterNumber="11"
+      chapterNumber="12"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none benefits-section-bg"

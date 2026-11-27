@@ -90,13 +90,13 @@ export const MissionSection: React.FC = () => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
 
   const handleExplore = () => {
-    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 3 }));
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
   };
 
   return (
     <ChapterShell
       id="mission"
-      chapterNumber="03"
+      chapterNumber="04"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF8F5] flex flex-col lg:items-center lg:justify-center"

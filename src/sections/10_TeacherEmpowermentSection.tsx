@@ -99,13 +99,13 @@ export const TeacherEmpowermentSection: React.FC = () => {
   }, []);
 
   const handleScrollToNext = () => {
-    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 10 }));
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 11 }));
   };
 
   return (
     <ChapterShell
       id="teacher-empowerment"
-      chapterNumber="10"
+      chapterNumber="11"
       theme="light"
       fullBleed={true}
       className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE]"

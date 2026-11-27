@@ -200,13 +200,13 @@ export const ProjectShowcaseSection: React.FC = () => {
   }, [selectedProject, projects.length]);
 
   const handleScrollToNext = () => {
-    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 7 }));
+    window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 8 }));
   };
 
   return (
     <ChapterShell
       id="showcase"
-      chapterNumber="07"
+      chapterNumber="08"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#FAF6EE] flex flex-col lg:items-center lg:justify-center select-none"

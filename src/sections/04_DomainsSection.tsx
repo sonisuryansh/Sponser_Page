@@ -509,7 +509,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         lastStepTimeRef.current = now;
         setActiveCardIndex(-1);
         activeCardIndexRef.current = -1;
-        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
+        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 5 }));
       }
     } else {
       // Swiped DOWN (scroll up)
@@ -557,7 +557,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         lastStepTimeRef.current = now;
         setActiveCardIndex(-1);
         activeCardIndexRef.current = -1;
-        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
+        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 5 }));
       }
     } else {
       if (activeCardIndex > 0) {
@@ -592,8 +592,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           : typeof customEvent.detail?.index === 'number'
             ? customEvent.detail.index
             : null;
-      // If navigating to any slide other than index 3 (Domains Section), always close modal!
-      if (typeof targetIdx === 'number' && targetIdx !== 3) {
+      // If navigating to any slide other than index 4 (Domains Section), always close modal!
+      if (typeof targetIdx === 'number' && targetIdx !== 4) {
         setActiveCardIndex(-1);
         activeCardIndexRef.current = -1;
       }
@@ -612,7 +612,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
   return (
     <ChapterShell
       id="domains"
-      chapterNumber="04"
+      chapterNumber="05"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF8F5]"

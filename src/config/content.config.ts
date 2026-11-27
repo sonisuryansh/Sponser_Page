@@ -89,50 +89,51 @@ export const siteConfig = {
     contactLink: '#contact',
   },
 
-  // 14 Sections across 5 Acts
+  // 15 Sections across 5 Acts
   acts: [
     {
       actNumber: '01',
       actTitle: 'Who We Are',
       sections: [
         { id: 'home', number: '01', title: 'Home', subtitle: 'Overview & Vision', theme: 'dark' as const },
-        { id: 'about', number: '02', title: 'About', subtitle: 'Foundational Philosophy', theme: 'light' as const },
-        { id: 'mission', number: '03', title: 'Our Mission', subtitle: 'Engineering Over Consumption', theme: 'light' as const },
+        { id: 'about', number: '02', title: 'Our Aim', subtitle: 'Making Technology Understandable', theme: 'light' as const },
+        { id: 'vision', number: '03', title: 'Our Vision', subtitle: 'Confident Builders & Solvers', theme: 'light' as const },
+        { id: 'mission', number: '04', title: 'Guiding Purpose', subtitle: '5 Pillars of Education', theme: 'light' as const },
       ],
     },
     {
       actNumber: '02',
       actTitle: 'What Students Learn',
       sections: [
-        { id: 'domains', number: '04', title: 'Technology Domains', subtitle: 'Robotics, AI, Data & Flight', theme: 'dark' as const },
-        { id: 'approach', number: '05', title: 'Learning Approach', subtitle: '3-Step Experiential Flow', theme: 'light' as const },
-        { id: 'curriculum', number: '06', title: 'Curriculum', subtitle: 'Grade 4–10 Progressive Roadmap', theme: 'light' as const },
-        { id: 'showcase', number: '07', title: 'Student Projects', subtitle: 'Capstone Showcase Builds', theme: 'light' as const },
+        { id: 'domains', number: '05', title: 'Technology Domains', subtitle: 'Robotics, AI, Data & Flight', theme: 'dark' as const },
+        { id: 'approach', number: '06', title: 'Learning Approach', subtitle: '3-Step Experiential Flow', theme: 'light' as const },
+        { id: 'curriculum', number: '07', title: 'Curriculum', subtitle: 'Grade 4–10 Progressive Roadmap', theme: 'light' as const },
+        { id: 'showcase', number: '08', title: 'Student Projects', subtitle: 'Capstone Showcase Builds', theme: 'light' as const },
       ],
     },
     {
       actNumber: '03',
       actTitle: 'How It Runs',
       sections: [
-        { id: 'lab-setup', number: '08', title: 'Lab Architecture', subtitle: '4 Dedicated Workspace Zones', theme: 'dark' as const },
-        { id: 'resources', number: '09', title: 'LMS & Resources', subtitle: 'E-Books, Modules & Quizzes', theme: 'light' as const },
-        { id: 'teacher-empowerment', number: '10', title: 'Teacher Empowerment', subtitle: 'Faculty Training & AI Support', theme: 'light' as const },
+        { id: 'lab-setup', number: '09', title: 'Lab Architecture', subtitle: '4 Dedicated Workspace Zones', theme: 'dark' as const },
+        { id: 'resources', number: '10', title: 'LMS & Resources', subtitle: 'E-Books, Modules & Quizzes', theme: 'light' as const },
+        { id: 'teacher-empowerment', number: '11', title: 'Teacher Empowerment', subtitle: 'Faculty Training & AI Support', theme: 'light' as const },
       ],
     },
     {
       actNumber: '04',
       actTitle: 'What Students Gain',
       sections: [
-        { id: 'benefits', number: '11', title: 'Student & School Benefits', subtitle: 'Skills, Credentials & Portfolios', theme: 'light' as const },
+        { id: 'benefits', number: '12', title: 'Student & School Benefits', subtitle: 'Skills, Credentials & Portfolios', theme: 'light' as const },
       ],
     },
     {
       actNumber: '05',
       actTitle: 'Terms & Next Step',
       sections: [
-        { id: 'requirements', number: '12', title: 'School Requirements & Delivery', subtitle: 'Campus Roles & Deliverables', theme: 'light' as const },
-        { id: 'pricing', number: '13', title: 'Pricing Packages', subtitle: 'Tiered Investment & GST Details', theme: 'light' as const },
-        { id: 'closing', number: '14', title: 'Partnership & Next Steps', subtitle: 'Consultation & Onboarding', theme: 'dark' as const },
+        { id: 'requirements', number: '13', title: 'School Requirements & Delivery', subtitle: 'Campus Roles & Deliverables', theme: 'light' as const },
+        { id: 'pricing', number: '14', title: 'Pricing Packages', subtitle: 'Tiered Investment & GST Details', theme: 'light' as const },
+        { id: 'closing', number: '15', title: 'Partnership & Next Steps', subtitle: 'Consultation & Onboarding', theme: 'dark' as const },
       ],
     },
   ],
