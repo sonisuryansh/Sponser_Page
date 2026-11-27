@@ -38,9 +38,10 @@ const APPROACH_CARDS: ApproachCardData[] = [
     bullets: [
       'Tangible breadboard circuits & sensor wiring',
       'Bare-metal firmware flashing & live debugging',
+      'Zero simulation-only black boxes or passive kits',
     ],
     chips: ['PROTOTYPE', 'TEST', 'DEPLOY'],
-    icon: <Wrench className="w-4 h-4 text-[#0284C7]" />,
+    icon: <Wrench className="w-5 h-5 text-[#0284C7]" />,
     iconBg: '#F0F9FF',
     iconBorder: '#BAE6FD',
     cardBorder: '#38BDF8',
@@ -54,10 +55,11 @@ const APPROACH_CARDS: ApproachCardData[] = [
     description: 'The curriculum builds year-on-year and is reviewed annually as technology evolves.',
     bullets: [
       'Structured concept escalation from Grade 3 to 12',
+      'Annual review matching modern AI & aerial tech',
       'Applied mathematics & computational reasoning',
     ],
     chips: ['FOUNDATION', 'SYSTEMS', 'CAPSTONE'],
-    icon: <BookOpen className="w-4 h-4 text-[#D97706]" />,
+    icon: <BookOpen className="w-5 h-5 text-[#D97706]" />,
     iconBg: '#FFFBEB',
     iconBorder: '#FDE68A',
     cardBorder: '#FB923C',
@@ -71,10 +73,11 @@ const APPROACH_CARDS: ApproachCardData[] = [
     description: 'From Grade 9, students defend their working prototypes to peers, faculty, and parents.',
     bullets: [
       'Annual STEM exhibition showcase readiness',
-      'Documented digital engineering portfolio',
+      'Live prototype demonstrations & peer defense',
+      'Documented digital engineering portfolio archive',
     ],
     chips: ['EXHIBIT', 'DEFEND', 'PUBLISH'],
-    icon: <Presentation className="w-4 h-4 text-[#059669]" />,
+    icon: <Presentation className="w-5 h-5 text-[#059669]" />,
     iconBg: '#ECFDF5',
     iconBorder: '#A7F3D0',
     cardBorder: '#34D399',
@@ -178,8 +181,8 @@ export const LearningApproachSection: React.FC = () => {
 
             </div>
 
-            {/* ─── 3 Colorful Pedagogical Cards (Balanced & Cohesive, No Awkward Dead Gaps) ─── */}
-            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 lg:gap-3 my-auto flex-none items-stretch">
+            {/* ─── 3 Colorful Pedagogical Cards (Balanced & Cohesive, Upright Rectangles filling space) ─── */}
+            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-3.5 lg:gap-4 my-auto flex-1 min-h-0 items-stretch">
               {APPROACH_CARDS.map((card) => (
                 <div
                   key={card.title}
@@ -188,40 +191,42 @@ export const LearningApproachSection: React.FC = () => {
                     borderColor: card.cardBorder,
                     boxShadow: `0 6px 20px -4px ${card.glowColor}`,
                   }}
-                  className="flex flex-col justify-between p-3 sm:p-3.5 lg:p-4 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="h-full flex flex-col justify-between p-3.5 sm:p-4 lg:p-4.5 rounded-2xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div>
-                    {/* Top Row: Pill Tag + Icon Box */}
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className={`font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border ${card.tagColor}`}>
-                        {card.tag}
-                      </span>
-                      <div
-                        style={{
-                          backgroundColor: card.iconBg,
-                          borderColor: card.iconBorder,
-                        }}
-                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-xs"
-                      >
-                        {card.icon}
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div>
+                      {/* Top Row: Pill Tag + Icon Box */}
+                      <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
+                        <span className={`font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border ${card.tagColor}`}>
+                          {card.tag}
+                        </span>
+                        <div
+                          style={{
+                            backgroundColor: card.iconBg,
+                            borderColor: card.iconBorder,
+                          }}
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-xs"
+                        >
+                          {card.icon}
+                        </div>
                       </div>
+
+                      {/* Card Title */}
+                      <h3 className="font-serif text-[15px] sm:text-[16px] lg:text-[17px] font-bold text-[#0F172A] leading-tight mb-1">
+                        {card.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#334155] leading-snug mb-2 font-normal">
+                        {card.description}
+                      </p>
                     </div>
 
-                    {/* Card Title */}
-                    <h3 className="font-serif text-[15px] sm:text-[16px] font-bold text-[#0F172A] leading-tight mb-1">
-                      {card.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="font-sans text-[11px] sm:text-[11.5px] text-[#334155] leading-snug mb-2 font-normal">
-                      {card.description}
-                    </p>
-
-                    {/* Bullets */}
-                    <div className="pt-2 border-t border-slate-200/70 flex flex-col gap-1.5 mb-2.5">
+                    {/* Bullets with generous, comfortable spacing */}
+                    <div className="pt-2 my-auto border-t border-slate-200/70 flex flex-col gap-2">
                       {card.bullets.map((b, bIdx) => (
                         <div key={bIdx} className="flex items-start gap-1.5 text-[10.5px] sm:text-[11px] text-slate-700 leading-tight">
-                          <Check className="w-3 h-3 text-[#0F172A] shrink-0 mt-0.5 stroke-[2.5]" />
+                          <Check className="w-3.5 h-3.5 text-[#0F172A] shrink-0 mt-0.5 stroke-[2.5]" />
                           <span className="font-sans font-medium">{b}</span>
                         </div>
                       ))}
@@ -229,11 +234,11 @@ export const LearningApproachSection: React.FC = () => {
                   </div>
 
                   {/* Stage Chips */}
-                  <div className="pt-2 border-t border-slate-200/70 flex items-center gap-1">
+                  <div className="pt-2 mt-2 border-t border-slate-200/70 flex items-center gap-1">
                     {card.chips.map((chip, cIdx) => (
                       <span
                         key={cIdx}
-                        className="font-mono text-[7.5px] sm:text-[8px] px-1.5 py-0.5 rounded bg-white text-slate-600 font-semibold border border-slate-200 shadow-2xs"
+                        className="font-mono text-[7.5px] sm:text-[8px] px-2 py-0.5 rounded bg-white text-slate-600 font-semibold border border-slate-200 shadow-2xs"
                       >
                         {chip}
                       </span>
