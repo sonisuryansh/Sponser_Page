@@ -293,16 +293,16 @@ export const LabSetupSection: React.FC = () => {
       theme="dark"
       steps={4}
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-hidden bg-[#0A0E14] select-none"
+      className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#0A0E14] flex flex-col lg:items-center lg:justify-center select-none"
     >
-      {/* 100svh Viewport Container with data-steppable */}
+      {/* Viewport Container */}
       <div
         ref={containerRef}
         data-steppable="true"
-        className="relative w-full h-full max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
+        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+10px)] pb-8 lg:pb-3 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
       >
         {/* Main Inset Card Container - Light Grey Slate Whole Card with Light Grey Border */}
-        <div className="relative w-full h-full max-h-full min-h-0 flex-1 my-auto max-h-[820px] xl:max-h-[860px] bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl sm:rounded-3xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-hidden gap-2">
+        <div className="relative w-full h-auto lg:h-full max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] min-h-0 flex-1 lg:my-auto bg-[#12161F]/90 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl sm:rounded-3xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-visible lg:overflow-hidden gap-2">
 
           {/* Eyebrow & Statement Headline */}
           <div className="flex-none max-w-3xl mx-auto text-center">
@@ -322,9 +322,9 @@ export const LabSetupSection: React.FC = () => {
           </div>
 
           {/* Top-Down Lab Layout & Interactive Hotspot Zones - Balanced 5:7 Split */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-stretch flex-1 min-h-0 border-t border-white/10 pt-2 sm:pt-2.5 overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-stretch flex-1 min-h-0 border-t border-white/10 pt-2 sm:pt-2.5 overflow-visible lg:overflow-hidden">
             {/* Lab Visualization Photo with Zone Pins (Span 5 of 12 - Proportional, Sleek, Not Oversized) */}
-            <div className="lg:col-span-5 relative h-full min-h-[140px] sm:min-h-[180px] lg:min-h-0 rounded-xl overflow-hidden border border-white/20 bg-black/40 shadow-xl flex flex-col justify-between">
+            <div className="lg:col-span-5 relative h-56 sm:h-72 lg:h-full min-h-[220px] lg:min-h-0 rounded-xl overflow-hidden border border-white/20 bg-black/40 shadow-xl flex flex-col justify-between shrink-0">
               <img
                 src={siteConfig.labSetup.labImage}
                 alt="MedhaArc Labs School STEM Laboratory Plan"
@@ -380,12 +380,12 @@ export const LabSetupSection: React.FC = () => {
               ref={sidePanelRef}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="lg:col-span-7 p-3 sm:p-3.5 lg:p-4 rounded-xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent border border-white/15 backdrop-blur-md flex flex-col justify-between h-full min-h-0 shadow-lg overflow-hidden"
+              className="lg:col-span-7 p-3 sm:p-3.5 lg:p-4 rounded-xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent border border-white/15 backdrop-blur-md flex flex-col justify-between h-auto lg:h-full min-h-0 shadow-lg overflow-visible lg:overflow-hidden"
             >
               {(() => {
                 const spec = ZONE_EXTENDED_SPECS[activeZoneIndex] || ZONE_EXTENDED_SPECS[0];
                 return (
-                  <div className="flex-1 flex flex-col justify-between min-h-0 gap-2 sm:gap-2.5 overflow-hidden">
+                  <div className="flex-1 flex flex-col justify-between min-h-0 gap-2 sm:gap-2.5 overflow-visible lg:overflow-hidden">
                     {/* Top Zone Header */}
                     <div className="flex-none">
                       <div className="flex items-center justify-between mb-1 sm:mb-1.5 border-b border-white/10 pb-1">
@@ -407,14 +407,14 @@ export const LabSetupSection: React.FC = () => {
                     </div>
 
                     {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 flex-1 min-h-0 items-stretch my-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 flex-none lg:flex-1 min-h-0 items-stretch my-1">
                       {/* Box 1: Workstation Equipment & Hardware */}
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-2.5 sm:gap-3 min-h-0 shadow-xs">
-                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-2 flex items-center gap-1.5 flex-none">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
+                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1 sm:mb-1.5 flex items-center gap-1.5 flex-none">
                           <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                           <span>Workstation Hardware & Tools</span>
                         </div>
-                        <ul className="space-y-2 sm:space-y-2.5 font-sans text-[10px] sm:text-[11px] text-white/85 my-auto">
+                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[10px] sm:text-[11px] text-white/85">
                           {spec.equipment.map((item, i) => (
                             <li key={i} className="flex items-start gap-1.5 leading-snug">
                               <span className="text-white/40 text-[9px] shrink-0 mt-0.5">&bull;</span>
@@ -425,12 +425,12 @@ export const LabSetupSection: React.FC = () => {
                       </div>
 
                       {/* Box 2: Student Deliverables & Mastery */}
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-2.5 sm:gap-3 min-h-0 shadow-xs">
-                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-2 flex items-center gap-1.5 flex-none">
+                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
+                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1 sm:mb-1.5 flex items-center gap-1.5 flex-none">
                           <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
                           <span>Student Builds & Lab Mastery</span>
                         </div>
-                        <ul className="space-y-2 sm:space-y-2.5 font-sans text-[10px] sm:text-[11px] text-white/85 my-auto">
+                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[10px] sm:text-[11px] text-white/85">
                           {spec.deliverables.map((item, i) => (
                             <li key={i} className="flex items-start gap-1.5 leading-snug">
                               <span className="text-white/40 text-[9px] shrink-0 mt-0.5">&bull;</span>
@@ -470,7 +470,7 @@ export const LabSetupSection: React.FC = () => {
           </div>
 
           {/* Safety & Compliance Badge Inside Card Footer */}
-          <div className="border-t border-white/10 pt-1.5 flex items-center justify-between text-[9.5px] sm:text-[10.5px] font-mono text-white/50 flex-none">
+          <div className="border-t border-white/10 pt-2.5 mt-2 flex flex-col sm:flex-row items-center sm:justify-between gap-1 text-[9px] sm:text-[10px] font-mono text-white/50 flex-none text-center sm:text-left">
             <span>Electrical, ESD & Ventilation Safety Compliant</span>
             <span>Dual Fire-Extinguisher & First-Aid Protocol</span>
           </div>

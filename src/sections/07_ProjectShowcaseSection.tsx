@@ -132,15 +132,15 @@ export const ProjectShowcaseSection: React.FC = () => {
       chapterNumber="07"
       theme="light"
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
+      className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#FAF6EE] flex flex-col lg:items-center lg:justify-center select-none"
     >
-      {/* 100svh Viewport Container */}
+      {/* Viewport Container */}
       <div
         ref={containerRef}
-        className="relative w-full h-full min-h-full flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+2px)] pb-2 sm:pb-3 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
+        className="relative w-full h-auto lg:h-full min-h-0 flex-1 flex flex-col justify-center items-center pt-[calc(var(--header-h,64px)+10px)] pb-8 lg:pb-3 px-3 sm:px-5 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
       >
         {/* Main Inset White Panel */}
-        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-hidden">
+        <div className="relative w-full h-auto lg:h-full flex-1 bg-[#FFFFFD] shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 box-border z-10 overflow-visible lg:overflow-hidden">
 
           {/* Top Header: Eyebrow with gold accent & Headline */}
           <div className="flex-none text-center mb-1.5 sm:mb-2">
@@ -252,7 +252,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               borderColor: currentMeta.borderLight,
               background: `linear-gradient(135deg, #FFFFFF 0%, ${currentMeta.bgLight} 100%)`,
             }}
-            className="relative flex-1 min-h-0 my-auto max-h-[540px] xl:max-h-[580px] grid grid-cols-1 md:grid-cols-12 items-stretch gap-4 lg:gap-6 border-2 rounded-2xl p-3 sm:p-4 lg:p-5 mb-2 shadow-xs transition-all duration-500 overflow-hidden"
+            className="relative flex-1 min-h-0 lg:my-auto h-auto lg:h-full max-h-none lg:max-h-[540px] xl:lg:max-h-[580px] grid grid-cols-1 md:grid-cols-12 items-stretch gap-3 sm:gap-4 lg:gap-6 border-2 rounded-2xl p-3 sm:p-4 lg:p-5 mb-2 shadow-xs transition-all duration-500 overflow-visible lg:overflow-hidden"
           >
             {/* Ambient Background Corner Glow */}
             <div
@@ -261,7 +261,7 @@ export const ProjectShowcaseSection: React.FC = () => {
             />
 
             {/* Left Narrative & Metadata */}
-            <div className="md:col-span-7 lg:col-span-8 w-full min-w-0 z-10 flex flex-col justify-start gap-2 sm:gap-2.5 h-full min-h-0">
+            <div className="md:col-span-7 lg:col-span-8 w-full min-w-0 z-10 flex flex-col justify-between gap-2 sm:gap-2.5 h-auto md:h-full min-h-0">
               <div className="flex-1 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0">
                 {/* Domain Badge Row (Grades Removed) */}
                 <div className="flex items-center gap-2 mb-1 sm:mb-1.5 flex-wrap">
@@ -336,7 +336,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               </div>
 
               {/* Inspect Action Button */}
-              <div className="pt-1.5 mt-auto flex-none">
+              <div className="pt-2 sm:pt-1.5 mt-2 md:mt-auto flex-none">
                 <button
                   type="button"
                   onClick={() => setSelectedProject(currentProject)}
@@ -354,7 +354,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               style={{
                 borderColor: currentMeta.borderLight,
               }}
-              className="md:col-span-5 lg:col-span-4 relative h-full min-h-[180px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer transition-all hover:shadow-xl flex flex-col justify-between"
+              className="md:col-span-5 lg:col-span-4 relative h-48 sm:h-56 md:h-full min-h-[180px] rounded-xl overflow-hidden border-2 bg-black/5 shadow-md group cursor-pointer transition-all hover:shadow-xl flex flex-col justify-between shrink-0"
             >
               <img
                 src={currentProject.image}

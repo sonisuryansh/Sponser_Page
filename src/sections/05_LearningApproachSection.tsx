@@ -147,13 +147,13 @@ export const LearningApproachSection: React.FC = () => {
       chapterNumber="05"
       theme="light"
       fullBleed={true}
-      className="relative w-full h-[100svh] overflow-hidden bg-[#FAF6EE] select-none"
+      className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#FAF6EE] select-none"
     >
-      {/* Main Viewport Container - Standardized 1240px & Centered */}
-      <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden">
+      {/* Main Viewport Container */}
+      <div className="relative w-full h-auto lg:h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+4px)] pb-3 sm:pb-4 px-3 sm:px-5 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden">
         
-        {/* Main Inset White Panel - Big White Card framing Content & Instructor Photo */}
-        <div className="relative w-full h-full flex-1 my-auto max-h-[820px] xl:max-h-[860px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col lg:flex-row items-stretch overflow-hidden box-border">
+        {/* Main Inset White Panel */}
+        <div className="relative w-full h-auto lg:h-full flex-1 lg:my-auto max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col lg:flex-row items-stretch overflow-visible lg:overflow-hidden box-border">
           
           {/* Left Content Area (Styled Exactly as Image 1) */}
           <div

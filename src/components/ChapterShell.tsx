@@ -52,14 +52,14 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
       data-chapter={chapterNumber}
       data-theme={theme}
       className={`chapter-wrapper w-full relative overflow-x-clip ${
-        fullBleed ? 'h-[100svh] max-h-[100svh] overflow-hidden' : 'min-h-[100svh]'
+        fullBleed ? 'min-h-[100svh] lg:h-[100svh] lg:max-h-[100svh] overflow-y-auto lg:overflow-hidden' : 'min-h-[100svh]'
       }`}
       style={{ zIndex }}
     >
       {/* 100svh Chapter Shell with tactile top shadow */}
       <div
         className={`chapter-shell w-full overflow-x-clip flex flex-col justify-between ${
-          fullBleed ? 'h-[100svh] max-h-[100svh] overflow-hidden !p-0' : 'min-h-[100svh] pt-[calc(var(--header-h)+24px)] pb-6'
+          fullBleed ? 'min-h-[100svh] lg:h-[100svh] lg:max-h-[100svh] overflow-y-auto lg:overflow-hidden !p-0' : 'min-h-[100svh] pt-[calc(var(--header-h)+24px)] pb-6'
         } box-border ${
           isDark
             ? 'bg-[#0a0e14] text-white shadow-[0_-25px_60px_rgba(0,0,0,0.7)]'
@@ -90,7 +90,7 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
         <div
           ref={contentRef}
           className={`chapter-content relative z-10 w-full flex-1 flex flex-col justify-between will-change-transform ${
-            fullBleed ? 'h-full max-h-full min-h-0 max-w-none p-0 overflow-hidden' : 'max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8'
+            fullBleed ? 'h-auto lg:h-full lg:max-h-full min-h-0 max-w-none p-0 overflow-visible lg:overflow-hidden' : 'max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8'
           }`}
         >
           {children}
