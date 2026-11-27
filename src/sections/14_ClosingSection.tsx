@@ -133,82 +133,36 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
         ref={containerRef}
         className="relative z-10 w-full h-full min-h-full flex-1 flex flex-col justify-between pt-[calc(var(--header-h,64px)+8px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none max-w-[1440px] mx-auto overflow-hidden"
       >
-        {/* Central Executive Focus Area (Spaced Naturally across Viewport) */}
+        {/* Central Executive Focus Area (Perfect Vertical Center Matching Image 2) */}
         <div
           ref={contentRef}
-          className="w-full max-w-4xl mx-auto flex-1 flex flex-col items-center justify-between text-center py-2 sm:py-3 min-h-0"
+          className="w-full max-w-4xl mx-auto flex-1 flex flex-col items-center justify-center text-center my-auto py-4 min-h-0"
         >
-          {/* Top Eyebrow & Editorial Headline */}
+          {/* Top Eyebrow */}
           <div className="flex-none flex flex-col items-center mb-1 sm:mb-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 mb-2 sm:mb-2.5 backdrop-blur-md shadow-xs">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/[0.05] border border-white/10 mb-3 sm:mb-4 backdrop-blur-md shadow-xs">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] animate-pulse" />
               <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-[#c8a45d] font-bold">
                 {siteConfig.closing.eyebrow} &bull; Academic Partnership
               </span>
             </div>
 
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-[36px] font-bold leading-tight tracking-tight text-[#FAF9F6] mb-1.5 max-w-3xl px-2 sm:px-0 text-center">
+            {/* Grand Headline (Large, Centered, High-Impact) */}
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[54px] font-bold leading-[1.14] tracking-tight text-[#FAF9F6] mb-3 sm:mb-4 max-w-4xl px-2 sm:px-0 text-center">
               {siteConfig.closing.headline}
             </h2>
 
-            <p className="font-serif italic text-xs sm:text-sm md:text-base text-white/80 leading-relaxed max-w-xl font-normal px-2 sm:px-0">
+            {/* Subtitle Message (Italic Serif) */}
+            <p className="font-serif italic text-sm sm:text-base md:text-lg text-white/80 leading-relaxed max-w-2xl font-normal px-2 sm:px-0 mb-6 sm:mb-8">
               &ldquo;{siteConfig.closing.line}&rdquo;
             </p>
           </div>
 
-          {/* Executive Partnership Pillars (Anchoring the Center Viewport) */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 my-2 sm:my-3">
-            {/* Pillar 1 */}
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/12 backdrop-blur-md flex flex-col justify-between text-left hover:border-[#c8a45d]/50 hover:bg-white/[0.06] transition-all shadow-md">
-              <div>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
-                  Pillar 01 &bull; Lab Setup
-                </span>
-                <h4 className="font-serif text-sm sm:text-base font-bold text-white mb-1.5">
-                  Turnkey Infrastructure
-                </h4>
-                <p className="font-sans text-[11px] sm:text-[12px] text-white/75 leading-relaxed">
-                  Dedicated school lab hardware, safety compliance, tools, and ongoing maintenance all managed directly by MedhaArc Labs.
-                </p>
-              </div>
-            </div>
-
-            {/* Pillar 2 */}
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/12 backdrop-blur-md flex flex-col justify-between text-left hover:border-[#c8a45d]/50 hover:bg-white/[0.06] transition-all shadow-md">
-              <div>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
-                  Pillar 02 &bull; Faculty Support
-                </span>
-                <h4 className="font-serif text-sm sm:text-base font-bold text-white mb-1.5">
-                  Zero Faculty Burden
-                </h4>
-                <p className="font-sans text-[11px] sm:text-[12px] text-white/75 leading-relaxed">
-                  Expert MedhaArc instructors conduct every student session. School staff are completely free from lesson preparation or kit management.
-                </p>
-              </div>
-            </div>
-
-            {/* Pillar 3 */}
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.04] border border-white/12 backdrop-blur-md flex flex-col justify-between text-left hover:border-[#c8a45d]/50 hover:bg-white/[0.06] transition-all shadow-md">
-              <div>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-[#c8a45d] font-bold block mb-1">
-                  Pillar 03 &bull; Student Outlines
-                </span>
-                <h4 className="font-serif text-sm sm:text-base font-bold text-white mb-1.5">
-                  Lifelong Portfolios
-                </h4>
-                <p className="font-sans text-[11px] sm:text-[12px] text-white/75 leading-relaxed">
-                  Every student builds tangible hardware, earns milestone certificates, and graduates with verified digital engineering portfolios.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Primary Action Button & Communication Links */}
-          <div className="flex-none flex flex-col items-center mt-1 sm:mt-2">
+          {/* Primary Action Button (Golden Centerpiece) */}
+          <div className="flex-none flex flex-col items-center">
             <button
               onClick={onOpenContact}
-              className="group relative inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 sm:px-9 py-3 sm:py-3.5 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-xs sm:text-[13px] uppercase tracking-[0.16em] font-bold rounded-lg shadow-[0_4px_24px_rgba(200,164,93,0.35)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer"
+              className="group relative inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 bg-gradient-to-r from-[#c8a45d] via-[#dfc07e] to-[#c8a45d] hover:brightness-110 text-[#080A0D] font-mono text-xs sm:text-[13px] uppercase tracking-[0.16em] font-bold rounded-lg sm:rounded-xl shadow-[0_4px_24px_rgba(200,164,93,0.35)] hover:shadow-[0_8px_36px_rgba(200,164,93,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer mb-5 sm:mb-6"
             >
               <Calendar className="w-4 h-4 text-[#080A0D]" />
               <span>{siteConfig.closing.ctaText}</span>
@@ -216,7 +170,7 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenContact })
             </button>
 
             {/* Contact & Social Links */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs font-mono text-white/75 mt-3 sm:mt-4 w-full max-w-sm sm:max-w-none mx-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs font-mono text-white/75 w-full max-w-sm sm:max-w-none mx-auto">
               {/* Official Email */}
               <button
                 onClick={handleCopyEmail}
