@@ -153,7 +153,7 @@ export const LearningApproachSection: React.FC = () => {
       <div className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden">
         
         {/* Main Inset White Panel - Big White Card framing Content & Instructor Photo */}
-        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col lg:flex-row items-stretch overflow-hidden box-border">
+        <div className="relative w-full h-full flex-1 my-auto max-h-[820px] xl:max-h-[860px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col lg:flex-row items-stretch overflow-hidden box-border">
           
           {/* Left Content Area (Styled Exactly as Image 1) */}
           <div
@@ -198,7 +198,7 @@ export const LearningApproachSection: React.FC = () => {
             </div>
 
             {/* ─── 3 Colorful Pedagogical Cards (Exact replica of Image 1 with full rich details) ─── */}
-            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 my-1.5 sm:my-2 flex-1 items-stretch min-h-0">
+            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 my-auto flex-1 items-stretch min-h-0">
               {APPROACH_CARDS.map((card) => (
                 <div
                   key={card.title}
@@ -255,7 +255,7 @@ export const LearningApproachSection: React.FC = () => {
                   </div>
 
                   {/* Concrete Deliverable Points */}
-                  <ul className="space-y-1 mt-auto pt-2 border-t border-slate-100 flex-1 flex flex-col justify-around">
+                  <ul className="space-y-1.5 sm:space-y-2 mt-auto pt-2 border-t border-slate-100">
                     {card.bullets.map((b) => (
                       <li key={b} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] font-sans leading-tight">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] shrink-0" />

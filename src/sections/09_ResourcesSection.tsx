@@ -276,7 +276,7 @@ export const ResourcesSection: React.FC = () => {
           {/* 4 Interactive Resource Cards Grid with 3D Book Cover Open Effect */}
           <div
             ref={tilesRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 flex-1 items-stretch my-1.5 sm:my-2 min-h-0"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 flex-1 items-stretch my-auto max-h-[460px] min-h-0"
           >
             {siteConfig.resources.tiles.map((tile) => {
               const detail = RESOURCE_CARD_DATA[tile.title] || RESOURCE_CARD_DATA['E-Books'];

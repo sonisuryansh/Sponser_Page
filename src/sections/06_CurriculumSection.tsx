@@ -379,7 +379,7 @@ export const CurriculumSection: React.FC = () => {
         className="relative w-full h-full min-h-full flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+6px)] pb-3 sm:pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-hidden"
       >
         {/* Main Unified Inset Card - Matches Reference Image 1 (Spacious) */}
-        <div className="relative w-full h-full flex-1 bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border">
+        <div className="relative w-full h-full flex-1 my-auto max-h-[820px] xl:max-h-[860px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row items-stretch overflow-hidden box-border">
 
           {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
           <div className="w-full sm:w-48 lg:w-52 xl:w-56 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-2.5 sm:py-4 px-2 sm:px-3 select-none shrink-0">
@@ -536,7 +536,7 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5b. Hands-on Term Capstone & Hardware Lab Platform Cards */}
                 {currentStage.termProject && (
-                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1 min-h-0 my-1 items-stretch">
+                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1 min-h-0 my-auto items-stretch max-h-[380px]">
                     {/* Term Project Card */}
                     <div className="p-2.5 sm:p-3 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0">
                       <div className="min-h-0 flex flex-col">

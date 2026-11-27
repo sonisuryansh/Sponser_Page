@@ -252,7 +252,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               borderColor: currentMeta.borderLight,
               background: `linear-gradient(135deg, #FFFFFF 0%, ${currentMeta.bgLight} 100%)`,
             }}
-            className="relative flex-1 min-h-0 grid grid-cols-1 md:grid-cols-12 items-stretch gap-4 lg:gap-6 border-2 rounded-2xl p-3 sm:p-4 lg:p-5 mb-2 shadow-xs transition-all duration-500 overflow-hidden"
+            className="relative flex-1 min-h-0 my-auto max-h-[540px] xl:max-h-[580px] grid grid-cols-1 md:grid-cols-12 items-stretch gap-4 lg:gap-6 border-2 rounded-2xl p-3 sm:p-4 lg:p-5 mb-2 shadow-xs transition-all duration-500 overflow-hidden"
           >
             {/* Ambient Background Corner Glow */}
             <div
@@ -261,8 +261,8 @@ export const ProjectShowcaseSection: React.FC = () => {
             />
 
             {/* Left Narrative & Metadata */}
-            <div className="md:col-span-7 lg:col-span-8 w-full min-w-0 z-10 flex flex-col justify-between h-full min-h-0">
-              <div className="flex-1 flex flex-col justify-between min-h-0">
+            <div className="md:col-span-7 lg:col-span-8 w-full min-w-0 z-10 flex flex-col justify-start gap-2 sm:gap-2.5 h-full min-h-0">
+              <div className="flex-1 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0">
                 {/* Domain Badge Row (Grades Removed) */}
                 <div className="flex items-center gap-2 mb-1 sm:mb-1.5 flex-wrap">
                   <span
@@ -336,7 +336,7 @@ export const ProjectShowcaseSection: React.FC = () => {
               </div>
 
               {/* Inspect Action Button */}
-              <div className="pt-1.5 flex-none">
+              <div className="pt-1.5 mt-auto flex-none">
                 <button
                   type="button"
                   onClick={() => setSelectedProject(currentProject)}

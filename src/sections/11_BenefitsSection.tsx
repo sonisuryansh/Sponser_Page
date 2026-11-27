@@ -48,7 +48,7 @@ const BENEFIT_CARDS: BenefitCardConfig[] = [
     deliverable: 'Algorithmic reasoning & practical confidence',
     popupTitle: 'Practical Engineering Rigor',
     popupPurpose: 'Equips students with hands-on problem-solving, computational logic, and mechanical design skills that classroom textbooks alone cannot impart.',
-    popupBadge: 'Direct Student Competence',
+    popupBadge: 'Student Competence',
   },
   {
     title: 'Projects',
@@ -64,7 +64,7 @@ const BENEFIT_CARDS: BenefitCardConfig[] = [
     deliverable: 'Physical hardware showcased term-by-term',
     popupTitle: 'Tangible Proof of Learning',
     popupPurpose: 'Transforms classroom concepts into working physical hardware—rovers, sensors, and flight drones—giving parents and school leadership visible proof of progress.',
-    popupBadge: 'Transparent Parent Value',
+    popupBadge: 'Parent Value',
   },
   {
     title: 'Certificates',
@@ -80,7 +80,7 @@ const BENEFIT_CARDS: BenefitCardConfig[] = [
     deliverable: 'Formal certificates for completed grades',
     popupTitle: 'Milestone Recognition',
     popupPurpose: 'Grants formal certificates upon completing each grade-wise level, providing verified recognition for students and academic records.',
-    popupBadge: 'Milestone Recognition',
+    popupBadge: 'Recognition',
   },
   {
     title: 'Competitions',

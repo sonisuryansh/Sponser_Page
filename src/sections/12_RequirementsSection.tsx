@@ -161,7 +161,7 @@ export const RequirementsSection: React.FC = () => {
         </div>
 
         {/* Two Majestic Architectural Cards: School Provides vs MedhaArc Labs Delivers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 items-stretch w-full flex-1 my-1 sm:my-1.5 min-h-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 items-stretch w-full max-w-5xl mx-auto flex-1 my-auto max-h-[580px] min-h-0">
           {/* Card 1: School provides */}
           <div
             ref={leftColRef}
@@ -189,7 +189,7 @@ export const RequirementsSection: React.FC = () => {
 
             {/* List Items */}
             <div className="p-3 sm:p-4 lg:p-4.5 flex-1 flex flex-col justify-between overflow-hidden">
-              <ul className="space-y-1.5 sm:space-y-2 lg:space-y-2.5 flex-1 flex flex-col justify-between">
+              <ul className="space-y-2.5 sm:space-y-3.5 my-auto">
                 {schoolRequirements.map((item, idx) => (
                   <li
                     key={idx}
@@ -245,7 +245,7 @@ export const RequirementsSection: React.FC = () => {
 
             {/* List Items */}
             <div className="p-3 sm:p-4 lg:p-4.5 flex-1 flex flex-col justify-between overflow-hidden">
-              <ul className="space-y-1.5 sm:space-y-2 lg:space-y-2.5 flex-1 flex flex-col justify-between">
+              <ul className="space-y-2.5 sm:space-y-3.5 my-auto">
                 {medhaarcDeliverables.map((item, idx) => (
                   <li
                     key={idx}
