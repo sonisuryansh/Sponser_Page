@@ -158,7 +158,7 @@ export const LearningApproachSection: React.FC = () => {
           {/* Left Content Area (Styled Exactly as Image 1) */}
           <div
             ref={contentRef}
-            className="flex-1 flex flex-col justify-between p-3 sm:p-4 lg:p-5 gap-1.5 sm:gap-2"
+            className="flex-1 min-w-0 flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 xl:p-5 gap-1.5 sm:gap-2"
           >
             {/* Header Area */}
             <div className="flex flex-col items-center text-center">
@@ -300,12 +300,13 @@ export const LearningApproachSection: React.FC = () => {
           </div>
 
           {/* ─── Right Image Frame (Arched top-left corner matching Image 1) ─── */}
-          <div className="hidden lg:flex w-[280px] xl:w-[320px] shrink-0 relative bg-black/5 items-center justify-center p-2.5 xl:p-3 overflow-hidden">
+          <div className="hidden lg:flex w-[380px] xl:w-[460px] 2xl:w-[490px] shrink-0 relative bg-black/5 items-center justify-center p-2.5 xl:p-3 overflow-hidden">
             <div className="relative w-full h-full rounded-tl-[60px] rounded-bl-[14px] rounded-r-[14px] overflow-hidden border-t-4 border-l-4 border-[#F59E0B] shadow-lg group">
               <img
                 src="/assets/instructor_guided_learning.webp"
                 alt="Instructor guiding students through practical engineering and technology learning"
-                className="w-full h-full object-cover object-center filter saturate-[0.92] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover filter saturate-[0.92] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
+                style={{ objectPosition: '37.5% 16%' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
