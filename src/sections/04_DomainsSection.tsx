@@ -17,6 +17,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { ChapterShell } from '../components/ChapterShell';
+import { siteConfig } from '../config/content.config';
 
 interface DomainData {
   id: string;
@@ -150,10 +151,10 @@ const DOMAINS: DomainData[] = [
     id: 'robotics',
     slideId: 'slide-4',
     chapter: '04',
-    domainNumber: 'Engineering Domain 01',
+    domainNumber: 'Robotics & Automation',
     name: 'Robotics & Automation',
     tag: 'PHYSICAL COMPUTING',
-    description: 'Electronics, sensors, control, coding, and mechanical systems.',
+    description: 'Electronics, sensors, control, coding and mechanical systems.',
     borderColor: 'border-[#38BDF8]',
     accentColor: '#0284C7',
     barColor: '#0284C7',
@@ -172,15 +173,16 @@ const DOMAINS: DomainData[] = [
     },
     slideNumber: '01',
     items: [
-      'Microcontrollers & Embedded C',
-      'Sensors & Sensory Feedback',
-      'Motor Drivers & PWM Actuators',
-      'Mechanical Prototyping & CAD',
+      'Assemble and wire physical robotics kits.',
+      'Program autonomous sensor reaction loops.',
+      'Test, debug, and optimize mechanical code.',
     ],
     metrics: [
       { value: 'DESIGN', label: 'Circuits & CAD' },
       { value: 'BUILD', label: 'Sensors & Motors' },
       { value: 'CODE', label: 'Embedded Logic' },
+      { value: 'TEST', label: 'Diagnostics' },
+      { value: 'IMPROVE', label: 'Optimization' },
     ],
     pillars: [
       { num: '01', title: 'Electronics & Circuits', desc: 'Voltage regulation & breadboard circuits' },
@@ -188,20 +190,20 @@ const DOMAINS: DomainData[] = [
       { num: '03', title: 'Embedded Code', desc: 'MicroPython & hardware interrupts' },
       { num: '04', title: '3D Mechanics', desc: 'CAD spatial modeling & kinematics' },
     ],
-    badgeNote: 'DESIGN → BUILD → CODE → TEST → ITERATE',
+    badgeNote: 'DESIGN → BUILD → CODE → TEST → IMPROVE',
     image: '/assets/students_robotics_assembly.webp',
-    imageCaption: 'Robotics & Assembly',
-    imageSubcaption: 'Students assembling wheeled chassis & circuits',
+    imageCaption: 'Robotics & Automation',
+    imageSubcaption: 'Students at a build bench with a wheeled robot car',
     imageTag: 'School Lab Platform',
   },
   {
     id: 'ai-ml',
     slideId: 'slide-5',
     chapter: '05',
-    domainNumber: 'Engineering Domain 02',
+    domainNumber: 'AI & Machine Learning',
     name: 'AI & Machine Learning',
     tag: 'COGNITIVE MODELS',
-    description: 'Intelligent systems, model concepts, and responsible AI use.',
+    description: 'Intelligent systems, model concepts and responsible AI use.',
     borderColor: 'border-[#C084FC]',
     accentColor: '#9333EA',
     barColor: '#9333EA',
@@ -220,14 +222,14 @@ const DOMAINS: DomainData[] = [
     },
     slideNumber: '02',
     items: [
-      'Machine Learning Principles',
-      'Supervised Training & Weights',
-      'Computer Vision & Audio ML',
-      'Ethical Safety Guardrails',
+      'Train edge models with sample image sets.',
+      'Real-time object & pattern recognition.',
+      'Audit model bias & responsible AI ethics.',
     ],
     metrics: [
       { value: 'PERCEIVE', label: 'Data & Patterns' },
       { value: 'TRAIN', label: 'Supervised Models' },
+      { value: 'EVALUATE', label: 'Accuracy & Drift' },
       { value: 'ETHICS', label: 'Safety Guardrails' },
     ],
     pillars: [
@@ -236,20 +238,20 @@ const DOMAINS: DomainData[] = [
       { num: '03', title: 'Neural Models', desc: 'Tokenization & prompt logic' },
       { num: '04', title: 'Ethics & Safety', desc: 'Bias detection & privacy boundaries' },
     ],
-    badgeNote: 'Responsible AI citizenship, privacy safeguards, and ethics curriculum built-in.',
+    badgeNote: 'UNDERSTAND → EXPLORE → APPLY → BUILD',
     image: '/assets/computer_vision_object_recognition.webp',
-    imageCaption: 'Computer Vision & AI',
-    imageSubcaption: 'Camera-based object recognition & classification',
+    imageCaption: 'AI & Machine Learning',
+    imageSubcaption: 'Students at a computer with a small camera-based project',
     imageTag: 'Neural Inference',
   },
   {
     id: 'data-analytics',
     slideId: 'slide-6',
     chapter: '06',
-    domainNumber: 'Engineering Domain 03',
+    domainNumber: 'Data Analytics',
     name: 'Data Analytics',
     tag: 'EVIDENCE & INSIGHTS',
-    description: 'Working with data, finding patterns, and sharing insights.',
+    description: 'Working with data, finding patterns and sharing insights.',
     borderColor: 'border-[#FB923C]',
     accentColor: '#EA580C',
     barColor: '#EA580C',
@@ -268,13 +270,13 @@ const DOMAINS: DomainData[] = [
     },
     slideNumber: '03',
     items: [
-      'Data Wrangling & Cleaning',
-      'Trend & Outlier Detection',
-      'Hypothesis Formulation',
-      'Visual Storytelling & Charts',
+      'Collect live sensor telemetry & logs.',
+      'Filter noise, calculate variance & anomalies.',
+      'Publish interactive visual dashboards.',
     ],
     metrics: [
       { value: 'COLLECT', label: 'Raw Observations' },
+      { value: 'CLEAN', label: 'Noise Filtering' },
       { value: 'ANALYSE', label: 'Trends & Variance' },
       { value: 'INSIGHT', label: 'Visual Findings' },
     ],
@@ -284,20 +286,20 @@ const DOMAINS: DomainData[] = [
       { num: '03', title: 'Visualisation', desc: 'Real-time telemetry charts' },
       { num: '04', title: 'Insights', desc: 'Optimization & parameter tuning' },
     ],
-    badgeNote: 'Hypothesis → Experimentation → Telemetry → Empirical Conclusion',
+    badgeNote: 'DATA → ANALYSIS → VISUALISATION → INSIGHTS',
     image: '/assets/laptop_analytics.webp',
-    imageCaption: 'Telemetry Lab',
-    imageSubcaption: 'Multi-variate telemetry & synthesis',
+    imageCaption: 'Data Analytics',
+    imageSubcaption: 'Students reading a chart on a screen together',
     imageTag: 'Live Telemetry',
   },
   {
     id: 'aerial-systems',
     slideId: 'slide-7',
     chapter: '07',
-    domainNumber: 'Engineering Domain 04',
+    domainNumber: 'Aerial Systems',
     name: 'Aerial Systems',
     tag: 'FLIGHT AERODYNAMICS',
-    description: 'Aerial platforms, flight basics, sensing, and applications.',
+    description: 'Aerial platforms, flight basics, sensing and applications.',
     borderColor: 'border-[#4ADE80]',
     accentColor: '#16A34A',
     barColor: '#16A34A',
@@ -309,22 +311,22 @@ const DOMAINS: DomainData[] = [
     tagBg: 'bg-emerald-100 text-[#15803D]',
     specialCallout: {
       icon: <Plane className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />,
-      text: 'Indoor control training: flying through hoops and around low & high obstacles, safety first.',
+      text: 'Indoor control training: flying through hoops and around low and high obstacles, with safety first.',
       bg: '#F0FDF4',
       border: '#BBF7D0',
       color: '#15803D',
     },
     slideNumber: '04',
     items: [
-      'Multi-Rotor Aerodynamics',
-      '3D Spatial Telemetry & IMUs',
-      'Autonomous Waypoints',
-      'Laboratory Tethered Protocols',
+      'Master lift dynamics & airfoil physics.',
+      'Fly precision indoor obstacle courses.',
+      'Calibrate flight telemetry & PID gyros.',
     ],
     metrics: [
-      { value: 'FLIGHT', label: 'Lift & Stability' },
-      { value: 'SENSORS', label: 'Telemetry Guidance' },
-      { value: 'SAFETY', label: 'Controlled Arena' },
+      { value: 'AIRFOIL', label: 'Lift & Aerodynamics' },
+      { value: 'FLIGHT', label: 'Thrust & Stability' },
+      { value: 'TELEMETRY', label: 'Sensor Guidance' },
+      { value: 'SAFETY', label: 'Enclosed Arena' },
     ],
     pillars: [
       { num: '01', title: 'Aerodynamics & Lift', desc: 'Airfoils & quad-rotor thrust dynamics' },
@@ -332,10 +334,10 @@ const DOMAINS: DomainData[] = [
       { num: '03', title: 'Waypoints', desc: '3D coordinates & autonomous paths' },
       { num: '04', title: 'Sensory Mapping', desc: 'Altitude sensing & collision avoidance' },
     ],
-    badgeNote: 'STRICT LAB PROTOCOL: Safe tethered flight cages and controlled indoor arenas.',
+    badgeNote: 'PLATFORM → SENSORS → CONTROL → DATA → APPLICATIONS',
     image: '/assets/indoor_drone_flight_hoops.webp',
-    imageCaption: 'Indoor Drone Arena',
-    imageSubcaption: 'Tethered hoop navigation & obstacle training',
+    imageCaption: 'Aerial Systems',
+    imageSubcaption: 'Indoor hoop and obstacle course with a small guarded drone',
     imageTag: 'Safe Lab Protocol',
   },
 ];
@@ -509,7 +511,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         lastStepTimeRef.current = now;
         setActiveCardIndex(-1);
         activeCardIndexRef.current = -1;
-        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 5 }));
+        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
       }
     } else {
       // Swiped DOWN (scroll up)
@@ -557,7 +559,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
         lastStepTimeRef.current = now;
         setActiveCardIndex(-1);
         activeCardIndexRef.current = -1;
-        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 5 }));
+        window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 4 }));
       }
     } else {
       if (activeCardIndex > 0) {
@@ -592,8 +594,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           : typeof customEvent.detail?.index === 'number'
             ? customEvent.detail.index
             : null;
-      // If navigating to any slide other than index 4 (Domains Section), always close modal!
-      if (typeof targetIdx === 'number' && targetIdx !== 4) {
+      // If navigating to another slide, always close the modal.
+      if (typeof targetIdx === 'number' && targetIdx !== 3) {
         setActiveCardIndex(-1);
         activeCardIndexRef.current = -1;
       }
@@ -612,7 +614,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
   return (
     <ChapterShell
       id="domains"
-      chapterNumber="05"
+      chapterNumber="04"
       theme="light"
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden select-none bg-[#FAF8F5]"
@@ -633,13 +635,13 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
           <div className="flex items-center justify-center gap-2 mb-0.5">
             <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b45309]" />
             <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
-              FOUR SPECIALIZED CURRICULUM TRACKS
+              OUR TECHNOLOGY DOMAINS
             </span>
             <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b45309]" />
           </div>
 
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-bold text-[#0F172A] tracking-tight leading-tight text-center">
-            Our Core Technology Ecosystem
+            {siteConfig.domainsSection.headline}
           </h2>
 
           {/* Dual-Tone Orange Underline Curve */}
@@ -667,71 +669,78 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 className={`absolute bottom-0 right-0 w-20 h-12 bg-gradient-to-tl ${domain.waveColor} rounded-tl-3xl pointer-events-none opacity-80`}
               />
 
-              {/* Top Content Area */}
-              <div className="relative z-10">
-                {/* Header Row: CH 0X Pill & Category Tag */}
-                <div className="flex items-center justify-between gap-1.5 mb-2.5 font-mono text-[10.5px] sm:text-[11px] tracking-wider uppercase">
-                  <span className={`font-bold px-2.5 py-0.5 rounded-full ${domain.tagBg} border border-black/5`}>
-                    CH {domain.slideNumber}
-                  </span>
-                  <span className={`font-bold text-[10px] sm:text-[10.5px] tracking-wider truncate ${domain.tagColor}`}>
-                    {domain.tag}
-                  </span>
+              {/* Card Body - Balanced Vertical Rhythm */}
+              <div className="relative z-10 flex-1 flex flex-col justify-between">
+                <div>
+                  {/* Domain Pill Badge & Number */}
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className={`font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border ${domain.tagBg}`}>
+                      {domain.tag}
+                    </span>
+                    <span className="font-mono text-[9px] text-slate-400 font-bold">
+                      0{idx + 1}
+                    </span>
+                  </div>
+
+                  {/* Title & Vector Line-Art Icon Row */}
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <div>
+                      <h3 className="font-serif text-[17px] sm:text-[18px] xl:text-[20px] font-bold text-[#0F172A] leading-tight tracking-tight group-hover:text-[#EA580C] transition-colors">
+                        {domain.name}
+                      </h3>
+                      {/* Horizontal Colored Bar */}
+                      <div
+                        className="w-10 h-1 rounded-full mt-1.5 mb-1.5"
+                        style={{ backgroundColor: domain.barColor }}
+                      />
+                    </div>
+                    <div className="shrink-0 -mt-1 group-hover:scale-108 transition-transform duration-300">
+                      {DOMAIN_VECTORS[idx]}
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-snug mb-2 font-normal">
+                    {domain.description}
+                  </p>
                 </div>
 
-                {/* Title & Vector Line-Art Icon Row */}
-                <div className="flex items-start justify-between gap-2 mb-1.5">
-                  <div>
-                    <h3 className="font-serif text-[18px] sm:text-[19px] xl:text-[21px] font-bold text-[#0F172A] leading-tight tracking-tight">
-                      {domain.name}
-                    </h3>
-                    {/* Horizontal Colored Bar */}
-                    <div
-                      className="w-10 h-1 rounded-full mt-2 mb-2"
-                      style={{ backgroundColor: domain.barColor }}
-                    />
-                  </div>
-                  {DOMAIN_VECTORS[idx]}
-                </div>
-
-                {/* Description */}
-                <p className="font-sans text-[12px] sm:text-[12.5px] text-[#475569] leading-relaxed mb-2.5 font-normal">
-                  {domain.description}
-                </p>
-
-                {/* Special Callout Box (AI Ethics for CH 02 & Drone Safety for CH 04) */}
-                {domain.specialCallout && (
-                  <div
-                    style={{
-                      backgroundColor: domain.specialCallout.bg,
-                      borderColor: domain.specialCallout.border,
-                      color: domain.specialCallout.color,
-                    }}
-                    className="flex items-center gap-2 p-2 rounded-xl border text-[11.5px] sm:text-[12px] font-sans font-semibold leading-snug mb-2.5 shadow-2xs"
-                  >
-                    {domain.specialCallout.icon}
-                    <span>{domain.specialCallout.text}</span>
-                  </div>
-                )}
-
-                {/* 4 Feature Bullets with Circular Checkmarks */}
-                <ul className="space-y-1.5 font-sans text-[12px] sm:text-[12.5px] text-[#1E293B] mb-2 font-medium">
+                {/* What Students Do - 3 Practical Highlights */}
+                <div className="pt-2 my-1 border-t border-slate-200/70 flex flex-col gap-1.5">
+                  <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-slate-400 font-bold block">
+                    What Students Do
+                  </span>
                   {domain.items.map((item, itemIdx) => (
-                    <li key={itemIdx} className="flex items-center gap-2 leading-tight">
+                    <div key={itemIdx} className="flex items-start gap-1.5 text-[10.5px] sm:text-[11px] text-slate-700 leading-tight">
                       <span
-                        className={`w-4 h-4 rounded-full ${domain.checkBg} ${domain.checkColor} flex items-center justify-center shrink-0 text-[10px]`}
+                        className="w-3.5 h-3.5 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-2xs"
+                        style={{ backgroundColor: `${domain.accentColor}18`, color: domain.accentColor }}
                       >
-                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                        <Check className="w-2.5 h-2.5 stroke-[2.5]" />
                       </span>
-                      <span className="leading-snug">{item}</span>
-                    </li>
+                      <span className="font-sans font-medium line-clamp-2">{item}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
+
+                {/* Process Flow Stage Chips */}
+                <div className="pt-2 border-t border-slate-200/70 flex flex-wrap items-center gap-1 sm:gap-1.5">
+                  {domain.metrics.map((m) => (
+                    <span
+                      key={m.value}
+                      className="font-mono text-[7px] sm:text-[7.5px] xl:text-[8px] px-1.5 py-0.5 rounded bg-white text-slate-600 font-semibold border border-slate-200/80 shadow-2xs"
+                    >
+                      {m.value}
+                    </span>
+                  ))}
+                </div>
               </div>
 
               {/* Bottom Action Footer */}
-              <div className="relative z-10 pt-2 border-t border-slate-200/80 mt-auto flex items-center justify-between text-[11.5px] sm:text-[12px] font-mono font-medium">
-                <span className="text-slate-500 group-hover:text-slate-700 transition-colors">Click to inspect</span>
+              <div className="relative z-10 pt-2 border-t border-slate-200/80 mt-2 sm:mt-2.5 flex items-center justify-between text-[11px] sm:text-[11.5px] font-mono font-medium">
+                <span className="text-[10px] text-slate-500 font-sans font-medium">
+                  Grade 3&ndash;12
+                </span>
                 <span
                   style={{ color: domain.accentColor }}
                   className="font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform"
@@ -860,12 +869,6 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                       {DOMAIN_VECTORS[activeCardIndex]}
                     </div>
                     <div>
-                      <span
-                        className="font-mono text-xs tracking-wider uppercase font-bold transition-colors duration-500"
-                        style={{ color: activeCard.accentColor }}
-                      >
-                        {activeCard.domainNumber}
-                      </span>
                       <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0F172A] leading-tight">
                         {activeCard.name}
                       </h3>
@@ -914,9 +917,17 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                     <button
                       type="button"
                       onClick={() => {
-                        const next = activeCardIndex < DOMAINS.length - 1 ? activeCardIndex + 1 : 0;
+                        if (activeCardIndex === DOMAINS.length - 1) {
+                          setActiveCardIndex(-1);
+                          activeCardIndexRef.current = -1;
+                          window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 5 }));
+                          return;
+                        }
+
+                        const next = activeCardIndex + 1;
                         stepDirectionRef.current = 1;
                         setActiveCardIndex(next);
+                        activeCardIndexRef.current = next;
                         onSlideChange?.(next + 3);
                       }}
                       className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
@@ -940,59 +951,32 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
 
                 {/* Modal Body */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
-                  {/* Left Column: Description, Metrics & Pillars */}
+                  {/* Left Column: Domain copy and process */}
                   <div className="lg:col-span-7 space-y-3">
                     <p className="font-sans text-xs sm:text-sm text-[#475569] leading-relaxed font-normal">
                       {activeCard.description}
                     </p>
 
-                    {/* Metrics Strip */}
-                    <div className="grid grid-cols-3 gap-2 py-2.5 px-3 border border-slate-200 bg-slate-50/70 rounded-2xl transition-colors duration-500">
-                      {activeCard.metrics.map((m, mIdx) => (
-                        <div key={mIdx} className="text-left">
-                          <div
-                            className="font-mono text-xs sm:text-sm font-bold tracking-wider transition-colors duration-500"
-                            style={{ color: activeCard.accentColor }}
-                          >
-                            {m.value}
-                          </div>
-                          <div className="font-mono text-[9.5px] text-slate-500 uppercase leading-tight truncate">
-                            {m.label}
-                          </div>
-                        </div>
+                    <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">
+                      What students do
+                    </h4>
+                    <ul className="space-y-2">
+                      {activeCard.items.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm leading-relaxed text-slate-700">
+                          <Check className="mt-1 h-4 w-4 shrink-0" style={{ color: activeCard.accentColor }} aria-hidden="true" />
+                          <span>{item}</span>
+                        </li>
                       ))}
-                    </div>
-
-                    {/* 2 Core Pillars */}
-                    <div className="grid grid-cols-2 gap-2.5 pt-1">
-                      {activeCard.pillars.slice(0, 2).map((item) => (
-                        <div
-                          key={item.num}
-                          className="p-3 rounded-2xl border border-slate-200/80 bg-white shadow-2xs text-left"
+                    </ul>
+                    <div className="flex flex-wrap gap-2 border-t border-slate-100 pt-3">
+                      {(activeCard.badgeNote ?? '').split('→').map((step) => (
+                        <span
+                          key={step}
+                          className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 font-mono text-[10px] font-semibold text-slate-600"
                         >
-                          <div
-                            className="font-mono text-[9.5px] font-bold transition-colors duration-500"
-                            style={{ color: activeCard.accentColor }}
-                          >
-                            PILLAR {item.num}
-                          </div>
-                          <div className="font-sans text-xs font-bold text-[#0F172A] leading-tight mt-0.5">
-                            {item.title}
-                          </div>
-                          <div className="font-sans text-[11px] text-[#475569] mt-0.5 leading-snug">
-                            {item.desc}
-                          </div>
-                        </div>
+                          {step.trim()}
+                        </span>
                       ))}
-                    </div>
-
-                    {/* Badge Note */}
-                    <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-100">
-                      <span
-                        className="w-2 h-2 rounded-full shrink-0 transition-colors duration-500"
-                        style={{ backgroundColor: activeCard.accentColor }}
-                      />
-                      <span className="truncate">{activeCard.badgeNote}</span>
                     </div>
                   </div>
 
@@ -1019,9 +1003,6 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                             {activeCard.imageSubcaption}
                           </p>
                         </div>
-                        <span className="font-mono text-[9px] text-white/90 bg-white/20 px-2.5 py-0.5 rounded-full border border-white/20 font-medium whitespace-nowrap">
-                          {activeCard.imageTag}
-                        </span>
                       </div>
                     </div>
                   </div>
