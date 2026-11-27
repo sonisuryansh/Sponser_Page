@@ -106,7 +106,7 @@ export const MissionSection: React.FC = () => {
             {/* Eyebrow */}
             <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5">
               <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b45309]" />
-              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+              <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
                 {siteConfig.mission.eyebrow}
               </span>
               <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b45309]" />
@@ -121,7 +121,7 @@ export const MissionSection: React.FC = () => {
             </h2>
 
             {/* Narrative Body Copy (Centered) */}
-            <p className="editorial-reveal font-sans text-[11px] sm:text-xs lg:text-[12.5px] text-[#475569] leading-relaxed max-w-3xl mx-auto font-normal text-center">
+            <p className="editorial-reveal font-sans text-[12.5px] sm:text-[13.5px] text-[#475569] leading-relaxed max-w-3xl mx-auto font-normal text-center">
               At MedhaArc Labs, we believe technology education moves beyond passive consumption into tangible engineering. From foundational logic to physical prototypes, our curriculum connects core mathematical reasoning with hands-on robotics, AI, drone, and autonomous flight.
             </p>
           </div>
@@ -133,15 +133,15 @@ export const MissionSection: React.FC = () => {
                 ⚡
               </span>
               <div>
-                <span className="font-sans font-bold text-xs sm:text-[13px] text-[#0F172A] block leading-tight">
+                <span className="font-sans font-bold text-[13px] sm:text-[13.5px] text-[#0F172A] block leading-tight">
                   Tangible Engineering Over Passive Screen Time
                 </span>
-                <span className="font-sans text-[10.5px] sm:text-[11px] text-[#64748B] leading-tight">
+                <span className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-tight font-normal">
                   Every concept is validated on real microcontrollers, sensors, circuits, and autonomous robotic platforms.
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-1.5 font-mono text-[9.5px] sm:text-[10px] text-[#0284C7] font-semibold bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200 shrink-0">
+            <div className="flex items-center gap-1.5 font-mono text-[10px] sm:text-[10.5px] text-[#0284C7] font-bold bg-sky-50 px-3 py-0.5 rounded-full border border-sky-200 shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
               <span>Grade 3 to 12 Progressive Pathway</span>
             </div>
@@ -162,7 +162,7 @@ export const MissionSection: React.FC = () => {
 
                   {/* Header Row: Top Number Pill */}
                   <div className="relative z-10 flex items-center justify-between mb-1">
-                    <span className={`font-mono text-[9.5px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full border ${val.numBg} ${val.numColor}`}>
+                    <span className={`font-mono text-[10px] sm:text-[10.5px] font-bold px-2 py-0.5 rounded-full border ${val.numBg} ${val.numColor}`}>
                       {val.num}
                     </span>
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-[#EA580C] transition-colors" />
@@ -180,10 +180,10 @@ export const MissionSection: React.FC = () => {
 
                   {/* Title & Concise Description */}
                   <div className="relative z-10 text-center mt-auto">
-                    <h3 className="font-serif text-[13px] sm:text-[14px] font-bold text-[#0F172A] leading-tight tracking-tight mb-1 group-hover:text-[#EA580C] transition-colors">
+                    <h3 className="font-serif text-[14px] sm:text-[15px] font-bold text-[#0F172A] leading-tight tracking-tight mb-1 group-hover:text-[#EA580C] transition-colors">
                       {val.name}
                     </h3>
-                    <p className="font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug font-normal">
+                    <p className="font-sans text-[11.5px] sm:text-[12px] text-[#334155] leading-snug font-normal">
                       {val.description}
                     </p>
                   </div>

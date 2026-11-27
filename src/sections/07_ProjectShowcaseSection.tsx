@@ -313,20 +313,20 @@ export const ProjectShowcaseSection: React.FC = () => {
                   const spec = projectSpecs[currentProject.id];
                   if (!spec) return null;
                   return (
-                    <div className="p-2 sm:p-2.5 rounded-xl bg-white/80 border border-black/8 shadow-2xs space-y-1 my-1">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white/80 border border-black/8 shadow-2xs space-y-1.5 my-1">
                       <div className="flex items-start gap-1.5">
-                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider font-bold text-[#0F172A] shrink-0 mt-0.5">
+                        <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider font-bold text-[#0F172A] shrink-0 mt-0.5">
                           Architecture:
                         </span>
-                        <span className="font-sans text-[10px] sm:text-[11px] text-[#475569] leading-tight font-normal line-clamp-2">
+                        <span className="font-sans text-[12px] sm:text-[12.5px] text-[#475569] leading-snug font-normal line-clamp-2">
                           {spec.arch}
                         </span>
                       </div>
-                      <div className="flex items-start gap-1.5 pt-1 border-t border-black/5">
-                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider font-bold text-[#b45309] shrink-0 mt-0.5">
+                      <div className="flex items-start gap-1.5 pt-1.5 border-t border-black/5">
+                        <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-wider font-bold text-[#b45309] shrink-0 mt-0.5">
                           Student Mastery:
                         </span>
-                        <span className="font-sans text-[10px] sm:text-[11px] text-[#334155] leading-tight font-medium line-clamp-2">
+                        <span className="font-sans text-[12px] sm:text-[12.5px] text-[#0F172A] leading-snug font-semibold line-clamp-2">
                           {spec.takeaway}
                         </span>
                       </div>
@@ -340,7 +340,7 @@ export const ProjectShowcaseSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedProject(currentProject)}
-                  className="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[10px] sm:text-[11px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
+                  className="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#1E293B] text-white font-mono-tech font-bold text-[11.5px] sm:text-[12px] tracking-wider transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
                 >
                   <span>Inspect Project Build</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#38BDF8]" />

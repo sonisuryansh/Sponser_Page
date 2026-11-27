@@ -670,11 +670,11 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
               {/* Top Content Area */}
               <div className="relative z-10">
                 {/* Header Row: CH 0X Pill & Category Tag */}
-                <div className="flex items-center justify-between gap-1.5 mb-2.5 font-mono text-[10px] tracking-wider uppercase">
+                <div className="flex items-center justify-between gap-1.5 mb-2.5 font-mono text-[10.5px] sm:text-[11px] tracking-wider uppercase">
                   <span className={`font-bold px-2.5 py-0.5 rounded-full ${domain.tagBg} border border-black/5`}>
                     CH {domain.slideNumber}
                   </span>
-                  <span className={`font-bold text-[9.5px] tracking-wider truncate ${domain.tagColor}`}>
+                  <span className={`font-bold text-[10px] sm:text-[10.5px] tracking-wider truncate ${domain.tagColor}`}>
                     {domain.tag}
                   </span>
                 </div>
@@ -695,7 +695,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 </div>
 
                 {/* Description */}
-                <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-relaxed mb-2.5 font-normal">
+                <p className="font-sans text-[12px] sm:text-[12.5px] text-[#475569] leading-relaxed mb-2.5 font-normal">
                   {domain.description}
                 </p>
 
@@ -707,7 +707,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                       borderColor: domain.specialCallout.border,
                       color: domain.specialCallout.color,
                     }}
-                    className="flex items-center gap-2 p-2 rounded-xl border text-[10.5px] font-sans font-semibold leading-snug mb-2.5 shadow-2xs"
+                    className="flex items-center gap-2 p-2 rounded-xl border text-[11.5px] sm:text-[12px] font-sans font-semibold leading-snug mb-2.5 shadow-2xs"
                   >
                     {domain.specialCallout.icon}
                     <span>{domain.specialCallout.text}</span>
@@ -715,7 +715,7 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
                 )}
 
                 {/* 4 Feature Bullets with Circular Checkmarks */}
-                <ul className="space-y-1.5 font-sans text-[11px] sm:text-[11.5px] text-[#334155] mb-2 font-medium">
+                <ul className="space-y-1.5 font-sans text-[12px] sm:text-[12.5px] text-[#1E293B] mb-2 font-medium">
                   {domain.items.map((item, itemIdx) => (
                     <li key={itemIdx} className="flex items-center gap-2 leading-tight">
                       <span
@@ -730,8 +730,8 @@ export const DomainsSection: React.FC<DomainsSectionProps> = ({ onSlideChange })
               </div>
 
               {/* Bottom Action Footer */}
-              <div className="relative z-10 pt-2 border-t border-slate-200/80 mt-auto flex items-center justify-between text-[11px] font-mono">
-                <span className="text-slate-400 group-hover:text-slate-600 transition-colors">Click to inspect</span>
+              <div className="relative z-10 pt-2 border-t border-slate-200/80 mt-auto flex items-center justify-between text-[11.5px] sm:text-[12px] font-mono font-medium">
+                <span className="text-slate-500 group-hover:text-slate-700 transition-colors">Click to inspect</span>
                 <span
                   style={{ color: domain.accentColor }}
                   className="font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform"

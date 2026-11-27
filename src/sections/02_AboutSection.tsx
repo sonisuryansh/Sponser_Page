@@ -83,7 +83,7 @@ export const AboutSection: React.FC = () => {
           <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center">
             <div className="editorial-reveal flex items-center justify-center gap-2 mb-0.5">
               <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b45309]" />
-              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+              <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
                 AIM &amp; STRATEGIC VISION
               </span>
               <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b45309]" />
@@ -93,7 +93,7 @@ export const AboutSection: React.FC = () => {
               Making Technology Understandable &amp; Practical
             </h2>
 
-            <p className="editorial-reveal font-sans text-[11px] sm:text-xs text-slate-500 leading-tight max-w-2xl text-center font-normal">
+            <p className="editorial-reveal font-sans text-[12.5px] sm:text-[13.5px] text-slate-600 leading-snug max-w-2xl text-center font-normal">
               Transforming passive consumers of technology into active creators, thinkers, and real-world innovators.
             </p>
           </div>
@@ -114,18 +114,18 @@ export const AboutSection: React.FC = () => {
                         <div className="w-5 h-5 rounded-md bg-sky-100 text-[#0284C7] flex items-center justify-center shrink-0 shadow-2xs">
                           <Compass className="w-3 h-3" />
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
+                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0284C7] font-bold">
                           OUR AIM
                         </span>
                       </div>
-                      <span className="font-mono text-[8px] uppercase px-1.5 py-0.2 rounded-full bg-sky-100/70 text-[#0369A1] font-semibold">
+                      <span className="font-mono text-[9px] uppercase px-1.5 py-0.2 rounded-full bg-sky-100/70 text-[#0369A1] font-bold">
                         Core
                       </span>
                     </div>
-                    <h3 className="font-serif text-[12.5px] sm:text-[13px] lg:text-[13.5px] font-bold text-[#0F172A] tracking-tight mb-0.5">
+                    <h3 className="font-serif text-[13.5px] sm:text-[14px] lg:text-[14.5px] font-bold text-[#0F172A] tracking-tight mb-0.5">
                       Understandable Technology
                     </h3>
-                    <p className="font-sans text-[10px] sm:text-[10.5px] text-slate-600 leading-tight font-normal line-clamp-2">
+                    <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-700 leading-snug font-normal">
                       Making technology understandable through practical hardware &amp; age-appropriate learning.
                     </p>
                   </div>
@@ -139,18 +139,18 @@ export const AboutSection: React.FC = () => {
                         <div className="w-5 h-5 rounded-md bg-purple-100 text-[#9333EA] flex items-center justify-center shrink-0 shadow-2xs">
                           <Sparkles className="w-3 h-3" />
                         </div>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#9333EA] font-bold">
+                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#9333EA] font-bold">
                           OUR VISION
                         </span>
                       </div>
-                      <span className="font-mono text-[8px] uppercase px-1.5 py-0.2 rounded-full bg-purple-100/70 text-[#7E22CE] font-semibold">
+                      <span className="font-mono text-[9px] uppercase px-1.5 py-0.2 rounded-full bg-purple-100/70 text-[#7E22CE] font-bold">
                         Impact
                       </span>
                     </div>
-                    <h3 className="font-serif text-[12.5px] sm:text-[13px] lg:text-[13.5px] font-bold text-[#0F172A] tracking-tight mb-0.5">
+                    <h3 className="font-serif text-[13.5px] sm:text-[14px] lg:text-[14.5px] font-bold text-[#0F172A] tracking-tight mb-0.5">
                       Confident Builders &amp; Solvers
                     </h3>
-                    <p className="font-sans text-[10px] sm:text-[10.5px] text-slate-600 leading-tight font-normal line-clamp-2">
+                    <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-700 leading-snug font-normal">
                       Helping students become confident problem-solvers, creators, and responsible users.
                     </p>
                   </div>
@@ -263,11 +263,11 @@ export const AboutSection: React.FC = () => {
                       {/* Content: Title, Description, and Action Pill */}
                       <div className="flex-1 min-w-0 pr-1">
                         <div className="flex items-center justify-between mb-0.5">
-                          <h4 className={`font-serif font-bold text-[12.5px] sm:text-[13.5px] leading-tight ${isActive ? 'text-[#EA580C]' : 'text-[#0F172A]'}`}>
+                          <h4 className={`font-serif font-bold text-[13.5px] sm:text-[14.5px] leading-tight ${isActive ? 'text-[#EA580C]' : 'text-[#0F172A]'}`}>
                             {step.name}
                           </h4>
                           <span
-                            className={`font-mono text-[8px] sm:text-[8.5px] font-semibold px-2 py-0.5 rounded-full transition-colors ${isActive
+                            className={`font-mono text-[9px] sm:text-[9.5px] font-bold px-2 py-0.5 rounded-full transition-colors ${isActive
                               ? 'text-[#EA580C] bg-[#FFEDD5] border border-orange-200/80'
                               : 'text-slate-500 bg-slate-100 border border-slate-200/60'
                               }`}
@@ -275,7 +275,7 @@ export const AboutSection: React.FC = () => {
                             {step.badge}
                           </span>
                         </div>
-                        <p className="font-sans text-[10px] sm:text-[10.5px] text-slate-600 leading-snug line-clamp-2">
+                        <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-700 leading-snug line-clamp-2 font-normal">
                           {step.desc}
                         </p>
                       </div>
@@ -298,10 +298,10 @@ export const AboutSection: React.FC = () => {
                   <Layers className="w-3.5 h-3.5" />
                 </div>
                 <div className="min-w-0">
-                  <span className="font-sans font-bold text-[10.5px] text-[#0F172A] block leading-tight truncate">
+                  <span className="font-sans font-bold text-[12px] text-[#0F172A] block leading-tight truncate">
                     4 Core Domains
                   </span>
-                  <span className="font-sans text-[9px] text-slate-500 block leading-tight truncate">
+                  <span className="font-sans text-[10.5px] text-slate-600 font-medium block leading-tight truncate">
                     Robotics &bull; Electronics &bull; AI &bull; Drone
                   </span>
                 </div>
@@ -313,10 +313,10 @@ export const AboutSection: React.FC = () => {
                   <Cpu className="w-3.5 h-3.5" />
                 </div>
                 <div className="min-w-0">
-                  <span className="font-sans font-bold text-[10.5px] text-[#0F172A] block leading-tight truncate">
+                  <span className="font-sans font-bold text-[12px] text-[#0F172A] block leading-tight truncate">
                     100% Practical
                   </span>
-                  <span className="font-sans text-[9px] text-slate-500 block leading-tight truncate">
+                  <span className="font-sans text-[10.5px] text-slate-600 font-medium block leading-tight truncate">
                     Hands-on, Project-based Learning
                   </span>
                 </div>
@@ -328,10 +328,10 @@ export const AboutSection: React.FC = () => {
                   <Award className="w-3.5 h-3.5" />
                 </div>
                 <div className="min-w-0">
-                  <span className="font-sans font-bold text-[10.5px] text-[#0F172A] block leading-tight truncate">
+                  <span className="font-sans font-bold text-[12px] text-[#0F172A] block leading-tight truncate">
                     Grade 3–12 Pathway
                   </span>
-                  <span className="font-sans text-[9px] text-slate-500 block leading-tight truncate">
+                  <span className="font-sans text-[10.5px] text-slate-600 font-medium block leading-tight truncate">
                     Structured journey for every age group
                   </span>
                 </div>

@@ -169,7 +169,7 @@ export const BenefitsSection: React.FC = () => {
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-2.5">
           <div className="editorial-reveal flex items-center justify-center gap-2.5 mb-1">
             <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
-            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+            <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               INSTITUTIONAL VALUE
             </span>
             <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
@@ -182,7 +182,7 @@ export const BenefitsSection: React.FC = () => {
             Student and School Benefits
           </h2>
 
-          <p className="editorial-reveal font-sans text-xs sm:text-sm text-[#475569] leading-relaxed max-w-3xl text-center font-normal">
+          <p className="editorial-reveal font-sans text-[12.5px] sm:text-[13.5px] text-[#475569] leading-relaxed max-w-3xl text-center font-normal">
             Technology education provides meaningful value for students and schools through hands-on learning, real projects and visible outcomes.
           </p>
         </div>
@@ -233,24 +233,24 @@ export const BenefitsSection: React.FC = () => {
                         </h3>
 
                         {/* Description */}
-                        <p className="font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-[#475569] leading-relaxed">
+                        <p className="font-sans text-[13px] sm:text-[13.5px] lg:text-[14px] text-[#334155] leading-relaxed font-normal">
                           {card.description}
                         </p>
 
                         {/* Bottom Status Badge */}
                         <div className="mt-auto pt-2.5 flex items-center justify-between">
                           {card.badgeType === 'confirmed' ? (
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] text-[10.5px] font-semibold shadow-2xs">
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCFCE7] text-[#16A34A] border border-[#BBF7D0] text-[11px] sm:text-[11.5px] font-semibold shadow-2xs">
                               <CheckCircle2 className="w-3.5 h-3.5 text-[#16A34A] shrink-0" />
                               <span>{card.badgeLabel}</span>
                             </div>
                           ) : (
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] text-[10.5px] font-semibold shadow-2xs">
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] text-[11px] sm:text-[11.5px] font-semibold shadow-2xs">
                               <Clock className="w-3.5 h-3.5 text-[#D97706] shrink-0" />
                               <span>{card.badgeLabel}</span>
                             </div>
                           )}
-                          <span className="text-[10px] font-mono text-slate-400 group-hover:text-slate-600 transition-colors">
+                          <span className="text-[11px] font-mono text-slate-400 group-hover:text-slate-600 transition-colors">
                             ↻
                           </span>
                         </div>
@@ -264,7 +264,7 @@ export const BenefitsSection: React.FC = () => {
                       <div className="flex-1 flex flex-col justify-start min-h-0">
                         {/* Top Header */}
                         <div className="flex items-center justify-between pb-1 mb-1.5 border-b border-slate-100 flex-none">
-                          <span className={`font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider font-bold ${card.backAccentColor}`}>
+                          <span className={`font-mono text-[10.5px] sm:text-[11px] uppercase tracking-wider font-bold ${card.backAccentColor}`}>
                             0{idx + 1} &bull; {card.title}
                           </span>
                           <div className={`w-6 h-6 flex items-center justify-center rounded-lg ${card.iconBg} border`}>
@@ -275,19 +275,19 @@ export const BenefitsSection: React.FC = () => {
                         </div>
 
                         {/* Back Heading */}
-                        <h4 className="font-serif text-[13.5px] sm:text-[14.5px] font-bold text-[#0F172A] mb-1 leading-snug flex-none">
+                        <h4 className="font-serif text-[15px] sm:text-[16px] font-bold text-[#0F172A] mb-1 leading-snug flex-none">
                           {card.popupTitle}
                         </h4>
 
                         {/* Purpose Narrative */}
-                        <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-snug mb-2 flex-none">
+                        <p className="font-sans text-[12px] sm:text-[12.5px] text-[#475569] leading-snug mb-2 flex-none font-normal">
                           {card.popupPurpose}
                         </p>
 
                         {/* Concrete Deliverable Badge */}
                         <div className="p-2 rounded-xl bg-slate-50 border border-slate-200/70 flex items-start gap-1.5 flex-none">
                           <Check className={`w-3.5 h-3.5 ${card.backAccentColor} shrink-0 mt-0.5 stroke-[2.5]`} />
-                          <span className="font-sans text-[10.5px] sm:text-[11px] text-[#334155] leading-snug font-medium">
+                          <span className="font-sans text-[11.5px] sm:text-[12px] text-[#1E293B] leading-snug font-medium">
                             {card.deliverable}
                           </span>
                         </div>
@@ -295,10 +295,10 @@ export const BenefitsSection: React.FC = () => {
 
                       {/* Back Bottom Bar */}
                       <div className="pt-1.5 border-t border-slate-100 mt-auto flex items-center justify-between flex-none">
-                        <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold truncate mr-1">
+                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-slate-500 font-semibold truncate mr-1">
                           {card.popupBadge}
                         </span>
-                        <span className={`font-mono text-[10px] sm:text-[10.5px] ${card.backAccentColor} font-bold flex items-center gap-1 shrink-0 whitespace-nowrap`}>
+                        <span className={`font-mono text-[11px] sm:text-[11.5px] ${card.backAccentColor} font-bold flex items-center gap-1 shrink-0 whitespace-nowrap`}>
                           <span>Turn back</span>
                           <span className="text-xs">↻</span>
                         </span>

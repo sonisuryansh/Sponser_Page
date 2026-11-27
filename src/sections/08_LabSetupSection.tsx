@@ -308,15 +308,15 @@ export const LabSetupSection: React.FC = () => {
           <div className="flex-none max-w-3xl mx-auto text-center">
             <div className="flex items-center justify-center gap-2 mb-0.5 sm:mb-1">
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
-              <span className="font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
+              <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
                 {siteConfig.labSetup.eyebrow}
               </span>
               <span className="h-[1px] w-6 sm:w-8 bg-[#b45309]/50" />
             </div>
-            <h2 className="font-serif text-lg sm:text-2xl lg:text-[26px] font-bold leading-tight tracking-tight text-white mb-0.5 text-center">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold leading-tight tracking-tight text-white mb-1 text-center">
               {siteConfig.labSetup.headline}
             </h2>
-            <p className="text-[10.5px] sm:text-[11.5px] text-white/70 font-sans max-w-2xl mx-auto leading-snug line-clamp-2">
+            <p className="text-[12.5px] sm:text-[13.5px] text-white/85 font-sans max-w-2xl mx-auto leading-relaxed line-clamp-2 font-normal">
               {siteConfig.labSetup.paragraph}
             </p>
           </div>
@@ -334,9 +334,9 @@ export const LabSetupSection: React.FC = () => {
 
               {/* Zone Markers on Image */}
               <div className="absolute inset-0 p-2 sm:p-2.5 flex flex-col justify-between pointer-events-none">
-                <div className="flex items-center justify-between text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest text-white/70">
-                  <span className="px-1.5 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Dedicated Space Layout</span>
-                  <span className="px-1.5 py-0.5 rounded-[2px] bg-black/70 backdrop-blur-xs border border-white/10">Safety & Flow Standard</span>
+                <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-white/80 font-medium">
+                  <span className="px-2 py-0.5 rounded-[3px] bg-black/75 backdrop-blur-xs border border-white/15">Dedicated Space Layout</span>
+                  <span className="px-2 py-0.5 rounded-[3px] bg-black/75 backdrop-blur-xs border border-white/15">Safety & Flow Standard</span>
                 </div>
 
                 {/* Pin Buttons on Image */}
@@ -353,19 +353,19 @@ export const LabSetupSection: React.FC = () => {
                       <button
                         key={zone.id}
                         onClick={() => setActiveZoneIndex(idx)}
-                        className={`text-left p-1.5 rounded-lg backdrop-blur-md transition-all text-[9px] sm:text-[9.5px] font-mono tracking-wider cursor-pointer border ${isActive
+                        className={`text-left p-1.5 sm:p-2 rounded-lg backdrop-blur-md transition-all font-mono tracking-wider cursor-pointer border ${isActive
                           ? cInfo.activeBtn
-                          : 'bg-black/60 border-white/20 text-white/75 hover:bg-black/80 hover:text-white'
+                          : 'bg-black/60 border-white/20 text-white/80 hover:bg-black/80 hover:text-white'
                           }`}
                       >
                         <div className="flex items-center justify-between mb-0.5">
-                          <span className="font-semibold text-[8.5px] sm:text-[9px]">ZONE 0{idx + 1}</span>
+                          <span className="font-semibold text-[9.5px] sm:text-[10.5px]">ZONE 0{idx + 1}</span>
                           <span
-                            className={`w-1.5 h-1.5 rounded-full transition-all ${isActive ? cInfo.dot : 'bg-white/40'
+                            className={`w-2 h-2 rounded-full transition-all ${isActive ? cInfo.dot : 'bg-white/40'
                               }`}
                           />
                         </div>
-                        <div className="font-sans font-medium text-[10px] sm:text-[10.5px] truncate">
+                        <div className="font-sans font-semibold text-[11px] sm:text-[12px] truncate text-white">
                           {zone.name}
                         </div>
                       </button>
@@ -380,7 +380,7 @@ export const LabSetupSection: React.FC = () => {
               ref={sidePanelRef}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="lg:col-span-7 p-3 sm:p-3.5 lg:p-4 rounded-xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent border border-white/15 backdrop-blur-md flex flex-col justify-between h-auto lg:h-full min-h-0 shadow-lg overflow-visible lg:overflow-hidden"
+              className="lg:col-span-7 p-3 sm:p-4 lg:p-4.5 rounded-xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-transparent border border-white/15 backdrop-blur-md flex flex-col justify-between h-auto lg:h-full min-h-0 shadow-lg overflow-visible lg:overflow-hidden"
             >
               {(() => {
                 const spec = ZONE_EXTENDED_SPECS[activeZoneIndex] || ZONE_EXTENDED_SPECS[0];
@@ -388,53 +388,53 @@ export const LabSetupSection: React.FC = () => {
                   <div className="flex-1 flex flex-col justify-between min-h-0 gap-2 sm:gap-2.5 overflow-visible lg:overflow-hidden">
                     {/* Top Zone Header */}
                     <div className="flex-none">
-                      <div className="flex items-center justify-between mb-1 sm:mb-1.5 border-b border-white/10 pb-1">
-                        <span className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-wider font-bold ${activeColor.badge}`}>
+                      <div className="flex items-center justify-between mb-1 sm:mb-1.5 border-b border-white/10 pb-1.5">
+                        <span className={`font-mono text-[11px] sm:text-[12px] uppercase tracking-wider font-bold ${activeColor.badge}`}>
                           ZONE 0{activeZoneIndex + 1} OF 0{zones.length} &bull; {spec.roleBadge}
                         </span>
-                        <span className="text-[9px] sm:text-[9.5px] font-mono text-white/60 px-2 py-0.5 bg-white/5 rounded-[2px] border border-white/10">
+                        <span className="text-[10px] sm:text-[10.5px] font-mono text-white/75 px-2.5 py-0.5 bg-white/10 rounded-[3px] border border-white/15 font-semibold">
                           Active STEM Zone
                         </span>
                       </div>
 
-                      <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] text-white font-bold mb-1 leading-tight tracking-tight">
+                      <h3 className="font-serif text-xl sm:text-2xl lg:text-[25px] text-white font-bold mb-1 leading-tight tracking-tight">
                         {currentZone.name}
                       </h3>
 
-                      <p className="text-[10.5px] sm:text-[11px] text-white/80 font-sans leading-snug font-normal line-clamp-2">
+                      <p className="text-[12.5px] sm:text-[13.5px] lg:text-[14px] text-white/90 font-sans leading-relaxed font-normal">
                         {spec.summary}
                       </p>
                     </div>
 
                     {/* Middle Two-Column Grid: Hardware Specs & Student Deliverables */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 flex-none lg:flex-1 min-h-0 items-stretch my-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-none lg:flex-1 min-h-0 items-stretch my-1">
                       {/* Box 1: Workstation Equipment & Hardware */}
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
-                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1 sm:mb-1.5 flex items-center gap-1.5 flex-none">
-                          <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
+                      <div className="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
+                        <div className="text-[10.5px] sm:text-[11.5px] uppercase tracking-wider text-white/80 font-mono font-bold mb-1.5 flex items-center gap-2 flex-none">
+                          <span className={`w-2 h-2 rounded-full ${activeColor.dot}`} />
                           <span>Workstation Hardware & Tools</span>
                         </div>
-                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[10px] sm:text-[11px] text-white/85">
+                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-white/95 font-medium">
                           {spec.equipment.map((item, i) => (
-                            <li key={i} className="flex items-start gap-1.5 leading-snug">
-                              <span className="text-white/40 text-[9px] shrink-0 mt-0.5">&bull;</span>
-                              <span className="line-clamp-2">{item}</span>
+                            <li key={i} className="flex items-start gap-2 leading-snug">
+                              <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1.5" />
+                              <span>{item}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
                       {/* Box 2: Student Deliverables & Mastery */}
-                      <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/12 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
-                        <div className="text-[9px] sm:text-[9.5px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1 sm:mb-1.5 flex items-center gap-1.5 flex-none">
-                          <span className={`w-1.5 h-1.5 rounded-full ${activeColor.dot}`} />
+                      <div className="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/15 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 shadow-xs">
+                        <div className="text-[10.5px] sm:text-[11.5px] uppercase tracking-wider text-white/80 font-mono font-bold mb-1.5 flex items-center gap-2 flex-none">
+                          <span className={`w-2 h-2 rounded-full ${activeColor.dot}`} />
                           <span>Student Builds & Lab Mastery</span>
                         </div>
-                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[10px] sm:text-[11px] text-white/85">
+                        <ul className="space-y-1.5 sm:space-y-2 font-sans text-[12px] sm:text-[12.5px] lg:text-[13px] text-white/95 font-medium">
                           {spec.deliverables.map((item, i) => (
-                            <li key={i} className="flex items-start gap-1.5 leading-snug">
-                              <span className="text-white/40 text-[9px] shrink-0 mt-0.5">&bull;</span>
-                              <span className="line-clamp-2">{item}</span>
+                            <li key={i} className="flex items-start gap-2 leading-snug">
+                              <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0 mt-1.5" />
+                              <span>{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -444,19 +444,19 @@ export const LabSetupSection: React.FC = () => {
                     {/* Bottom Standards & Safety Badges */}
                     <div className="border-t border-white/10 pt-2 flex-none">
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[8.5px] sm:text-[9px] uppercase tracking-wider text-white/50 font-mono font-bold">
+                        <span className="text-[9.5px] sm:text-[10.5px] uppercase tracking-wider text-white/60 font-mono font-bold">
                           Operational Safety &amp; Control Standards:
                         </span>
-                        <span className="text-[8.5px] font-mono text-emerald-400 flex items-center gap-1">
+                        <span className="text-[9.5px] sm:text-[10px] font-mono text-emerald-400 flex items-center gap-1.5 font-semibold">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                           Inspected Standard
                         </span>
                       </div>
-                      <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                      <div className="flex flex-wrap gap-1.5">
                         {spec.safetyStandards.map((std, i) => (
                           <span
                             key={i}
-                            className={`px-2 py-0.5 rounded-[3px] border text-[9px] sm:text-[9.5px] font-sans font-medium ${activeColor.tag}`}
+                            className={`px-2.5 py-1 rounded-[4px] border text-[10px] sm:text-[11px] font-sans font-semibold ${activeColor.tag}`}
                           >
                             {std}
                           </span>

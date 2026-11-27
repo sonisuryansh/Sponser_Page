@@ -165,7 +165,7 @@ export const LearningApproachSection: React.FC = () => {
               {/* Eyebrow with gold accent lines */}
               <div className="editorial-reveal flex items-center justify-center gap-2 mb-1">
                 <span className="w-6 h-[1.5px] bg-[#b45309]/50" />
-                <span className="font-mono text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
+                <span className="font-mono text-[10.5px] sm:text-[11.5px] font-bold uppercase tracking-[0.24em] text-[#b45309]">
                   {siteConfig.approach.eyebrow}
                 </span>
                 <span className="w-6 h-[1.5px] bg-[#b45309]/50" />
@@ -174,7 +174,7 @@ export const LearningApproachSection: React.FC = () => {
               {/* Main Headline */}
               <h2
                 ref={headlineRef}
-                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-tight mb-0.5 text-center"
+                className="editorial-reveal font-serif text-xl sm:text-2xl lg:text-[28px] font-bold text-[#0F172A] tracking-tight leading-tight mb-1 text-center"
               >
                 {siteConfig.approach.headline}
               </h2>
@@ -192,13 +192,13 @@ export const LearningApproachSection: React.FC = () => {
               </div>
 
               {/* Narrative Subtitle */}
-              <p className="editorial-reveal font-sans text-xs sm:text-[12.5px] text-[#475569] leading-relaxed max-w-2xl mx-auto mb-1 font-normal text-center">
+              <p className="editorial-reveal font-sans text-[12.5px] sm:text-[13.5px] text-[#475569] leading-relaxed max-w-2xl mx-auto mb-1.5 font-normal text-center">
                 At MedhaArc Labs, our pedagogical approach bridges abstract principles with physical systems. Rather than passive screen consumption, students construct real functional hardware, wire sensor circuits, and deploy code that directly interacts with the physical world.
               </p>
             </div>
 
             {/* ─── 3 Colorful Pedagogical Cards (Exact replica of Image 1 with full rich details) ─── */}
-            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 my-auto flex-1 items-stretch min-h-0">
+            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3.5 my-auto flex-1 items-stretch min-h-0">
               {APPROACH_CARDS.map((card) => (
                 <div
                   key={card.title}
@@ -207,11 +207,11 @@ export const LearningApproachSection: React.FC = () => {
                     borderColor: card.cardBorder,
                     boxShadow: `0 6px 20px -4px ${card.glowColor}`,
                   }}
-                  className="flex flex-col justify-between p-3 sm:p-3.5 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full"
+                  className="flex flex-col justify-between p-3.5 sm:p-4 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full"
                 >
                   <div>
                     {/* Top Row: Icon in Rounded Box + Card Title */}
-                    <div className="flex items-center gap-2 mb-1.5">
+                    <div className="flex items-center gap-2.5 mb-1.5">
                       <div
                         style={{
                           backgroundColor: card.iconBg,
@@ -221,33 +221,33 @@ export const LearningApproachSection: React.FC = () => {
                       >
                         {card.icon}
                       </div>
-                      <h3 className="font-serif text-[13.5px] sm:text-[15px] font-bold text-[#0F172A] leading-tight">
+                      <h3 className="font-serif text-[15px] sm:text-[16px] font-bold text-[#0F172A] leading-tight">
                         {card.title}
                       </h3>
                     </div>
 
                     {/* Distinct Colored Pill Badge (Matching Image 1) */}
-                    <div className="my-1">
+                    <div className="my-1.5">
                       <span
                         style={{
                           backgroundColor: card.badgeBg,
                           color: card.badgeText,
                           borderColor: card.badgeBorder,
                         }}
-                        className="inline-block px-2 py-0.5 rounded-full border text-[9.5px] sm:text-[10px] font-sans font-semibold leading-tight shadow-xs"
+                        className="inline-block px-2.5 py-0.5 rounded-full border text-[10.5px] sm:text-[11px] font-sans font-semibold leading-tight shadow-xs"
                       >
                         {card.badge}
                       </span>
                     </div>
 
                     {/* Description */}
-                    <p className="font-sans text-[10.5px] sm:text-[11px] text-[#475569] leading-snug mt-1 font-normal">
+                    <p className="font-sans text-[12px] sm:text-[12.5px] text-[#334155] leading-normal mt-1 font-normal">
                       {card.description}
                     </p>
 
                     {/* Focus Area Sub-Callout */}
-                    <div className="mt-2 p-1.5 rounded-lg bg-black/[0.02] border border-black/5 text-[9.5px] sm:text-[10px] font-sans font-medium text-slate-600 leading-tight">
-                      <span className="font-mono text-[8.5px] uppercase tracking-wider font-bold text-slate-400 block mb-0.5">
+                    <div className="mt-2.5 p-2 rounded-lg bg-black/[0.03] border border-black/5 text-[11px] sm:text-[11.5px] font-sans font-medium text-slate-700 leading-snug">
+                      <span className="font-mono text-[9.5px] uppercase tracking-wider font-bold text-slate-500 block mb-0.5">
                         Core Method:
                       </span>
                       <span>{card.focusArea}</span>
@@ -255,9 +255,9 @@ export const LearningApproachSection: React.FC = () => {
                   </div>
 
                   {/* Concrete Deliverable Points */}
-                  <ul className="space-y-1.5 sm:space-y-2 mt-auto pt-2 border-t border-slate-100">
+                  <ul className="space-y-1.5 sm:space-y-2 mt-auto pt-2.5 border-t border-slate-100">
                     {card.bullets.map((b) => (
-                      <li key={b} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#334155] font-sans leading-tight">
+                      <li key={b} className="flex items-center gap-2 text-[11.5px] sm:text-[12px] text-[#1E293B] font-sans font-medium leading-tight">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] shrink-0" />
                         <span>{b}</span>
                       </li>
@@ -272,7 +272,7 @@ export const LearningApproachSection: React.FC = () => {
               {/* Eyebrow with gold accent dashes */}
               <div className="flex items-center justify-center gap-2 mb-1.5">
                 <span className="w-5 h-px bg-[#c8a45d]/60" />
-                <span className="font-mono text-[9px] uppercase tracking-[0.25em] font-bold text-[#B45309]">
+                <span className="font-mono text-[10px] sm:text-[10.5px] uppercase tracking-[0.25em] font-bold text-[#B45309]">
                   Our Approach
                 </span>
                 <span className="w-5 h-px bg-[#c8a45d]/60" />
@@ -283,7 +283,7 @@ export const LearningApproachSection: React.FC = () => {
                 {PRINCIPLES.map((pr) => (
                   <div
                     key={pr.title}
-                    className="flex flex-col items-center text-center p-1.5 bg-white/70 rounded-lg border border-black/5 hover:-translate-y-0.5 transition-transform"
+                    className="flex flex-col items-center text-center p-2 bg-white/70 rounded-lg border border-black/5 hover:-translate-y-0.5 transition-transform"
                   >
                     <div
                       style={{ backgroundColor: pr.bg, borderColor: pr.border }}
@@ -291,7 +291,7 @@ export const LearningApproachSection: React.FC = () => {
                     >
                       {pr.icon}
                     </div>
-                    <span className="font-sans text-[9px] sm:text-[10px] font-semibold text-[#1E293B] leading-snug line-clamp-2">
+                    <span className="font-sans text-[10.5px] sm:text-[11.5px] font-semibold text-[#0F172A] leading-snug line-clamp-2">
                       {pr.title}
                     </span>
                   </div>

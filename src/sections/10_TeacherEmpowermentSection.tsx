@@ -181,7 +181,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
                       <div>
                         {/* Top Role / Number & Icon */}
                         <div className="flex items-center justify-between mb-1">
-                          <span className={`font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] font-bold ${tagColors[idx]}`}>
+                          <span className={`font-mono text-[10.5px] sm:text-[11px] uppercase tracking-[0.22em] font-bold ${tagColors[idx]}`}>
                             {col.tag}
                           </span>
                           <span className="p-1 rounded-full bg-white/15 backdrop-blur-xs shadow-xs">
@@ -190,24 +190,24 @@ export const TeacherEmpowermentSection: React.FC = () => {
                         </div>
 
                         {/* Main Title */}
-                        <h3 className="font-serif font-bold text-lg sm:text-[20px] lg:text-[22px] tracking-tight leading-tight text-white mb-1.5">
+                        <h3 className="font-serif font-bold text-lg sm:text-[21px] lg:text-[23px] tracking-tight leading-tight text-white mb-1.5">
                           {col.title}
                         </h3>
 
                         {/* Short Description */}
-                        <p className="font-sans text-[12px] sm:text-[12.5px] text-white/90 leading-snug mb-1.5 font-normal">
+                        <p className="font-sans text-[12.5px] sm:text-[13px] text-white/95 leading-snug mb-1.5 font-normal">
                           {col.description}
                         </p>
 
                         {/* Image 1 Callout Pill */}
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/20 backdrop-blur-xs border border-white/20 text-white font-sans text-[10.5px] sm:text-[11px] font-semibold">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-black/20 backdrop-blur-xs border border-white/20 text-white font-sans text-[11px] sm:text-[11.5px] font-semibold">
                           <CheckCircle2 className="w-3.5 h-3.5 text-white/90" />
                           <span>{col.pill}</span>
                         </div>
                       </div>
 
                       {/* Bottom Flip Affordance Hint */}
-                      <div className="flex items-center justify-between text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider text-white/80 pt-1.5 border-t border-white/20 mt-1">
+                      <div className="flex items-center justify-between text-[10.5px] sm:text-[11px] font-mono uppercase tracking-wider text-white/90 pt-1.5 border-t border-white/20 mt-1 font-semibold">
                         <span>Hover for deliverables</span>
                         <span className="text-xs">↻</span>
                       </div>
@@ -217,10 +217,10 @@ export const TeacherEmpowermentSection: React.FC = () => {
                     <div className="pillar-flip-face pillar-flip-back flex flex-col justify-between overflow-y-auto no-scrollbar">
                       {/* Top Header */}
                       <div className="flex items-center justify-between pb-1.5 border-b border-white/15 mb-1.5 flex-none">
-                        <span className={`font-mono text-[10px] sm:text-[10.5px] uppercase tracking-widest font-bold ${backAccents[idx]}`}>
+                        <span className={`font-mono text-[10.5px] sm:text-[11px] uppercase tracking-widest font-bold ${backAccents[idx]}`}>
                           {col.tag} &bull; Deliverables
                         </span>
-                        <span className="text-[9px] sm:text-[9.5px] font-mono uppercase px-2 py-0.5 rounded-[3px] bg-white/10 text-white/80 font-medium border border-white/10">
+                        <span className="text-[10px] sm:text-[10.5px] font-mono uppercase px-2 py-0.5 rounded-[3px] bg-white/10 text-white/90 font-semibold border border-white/10">
                           {pillarPopups[idx].badge}
                         </span>
                       </div>
@@ -229,12 +229,12 @@ export const TeacherEmpowermentSection: React.FC = () => {
                       <div className="flex-1 flex flex-col justify-between py-0.5 min-h-0">
                         <div>
                           {/* Sub-Headline */}
-                          <h4 className="font-serif font-bold text-[14.5px] sm:text-[15px] text-white leading-snug mb-1">
+                          <h4 className="font-serif font-bold text-[15px] sm:text-[16px] text-white leading-snug mb-1">
                             {pillarPopups[idx].title}
                           </h4>
 
                           {/* Purpose Summary */}
-                          <p className={`font-sans text-[11px] sm:text-[11.5px] text-[#b3afa6] leading-relaxed ${idx === 1 ? 'mb-1.5' : 'mb-2.5'}`}>
+                          <p className={`font-sans text-[12px] sm:text-[12.5px] text-[#cfcac0] leading-relaxed font-normal ${idx === 1 ? 'mb-1.5' : 'mb-2.5'}`}>
                             {pillarPopups[idx].purpose}
                           </p>
                         </div>
@@ -242,7 +242,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
                         {/* Concrete Deliverables Checklist with generous line gap */}
                         <ul className={`flex-1 flex flex-col justify-evenly py-0.5 ${idx === 1 ? 'space-y-1' : 'space-y-2.5'}`}>
                           {pillarDetails[idx].map((point) => (
-                            <li key={point} className="flex items-start gap-2 text-[11px] sm:text-[11.5px] text-[#f1f0eb] font-sans leading-snug">
+                            <li key={point} className="flex items-start gap-2 text-[12px] sm:text-[12.5px] text-[#f8f7f4] font-sans leading-snug">
                               <span className={`w-1.5 h-1.5 rounded-full ${bulletColors[idx]} shrink-0 mt-1 shadow-[0_0_6px_rgba(255,255,255,0.4)]`} />
                               <span className="font-medium">{point}</span>
                             </li>
@@ -251,7 +251,7 @@ export const TeacherEmpowermentSection: React.FC = () => {
                       </div>
 
                       {/* Bottom Return Affordance */}
-                      <div className="flex items-center justify-between pt-1.5 border-t border-white/15 mt-1 text-[9.5px] sm:text-[10px] font-mono text-white/70 flex-none">
+                      <div className="flex items-center justify-between pt-1.5 border-t border-white/15 mt-1 text-[10.5px] sm:text-[11px] font-mono text-white/80 flex-none font-semibold">
                         <span className={`${backAccents[idx]} font-semibold`}>
                           {backBottomLabels[idx]}
                         </span>

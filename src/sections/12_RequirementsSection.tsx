@@ -145,7 +145,7 @@ export const RequirementsSection: React.FC = () => {
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-1.5 sm:mb-2">
           <div className="flex items-center justify-center gap-2 mb-1">
             <span className="h-[1.5px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b45309]" />
-            <span className="font-mono text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+            <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               {siteConfig.requirements.eyebrow}
             </span>
             <span className="h-[1.5px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b45309]" />
@@ -155,13 +155,13 @@ export const RequirementsSection: React.FC = () => {
             {siteConfig.requirements.headline}
           </h2>
 
-          <p className="font-sans text-[11px] sm:text-xs text-[#475569] leading-snug max-w-2xl text-center mt-0.5 font-normal">
+          <p className="font-sans text-[12.5px] sm:text-[13.5px] text-[#475569] leading-relaxed max-w-2xl text-center mt-1 font-normal">
             A transparent division of infrastructure and academic responsibilities ensuring seamless turnkey operations with zero load on school teachers.
           </p>
         </div>
 
         {/* Two Majestic Architectural Cards: School Provides vs MedhaArc Labs Delivers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 items-stretch w-full max-w-5xl mx-auto flex-1 my-auto max-h-[580px] min-h-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4.5 lg:gap-6 items-stretch w-full max-w-5xl mx-auto flex-1 my-auto max-h-[580px] min-h-0">
           {/* Card 1: School provides */}
           <div
             ref={leftColRef}
@@ -174,7 +174,7 @@ export const RequirementsSection: React.FC = () => {
                   <School className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#0284C7]" />
                 </div>
                 <div>
-                  <span className="font-mono text-[8.5px] uppercase tracking-wider text-[#0284C7] font-bold block leading-none mb-0.5">
+                  <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#0284C7] font-bold block leading-none mb-0.5">
                     FACILITY &amp; ACCESS
                   </span>
                   <h3 className="font-serif text-base sm:text-lg lg:text-xl font-bold text-[#0F172A] tracking-tight leading-tight">
@@ -182,32 +182,32 @@ export const RequirementsSection: React.FC = () => {
                   </h3>
                 </div>
               </div>
-              <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-sky-100 text-[#0369A1] font-mono text-[9px] font-bold border border-sky-200">
+              <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full bg-sky-100 text-[#0369A1] font-mono text-[10px] sm:text-[10.5px] font-bold border border-sky-200">
                 School Space
               </span>
             </div>
 
             {/* List Items */}
-            <div className="p-3 sm:p-4 lg:p-4.5 flex-1 flex flex-col justify-between overflow-hidden">
-              <ul className="space-y-2.5 sm:space-y-3.5 my-auto">
+            <div className="p-3.5 sm:p-4 lg:p-5 flex-1 flex flex-col justify-between overflow-hidden">
+              <ul className="space-y-3 sm:space-y-4 my-auto">
                 {schoolRequirements.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2.5 pb-1.5 sm:pb-2 border-b border-slate-100/90 last:border-b-0 last:pb-0"
+                    className="flex items-start gap-2.5 pb-2 sm:pb-2.5 border-b border-slate-100/90 last:border-b-0 last:pb-0"
                   >
                     <span className="w-5 h-5 rounded-full bg-[#E0F2FE] text-[#0284C7] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                       <Check className="w-3 h-3 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-sans text-xs sm:text-[13px] lg:text-[13.5px] font-bold text-[#0F172A] leading-tight">
+                        <span className="font-sans text-[13px] sm:text-[13.5px] lg:text-[14px] font-bold text-[#0F172A] leading-tight">
                           {item.title}
                         </span>
-                        <span className="font-mono text-[8.5px] uppercase px-1.5 py-0.2 rounded bg-slate-100 text-slate-500 font-semibold shrink-0">
+                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold shrink-0">
                           {item.tag}
                         </span>
                       </div>
-                      <p className="font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-[#475569] leading-tight mt-0.5 line-clamp-2">
+                      <p className="font-sans text-[12px] sm:text-[12.5px] text-[#334155] leading-snug mt-1 font-normal">
                         {item.detail}
                       </p>
                     </div>
@@ -229,7 +229,7 @@ export const RequirementsSection: React.FC = () => {
                   <Settings className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#B45309]" />
                 </div>
                 <div>
-                  <span className="font-mono text-[8.5px] uppercase tracking-wider text-[#B45309] font-bold block leading-none mb-0.5">
+                  <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#B45309] font-bold block leading-none mb-0.5">
                     FULL TURNKEY EXECUTION
                   </span>
                   <h3 className="font-serif text-base sm:text-lg lg:text-xl text-[#0F172A] tracking-tight leading-tight">
@@ -238,32 +238,32 @@ export const RequirementsSection: React.FC = () => {
                   </h3>
                 </div>
               </div>
-              <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-amber-100 text-[#92400E] font-mono text-[9px] font-bold border border-amber-200">
+              <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full bg-amber-100 text-[#92400E] font-mono text-[10px] sm:text-[10.5px] font-bold border border-amber-200">
                 100% Provided
               </span>
             </div>
 
             {/* List Items */}
-            <div className="p-3 sm:p-4 lg:p-4.5 flex-1 flex flex-col justify-between overflow-hidden">
-              <ul className="space-y-2.5 sm:space-y-3.5 my-auto">
+            <div className="p-3.5 sm:p-4 lg:p-5 flex-1 flex flex-col justify-between overflow-hidden">
+              <ul className="space-y-3 sm:space-y-4 my-auto">
                 {medhaarcDeliverables.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2.5 pb-1.5 sm:pb-2 border-b border-slate-100/90 last:border-b-0 last:pb-0"
+                    className="flex items-start gap-2.5 pb-2 sm:pb-2.5 border-b border-slate-100/90 last:border-b-0 last:pb-0"
                   >
                     <span className="w-5 h-5 rounded-full bg-[#FEF3C7] text-[#D97706] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                       <Check className="w-3 h-3 stroke-[3]" />
                     </span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-1.5">
-                        <span className="font-sans text-xs sm:text-[13px] lg:text-[13.5px] font-bold text-[#0F172A] leading-tight">
+                        <span className="font-sans text-[13px] sm:text-[13.5px] lg:text-[14px] font-bold text-[#0F172A] leading-tight">
                           {item.title}
                         </span>
-                        <span className="font-mono text-[8.5px] uppercase px-1.5 py-0.2 rounded bg-amber-50 text-[#B45309] font-semibold shrink-0">
+                        <span className="font-mono text-[9.5px] sm:text-[10px] uppercase px-2 py-0.5 rounded bg-amber-50 text-[#B45309] font-bold shrink-0">
                           {item.tag}
                         </span>
                       </div>
-                      <p className="font-sans text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-[#475569] leading-tight mt-0.5 line-clamp-2">
+                      <p className="font-sans text-[12px] sm:text-[12.5px] text-[#334155] leading-snug mt-1 font-normal">
                         {item.detail}
                       </p>
                     </div>

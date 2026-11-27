@@ -156,7 +156,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
         <div className="flex-none max-w-4xl mx-auto text-center flex flex-col items-center mb-2 sm:mb-3">
           <div className="flex items-center justify-center gap-2.5 mb-1 sm:mb-1.5">
             <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b45309]" />
-            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
+            <span className="font-mono text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.24em] text-[#b45309] font-bold">
               TRANSPARENT INVESTMENT
             </span>
             <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b45309]" />
@@ -166,7 +166,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             Pricing Packages
           </h2>
 
-          <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#64748B] font-semibold text-center mb-1.5">
+          <p className="font-mono text-[11px] sm:text-[12px] uppercase tracking-[0.22em] text-[#64748B] font-bold text-center mb-1.5">
             PROPOSED PRICING, PER STUDENT PER MONTH
           </p>
 
@@ -186,11 +186,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <div>
               {/* Top Row: Package Pill & Annual Structure */}
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[9.5px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#BAE6FD]/80 text-[#0369A1]">
+                <span className="font-mono text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full bg-[#BAE6FD]/80 text-[#0369A1]">
                   PACKAGE 01
                 </span>
-                <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
-                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                <div className="flex items-center gap-1 text-[12px] text-slate-600 font-semibold">
+                  <Calendar className="w-3.5 h-3.5 text-slate-500" />
                   <span>Annual Structure</span>
                 </div>
               </div>
@@ -206,7 +206,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
                   <span className="font-sans text-3xl sm:text-[38px] lg:text-[42px] font-extrabold text-[#0284C7] leading-none">
                     ₹500
                   </span>
-                  <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold">
+                  <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-slate-500 font-bold">
                     PER STUDENT / MO
                   </span>
                 </div>
@@ -216,16 +216,16 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
               </div>
 
               {/* Summary */}
-              <p className="text-xs sm:text-[13px] font-medium text-slate-700 pb-2 border-b border-slate-100 mb-2.5 leading-snug">
+              <p className="text-[13px] sm:text-[13.5px] font-medium text-slate-800 pb-2 border-b border-slate-100 mb-2.5 leading-snug">
                 {tiers[0].summary}
               </p>
 
               {/* Feature Checkmarks */}
-              <ul className="space-y-1.5 sm:space-y-2 mb-3">
+              <ul className="space-y-2 mb-3">
                 {tiers[0].features.map((feat, fIdx) => (
                   <li
                     key={fIdx}
-                    className="flex items-start gap-2 text-xs sm:text-[12.5px] text-slate-600 font-medium leading-snug"
+                    className="flex items-start gap-2 text-[12.5px] sm:text-[13px] text-slate-700 font-medium leading-snug"
                   >
                     <Check className="w-4 h-4 text-[#0284C7] shrink-0 mt-0.5 stroke-[2.5]" />
                     <span>{feat}</span>
@@ -238,7 +238,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <button
               type="button"
               onClick={onOpenContact}
-              className="w-full py-2.5 px-3 rounded-xl border-2 border-[#38BDF8] bg-white text-[#0284C7] hover:bg-[#F0F9FF] font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs mt-2"
+              className="w-full py-2.5 px-3 rounded-xl border-2 border-[#38BDF8] bg-white text-[#0284C7] hover:bg-[#F0F9FF] font-mono text-[12px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs mt-2"
             >
               <span>INQUIRE ABOUT FOUNDATION</span>
               <span>→</span>
@@ -249,8 +249,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
           <div className="pricing-col relative rounded-2xl border-2 border-[#F97316] bg-gradient-to-b from-[#FFF7ED] via-white to-white p-4 sm:p-5 lg:p-6 shadow-xs flex flex-col justify-between transition-all hover:shadow-md hover:-translate-y-0.5">
             {/* Floating "MOST POPULAR" Ribbon Pill */}
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-              <div className="flex items-center gap-1 px-3 py-0.5 rounded-full bg-gradient-to-r from-[#EA580C] to-[#C2410C] text-white text-[9px] sm:text-[9.5px] font-bold uppercase tracking-wider shadow-xs">
-                <Star className="w-2.5 h-2.5 fill-white text-white" />
+              <div className="flex items-center gap-1.5 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-[#EA580C] to-[#C2410C] text-white text-[10px] sm:text-[10.5px] font-bold uppercase tracking-wider shadow-xs">
+                <Star className="w-3 h-3 fill-white text-white" />
                 <span>MOST POPULAR</span>
               </div>
             </div>
@@ -258,10 +258,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <div>
               {/* Top Row: Package Pill & Annual Structure */}
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[9.5px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#FED7AA]/80 text-[#C2410C]">
+                <span className="font-mono text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full bg-[#FED7AA]/80 text-[#C2410C]">
                   PACKAGE 02
                 </span>
-                <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
+                <div className="flex items-center gap-1 text-[12px] text-slate-600 font-semibold">
                   <Calendar className="w-3.5 h-3.5 text-[#EA580C]" />
                   <span>Annual Structure</span>
                 </div>
@@ -278,7 +278,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
                   <span className="font-sans text-3xl sm:text-[38px] lg:text-[42px] font-extrabold text-[#EA580C] leading-none">
                     ₹600
                   </span>
-                  <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold">
+                  <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-slate-500 font-bold">
                     PER STUDENT / MO
                   </span>
                 </div>
@@ -288,16 +288,16 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
               </div>
 
               {/* Summary */}
-              <p className="text-xs sm:text-[13px] font-medium text-slate-700 pb-2 border-b border-orange-100 mb-2.5 leading-snug">
+              <p className="text-[13px] sm:text-[13.5px] font-medium text-slate-800 pb-2 border-b border-orange-100 mb-2.5 leading-snug">
                 {tiers[1].summary}
               </p>
 
               {/* Feature Checkmarks */}
-              <ul className="space-y-1.5 sm:space-y-2 mb-3">
+              <ul className="space-y-2 mb-3">
                 {tiers[1].features.map((feat, fIdx) => (
                   <li
                     key={fIdx}
-                    className="flex items-start gap-2 text-xs sm:text-[12.5px] text-slate-600 font-medium leading-snug"
+                    className="flex items-start gap-2 text-[12.5px] sm:text-[13px] text-slate-700 font-medium leading-snug"
                   >
                     <Check className="w-4 h-4 text-[#EA580C] shrink-0 mt-0.5 stroke-[2.5]" />
                     <span>{feat}</span>
@@ -310,7 +310,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <button
               type="button"
               onClick={onOpenContact}
-              className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#EA580C] to-[#C2410C] hover:from-[#C2410C] hover:to-[#9A3412] text-white font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs hover:shadow-md mt-2"
+              className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#EA580C] to-[#C2410C] hover:from-[#C2410C] hover:to-[#9A3412] text-white font-mono text-[12px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs hover:shadow-md mt-2"
             >
               <span>INQUIRE ABOUT PROFESSIONAL</span>
               <span>→</span>
@@ -322,11 +322,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <div>
               {/* Top Row: Package Pill & Annual Structure */}
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[9.5px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#E9D5FF]/80 text-[#7E22CE]">
+                <span className="font-mono text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full bg-[#E9D5FF]/80 text-[#7E22CE]">
                   PACKAGE 03
                 </span>
-                <div className="flex items-center gap-1 text-xs text-slate-500 font-medium">
-                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                <div className="flex items-center gap-1 text-[12px] text-slate-600 font-semibold">
+                  <Calendar className="w-3.5 h-3.5 text-slate-500" />
                   <span>Annual Structure</span>
                 </div>
               </div>
@@ -342,7 +342,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
                   <span className="font-sans text-3xl sm:text-[38px] lg:text-[42px] font-extrabold text-[#7C3AED] leading-none">
                     ₹700
                   </span>
-                  <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider text-slate-500 font-semibold">
+                  <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-slate-500 font-bold">
                     PER STUDENT / MO
                   </span>
                 </div>
@@ -352,16 +352,16 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
               </div>
 
               {/* Summary */}
-              <p className="text-xs sm:text-[13px] font-medium text-slate-700 pb-2 border-b border-slate-100 mb-2.5 leading-snug">
+              <p className="text-[13px] sm:text-[13.5px] font-medium text-slate-800 pb-2 border-b border-slate-100 mb-2.5 leading-snug">
                 {tiers[2].summary}
               </p>
 
               {/* Feature Checkmarks */}
-              <ul className="space-y-1.5 sm:space-y-2 mb-3">
+              <ul className="space-y-2 mb-3">
                 {tiers[2].features.map((feat, fIdx) => (
                   <li
                     key={fIdx}
-                    className="flex items-start gap-2 text-xs sm:text-[12.5px] text-slate-600 font-medium leading-snug"
+                    className="flex items-start gap-2 text-[12.5px] sm:text-[13px] text-slate-700 font-medium leading-snug"
                   >
                     <Check className="w-4 h-4 text-[#7C3AED] shrink-0 mt-0.5 stroke-[2.5]" />
                     <span>{feat}</span>
@@ -374,7 +374,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
             <button
               type="button"
               onClick={onOpenContact}
-              className="w-full py-2.5 px-3 rounded-xl border-2 border-[#C084FC] bg-white text-[#7C3AED] hover:bg-[#FAF5FF] font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs mt-2"
+              className="w-full py-2.5 px-3 rounded-xl border-2 border-[#C084FC] bg-white text-[#7C3AED] hover:bg-[#FAF5FF] font-mono text-[12px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs mt-2"
             >
               <span>INQUIRE ABOUT PREMIUM</span>
               <span>→</span>
@@ -386,7 +386,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenContact })
         <div className="flex-none mt-1.5 sm:mt-2 max-w-4xl mx-auto w-full">
           <div className="bg-white/95 border border-slate-200/90 rounded-full px-4 py-1.5 shadow-2xs flex items-center justify-center gap-2 text-center">
             <Info className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <p className="font-sans text-[10px] sm:text-[11px] text-slate-600 leading-tight font-normal">
+            <p className="font-sans text-[11.5px] sm:text-[12px] text-slate-700 leading-tight font-medium">
               {siteConfig.pricing.footnote}
               {siteConfig.confirm.pricingFootnoteExtra && ` ${siteConfig.confirm.pricingFootnoteExtra}`}
             </p>
