@@ -197,8 +197,8 @@ export const LearningApproachSection: React.FC = () => {
               </p>
             </div>
 
-            {/* ─── 3 Colorful Pedagogical Cards (Exact replica of Image 1 with full rich details) ─── */}
-            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3.5 my-auto flex-1 items-stretch min-h-0">
+            {/* ─── 3 Colorful Pedagogical Cards (Balanced & Cohesive, No Awkward Dead Gaps) ─── */}
+            <div className="editorial-reveal grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 lg:gap-3.5 my-auto flex-none items-stretch">
               {APPROACH_CARDS.map((card) => (
                 <div
                   key={card.title}
@@ -207,57 +207,55 @@ export const LearningApproachSection: React.FC = () => {
                     borderColor: card.cardBorder,
                     boxShadow: `0 6px 20px -4px ${card.glowColor}`,
                   }}
-                  className="flex flex-col justify-between p-3.5 sm:p-4 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full"
+                  className="flex flex-col justify-start p-3 sm:p-3.5 lg:p-4 rounded-xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div>
-                    {/* Top Row: Icon in Rounded Box + Card Title */}
-                    <div className="flex items-center gap-2.5 mb-1.5">
-                      <div
-                        style={{
-                          backgroundColor: card.iconBg,
-                          borderColor: card.iconBorder,
-                        }}
-                        className="w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-xs"
-                      >
-                        {card.icon}
-                      </div>
-                      <h3 className="font-serif text-[15px] sm:text-[16px] font-bold text-[#0F172A] leading-tight">
-                        {card.title}
-                      </h3>
+                  {/* Top Row: Icon in Rounded Box + Card Title */}
+                  <div className="flex items-center gap-2 sm:gap-2.5 mb-1 sm:mb-1.5">
+                    <div
+                      style={{
+                        backgroundColor: card.iconBg,
+                        borderColor: card.iconBorder,
+                      }}
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-xs"
+                    >
+                      {card.icon}
                     </div>
-
-                    {/* Distinct Colored Pill Badge (Matching Image 1) */}
-                    <div className="my-1.5">
-                      <span
-                        style={{
-                          backgroundColor: card.badgeBg,
-                          color: card.badgeText,
-                          borderColor: card.badgeBorder,
-                        }}
-                        className="inline-block px-2.5 py-0.5 rounded-full border text-[10.5px] sm:text-[11px] font-sans font-semibold leading-tight shadow-xs"
-                      >
-                        {card.badge}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="font-sans text-[12px] sm:text-[12.5px] text-[#334155] leading-normal mt-1 font-normal">
-                      {card.description}
-                    </p>
-
-                    {/* Focus Area Sub-Callout */}
-                    <div className="mt-2.5 p-2 rounded-lg bg-black/[0.03] border border-black/5 text-[11px] sm:text-[11.5px] font-sans font-medium text-slate-700 leading-snug">
-                      <span className="font-mono text-[9.5px] uppercase tracking-wider font-bold text-slate-500 block mb-0.5">
-                        Core Method:
-                      </span>
-                      <span>{card.focusArea}</span>
-                    </div>
+                    <h3 className="font-serif text-[14px] sm:text-[15px] font-bold text-[#0F172A] leading-tight">
+                      {card.title}
+                    </h3>
                   </div>
 
-                  {/* Concrete Deliverable Points */}
-                  <ul className="space-y-1.5 sm:space-y-2 mt-auto pt-2.5 border-t border-slate-100">
+                  {/* Distinct Colored Pill Badge */}
+                  <div className="my-1">
+                    <span
+                      style={{
+                        backgroundColor: card.badgeBg,
+                        color: card.badgeText,
+                        borderColor: card.badgeBorder,
+                      }}
+                      className="inline-block px-2 sm:px-2.5 py-0.5 rounded-full border text-[9.5px] sm:text-[10px] font-sans font-semibold leading-tight shadow-xs"
+                    >
+                      {card.badge}
+                    </span>
+                  </div>
+
+                  {/* Description */}
+                  <p className="font-sans text-[11px] sm:text-[11.5px] text-[#334155] leading-snug mt-0.5 font-normal">
+                    {card.description}
+                  </p>
+
+                  {/* Focus Area Sub-Callout */}
+                  <div className="mt-2 p-1.5 sm:p-2 rounded-lg bg-black/[0.03] border border-black/5 text-[10px] sm:text-[10.5px] font-sans font-medium text-slate-700 leading-tight">
+                    <span className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-wider font-bold text-slate-500 block mb-0.5">
+                      Core Method:
+                    </span>
+                    <span>{card.focusArea}</span>
+                  </div>
+
+                  {/* Concrete Deliverable Points (Flows Naturally - No Awkward Void) */}
+                  <ul className="space-y-1 sm:space-y-1.5 mt-2 pt-2 border-t border-slate-100">
                     {card.bullets.map((b) => (
-                      <li key={b} className="flex items-center gap-2 text-[11.5px] sm:text-[12px] text-[#1E293B] font-sans font-medium leading-tight">
+                      <li key={b} className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] text-[#1E293B] font-sans font-medium leading-tight">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#c8a45d] shrink-0" />
                         <span>{b}</span>
                       </li>
