@@ -10,8 +10,6 @@ import {
   Network,
   Cloud,
   Target,
-  ArrowLeft,
-  ArrowRight,
   Wrench,
   Sliders,
   Wind,
@@ -342,14 +340,6 @@ export const CurriculumSection: React.FC = () => {
   const currentStage = allStages[activeStageIndex];
   const meta = GRADE_META[activeStageIndex] || GRADE_META[0];
 
-  const handlePrev = () => {
-    setActiveStageIndex((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleNext = () => {
-    setActiveStageIndex((prev) => Math.min(allStages.length - 1, prev + 1));
-  };
-
   // Format grade label into "Grade" + colored number (e.g. "Grade" & "9" or "Grades" & "3–4")
   const renderGradeHeadline = (label: string) => {
     const parts = label.split(' ');
@@ -656,61 +646,6 @@ export const CurriculumSection: React.FC = () => {
                     </div>
                   </div>
                 )}
-              </div>
-
-              {/* 6. Bottom Navigation Bar: Previous + 7 Dots + Next (Matching Image 1) */}
-              <div className="stage-anim pt-1.5 pb-0.5 border-t border-black/8 flex items-center justify-between text-xs font-mono-tech mt-auto gap-2 bg-[#FFFFFD] z-20 shrink-0">
-                {/* Previous Button */}
-                <button
-                  type="button"
-                  onClick={handlePrev}
-                  disabled={activeStageIndex === 0}
-                  className={`flex items-center gap-1 transition-colors cursor-pointer shrink-0 ${activeStageIndex === 0
-                    ? 'opacity-30 cursor-not-allowed text-[#94A3B8]'
-                    : 'text-[#475569] hover:text-[#EA580C] font-semibold'
-                    }`}
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Previous </span>
-                  <span className="font-bold text-[#0F172A] truncate max-w-[85px] sm:max-w-none">
-                    {activeStageIndex > 0 ? allStages[activeStageIndex - 1].gradeLabel : ''}
-                  </span>
-                </button>
-
-                {/* 7 Dot Indicators */}
-                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                  {allStages.map((_, dotIdx) => (
-                    <button
-                      type="button"
-                      key={dotIdx}
-                      onClick={() => setActiveStageIndex(dotIdx)}
-                      className={`transition-all rounded-full cursor-pointer ${activeStageIndex === dotIdx
-                        ? 'w-3.5 sm:w-5 h-2 bg-[#EA580C]'
-                        : 'w-1.5 sm:w-2 h-1.5 sm:h-2 bg-[#CBD5E1] hover:bg-[#94A3B8]'
-                        }`}
-                      aria-label={`Jump to grade ${dotIdx + 1}`}
-                    />
-                  ))}
-                </div>
-
-                {/* Next Button */}
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  disabled={activeStageIndex === allStages.length - 1}
-                  className={`flex items-center gap-1 transition-colors cursor-pointer shrink-0 text-right ${activeStageIndex === allStages.length - 1
-                    ? 'opacity-30 cursor-not-allowed text-[#94A3B8]'
-                    : 'text-[#475569] hover:text-[#EA580C] font-semibold'
-                    }`}
-                >
-                  <span className="hidden sm:inline">Next </span>
-                  <span className="font-bold text-[#0F172A] truncate max-w-[85px] sm:max-w-none">
-                    {activeStageIndex < allStages.length - 1
-                      ? allStages[activeStageIndex + 1].gradeLabel
-                      : ''}
-                  </span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
               </div>
 
             </div>
