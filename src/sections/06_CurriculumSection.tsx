@@ -14,6 +14,7 @@ import {
   Sliders,
   Wind,
   CheckCircle2,
+  ArrowRight,
 } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -362,143 +363,144 @@ export const CurriculumSection: React.FC = () => {
       fullBleed={true}
       className="relative w-full min-h-[100svh] lg:h-[100svh] overflow-y-auto lg:overflow-hidden bg-[#FAF6EE] select-none"
     >
-      {/* Main Viewport Container */}
+      {/* Main Viewport Container - Exact same outer dimensions as Section 02 */}
       <div
         ref={steppableRef}
         data-steppable="true"
-        className="relative w-full h-auto lg:h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+4px)] pb-3 sm:pb-4 px-3 sm:px-5 lg:px-8 xl:px-10 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
+        className="relative w-full h-auto lg:h-full max-h-none lg:max-h-full min-h-0 flex-1 flex flex-col justify-between items-center pt-[calc(var(--header-h,64px)+10px)] pb-8 lg:pb-3 px-3 sm:px-5 lg:px-6 xl:px-8 box-border select-none z-10 max-w-[1440px] mx-auto overflow-visible lg:overflow-hidden"
       >
-        {/* Main Unified Inset Card - Matches Reference Image 1 (Spacious) */}
-        <div className="relative w-full h-auto lg:h-full flex-1 lg:my-auto max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] bg-[#FFFFFD] shadow-[0_16px_50px_rgba(0,0,0,0.05)] border border-black/8 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row items-stretch overflow-visible lg:overflow-hidden box-border">
+        {/* Main Unified Inset Card - Matches Section 02 Executive Size & Border */}
+        <div className="relative w-full h-auto lg:h-full max-h-none lg:max-h-[820px] xl:lg:max-h-[860px] min-h-0 flex-1 lg:my-auto bg-white rounded-2xl sm:rounded-3xl shadow-[0_16px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 p-3 sm:p-4 lg:p-4.5 flex flex-col justify-between box-border gap-2 sm:gap-2.5 overflow-visible lg:overflow-hidden">
 
-          {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
-          <div className="w-full sm:w-48 lg:w-52 xl:w-56 border-b sm:border-b-0 sm:border-r border-black/8 bg-[#FAF9F6]/80 flex flex-col justify-between py-2.5 sm:py-4 px-2 sm:px-3 select-none shrink-0">
-            <div>
-              {/* Header Label with mobile swipe hint */}
-              <div className="flex items-center justify-between px-2 pt-1 mb-1.5 sm:mb-3">
-                <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] text-[#94A3B8] font-bold block">
-                  Learning Journey
-                </span>
-                <span className="sm:hidden font-mono text-[9px] text-[#EA580C] font-semibold">
-                  {activeStageIndex + 1}/{allStages.length}
-                </span>
-              </div>
+          {/* Middle Layout (Sidebar + Main Content + Photo) */}
+          <div className="flex-1 flex flex-col sm:flex-row items-stretch min-h-0 gap-2.5 sm:gap-3.5 lg:gap-4 overflow-hidden">
 
-              {/* Grade Buttons List with Colorful Icons & Touch Scroll */}
-              <div
-                ref={tabsContainerRef}
-                role="tablist"
-                aria-label="Grade level curriculum tabs"
-                className="flex sm:flex-col gap-1 sm:gap-1.5 overflow-x-auto sm:overflow-y-auto sm:max-h-[calc(100svh-var(--header-h,64px)-90px)] pb-1.5 sm:pb-0 touch-pan-x overscroll-x-contain scroll-smooth no-scrollbar w-full"
-                style={{ WebkitOverflowScrolling: 'touch' }}
-              >
-                {allStages.map((stage, idx) => {
-                  const isActive = activeStageIndex === idx;
-                  const itemMeta = GRADE_META[idx] || GRADE_META[0];
+            {/* ─── Left Sidebar: "LEARNING JOURNEY" & Vertical Grade Tabs with Icons ─── */}
+            <div className="w-full sm:w-44 lg:w-48 xl:w-52 border-b sm:border-b-0 sm:border-r border-slate-200/80 bg-[#FAF9F6] rounded-xl sm:rounded-2xl flex flex-col justify-between py-2 sm:py-3.5 px-2 sm:px-2.5 select-none shrink-0">
+              <div className="h-full flex flex-col justify-between">
+                {/* Header Label with mobile swipe hint */}
+                <div className="flex items-center justify-between px-2 pt-1 mb-1.5 sm:mb-2.5">
+                  <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.22em] text-[#94A3B8] font-bold block">
+                    Learning Journey
+                  </span>
+                  <span className="sm:hidden font-mono text-[9px] text-[#EA580C] font-semibold">
+                    {activeStageIndex + 1}/{allStages.length}
+                  </span>
+                </div>
 
-                  return (
-                    <button
-                      key={stage.id}
-                      role="tab"
-                      aria-selected={isActive}
-                      ref={(el) => {
-                        tabButtonRefs.current[idx] = el;
-                      }}
-                      onClick={() => setActiveStageIndex(idx)}
-                      className={`group relative flex items-center gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 text-left cursor-pointer transition-all rounded-xl text-[11px] sm:text-[11.5px] xl:text-xs font-semibold shrink-0 sm:shrink-0 whitespace-nowrap ${isActive
-                          ? 'bg-[#FFF7ED] text-[#0F172A] border sm:border-0 border-[#EA580C]/40 sm:border-r-[3.5px] sm:border-[#EA580C] shadow-xs font-bold'
-                          : 'text-[#64748B] hover:bg-black/[0.03] hover:text-[#0F172A] border border-transparent'
+                {/* Grade Buttons List with Colorful Icons & Touch Scroll */}
+                <div
+                  ref={tabsContainerRef}
+                  role="tablist"
+                  aria-label="Grade level curriculum tabs"
+                  className="flex sm:flex-col gap-1 sm:gap-1.5 xl:gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[calc(100svh-var(--header-h,64px)-110px)] pb-1 sm:pb-0 touch-pan-x overscroll-x-contain scroll-smooth no-scrollbar w-full flex-1 justify-between"
+                  style={{ WebkitOverflowScrolling: 'touch' }}
+                >
+                  {allStages.map((stage, idx) => {
+                    const isActive = activeStageIndex === idx;
+                    const itemMeta = GRADE_META[idx] || GRADE_META[0];
+
+                    return (
+                      <button
+                        key={stage.id}
+                        role="tab"
+                        aria-selected={isActive}
+                        ref={(el) => {
+                          tabButtonRefs.current[idx] = el;
+                        }}
+                        onClick={() => setActiveStageIndex(idx)}
+                        className={`group relative flex items-center gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 xl:py-2.5 text-left cursor-pointer transition-all rounded-xl text-[11px] sm:text-[11.5px] xl:text-[12px] font-semibold shrink-0 sm:shrink-0 whitespace-nowrap ${
+                          isActive
+                            ? 'bg-[#FFF7ED] text-[#0F172A] border sm:border-0 border-[#EA580C]/40 sm:border-r-[3.5px] sm:border-[#EA580C] shadow-xs font-bold'
+                            : 'text-[#64748B] hover:bg-black/[0.03] hover:text-[#0F172A] border border-transparent'
                         }`}
-                      aria-label={`Go to ${stage.gradeLabel}`}
-                    >
-                      <span
-                        className="shrink-0 transition-transform group-hover:scale-110"
-                        style={{ color: isActive ? '#EA580C' : itemMeta.iconColor }}
+                        aria-label={`Go to ${stage.gradeLabel}`}
                       >
-                        {itemMeta.icon}
-                      </span>
-                      <span className="whitespace-nowrap tracking-tight">{stage.gradeLabel}</span>
-                    </button>
-                  );
-                })}
+                        <span
+                          className="shrink-0 transition-transform group-hover:scale-110"
+                          style={{ color: isActive ? '#EA580C' : itemMeta.iconColor }}
+                        >
+                          {itemMeta.icon}
+                        </span>
+                        <span className="whitespace-nowrap tracking-tight">{stage.gradeLabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* ─── Main Content & Right Photo Layout (Matching Image 1) ─── */}
-          <div className="flex-1 flex flex-col lg:flex-row items-stretch p-3.5 sm:p-4 lg:p-5 gap-3 sm:gap-4 lg:gap-5 overflow-hidden">
-
-            {/* Left Content Column */}
+            {/* ─── Main Content Column ─── */}
             <div
               ref={contentAreaRef}
-              className="flex-1 flex flex-col justify-between overflow-hidden h-full"
+              className="flex-1 flex flex-col justify-between overflow-hidden h-full min-h-0 py-0.5 px-0.5 sm:px-1"
             >
               <div className="flex-1 flex flex-col justify-between min-h-0">
                 {/* 1. Large Grade Headline with Orange Accent */}
                 <div className="stage-anim">
-                  <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold text-[#0F172A] tracking-tight leading-none mb-1">
+                  <h2 className="font-serif text-xl sm:text-2xl lg:text-[27px] font-bold text-[#0F172A] tracking-tight leading-none mb-1">
                     {renderGradeHeadline(currentStage.gradeLabel)}
                   </h2>
 
-                  {/* Orange Accent Bar Under Headline (Matching Image 1) */}
-                  <div className="w-10 sm:w-12 h-1 bg-[#EA580C] rounded-full mb-2" />
+                  {/* Orange Accent Bar Under Headline */}
+                  <div className="w-10 sm:w-12 h-1 bg-[#EA580C] rounded-full mb-1.5" />
                 </div>
 
                 {/* 2. Stage Title */}
-                <h3 className="stage-anim font-serif text-base sm:text-lg lg:text-[19px] font-bold text-[#0F172A] leading-tight tracking-tight mb-1">
+                <h3 className="stage-anim font-serif text-base sm:text-lg lg:text-[18px] font-bold text-[#0F172A] leading-tight tracking-tight mb-0.5">
                   {currentStage.title}
                 </h3>
 
                 {/* 3. Focus / Subtitle */}
-                <p className="stage-anim font-sans text-[11px] sm:text-xs text-[#64748B] leading-snug mb-2 font-normal max-w-lg">
+                <p className="stage-anim font-sans text-[11px] sm:text-[11.5px] text-[#64748B] leading-snug mb-1.5 font-normal max-w-xl">
                   {currentStage.focus}
                 </p>
 
-                {/* 4. 3 Enriched Feature Chips (Detailed Subtitles & Professional Architecture) */}
+                {/* 4. 3 Enriched Feature Chips */}
                 {(() => {
                   const stageChips = STAGE_CHIP_DETAILS[currentStage.id] || STAGE_CHIP_DETAILS['grade-10'];
                   return (
-                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2 mb-2">
+                    <div className="stage-anim grid grid-cols-1 sm:grid-cols-3 gap-2 mb-2">
                       {/* Chip 1: Blue Theme */}
-                      <div className="flex items-start gap-2 p-2 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
+                      <div className="flex items-start gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0F9FF] border border-[#BAE6FD] shadow-xs">
                         <div className="w-5 h-5 rounded-md bg-[#E0F2FE] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[0]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[0].title}
                           </span>
-                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#0284C7] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#0284C7] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[0].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 2: Purple Theme */}
-                      <div className="flex items-start gap-2 p-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
+                      <div className="flex items-start gap-2 p-2 sm:p-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
                         <div className="w-5 h-5 rounded-md bg-[#F3E8FF] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[1]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[1].title}
                           </span>
-                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#9333EA] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#9333EA] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[1].subtitle}
                           </span>
                         </div>
                       </div>
 
                       {/* Chip 3: Green Theme */}
-                      <div className="flex items-start gap-2 p-2 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
+                      <div className="flex items-start gap-2 p-2 sm:p-2.5 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] shadow-xs">
                         <div className="w-5 h-5 rounded-md bg-[#DCFCE7] flex items-center justify-center shrink-0 mt-0.5">
                           {meta.chipIcons[2]}
                         </div>
                         <div className="min-w-0">
-                          <span className="font-sans text-[10.5px] sm:text-[11px] font-bold text-[#0F172A] leading-tight block">
+                          <span className="font-sans text-[11px] sm:text-[11.5px] font-bold text-[#0F172A] leading-tight block">
                             {stageChips[2].title}
                           </span>
-                          <span className="font-sans text-[9px] sm:text-[9.5px] text-[#16A34A] leading-tight block mt-0.5 font-medium line-clamp-1">
+                          <span className="font-sans text-[9.5px] sm:text-[10px] text-[#16A34A] leading-tight block mt-0.5 font-medium line-clamp-1">
                             {stageChips[2].subtitle}
                           </span>
                         </div>
@@ -507,17 +509,17 @@ export const CurriculumSection: React.FC = () => {
                   );
                 })()}
 
-                {/* 5. "Students can..." Callout Box (Matching Image 1) */}
+                {/* 5. "Students can..." Callout Box */}
                 {currentStage.outcome && (
-                  <div className="stage-anim p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2 shadow-xs mb-2">
-                    <div className="w-6 h-6 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
+                  <div className="stage-anim p-2 sm:p-2.5 rounded-xl bg-gradient-to-r from-[#FFF7ED] via-[#FFFAF0] to-white border border-[#FED7AA] flex items-start gap-2.5 shadow-xs mb-2">
+                    <div className="w-5 h-5 rounded-full bg-[#FFEDD5] border border-[#FDBA74] flex items-center justify-center shrink-0 text-[#EA580C] shadow-inner mt-0.5">
                       <Target className="w-3.5 h-3.5" />
                     </div>
                     <div>
-                      <span className="font-serif font-bold text-[11px] sm:text-xs text-[#C2410C] block leading-tight mb-0.5">
+                      <span className="font-serif font-bold text-[11.5px] sm:text-[12px] text-[#C2410C] block leading-tight mb-0.5">
                         Students can...
                       </span>
-                      <p className="font-sans text-[10px] sm:text-[10.5px] text-[#475569] leading-snug font-normal line-clamp-2">
+                      <p className="font-sans text-[11px] sm:text-[11.5px] text-[#475569] leading-snug font-normal line-clamp-2">
                         {currentStage.outcome}
                       </p>
                     </div>
@@ -526,9 +528,9 @@ export const CurriculumSection: React.FC = () => {
 
                 {/* 5b. Hands-on Term Capstone & Hardware Lab Platform Cards */}
                 {currentStage.termProject && (
-                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 flex-1 min-h-0 my-auto items-stretch max-h-[380px]">
+                  <div className="stage-anim grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 flex-1 min-h-0 items-stretch">
                     {/* Term Project Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0">
+                    <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#EA580C]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
                       <div className="min-h-0 flex flex-col">
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#C2410C] font-bold flex items-center gap-1.5">
@@ -536,14 +538,14 @@ export const CurriculumSection: React.FC = () => {
                             Hands-on Term Project
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[14px] sm:text-[15px] text-[#0F172A] leading-tight mb-0.5 truncate">
+                        <h4 className="font-serif font-bold text-[14px] sm:text-[15px] text-[#0F172A] leading-tight mb-0.5">
                           {currentStage.termProject}
                         </h4>
                         <p className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-snug mb-1.5 line-clamp-2 font-normal">
                           {currentStage.termProjectDesc}
                         </p>
 
-                        {/* Term Project Key Highlights (Top 2 Deliverables) */}
+                        {/* Term Project Key Highlights */}
                         {currentStage.termProjectHighlights && currentStage.termProjectHighlights.length > 0 && (
                           <div className="pt-1.5 border-t border-black/6">
                             <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#64748B] font-bold block mb-1">
@@ -551,16 +553,16 @@ export const CurriculumSection: React.FC = () => {
                             </span>
                             <ul className="space-y-1">
                               {currentStage.termProjectHighlights.slice(0, 2).map((hl, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] leading-tight font-medium">
+                                <li key={i} className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] leading-snug font-medium">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C] shrink-0 mt-1 shadow-2xs" />
-                                  <span className="line-clamp-1">{hl}</span>
+                                  <span>{hl}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
                         )}
 
-                        {/* Practical Competency Tags (Top 3) */}
+                        {/* Practical Competency Tags */}
                         {currentStage.termProjectSkills && (
                           <div className="flex flex-wrap gap-1 mt-1.5 pt-1.5 border-t border-black/5">
                             {currentStage.termProjectSkills.slice(0, 3).map((skill, i) => (
@@ -572,9 +574,9 @@ export const CurriculumSection: React.FC = () => {
                         )}
                       </div>
 
-                      {/* Milestone Footer Badge - Integrated Single-Line */}
+                      {/* Milestone Footer Badge */}
                       {currentStage.termProjectDeliverable && (
-                        <div className="mt-1.5 pt-1.5 border-t border-black/6">
+                        <div className="mt-2 pt-1.5 border-t border-black/6">
                           <div className="px-2 py-1 rounded-md bg-[#FFF7ED] border border-[#FED7AA] flex items-center gap-1.5 min-w-0">
                             <CheckCircle2 className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
                             <span className="font-mono text-[9px] sm:text-[9.5px] uppercase font-bold text-[#C2410C] shrink-0">Milestone:</span>
@@ -587,7 +589,7 @@ export const CurriculumSection: React.FC = () => {
                     </div>
 
                     {/* Lab Hardware & Tools Card */}
-                    <div className="p-2.5 sm:p-3 rounded-xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0">
+                    <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-black/8 shadow-2xs hover:border-[#0284C7]/40 transition-colors flex flex-col justify-between overflow-hidden min-h-0 h-full">
                       <div className="min-h-0 flex flex-col">
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#0284C7] font-bold flex items-center gap-1.5">
@@ -595,14 +597,14 @@ export const CurriculumSection: React.FC = () => {
                             Lab Platform &amp; Hardware
                           </span>
                         </div>
-                        <h4 className="font-serif font-bold text-[14px] sm:text-[15px] text-[#0F172A] leading-tight mb-0.5 truncate">
+                        <h4 className="font-serif font-bold text-[14px] sm:text-[15px] text-[#0F172A] leading-tight mb-0.5">
                           {currentStage.hardwarePlatform}
                         </h4>
                         <p className="font-sans text-[11.5px] sm:text-[12px] text-[#475569] leading-snug mb-1.5 line-clamp-2 font-normal">
                           {currentStage.hardwarePlatformDesc}
                         </p>
 
-                        {/* Hardware & Tools Specification Highlights (Top 2 Tools) */}
+                        {/* Hardware & Tools Specification Highlights */}
                         {currentStage.hardwarePlatformTools && currentStage.hardwarePlatformTools.length > 0 && (
                           <div className="pt-1.5 border-t border-black/6">
                             <span className="font-mono text-[9px] sm:text-[9.5px] uppercase tracking-wider text-[#64748B] font-bold block mb-1">
@@ -610,16 +612,16 @@ export const CurriculumSection: React.FC = () => {
                             </span>
                             <ul className="space-y-1">
                               {currentStage.hardwarePlatformTools.slice(0, 2).map((tool, i) => (
-                                <li key={i} className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] leading-tight font-medium">
+                                <li key={i} className="flex items-start gap-1.5 text-[11px] sm:text-[11.5px] text-[#334155] leading-snug font-medium">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] shrink-0 mt-1 shadow-2xs" />
-                                  <span className="line-clamp-1">{tool}</span>
+                                  <span>{tool}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
                         )}
 
-                        {/* Lab Architecture Tags (Top 3) */}
+                        {/* Lab Architecture Tags */}
                         {currentStage.hardwareTags && (
                           <div className="flex flex-wrap gap-1 mt-1.5 pt-1.5 border-t border-black/5">
                             {currentStage.hardwareTags.slice(0, 3).map((tag, i) => (
@@ -631,9 +633,9 @@ export const CurriculumSection: React.FC = () => {
                         )}
                       </div>
 
-                      {/* Lab Standard Environment Footer Badge - Integrated Single-Line */}
+                      {/* Lab Standard Environment Footer Badge */}
                       {currentStage.hardwareEnvironment && (
-                        <div className="mt-1.5 pt-1.5 border-t border-black/6">
+                        <div className="mt-2 pt-1.5 border-t border-black/6">
                           <div className="px-2 py-1 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] flex items-center gap-1.5 min-w-0">
                             <Cpu className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
                             <span className="font-mono text-[9px] sm:text-[9.5px] uppercase font-bold text-[#0284C7] shrink-0">Standard:</span>
@@ -647,15 +649,14 @@ export const CurriculumSection: React.FC = () => {
                   </div>
                 )}
               </div>
-
             </div>
 
-            {/* Right Photo Column (Matching Image 1) */}
+            {/* ─── Right Photo Column ─── */}
             <div
               ref={imageAreaRef}
-              className="hidden lg:flex w-[340px] xl:w-[400px] 2xl:w-[440px] shrink-0 items-stretch h-full pb-1"
+              className="hidden lg:flex w-[260px] lg:w-[290px] xl:w-[320px] shrink-0 items-stretch h-full pb-0.5"
             >
-              <div className="relative w-full h-full min-h-[360px] lg:min-h-[420px] xl:min-h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden border border-black/10 shadow-lg group bg-black/5 flex flex-col justify-between">
+              <div className="relative w-full h-full min-h-[360px] lg:min-h-[400px] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs group bg-slate-900 flex flex-col justify-between">
                 <img
                   src={meta.image}
                   alt={`${currentStage.gradeLabel} hardware and curriculum session`}
@@ -664,25 +665,60 @@ export const CurriculumSection: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
                 {/* Corner Branding Tag */}
-                <div className="relative z-10 m-3.5 self-end bg-white/95 backdrop-blur-md px-3 py-1 rounded-full border border-black/10 shadow-xs flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#EA580C]" />
-                  <span className="font-mono text-[9.5px] font-bold text-[#0F172A] uppercase tracking-wider">
+                <div className="relative z-10 m-3 self-end bg-white/95 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-black/10 shadow-xs flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
+                  <span className="font-mono text-[9px] font-bold text-[#0F172A] uppercase tracking-wider">
                     {currentStage.gradeLabel}
                   </span>
                 </div>
 
                 {/* Bottom Overlay Title */}
-                <div className="relative z-10 p-4 sm:p-5 text-white">
-                  <span className="font-mono text-[10px] uppercase tracking-wider block opacity-95 text-[#FDBA74] font-bold mb-1">
+                <div className="relative z-10 p-3.5 sm:p-4 text-white">
+                  <span className="font-mono text-[8.5px] uppercase tracking-wider block opacity-95 text-[#FDBA74] font-bold mb-0.5">
                     Hands-On Student Platform
                   </span>
-                  <span className="font-serif text-[15px] sm:text-base font-bold leading-tight text-white block">
+                  <span className="font-serif text-[14px] sm:text-[15px] font-bold leading-tight text-white block">
                     {currentStage.termProject || currentStage.title}
                   </span>
                 </div>
               </div>
             </div>
 
+          </div>
+
+          {/* ─── Bottom Trailing Bar (Matching Section 02) ─── */}
+          <div className="editorial-reveal flex-none pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+            {/* 3 Structured Metric Tags */}
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[10.5px] sm:text-[11px] font-sans font-medium text-slate-700">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
+                <span className="font-bold text-[#0F172A]">Grade 3–12</span> Spiral Engineering Pathway
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[10.5px] sm:text-[11px] font-sans font-medium text-slate-700">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
+                <span className="font-bold text-[#0F172A]">7 Milestone</span> Hardware Capstones
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[10.5px] sm:text-[11px] font-sans font-medium text-slate-700">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
+                <span className="font-bold text-[#0F172A]">100% Tangible</span> Portfolio Defense
+              </div>
+            </div>
+
+            {/* Next Action Button */}
+            <button
+              type="button"
+              onClick={() => {
+                if (activeStageIndex < allStages.length - 1) {
+                  setActiveStageIndex(activeStageIndex + 1);
+                } else {
+                  window.dispatchEvent(new CustomEvent('go-to-slide', { detail: 6 }));
+                }
+              }}
+              className="group inline-flex items-center gap-1.5 text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-[#0F172A] hover:text-[#EA580C] transition-colors ml-auto shrink-0 cursor-pointer pt-1 sm:pt-0"
+            >
+              <span>{activeStageIndex < allStages.length - 1 ? `Next Grade: ${allStages[activeStageIndex + 1].gradeLabel}` : 'Discover Student Showcase'}</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 text-[#EA580C]" />
+            </button>
           </div>
 
         </div>
